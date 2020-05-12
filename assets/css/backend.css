@@ -1,0 +1,13 @@
+#wpem-errors, #wpem-readable-size-error, .wpem-error { color: #c00 !important; font-weight: 700 !important; }
+#wpem-readable-size-error, #wpem-undo-button { display: none; }
+#wpem-preview, #wpem-preview-existing { margin-right: 10px; }
+#wpem-preview, #wpem-preview-existing, #wpem-thumbnail, #wpem-thumbnail-existing { display: inline-block; text-align: center; vertical-align: top; }
+#wpem-preview img, #wpem-thumbnail img, #wpem-preview-existing img, #wpem-thumbnail-existing img { max-height: 96px; border: 1px solid #dfdfdf; display: block; }
+.widget_wp_user_profile_avatar #wpem-preview img, .widget_wp_user_profile_avatar #wpem-thumbnail img, .widget_wp_user_profile_avatar #wpem-preview-existing img, .widget_wp_user_profile_avatar #wpem-thumbnail-existing img { max-height: 64px; }
+.defaultavatarpicker #wpem-preview, .defaultavatarpicker #wpem-preview-existing { width: 32px; height: 32px; margin-right: 0; display: inline-block; overflow: hidden; vertical-align: middle; }
+.defaultavatarpicker #wpem-preview img , .defaultavatarpicker #wpem-preview-existing img { width: 32px; height: auto; border: 0; }
+#wpem-edit #wpem-remove, #wpem-edit #wpem-undo, #wpem-edit-attachment { margin-left: 10px !important; }
+#wpem-slider { width: 22.75em; }
+#wpem-upload-messages span { display: block; }
+.wpem-hide { display: none !important; }
+.wpem-no-avatars { display: none; }
