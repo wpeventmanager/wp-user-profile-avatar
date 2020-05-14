@@ -337,7 +337,7 @@ class WP_User_Profile_Avatar_Admin {
 				    			<tr>
 				    				<td></td>
 				    				<td>
-				    					<button type="button" id="user_avatar_form_btn">Insert Shortcode</button>
+				    					<button type="button" class="button-primary" id="user_avatar_form_btn">Insert Shortcode</button>
 				    				</td>
 				    			</tr>
 				    		</table>
@@ -356,7 +356,7 @@ class WP_User_Profile_Avatar_Admin {
 				    			<tr>
 				    				<td></td>
 				    				<td>
-				    					<button type="button" id="upload_avatar_form_btn">Insert Shortcode</button>
+				    					<button type="button" class="button-primary" id="upload_avatar_form_btn">Insert Shortcode</button>
 				    				</td>
 				    			</tr>
 				    		</table>
