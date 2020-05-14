@@ -1,26 +1,26 @@
-var AvatarAdmin = function () {
+var AdminAvatar = function () {
 
     return {
 
 	    init: function() 
         {
-            jQuery( '#wp-user-profile-avatar-add' ).on('click', AvatarAdmin.actions.chooseAvatar);
-            jQuery( '#wp-user-profile-avatar-remove' ).on('click', AvatarAdmin.actions.removeAvatar);
-            jQuery( '#wp-user-profile-avatar-undo' ).on('click', AvatarAdmin.actions.undoAvatar);
+            jQuery( '#wp-user-profile-avatar-add' ).on('click', AdminAvatar.actions.chooseAvatar);
+            jQuery( '#wp-user-profile-avatar-remove' ).on('click', AdminAvatar.actions.removeAvatar);
+            jQuery( '#wp-user-profile-avatar-undo' ).on('click', AdminAvatar.actions.undoAvatar);
 
-            jQuery( 'body' ).on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .nav-tab-wrapper a', AvatarAdmin.actions.showShortcodeAvatarTab);
+            jQuery( 'body' ).on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .nav-tab-wrapper a', AdminAvatar.actions.showShortcodeAvatarTab);
 
-            jQuery( 'body' ).on('change', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user_avatar #wp_image_link_to', AvatarAdmin.actions.imageLinkTo);
+            jQuery( 'body' ).on('change', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user_avatar #wp_image_link_to', AdminAvatar.actions.imageLinkTo);
 
-            jQuery( 'body' ).on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user_avatar #user_avatar_form_btn', AvatarAdmin.actions.addUserAvatarShortcode);
+            jQuery( 'body' ).on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user_avatar #user_avatar_form_btn', AdminAvatar.actions.addUserAvatarShortcode);
 
-            jQuery( 'body' ).on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-upload_avatar #upload_avatar_form_btn', AvatarAdmin.actions.addUploadAvatarShortcode);
+            jQuery( 'body' ).on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-upload_avatar #upload_avatar_form_btn', AdminAvatar.actions.addUploadAvatarShortcode);
 
-            if(typeof(tinyMCE) != "undefined")
+            if(typeof(tinymce) != "undefined")
             {
                 tinymce.PluginManager.add('wp_user_profile_avatar_shortcodes', function( editor, url ) {
                     editor.addButton('wp_user_profile_avatar_shortcodes', {
-                                title: wp_user_profile_avatar_admin_avatar.thinkbox_title,
+                                title: wp_user_profile_avatar_admin_avatar.icon_title,
                                 classes: 'thickbox',
                                 image: wp_user_profile_avatar_admin_avatar.default_avatar,
                                 icon: false,
@@ -38,8 +38,17 @@ var AvatarAdmin = function () {
 
         },
 
+
 	    actions:
 	    {
+            /**
+             * showShortcodeAvatarTab function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             showShortcodeAvatarTab: function (event) 
             {
                 jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .admin-setting-left .settings_panel').hide();
@@ -49,6 +58,14 @@ var AvatarAdmin = function () {
                 jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .admin-setting-left ' + id).show();
             },
 
+            /**
+             * imageLinkTo function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             imageLinkTo: function (event) 
             {
                 var link_to = jQuery(event.target).val(); 
@@ -63,6 +80,14 @@ var AvatarAdmin = function () {
                 }
             },
 
+            /**
+             * addUserAvatarShortcode function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             addUserAvatarShortcode: function (event) 
             {
                 var user_id = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user_avatar #wp_user_id').val();
@@ -98,6 +123,14 @@ var AvatarAdmin = function () {
                 jQuery('body').find('#TB_window #TB_title #TB_closeAjaxWindow #TB_closeWindowButton').trigger("click");
             },
 
+            /**
+             * addUploadAvatarShortcode function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             addUploadAvatarShortcode: function (event) 
             {
                 var shortcode = "<p>[user_profile_avatar_upload]</p>";
@@ -108,6 +141,14 @@ var AvatarAdmin = function () {
                 jQuery('body').find('#TB_window #TB_title #TB_closeAjaxWindow #TB_closeWindowButton').trigger("click");
             },
 
+            /**
+             * chooseAvatar function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             chooseAvatar: function (event) 
 	    	{
                 var upload = wp.media({
@@ -131,6 +172,14 @@ var AvatarAdmin = function () {
                 .open();
 	        },
 
+            /**
+             * removeAvatar function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             removeAvatar: function (event) 
             {
                 jQuery('#wp-user-profile-avatar-preview img').attr('src', wp_user_profile_avatar_admin_avatar.default_avatar);
@@ -141,6 +190,14 @@ var AvatarAdmin = function () {
                 jQuery('#wp-user-profile-avatar-remove').hide();
             },
 
+            /**
+             * undoAvatar function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             undoAvatar: function (event) 
             {
                 jQuery('#wp-user-profile-avatar-preview img').attr('src', wp_user_profile_avatar_admin_avatar.default_avatar);
@@ -156,9 +213,9 @@ var AvatarAdmin = function () {
 
 }; /* end of class */
 
-AvatarAdmin = AvatarAdmin();
+AdminAvatar = AdminAvatar();
 
 jQuery(document).ready(function($) 
 {
-   AvatarAdmin.init();
+   AdminAvatar.init();
 });

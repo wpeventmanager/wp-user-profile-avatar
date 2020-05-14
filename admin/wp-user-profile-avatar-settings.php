@@ -56,12 +56,25 @@ class WP_User_Profile_Avatar_Settings {
 			  			<form method="post" action="<?php echo admin_url('users.php'). '?page=wp-user-profile-avatar-settings'; ?>">
 
 				  			<table class="form-table">
+
+				  				<tr valign="top">
+			  						<th scope="row"><?php _e('Avatar Visibility', 'wp-user-profile-avatar'); ?></th>
+			  						<td>
+			  							<fieldset>
+							              <label for="wp_user_profile_avatar_show_avatars">
+							                <input name="wp_user_profile_avatar_show_avatars" type="checkbox" id="wp_user_profile_avatar_show_avatars" value="1" <?php echo checked($wp_user_profile_avatar_show_avatars, 1, 0); ?> > <?php _e('Show Avatars', 'wp-user-profile-avatar'); ?>
+							              </label>
+							              <p class="description"><?php _e('If it is unchecked then it will not show the user avatar at profile and frontend side.', 'wp-user-profile-avatar'); ?></p>
+							            </fieldset>
+			  						</td>
+			  					</tr>
+
 			  					<tr valign="top">
 			  						<th scope="row"><?php _e('Settings', 'wp-user-profile-avatar'); ?></th>
 			  						<td>
 				  						<fieldset>
 							              <label for="wp_user_profile_avatar_tinymce">
-							                <input name="wp_user_profile_avatar_tinymce" type="checkbox" id="wp_user_profile_avatar_tinymce" value="1" <?php echo checked($wp_user_profile_avatar_tinymce, 1, 0); ?> > <?php _e('Add avatar button to Visual Editor', 'wp-user-profile-avatar'); ?>
+							                <input name="wp_user_profile_avatar_tinymce" type="checkbox" id="wp_user_profile_avatar_tinymce" value="1" <?php echo checked($wp_user_profile_avatar_tinymce, 1, 0); ?> > <?php _e('Add shortcode avatar button to Visual Editor', 'wp-user-profile-avatar'); ?>
 							              </label>
 							            </fieldset>
 
@@ -73,23 +86,13 @@ class WP_User_Profile_Avatar_Settings {
 
 							            <fieldset>
 							              <label for="wp_user_profile_avatar_disable_gravatar">
-							                <input name="wp_user_profile_avatar_disable_gravatar" type="checkbox" id="wp_user_profile_avatar_disable_gravatar" value="1"<?php echo checked($wp_user_profile_avatar_disable_gravatar, 1, 0); ?> > <?php _e('Disable Gravatar and use only local avatars', 'wp-user-profile-avatar'); ?>
+							                <input name="wp_user_profile_avatar_disable_gravatar" type="checkbox" id="wp_user_profile_avatar_disable_gravatar" value="1"<?php echo checked($wp_user_profile_avatar_disable_gravatar, 1, 0); ?> > <?php _e('Disable Gravatar and use own custom avatars', 'wp-user-profile-avatar'); ?>
 							              </label>
 							            </fieldset>
 			  						</td>
 			  					</tr>
 
-			  					<tr valign="top">
-			  						<th scope="row"><?php _e('Avatar Visibility', 'wp-user-profile-avatar'); ?></th>
-			  						<td>
-			  							<fieldset>
-							              <label for="wp_user_profile_avatar_show_avatars">
-							                <input name="wp_user_profile_avatar_show_avatars" type="checkbox" id="wp_user_profile_avatar_show_avatars" value="1" <?php echo checked($wp_user_profile_avatar_show_avatars, 1, 0); ?> > <?php _e('Show Avatars', 'wp-user-profile-avatar'); ?>
-							              </label>
-							              <p class="description"><?php _e('If it is unchecked then it will not show the user avatar at profile and frontend side.', 'wp-user-profile-avatar'); ?></p>
-							            </fieldset>
-			  						</td>
-			  					</tr>
+			  					
 
 			  					<tr valign="top">
 			  						<th scope="row"><?php _e('Maximum Rating', 'wp-user-profile-avatar'); ?></th>
@@ -177,20 +180,28 @@ class WP_User_Profile_Avatar_Settings {
 		{
 			$user_id = get_current_user_id();
 
-			// option
+			$wp_user_profile_avatar_show_avatars  = ! empty( $_POST['wp_user_profile_avatar_show_avatars'] ) ? sanitize_text_field( $_POST['wp_user_profile_avatar_show_avatars'] ) : '';
+
+
 			$wp_user_profile_avatar_tinymce  = ! empty( $_POST['wp_user_profile_avatar_tinymce'] ) ? sanitize_text_field( $_POST['wp_user_profile_avatar_tinymce'] ) : '';
 
 			$wp_user_profile_avatar_allow_upload  = ! empty( $_POST['wp_user_profile_avatar_allow_upload'] ) ? sanitize_text_field( $_POST['wp_user_profile_avatar_allow_upload'] ) : '';
 
 			$wp_user_profile_avatar_disable_gravatar  = ! empty( $_POST['wp_user_profile_avatar_disable_gravatar'] ) ? sanitize_text_field( $_POST['wp_user_profile_avatar_disable_gravatar'] ) : '';
-
-			$wp_user_profile_avatar_show_avatars  = ! empty( $_POST['wp_user_profile_avatar_show_avatars'] ) ? sanitize_text_field( $_POST['wp_user_profile_avatar_show_avatars'] ) : '';
+			
 
 			$wp_user_profile_avatar_rating  = ! empty( $_POST['wp_user_profile_avatar_rating'] ) ? sanitize_text_field( $_POST['wp_user_profile_avatar_rating'] ) : '';
 
 			$wp_user_profile_avatar_default  = ! empty( $_POST['wp_user_profile_avatar_default'] ) ? sanitize_text_field( $_POST['wp_user_profile_avatar_default'] ) : '';
 
 			$wp_user_profile_avatar_attachment_id  = ! empty( $_POST['wp_user_profile_avatar_attachment_id'] ) ? sanitize_text_field( $_POST['wp_user_profile_avatar_attachment_id'] ) : '';
+
+			if($wp_user_profile_avatar_show_avatars == '')
+			{
+				$wp_user_profile_avatar_tinymce = '';
+				$wp_user_profile_avatar_allow_upload = '';
+				$wp_user_profile_avatar_disable_gravatar = '';
+			}
 
 			// options
 			update_option( 'wp_user_profile_avatar_tinymce', $wp_user_profile_avatar_tinymce );

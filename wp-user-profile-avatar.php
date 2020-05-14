@@ -5,7 +5,7 @@ Plugin Name: WP User Profile Avatar
 
 Plugin URI: https://www.wp-eventmanager.com/
 
-Description: User Profile Avatar
+Description: WP User Profile Avatar
 
 Author: WP Event Manager
 

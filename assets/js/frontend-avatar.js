@@ -1,17 +1,25 @@
-var FrontendAdmin = function () {
+var FrontendAvatar = function () {
 
     return {
 
 	    init: function() 
         {
-        	jQuery( '#wp-user-profile-avatar-add' ).on('click', FrontendAdmin.actions.chooseAvatar);
-            jQuery( '#wp-user-profile-avatar-remove' ).on('click', FrontendAdmin.actions.removeAvatar);
-            jQuery( '#wp-user-profile-avatar-undo' ).on('click', FrontendAdmin.actions.undoAvatar);
-            jQuery( '#wp-user-profile-avatar-update-profile' ).on('click', FrontendAdmin.actions.updateAvatar);
+        	jQuery( '#wp-user-profile-avatar-add' ).on('click', FrontendAvatar.actions.chooseAvatar);
+            jQuery( '#wp-user-profile-avatar-remove' ).on('click', FrontendAvatar.actions.removeAvatar);
+            jQuery( '#wp-user-profile-avatar-undo' ).on('click', FrontendAvatar.actions.undoAvatar);
+            jQuery( '#wp-user-profile-avatar-update-profile' ).on('click', FrontendAvatar.actions.updateAvatar);
         },
 
 	    actions:
 	    {
+            /**
+             * removeAvatar function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */        
 	    	removeAvatar: function (event) 
             {
                 jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-error');
@@ -50,6 +58,14 @@ var FrontendAdmin = function () {
                 });
             },
 
+            /**
+             * undoAvatar function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             undoAvatar: function (event) 
             {
                 jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-error');
@@ -86,6 +102,14 @@ var FrontendAdmin = function () {
                 });
             },
 
+            /**
+             * updateAvatar function.
+             *
+             * @access public
+             * @param 
+             * @return 
+             * @since 1.0
+             */
             updateAvatar: function (event) 
             {
                 jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-error');
@@ -130,9 +154,9 @@ var FrontendAdmin = function () {
 
 }; /* end of class */
 
-FrontendAdmin = FrontendAdmin();
+FrontendAvatar = FrontendAvatar();
 
 jQuery(document).ready(function($) 
 {
-   FrontendAdmin.init();
+   FrontendAvatar.init();
 });

@@ -71,7 +71,7 @@ class WP_User_Profile_Avatar_Admin {
 		
 		wp_localize_script( 'wp-user-profile-avatar-admin-avatar', 'wp_user_profile_avatar_admin_avatar', array( 
 								'thinkbox_ajax_url' 	 => admin_url( 'admin-ajax.php' ) . '?height=600&width=770&action=thickbox_model_view',
-								'thinkbox_title' 	 =>  __( 'WP User Profile Avatar', 'wp-user-profile-avatar'),
+								'icon_title' 	 =>  __( 'WP User Profile Avatar', 'wp-user-profile-avatar'),
 								'wp_user_profile_avatar_security'  => wp_create_nonce( "_nonce_user_profile_avatar_security" ),
 								'media_box_title' => __( 'Choose Image: Default Avatar', 'wp-user-profile-avatar'),
 								'default_avatar' => WP_USER_PROFILE_AVATAR_PLUGIN_URL.'/assets/images/wp-user-thumbnail.png',
@@ -256,116 +256,8 @@ class WP_User_Profile_Avatar_Admin {
      */
 	public  function thickbox_model_view()
 	{
-		?>
-		<div class="wrap wp-user-profile-avatar-shortcode-wrap">
-			<h2 class="nav-tab-wrapper">
-		    	<a href="#settings-user_avatar" class="nav-tab">User Avatar</a>
-		    	<a href="#settings-upload_avatar" class="nav-tab">Upload Avatar</a>		    
-			</h2>
+		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '\admin\views\shortcode-popup.php' );
 
-			<div class="admin-setting-left">			     	
-			    <div class="white-background">
-			    	<div id="settings-user_avatar" class="settings_panel">
-			    		<form name="user_avatar_form" class="user_avatar_form">
-				    		<table class="form-table">
-				    			<tr>
-				    				<th>User Name</th>
-				    				<td>
-				    					<select id="wp_user_id" name="wp_user_id" class="regular-text">
-				    						<option value=""><?php _e('Select User', 'wp-user-profile-avatar'); ?>
-					    					<?php 
-					    					foreach (get_users() as $key => $user) {
-					    						echo '<option value="'. $user->ID .'">' . $user->display_name . '</option>';
-					    					}
-					    					?>
-				    					</select>
-				    				</td>
-				    			</tr>
-				    			<tr>
-				    				<th>Size</th>
-				    				<td>
-				    					<select id="wp_image_size" name="wp_image_size" class="regular-text">
-				    						<option value=""><?php _e('None', 'wp-user-profile-avatar'); ?>
-					    					<?php 
-					    					foreach (get_wp_image_sizes() as $name => $label) {
-					    						echo '<option value="'. $name .'">' . $label . '</option>';
-					    					}
-					    					?>
-				    					</select>
-				    				</td>
-				    			</tr>
-				    			<tr>
-				    				<th>Alignment</th>				    					
-				    				<td>
-				    					<select id="wp_image_alignment" name="wp_image_alignment" class="regular-text">
-				    						<option value=""><?php _e('None', 'wp-user-profile-avatar'); ?>
-					    					<?php 
-					    					foreach (get_wp_image_alignment() as $name => $label) {
-					    						echo '<option value="'. $name .'">' . $label . '</option>';
-					    					}
-					    					?>
-				    					</select>
-				    				</td>
-				    			</tr>
-				    			<tr>
-				    				<th>Link To</th>
-				    				<td>
-				    					<select id="wp_image_link_to" name="wp_image_link_to" class="regular-text">
-				    						<option value=""><?php _e('None', 'wp-user-profile-avatar'); ?>
-					    					<?php 
-					    					foreach (get_wp_image_link_to() as $name => $label) {
-					    						echo '<option value="'. $name .'">' . $label . '</option>';
-					    					}
-					    					?>
-				    					</select>
-				    					<p><input type="hidden" name="wp_custom_link_to" id="wp_custom_link_to" class="regular-text" placeholder="<?php _e('Add custom URL', 'wp-user-profile-avatar') ?>"></p>
-				    				</td>
-				    			</tr>
-				    			<tr>
-				    				<th>Open link in a new window</th>
-				    				<td>
-				    					<input type="checkbox" name="wp_image_open_new_window" id="wp_image_open_new_window" value="_blank" class="regular-text">
-				    				</td>
-				    			</tr>
-				    			<tr>
-				    				<th>Caption</th>
-				    				<td>
-				    					<input type="text" name="wp_image_caption" id="wp_image_caption" class="regular-text">
-				    				</td>
-				    			</tr>
-
-				    			<tr>
-				    				<td></td>
-				    				<td>
-				    					<button type="button" class="button-primary" id="user_avatar_form_btn">Insert Shortcode</button>
-				    				</td>
-				    			</tr>
-				    		</table>
-			    		</form>
-			    	</div>
-
-			    	<div id="settings-upload_avatar" class="settings_panel">
-			    		<form name="upload_avatar_form" class="upload_avatar_form">
-				    		<table class="form-table">
-				    			<tr>
-				    				<th>Shortcode</th>
-				    				<td>
-				    					<input type="text" name="upload_avatar_shortcode" id="upload_avatar_shortcode" value="[user_profile_avatar_upload]" class="regular-text" readonly >
-				    				</td>
-				    			</tr>
-				    			<tr>
-				    				<td></td>
-				    				<td>
-				    					<button type="button" class="button-primary" id="upload_avatar_form_btn">Insert Shortcode</button>
-				    				</td>
-				    			</tr>
-				    		</table>
-			    		</form>
-			    	</div>
-	     		</div>
-	     	</div>
-		</div>
-		<?php
 		wp_die();
 	}
 

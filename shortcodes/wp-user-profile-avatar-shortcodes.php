@@ -56,14 +56,8 @@ class WP_User_Profile_Avatar_Shortcodes {
 	        // Get attachment URL
 	        $link = get_attachment_link(get_the_author_meta($wpdb->get_blog_prefix($blog_id).'user_avatar', $user_id));
 	    }
-		?>
-
-		<div class="wp-user-profile-avatar">
-			<a href="<?php echo $link; ?>" target="<?php echo $target; ?>" class="wp-user-profile-avatar-link"><img src="<?php echo $image_url; ?>" class="size-<?php echo $size; ?> <?php echo $align; ?>" ></a>
-			<p class="caption-text"><?php echo $content; ?></p>
-		</div>
-
-		<?php
+		
+		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '\templates\wp-user-avatar.php' );
 
 		return ob_get_clean();
 
@@ -82,6 +76,8 @@ class WP_User_Profile_Avatar_Shortcodes {
 		extract( shortcode_atts( array(
 			
 		), $atts ) );
+
+		ob_start();
 
 		if(!is_user_logged_in())
 		{
@@ -114,11 +110,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 
 				return false;
 			}
-		}
-
-		
-
-		ob_start();
+		}		
 
 		wp_enqueue_script( 'wp-user-profile-avatar-frontend-avatar' );
 
@@ -127,69 +119,8 @@ class WP_User_Profile_Avatar_Shortcodes {
 
 		$wp_user_profile_avatar_attachment_id = get_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', true);
 		$wp_user_profile_avatar_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
-		?>
-
-		<div class="wp-user-profile-avatar-upload">
-			<form method="post" name="update-user-profile-avatar" class="update-user-profile-avatar" enctype="multipart/form-data">
-				<table class="form-table">
-					<tr>
-						<td>
-							<p>
-							<input type="text" name="wp_user_profile_avatar_url" class="regular-text code" value="<?php echo $wp_user_profile_avatar_url; ?>" placeholder="Enter Image URL">
-							</p>
-
-							<p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
-
-							<p id="wp-user-profile-avatar-add-button-existing">
-								<?php /* <button type="button" class="button" id="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button> */ ?>
-								<input type="file" name="wp_user_profile_avatar_upload" class="input-text wp-user-profile-avatar-image" accept="image/jpg, image/jpeg, image/gif, image/png" >
-
-								<input type="hidden" name="wp_user_profile_avatar_attachment_id" id="wp_user_profile_avatar_attachment_id" value="<?php echo $wp_user_profile_avatar_attachment_id; ?>">
-								<input type="hidden" name="user_id" id="wp_user_id" value="<?php echo $user_id; ?>">
-							</p>
-						</td>
-					</tr>
-
-					<?php
-	              	$class_hide = 'wp-user-profile-avatar-hide';
-	              	if(!empty($wp_user_profile_avatar_attachment_id))
-	              	{
-	              		$class_hide = '';
-	              	}
-	              	?>
-					<tr id="wp-user-profile-avatar-images-existing">
-						<td>
-					      	<p id="wp-user-profile-avatar-preview">
-					        	<img src="<?php echo $wp_user_profile_avatar_original; ?>" alt="">
-					        	<span class="description"><?php _e('Original Size', 'wp-user-profile-avatar'); ?></span>
-					      	</p>
-					      	<p id="wp-user-profile-avatar-thumbnail">
-					        	<img src="<?php echo $wp_user_profile_avatar_thumbnail; ?>" alt="">
-					        	<span class="description"><?php _e('Thumbnail', 'wp-user-profile-avatar'); ?></span>
-					      	</p>
-					      	<p id="wp-user-profile-avatar-remove-button" class="<?php echo $class_hide; ?>">
-						        <button type="button" class="button" id="wp-user-profile-avatar-remove"><?php _e('Remove Image', 'wp-user-profile-avatar'); ?></button>
-					        </p>
-					      	<p id="wp-user-profile-avatar-undo-button">
-					      		<button type="button" class="button" id="wp-user-profile-avatar-undo"><?php _e('Undo', 'wp-user-profile-avatar'); ?></button>
-					      	</p>
-				      	</td>
-					</tr>
-
-					<tr>
-						<td>
-							<button type="button" class="button" id="wp-user-profile-avatar-update-profile"><?php _e('Update Profile', 'wp-user-profile-avatar'); ?></button>
-						</td>
-					</tr>
-
-				</table>
-			</form>
-
-			<div id="upload_avatar_responce"></div>
-
-		</div>
-
-		<?php
+		
+		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '\templates\wp-avatar-upload.php' );
 
 		return ob_get_clean();
 	}
@@ -305,7 +236,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 		$wp_user_profile_avatar_thumbnail = get_wp_user_profile_avatar_url($user_id, ['size' => 'thumbnail']);
 
 		$message = __( 'Successfully Removed Avatar', 'wp-user-profile-avatar');
-			$class = 'wp-user-profile-avatar-success';
+		$class = 'wp-user-profile-avatar-success';
 
 		echo json_encode(['avatar_original' => $wp_user_profile_avatar_original, 'avatar_thumbnail' => $wp_user_profile_avatar_thumbnail, 'message' => $message, 'class' => $class]);
 
@@ -345,7 +276,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 		$wp_user_profile_avatar_thumbnail = get_wp_user_profile_avatar_url($user_id, ['size' => 'thumbnail']);
 
 		$message = __( 'Successfully Undo Avatar', 'wp-user-profile-avatar');
-			$class = 'wp-user-profile-avatar-success';
+		$class = 'wp-user-profile-avatar-success';
 
 		echo json_encode(['avatar_original' => $wp_user_profile_avatar_original, 'avatar_thumbnail' => $wp_user_profile_avatar_thumbnail, 'message' => $message, 'class' => $class]);
 
