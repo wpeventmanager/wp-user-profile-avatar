@@ -350,7 +350,7 @@ class WP_User_Profile_Avatar_Admin {
 				    			<tr>
 				    				<th>Shortcode</th>
 				    				<td>
-				    					<input type="text" name="upload_avatar_shortcode" id="upload_avatar_shortcode" value="[user_profile_avatar_upload]" class="regular-text">
+				    					<input type="text" name="upload_avatar_shortcode" id="upload_avatar_shortcode" value="[user_profile_avatar_upload]" class="regular-text" readonly >
 				    				</td>
 				    			</tr>
 				    			<tr>
