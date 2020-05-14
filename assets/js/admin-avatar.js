@@ -20,7 +20,7 @@ var AvatarAdmin = function () {
             {
                 tinymce.PluginManager.add('wp_user_profile_avatar_shortcodes', function( editor, url ) {
                     editor.addButton('wp_user_profile_avatar_shortcodes', {
-                                title: 'Insert WP User Avatar',
+                                title: wp_user_profile_avatar_admin_avatar.thinkbox_title,
                                 classes: 'thickbox',
                                 image: wp_user_profile_avatar_admin_avatar.default_avatar,
                                 icon: false,
