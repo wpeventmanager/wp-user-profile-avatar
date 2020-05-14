@@ -37,10 +37,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WPEM_User_Profile_Avatar class.
+ * WP_User_Profile_Avatar class.
  */
 
-class WPEM_User_Profile_Avatar {
+class WP_User_Profile_Avatar {
 
 	/**
 	 * The single instance of the class.
@@ -57,7 +57,7 @@ class WPEM_User_Profile_Avatar {
 	 *
 	 * @since  1.0
 	 * @static
-	 * @see WPEM_User_Profile_Avatar()
+	 * @see WP_User_Profile_Avatar()
 	 * @return self Main instance.
 	 */
 	public static function instance() {
@@ -70,7 +70,6 @@ class WPEM_User_Profile_Avatar {
 	/**
 	 * Constructor - get the plugin hooked in and ready
 	 */
-
 	public function __construct() 
 	{
 		// Define constants
@@ -82,6 +81,11 @@ class WPEM_User_Profile_Avatar {
 		//Core		
 		include( 'includes/wp-user-profile-avatar-install.php' );
 		include( 'includes/wp-user-profile-avatar-user.php' );
+		include( 'wp-user-profile-avatar-functions.php' );
+
+
+		//shortcodes
+		include( 'shortcodes/wp-user-profile-avatar-shortcodes.php' );
 
 		
 		if ( is_admin() ) {
@@ -94,18 +98,31 @@ class WPEM_User_Profile_Avatar {
 		// Actions
 		add_action( 'after_setup_theme', array( $this, 'load_plugin_textdomain' ) );
 
-		add_action( 'after_setup_theme', array( $this, 'include_template_functions' ), 11 );
+		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
 	}
 
+	 /**
+     * activate function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
 	public function activate() {
 
-		WPEM_User_Profile_Avatar_Install::install();
+		WP_User_Profile_Avatar_Install::install();
 	}
 
 
-	/**
-	 * Localisation
-	 */
+	 /**
+     * load_plugin_textdomain function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
 	public function load_plugin_textdomain() {
 
 		$domain = 'wp-user-profile-avatar';       
@@ -117,15 +134,30 @@ class WPEM_User_Profile_Avatar {
 		load_plugin_textdomain($domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 
-
 	/**
-	 * Load functions
-	 */
+     * frontend_scripts function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+	public function frontend_scripts() {
 
-	public function include_template_functions() {
+		wp_enqueue_style( 'wp-user-profile-avatar-frontend', WP_USER_PROFILE_AVATAR_PLUGIN_URL . '/assets/css/frontend.css');
 
-		include( 'wp-user-profile-avatar-functions.php' );
+		wp_register_script( 'wp-user-profile-avatar-frontend-avatar', WP_USER_PROFILE_AVATAR_PLUGIN_URL . '/assets/js/frontend-avatar.js', array( 'jquery' ), WP_USER_PROFILE_AVATAR_VERSION, true);
+		
+		wp_localize_script( 'wp-user-profile-avatar-frontend-avatar', 'wp_user_profile_avatar_frontend_avatar', array( 
+								'ajax_url' 	 => admin_url( 'admin-ajax.php' ),
+								'wp_user_profile_avatar_security'  => wp_create_nonce( "_nonce_user_profile_avatar_security" ),
+								'media_box_title' => __( 'Choose Image: Default Avatar', 'wp-user-profile-avatar'),
+								'default_avatar' => WP_USER_PROFILE_AVATAR_PLUGIN_URL.'/assets/images/wp-user-thumbnail.png',
+							)
+						);
 	}
+
+	
 
 			
 }
@@ -136,9 +168,9 @@ class WPEM_User_Profile_Avatar {
  * Returns the main instance of WP User Profile Avatar to prevent the need to use globals.
  *
  * @since  1.0
- * @return WPEM_User_Profile_Avatar
+ * @return WP_User_Profile_Avatar
  */
-function WPEM_Avatar() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
-	return WPEM_User_Profile_Avatar::instance();
+function WP_Avatar() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
+	return WP_User_Profile_Avatar::instance();
 }
-$GLOBALS['WPEM_User_Profile_Avatar'] =  WPEM_Avatar();
+$GLOBALS['WP_User_Profile_Avatar'] =  WP_Avatar();

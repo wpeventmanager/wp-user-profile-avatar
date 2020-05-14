@@ -8,10 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WPEM_User_Profile_Avatar_User class.
+ * WP_User_Profile_Avatar_User class.
  */
 
-class WPEM_User_Profile_Avatar_User {
+class WP_User_Profile_Avatar_User {
 
 	/**
 	 * Constructor - get the plugin hooked in and ready
@@ -21,9 +21,26 @@ class WPEM_User_Profile_Avatar_User {
 		add_filter( 'get_avatar_url', array($this,'wp_get_avatar_url'), 10, 3 );
 	}
 
+    /**
+     * wp_get_avatar_url function.
+     *
+     * @access public
+     * @param $url, $id_or_email, $args
+     * @return 
+     * @since 1.0
+     */
 	public function wp_get_avatar_url($url, $id_or_email, $args)
 	{
 		$wp_user_profile_avatar_disable_gravatar = get_option('wp_user_profile_avatar_disable_gravatar');
+
+		$wp_user_profile_avatar_show_avatars = get_option('wp_user_profile_avatar_show_avatars');
+
+		$wp_user_profile_avatar_default = get_option('wp_user_profile_avatar_default');	
+
+		if(!$wp_user_profile_avatar_show_avatars)
+		{
+			return false;
+		}
 
 		$user_id = null;
 	    if(is_object($id_or_email))
@@ -50,29 +67,33 @@ class WPEM_User_Profile_Avatar_User {
     	}
 
     	// First checking custom avatar.
-	    if( has_wp_user_avatar( $user_id ) ) 
-	    {	
-	      	$url = wpem_get_user_avatar_url( $user_id, ['size' => 'thumbnail'] );
+	    if( check_wp_user_profile_avatar_url( $user_id ) ) 
+	    {
+	    	$url = get_wp_user_profile_avatar_url( $user_id, ['size' => 'thumbnail'] );
 	    } 
 	    else if( $wp_user_profile_avatar_disable_gravatar ) 
 	    {
-	      	$url = wpem_get_default_avatar_url(['size' => 'admin']);
+	    	$url = get_wp_user_default_avatar_url(['size' => 'admin']);
 	    }
 	    else 
 	    {
-	      	$has_valid_url = wpua_has_gravatar($id_or_email);
+	    	$has_valid_url = check_wp_user_gravatar($id_or_email);
 	      	if(!$has_valid_url)
 	      	{
-	        	$url = wpem_get_default_avatar_url(['size' => 'admin']);
-	      	}	    
+	        	$url = get_wp_user_default_avatar_url(['size' => 'admin']);
+	      	}
+	      	else
+	      	{
+	      		if($wp_user_profile_avatar_default != 'wp_user_profile_avatar' && !empty($user_id))
+				{
+					$url = get_wp_user_profile_avatar_url( $user_id, ['size' => 'admin' ] );
+				}
+	      	}
 	    }
 
 	    return $url;
 	}
 
-	
-
-
 }
 
-new WPEM_User_Profile_Avatar_User();
+new WP_User_Profile_Avatar_User();

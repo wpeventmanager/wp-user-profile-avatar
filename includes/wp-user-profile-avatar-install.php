@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WPEM_User_Profile_Avatar_Install class.
+ * WP_User_Profile_Avatar_Install class.
  */
-class WPEM_User_Profile_Avatar_Install {
+class WP_User_Profile_Avatar_Install {
 
 	/**
 	 * Constructor - get the plugin hooked in and ready
@@ -19,6 +19,14 @@ class WPEM_User_Profile_Avatar_Install {
 
 	}
 
+    /**
+     * install function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
 	public function install() 
 	{
 		update_option( 'wp_user_profile_avatar_tinymce', 1 );

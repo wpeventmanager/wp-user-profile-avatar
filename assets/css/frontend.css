@@ -1,4 +1,5 @@
 #wp-user-profile-avatar-errors, #wp-user-profile-avatar-readable-size-error, .wp-user-profile-avatar-error { color: #c00 !important; font-weight: 700 !important; }
+#wp-user-profile-avatar-success, #wp-user-profile-avatar-readable-size-success, .wp-user-profile-avatar-success { color: #179a17 !important; font-weight: 700 !important; }
 #wp-user-profile-avatar-readable-size-error, #wp-user-profile-avatar-undo-button { display: none; }
 #wp-user-profile-avatar-preview, #wp-user-profile-avatar-preview-existing { margin-right: 10px; }
 #wp-user-profile-avatar-preview, #wp-user-profile-avatar-preview-existing, #wp-user-profile-avatar-thumbnail, #wp-user-profile-avatar-thumbnail-existing { display: inline-block; text-align: center; vertical-align: top; }
@@ -11,7 +12,3 @@
 #wp-user-profile-avatar-upload-messages span { display: block; }
 .wp-user-profile-avatar-hide { display: none !important; }
 .wp-user-profile-avatar-no-avatars { display: none; }
-
-#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .admin-setting-left #settings-upload_avatar{
-	display: none;
-}

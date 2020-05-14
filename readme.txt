@@ -15,3 +15,15 @@ To install this plugin, please refer to the guide here: http://codex.wordpress.o
 = 1.0 =
 * First release.
 
+<?php
+    // Retrieve The Post's Author ID
+    $user_id = get_the_author_meta('ID');
+    // Set the image size. Accepts all registered images sizes and array(int, int)
+    $size = 'thumbnail';
+
+    // Get the image URL using the author ID and image size params
+    $imgURL = get_user_profile_avatar_url($user_id, $size);
+
+    // Print the image on the page
+    echo '<img src="'. $imgURL .'" alt="">';
+?>
