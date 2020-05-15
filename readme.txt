@@ -14,7 +14,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 == Description ==
 
 
-WordPress avatar or User Profile Avatar you can easily change by WP User Profile Avatar. WP User Profile Avatar allows you to use any photos uploaded into your Media Library or use photo url as an avatar instead of using Gravatar.
+WP User Profile Avatar allow you to change default WordPress avatar or User profile picture. You can use any photos uploaded into your Media Library or use custom photo url as an avatar instead of using Gravatar.
 
 
 **Plugin Features**
@@ -81,7 +81,7 @@ The manual installation method involves downloading the plugin and uploading it 
 
 Go Admin Dashboard -> Users -> All Users --> Select any user profile you would like to edit. 
 Find "WP User Profile Avatar" section, You can give new avatar url path or you can upload avatar using media library.
-Upate User.
+Update User.
 
 = How I can display new user profile avatar at frontend side? =
 
@@ -90,7 +90,7 @@ You can show user profile avatar two ways.
 1. Use the below shortcode and pass parameters based on your need.
 
 [user_profile_avatar]  --> It will show default avatar of the plugin.
-[user_profile_avatar user_id="9"] --> It will selected user avatar.
+[user_profile_avatar user_id="9"] --> It will show avatar of the given user id.
 
 You can also set other parameters like size, align, link and target in this shortcode.
 
@@ -123,7 +123,6 @@ Save Changes.
 
 == Changelog ==
 
-= 1.0 =
+= 1.0 = [May 15TH, 2020]
 
 * First stable release.
-
