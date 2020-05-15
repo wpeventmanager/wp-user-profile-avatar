@@ -1,4 +1,3 @@
-
 <?php
 class WP_User_Profile_Avatar_Shortcodes {
 

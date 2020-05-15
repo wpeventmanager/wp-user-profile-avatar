@@ -1,5 +1,4 @@
 <?php
-
 if ( ! function_exists( 'get_wp_user_avatar_rating' ) ) {
 	/**
      * get_wp_user_avatar_rating function.

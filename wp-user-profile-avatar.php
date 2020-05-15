@@ -1,4 +1,3 @@
-
 <?php
 /**
 Plugin Name: WP User Profile Avatar
@@ -99,6 +98,8 @@ class WP_User_Profile_Avatar {
 		add_action( 'after_setup_theme', array( $this, 'load_plugin_textdomain' ) );
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
+		
+		add_action( 'admin_init', array( $this, 'updater' ) );
 	}
 
 	 /**
@@ -112,6 +113,22 @@ class WP_User_Profile_Avatar {
 	public function activate() {
 
 		WP_User_Profile_Avatar_Install::install();
+	}
+
+	/**
+     * updater function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+	public function updater() {
+		if ( version_compare( WP_USER_PROFILE_AVATAR_VERSION, get_option( 'wp_user_profile_avatar_version' ), '>' ) ) {
+
+			WP_User_Profile_Avatar_Install::install();
+			flush_rewrite_rules();
+		}
 	}
 
 
@@ -161,6 +178,23 @@ class WP_User_Profile_Avatar {
 
 			
 }
+
+
+/**
+ * add_plugin_page_wp_user_profile_avatar_settings_link function.
+ * Create link on plugin page for wp user profile avatar plugin settings
+ * @access public
+ * @param 
+ * @return 
+ * @since 1.0
+ */
+function add_plugin_page_wp_user_profile_avatar_settings_link( $links ) 
+{
+    $links[] = '<a href="' . admin_url( 'users.php?page=wp-user-profile-avatar-settings' ) . '">' . __('Settings', 'wp-user-profile-avatar') . '</a>';
+    return $links;
+}
+add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'add_plugin_page_wp_user_profile_avatar_settings_link');
+
 
 /**
  * Main instance of WP User Profile Avatar.
