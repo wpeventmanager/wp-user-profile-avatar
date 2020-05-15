@@ -5,7 +5,7 @@ if ( ! function_exists( 'get_wp_user_avatar_rating' ) ) {
      *
      * @access public
      * @param 
-     * @return 
+     * @return array
      * @since 1.0
      */
 	function get_wp_user_avatar_rating() {
@@ -24,7 +24,7 @@ if ( ! function_exists( 'get_wp_user_default_avatar' ) ) {
      *
      * @access public
      * @param 
-     * @return 
+     * @return array
      * @since 1.0
      */
 	function get_wp_user_default_avatar() {
@@ -46,7 +46,7 @@ if ( ! function_exists( 'get_wp_user_default_avatar_url' ) ) {
      *
      * @access public
      * @param $args
-     * @return 
+     * @return string
      * @since 1.0
      */
 	function get_wp_user_default_avatar_url($args = []) {
@@ -133,7 +133,7 @@ if ( ! function_exists( 'get_wp_user_profile_avatar_url' ) ) {
      *
      * @access public
      * @param $user_id, $args
-     * @return 
+     * @return string
      * @since 1.0
      */
 	function get_wp_user_profile_avatar_url($user_id, $args = []) 
@@ -176,7 +176,7 @@ if ( ! function_exists( 'check_wp_user_profile_avatar_url' ) ) {
      *
      * @access public
      * @param $user_id
-     * @return 
+     * @return boolean
      * @since 1.0
      */
 	function check_wp_user_profile_avatar_url($user_id = '')
@@ -204,7 +204,7 @@ if ( ! function_exists( 'check_wp_user_gravatar' ) ) {
      *
      * @access public
      * @param $id_or_email, $check_gravatar, $user, $email
-     * @return 
+     * @return boolean 
      * @since 1.0
      */
 	function check_wp_user_gravatar($id_or_email="", $check_gravatar=0, $user="", $email="") 
@@ -305,7 +305,7 @@ if ( ! function_exists( 'get_wp_image_size' ) ) {
      *
      * @access public
      * @param 
-     * @return 
+     * @return array
      * @since 1.0
      */
 	function get_wp_image_sizes() {
@@ -324,7 +324,7 @@ if ( ! function_exists( 'get_wp_image_alignment' ) ) {
      *
      * @access public
      * @param 
-     * @return 
+     * @return array
      * @since 1.0
      */
 	function get_wp_image_alignment() {
@@ -342,7 +342,7 @@ if ( ! function_exists( 'get_wp_image_link_to' ) ) {
      *
      * @access public
      * @param 
-     * @return 
+     * @return array
      * @since 1.0
      */
 	function get_wp_image_link_to() {
@@ -360,7 +360,7 @@ if ( ! function_exists( 'get_user_profile_avatar_url' ) ) {
      *
      * @access public
      * @param $user_id, $size
-     * @return 
+     * @return string
      * @since 1.0
      */
 	function get_user_profile_avatar_url($user_id = '', $size = 'thumbnail')
