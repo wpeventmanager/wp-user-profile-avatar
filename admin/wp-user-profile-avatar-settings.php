@@ -95,10 +95,10 @@ class WP_User_Profile_Avatar_Settings {
 			  					
 
 			  					<tr valign="top">
-			  						<th scope="row"><?php _e('Maximum Rating', 'wp-user-profile-avatar'); ?></th>
+			  						<th scope="row"><?php _e('Avatar Rating', 'wp-user-profile-avatar'); ?></th>
 			  						<td>
 			  							<fieldset>
-							              	<legend class="screen-reader-text"><?php _e('Maximum Rating','wp-user-profile-avatar'); ?></legend>
+							              	<legend class="screen-reader-text"><?php _e('Avatar Rating','wp-user-profile-avatar'); ?></legend>
 							              	<?php foreach (get_wp_user_avatar_rating() as $name => $rating) : ?>
 							              		<?php $selected = ($wp_user_profile_avatar_rating == $name) ? 'checked="checked"' : ""; ?>
 							              		<label><input type="radio" name="wp_user_profile_avatar_rating" value="<?php echo esc_attr( $name ); ?>" <?php echo $selected; ?> /> <?php echo $rating; ?></label><br />
