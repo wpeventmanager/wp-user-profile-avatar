@@ -253,7 +253,7 @@ class WP_User_Profile_Avatar_Admin {
      */
 	public  function thickbox_model_view()
 	{
-		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '\admin\templates\shortcode-popup.php' );
+		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '/admin/templates/shortcode-popup.php' );
 
 		wp_die();
 	}

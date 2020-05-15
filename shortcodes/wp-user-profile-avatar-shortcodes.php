@@ -56,7 +56,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 	        $link = get_attachment_link(get_the_author_meta($wpdb->get_blog_prefix($blog_id).'user_avatar', $user_id));
 	    }
 		
-		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '\templates\wp-user-avatar.php' );
+		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '/templates/wp-user-avatar.php' );
 
 		return ob_get_clean();
 
@@ -119,7 +119,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 		$wp_user_profile_avatar_attachment_id = get_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', true);
 		$wp_user_profile_avatar_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
 		
-		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '\templates\wp-avatar-upload.php' );
+		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
 
 		return ob_get_clean();
 	}
