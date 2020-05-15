@@ -28,7 +28,7 @@
 		    					<select id="wp_image_size" name="wp_image_size" class="regular-text">
 		    						<option value=""><?php _e('None', 'wp-user-profile-avatar'); ?>
 			    					<?php 
-			    					foreach (get_wp_image_sizes() as $name => $label) {
+			    					foreach (get_wpupa_image_sizes() as $name => $label) {
 			    						echo '<option value="'. $name .'">' . $label . '</option>';
 			    					}
 			    					?>
@@ -42,7 +42,7 @@
 		    					<select id="wp_image_alignment" name="wp_image_alignment" class="regular-text">
 		    						<option value=""><?php _e('None', 'wp-user-profile-avatar'); ?>
 			    					<?php 
-			    					foreach (get_wp_image_alignment() as $name => $label) {
+			    					foreach (get_wpupa_image_alignment() as $name => $label) {
 			    						echo '<option value="'. $name .'">' . $label . '</option>';
 			    					}
 			    					?>
@@ -55,7 +55,7 @@
 		    					<select id="wp_image_link_to" name="wp_image_link_to" class="regular-text">
 		    						<option value=""><?php _e('None', 'wp-user-profile-avatar'); ?>
 			    					<?php 
-			    					foreach (get_wp_image_link_to() as $name => $label) {
+			    					foreach (get_wpupa_image_link_to() as $name => $label) {
 			    						echo '<option value="'. $name .'">' . $label . '</option>';
 			    					}
 			    					?>

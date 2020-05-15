@@ -5,10 +5,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WP_User_Profile_Avatar_Settings class.
+ * WPUPA_Settings class.
  */
 
-class WP_User_Profile_Avatar_Settings {
+class WPUPA_Settings {
 
 	/**
 	 * Constructor - get the plugin hooked in and ready
@@ -42,7 +42,7 @@ class WP_User_Profile_Avatar_Settings {
 		$wp_user_profile_avatar_default = get_option('wp_user_profile_avatar_default');
 		$wp_user_profile_avatar_attachment_id = get_option('wp_user_profile_avatar_attachment_id');
 
-		$wp_user_profile_avatar_attachment_url = get_wp_user_default_avatar_url(['size' => 'admin']);
+		$wp_user_profile_avatar_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
 		?>
 
 		<div class="wrap">
@@ -96,7 +96,7 @@ class WP_User_Profile_Avatar_Settings {
 			  						<td>
 			  							<fieldset>
 							              	<legend class="screen-reader-text"><?php _e('Avatar Rating','wp-user-profile-avatar'); ?></legend>
-							              	<?php foreach (get_wp_user_avatar_rating() as $name => $rating) : ?>
+							              	<?php foreach (get_wpupa_rating() as $name => $rating) : ?>
 							              		<?php $selected = ($wp_user_profile_avatar_rating == $name) ? 'checked="checked"' : ""; ?>
 							              		<label><input type="radio" name="wp_user_profile_avatar_rating" value="<?php echo esc_attr( $name ); ?>" <?php echo $selected; ?> /> <?php echo $rating; ?></label><br />
 							              	<?php endforeach; ?>
@@ -129,7 +129,7 @@ class WP_User_Profile_Avatar_Settings {
 							              	</p>
 
 							              	<?php if(empty($wp_user_profile_avatar_disable_gravatar)) : ?>
-							              	<?php foreach (get_wp_user_default_avatar() as $name => $label) : ?>
+							              	<?php foreach (get_wpupa_default_avatar() as $name => $label) : ?>
 							              		<?php $avatar = get_avatar('unknown@gravatar.com', 32, $name); ?>
 
 							              		<?php $selected = ($wp_user_profile_avatar_default == $name) ? 'checked="checked"' : ""; ?>
@@ -214,4 +214,4 @@ class WP_User_Profile_Avatar_Settings {
 
 }
 
-new WP_User_Profile_Avatar_Settings();
+new WPUPA_Settings();

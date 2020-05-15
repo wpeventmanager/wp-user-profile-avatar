@@ -1,14 +1,14 @@
 <?php
-if ( ! function_exists( 'get_wp_user_avatar_rating' ) ) {
+if ( ! function_exists( 'get_wpupa_rating' ) ) {
 	/**
-     * get_wp_user_avatar_rating function.
+     * get_wpupa_rating function.
      *
      * @access public
      * @param 
      * @return array
      * @since 1.0
      */
-	function get_wp_user_avatar_rating() {
+	function get_wpupa_rating() {
 		return apply_filters( 'wp_user_avatar_rating', array(
 			'G' => __('G &#8212; Suitable for all audiences','wp-user-profile-avatar'),
           	'PG' => __('PG &#8212; Possibly offensive, usually for audiences 13 and above','wp-user-profile-avatar'),
@@ -18,16 +18,16 @@ if ( ! function_exists( 'get_wp_user_avatar_rating' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wp_user_default_avatar' ) ) {
+if ( ! function_exists( 'get_wpupa_default_avatar' ) ) {
 	/**
-     * get_wp_user_default_avatar function.
+     * get_wpupa_default_avatar function.
      *
      * @access public
      * @param 
      * @return array
      * @since 1.0
      */
-	function get_wp_user_default_avatar() {
+	function get_wpupa_default_avatar() {
 		return apply_filters( 'wp_user_default_avatar', array(
 			'mystery' => __('Mystery Man','wp-user-profile-avatar'),
 	      	'blank' => __('Blank','wp-user-profile-avatar'),
@@ -40,16 +40,16 @@ if ( ! function_exists( 'get_wp_user_default_avatar' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wp_user_default_avatar_url' ) ) {
+if ( ! function_exists( 'get_wpupa_default_avatar_url' ) ) {
 	/**
-     * get_wp_user_default_avatar_url function.
+     * get_wpupa_default_avatar_url function.
      *
      * @access public
      * @param $args
      * @return string
      * @since 1.0
      */
-	function get_wp_user_default_avatar_url($args = []) {
+	function get_wpupa_default_avatar_url($args = []) {
 		
 		$size = !empty($args['size']) ? $args['size'] : 'thumbnail';
 		$user_id = !empty($args['user_id']) ? $args['user_id'] : '';
@@ -75,12 +75,12 @@ if ( ! function_exists( 'get_wp_user_default_avatar_url' ) ) {
 				}
 				else
 				{
-					return WP_USER_PROFILE_AVATAR_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';
+					return WPUPA_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';
 				}
 			}
 			else
 			{
-				return WP_USER_PROFILE_AVATAR_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';
+				return WPUPA_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';
 			}
 		}
 		else
@@ -114,12 +114,12 @@ if ( ! function_exists( 'get_wp_user_default_avatar_url' ) ) {
 				}
 				else
 				{
-					return WP_USER_PROFILE_AVATAR_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';	
+					return WPUPA_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';	
 				}
 			}
 			else
 			{
-				return WP_USER_PROFILE_AVATAR_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';	
+				return WPUPA_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';	
 			}
 			
 		}
@@ -127,16 +127,16 @@ if ( ! function_exists( 'get_wp_user_default_avatar_url' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wp_user_profile_avatar_url' ) ) {
+if ( ! function_exists( 'get_wpupa_url' ) ) {
 	/**
-     * get_wp_user_profile_avatar_url function.
+     * get_wpupa_url function.
      *
      * @access public
      * @param $user_id, $args
      * @return string
      * @since 1.0
      */
-	function get_wp_user_profile_avatar_url($user_id, $args = []) 
+	function get_wpupa_url($user_id, $args = []) 
 	{
 		$size = !empty($args['size']) ? $args['size'] : 'thumbnail';
 
@@ -160,26 +160,26 @@ if ( ! function_exists( 'get_wp_user_profile_avatar_url' ) ) {
 			}
 			else
 			{
-				return get_wp_user_default_avatar_url(['user_id' => $user_id, 'size' => $size]);
+				return get_wpupa_default_avatar_url(['user_id' => $user_id, 'size' => $size]);
 			}
 		}
 		else
 		{
-			return get_wp_user_default_avatar_url(['user_id' => $user_id, 'size' => $size]);
+			return get_wpupa_default_avatar_url(['user_id' => $user_id, 'size' => $size]);
 		}
 	}
 }
 
-if ( ! function_exists( 'check_wp_user_profile_avatar_url' ) ) {
+if ( ! function_exists( 'check_wpupa_url' ) ) {
 	/**
-     * check_wp_user_profile_avatar_url function.
+     * check_wpupa_url function.
      *
      * @access public
      * @param $user_id
      * @return boolean
      * @since 1.0
      */
-	function check_wp_user_profile_avatar_url($user_id = '')
+	function check_wpupa_url($user_id = '')
 	{
 		$attachment_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
 
@@ -198,16 +198,16 @@ if ( ! function_exists( 'check_wp_user_profile_avatar_url' ) ) {
 	}
 }
 
-if ( ! function_exists( 'check_wp_user_gravatar' ) ) {
+if ( ! function_exists( 'check_wpupa_gravatar' ) ) {
 	/**
-     * check_wp_user_gravatar function.
+     * check_wpupa_gravatar function.
      *
      * @access public
      * @param $id_or_email, $check_gravatar, $user, $email
      * @return boolean 
      * @since 1.0
      */
-	function check_wp_user_gravatar($id_or_email="", $check_gravatar=0, $user="", $email="") 
+	function check_wpupa_gravatar($id_or_email="", $check_gravatar=0, $user="", $email="") 
 	{
 	    $wp_user_hash_gravatar = get_option('wp_user_hash_gravatar');
 
@@ -299,16 +299,16 @@ if ( ! function_exists( 'check_wp_user_gravatar' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wp_image_size' ) ) {
+if ( ! function_exists( 'get_wpupa_image_size' ) ) {
 	/**
-     * get_wp_image_size function.
+     * get_wpupa_image_size function.
      *
      * @access public
      * @param 
      * @return array
      * @since 1.0
      */
-	function get_wp_image_sizes() {
+	function get_wpupa_image_sizes() {
 		return apply_filters( 'wp_image_sizes', array(
 			'original' => __('Original','wp-user-profile-avatar'),
           	'large' => __('Large','wp-user-profile-avatar'),
@@ -318,16 +318,16 @@ if ( ! function_exists( 'get_wp_image_size' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wp_image_alignment' ) ) {
+if ( ! function_exists( 'get_wpupa_image_alignment' ) ) {
 	/**
-     * get_wp_image_alignment function.
+     * get_wpupa_image_alignment function.
      *
      * @access public
      * @param 
      * @return array
      * @since 1.0
      */
-	function get_wp_image_alignment() {
+	function get_wpupa_image_alignment() {
 		return apply_filters( 'wp_image_alignment', array(
 			'aligncenter' => __('Center','wp-user-profile-avatar'),
           	'alignleft' => __('Left','wp-user-profile-avatar'),
@@ -336,16 +336,16 @@ if ( ! function_exists( 'get_wp_image_alignment' ) ) {
 	}
 }
 
-if ( ! function_exists( 'get_wp_image_link_to' ) ) {
+if ( ! function_exists( 'get_wpupa_image_link_to' ) ) {
 	/**
-     * get_wp_image_link_to function.
+     * get_wpupa_image_link_to function.
      *
      * @access public
      * @param 
      * @return array
      * @since 1.0
      */
-	function get_wp_image_link_to() {
+	function get_wpupa_image_link_to() {
 		return apply_filters( 'wp_image_link_to', array(
 			'image' => __('Image File','wp-user-profile-avatar'),
           	'attachment' => __('Attachment Page','wp-user-profile-avatar'),
@@ -365,6 +365,6 @@ if ( ! function_exists( 'get_user_profile_avatar_url' ) ) {
      */
 	function get_user_profile_avatar_url($user_id = '', $size = 'thumbnail')
 	{
-		return get_wp_user_profile_avatar_url($user_id, ['size' => $size]);
+		return get_wpupa_url($user_id, ['size' => $size]);
 	}
 }

@@ -1,29 +1,17 @@
 <?php
 /**
 Plugin Name: WP User Profile Avatar
-
 Plugin URI: https://www.wp-eventmanager.com/
-
 Description: WP User Profile Avatar
-
 Author: WP Event Manager
-
 Author URI: https://www.wp-eventmanager.com
-
 Text Domain: wp-user-profile-avatar
-
 Domain Path: /languages
-
 Version: 1.0
-
 Since: 1.0
-
 Requires WordPress Version at least: 4.1
-
 Copyright: 2020 WP Event Manager
-
 License: GNU General Public License v3.0
-
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 **/
@@ -72,12 +60,12 @@ class WP_User_Profile_Avatar {
 	public function __construct() 
 	{
 		// Define constants
-		define( 'WP_USER_PROFILE_AVATAR_VERSION', '1.0' );
-		define( 'WP_USER_PROFILE_AVATAR_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
-		define( 'WP_USER_PROFILE_AVATAR_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
+		define( 'WPUPA_VERSION', '1.0' );
+		define( 'WPUPA_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+		define( 'WPUPA_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 
 
-		//Core		
+		//Includes		
 		include( 'includes/wp-user-profile-avatar-install.php' );
 		include( 'includes/wp-user-profile-avatar-user.php' );
 		include( 'wp-user-profile-avatar-functions.php' );
@@ -112,7 +100,7 @@ class WP_User_Profile_Avatar {
      */
 	public function activate() {
 
-		WP_User_Profile_Avatar_Install::install();
+		WPUPA_Install::install();
 	}
 
 	/**
@@ -124,9 +112,9 @@ class WP_User_Profile_Avatar {
      * @since 1.0
      */
 	public function updater() {
-		if ( version_compare( WP_USER_PROFILE_AVATAR_VERSION, get_option( 'wp_user_profile_avatar_version' ), '>' ) ) {
+		if ( version_compare( WPUPA_VERSION, get_option( 'wp_user_profile_avatar_version' ), '>' ) ) {
 
-			WP_User_Profile_Avatar_Install::install();
+			WPUPA_Install::install();
 			flush_rewrite_rules();
 		}
 	}
@@ -161,15 +149,15 @@ class WP_User_Profile_Avatar {
      */
 	public function frontend_scripts() {
 
-		wp_enqueue_style( 'wp-user-profile-avatar-frontend', WP_USER_PROFILE_AVATAR_PLUGIN_URL . '/assets/css/frontend.min.css');
+		wp_enqueue_style( 'wp-user-profile-avatar-frontend', WPUPA_PLUGIN_URL . '/assets/css/frontend.min.css');
 
-		wp_register_script( 'wp-user-profile-avatar-frontend-avatar', WP_USER_PROFILE_AVATAR_PLUGIN_URL . '/assets/js/frontend-avatar.min.js', array( 'jquery' ), WP_USER_PROFILE_AVATAR_VERSION, true);
+		wp_register_script( 'wp-user-profile-avatar-frontend-avatar', WPUPA_PLUGIN_URL . '/assets/js/frontend-avatar.min.js', array( 'jquery' ), WPUPA_VERSION, true);
 		
 		wp_localize_script( 'wp-user-profile-avatar-frontend-avatar', 'wp_user_profile_avatar_frontend_avatar', array( 
 								'ajax_url' 	 => admin_url( 'admin-ajax.php' ),
 								'wp_user_profile_avatar_security'  => wp_create_nonce( "_nonce_user_profile_avatar_security" ),
 								'media_box_title' => __( 'Choose Image: Default Avatar', 'wp-user-profile-avatar'),
-								'default_avatar' => WP_USER_PROFILE_AVATAR_PLUGIN_URL.'/assets/images/wp-user-thumbnail.png',
+								'default_avatar' => WPUPA_PLUGIN_URL.'/assets/images/wp-user-thumbnail.png',
 							)
 						);
 	}
@@ -204,7 +192,7 @@ add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'add_plugin_page_wp
  * @since  1.0
  * @return WP_User_Profile_Avatar
  */
-function WP_Avatar() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
+function WPUPA() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
 	return WP_User_Profile_Avatar::instance();
 }
-$GLOBALS['WP_User_Profile_Avatar'] =  WP_Avatar();
+$GLOBALS['WP_User_Profile_Avatar'] =  WPUPA();

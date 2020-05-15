@@ -5,28 +5,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WP_User_Profile_Avatar_User class.
+ * WPUPA_User class.
  */
 
-class WP_User_Profile_Avatar_User {
+class WPUPA_User {
 
 	/**
 	 * Constructor - get the plugin hooked in and ready
 	 */
 	public function __construct() 
 	{
-		add_filter( 'get_avatar_url', array($this,'wp_get_avatar_url'), 10, 3 );
+		add_filter( 'get_avatar_url', array($this,'get_user_avatar_url'), 10, 3 );
 	}
 
     /**
-     * wp_get_avatar_url function.
+     * get_user_avatar_url function.
      *
      * @access public
      * @param $url, $id_or_email, $args
      * @return 
      * @since 1.0
      */
-	public function wp_get_avatar_url($url, $id_or_email, $args)
+	public function get_user_avatar_url($url, $id_or_email, $args)
 	{
 		$wp_user_profile_avatar_disable_gravatar = get_option('wp_user_profile_avatar_disable_gravatar');
 
@@ -64,26 +64,26 @@ class WP_User_Profile_Avatar_User {
     	}
 
     	// First checking custom avatar.
-	    if( check_wp_user_profile_avatar_url( $user_id ) ) 
+	    if( check_wpupa_url( $user_id ) ) 
 	    {
-	    	$url = get_wp_user_profile_avatar_url( $user_id, ['size' => 'thumbnail'] );
+	    	$url = get_wpupa_url( $user_id, ['size' => 'thumbnail'] );
 	    } 
 	    else if( $wp_user_profile_avatar_disable_gravatar ) 
 	    {
-	    	$url = get_wp_user_default_avatar_url(['size' => 'thumbnail']);
+	    	$url = get_wpupa_default_avatar_url(['size' => 'thumbnail']);
 	    }
 	    else 
 	    {
-	    	$has_valid_url = check_wp_user_gravatar($id_or_email);
+	    	$has_valid_url = check_wpupa_gravatar($id_or_email);
 	      	if(!$has_valid_url)
 	      	{
-	        	$url = get_wp_user_default_avatar_url(['size' => 'thumbnail']);
+	        	$url = get_wpupa_default_avatar_url(['size' => 'thumbnail']);
 	      	}
 	      	else
 	      	{
 	      		if($wp_user_profile_avatar_default != 'wp_user_profile_avatar' && !empty($user_id))
 				{
-					$url = get_wp_user_profile_avatar_url( $user_id, ['size' => 'thumbnail' ] );
+					$url = get_wpupa_url( $user_id, ['size' => 'thumbnail' ] );
 				}
 	      	}
 	    }
@@ -93,4 +93,4 @@ class WP_User_Profile_Avatar_User {
 
 }
 
-new WP_User_Profile_Avatar_User();
+new WPUPA_User();

@@ -44,11 +44,11 @@ class WP_User_Profile_Avatar_Shortcodes {
 
 		ob_start();
 
-		$image_url = get_wp_user_profile_avatar_url( $user_id, ['size' => $size ] );
+		$image_url = get_wpupa_url( $user_id, ['size' => $size ] );
 
 		if($link == 'image') {
 	        // Get image src
-	        $link = get_wp_user_profile_avatar_url( $user_id, ['size' => 'original' ] );
+	        $link = get_wpupa_url( $user_id, ['size' => 'original' ] );
 	    } 
 	    elseif($link == 'attachment') 
 	    {
@@ -56,7 +56,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 	        $link = get_attachment_link(get_the_author_meta($wpdb->get_blog_prefix($blog_id).'user_avatar', $user_id));
 	    }
 		
-		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '/templates/wp-user-avatar.php' );
+		include_once (WPUPA_PLUGIN_DIR . '/templates/wp-user-avatar.php' );
 
 		return ob_get_clean();
 
@@ -113,13 +113,13 @@ class WP_User_Profile_Avatar_Shortcodes {
 
 		wp_enqueue_script( 'wp-user-profile-avatar-frontend-avatar' );
 
-		$wp_user_profile_avatar_original = get_wp_user_profile_avatar_url($user_id, ['size' => 'original']);
-		$wp_user_profile_avatar_thumbnail = get_wp_user_profile_avatar_url($user_id, ['size' => 'thumbnail']);
+		$wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
+		$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
 		$wp_user_profile_avatar_attachment_id = get_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', true);
 		$wp_user_profile_avatar_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
 		
-		include_once (WP_USER_PROFILE_AVATAR_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
+		include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
 
 		return ob_get_clean();
 	}
@@ -199,8 +199,8 @@ class WP_User_Profile_Avatar_Shortcodes {
 		}
 		else
 		{
-			$wp_user_profile_avatar_original = get_wp_user_profile_avatar_url($user_id, ['size' => 'original']);
-			$wp_user_profile_avatar_thumbnail = get_wp_user_profile_avatar_url($user_id, ['size' => 'thumbnail']);
+			$wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
+			$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 			$message = __( 'Successfully Updated Avatar', 'wp-user-profile-avatar');
 			$class = 'wp-user-profile-avatar-success';
 		}
@@ -231,8 +231,8 @@ class WP_User_Profile_Avatar_Shortcodes {
         update_user_meta($user_id, 'wp_user_profile_avatar_url', '');
         update_user_meta( $user_id, 'wp_user_profile_avatar_default', '' );
 
-        $wp_user_profile_avatar_original = get_wp_user_profile_avatar_url($user_id, ['size' => 'original']);
-		$wp_user_profile_avatar_thumbnail = get_wp_user_profile_avatar_url($user_id, ['size' => 'thumbnail']);
+        $wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
+		$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
 		$message = __( 'Successfully Removed Avatar', 'wp-user-profile-avatar');
 		$class = 'wp-user-profile-avatar-success';
@@ -271,8 +271,8 @@ class WP_User_Profile_Avatar_Shortcodes {
 			update_user_meta( $user_id, 'wp_user_profile_avatar_default', '' );
 		}
 
-        $wp_user_profile_avatar_original = get_wp_user_profile_avatar_url($user_id, ['size' => 'original']);
-		$wp_user_profile_avatar_thumbnail = get_wp_user_profile_avatar_url($user_id, ['size' => 'thumbnail']);
+        $wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
+		$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
 		$message = __( 'Successfully Undo Avatar', 'wp-user-profile-avatar');
 		$class = 'wp-user-profile-avatar-success';
