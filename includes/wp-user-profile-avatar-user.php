@@ -70,20 +70,20 @@ class WP_User_Profile_Avatar_User {
 	    } 
 	    else if( $wp_user_profile_avatar_disable_gravatar ) 
 	    {
-	    	$url = get_wp_user_default_avatar_url(['size' => 'admin']);
+	    	$url = get_wp_user_default_avatar_url(['size' => 'thumbnail']);
 	    }
 	    else 
 	    {
 	    	$has_valid_url = check_wp_user_gravatar($id_or_email);
 	      	if(!$has_valid_url)
 	      	{
-	        	$url = get_wp_user_default_avatar_url(['size' => 'admin']);
+	        	$url = get_wp_user_default_avatar_url(['size' => 'thumbnail']);
 	      	}
 	      	else
 	      	{
 	      		if($wp_user_profile_avatar_default != 'wp_user_profile_avatar' && !empty($user_id))
 				{
-					$url = get_wp_user_profile_avatar_url( $user_id, ['size' => 'admin' ] );
+					$url = get_wp_user_profile_avatar_url( $user_id, ['size' => 'thumbnail' ] );
 				}
 	      	}
 	    }

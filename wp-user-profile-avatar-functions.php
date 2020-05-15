@@ -52,17 +52,14 @@ if ( ! function_exists( 'get_wp_user_default_avatar_url' ) ) {
 	function get_wp_user_default_avatar_url($args = []) {
 		
 		$size = !empty($args['size']) ? $args['size'] : 'thumbnail';
-		$user_id = !empty($args['user_id']) ? $args['user_id'] : '';		
+		$user_id = !empty($args['user_id']) ? $args['user_id'] : '';
 
-		if(!empty($user_id))
+		$wp_user_profile_avatar_default = get_option('wp_user_profile_avatar_default');	
+
+		if($size == 'admin')
 		{
-			$wp_user_profile_avatar_default = get_option('wp_user_profile_avatar_default');	
-		}
-		else
-		{
-			$wp_user_profile_avatar_default = '';	
-		}
-		
+			$wp_user_profile_avatar_default = '';
+		}		
 
 		if($wp_user_profile_avatar_default == 'wp_user_profile_avatar')
 		{

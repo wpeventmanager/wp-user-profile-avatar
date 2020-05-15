@@ -12,3 +12,8 @@
 #wp-user-profile-avatar-upload-messages span { display: block; }
 .wp-user-profile-avatar-hide { display: none !important; }
 .wp-user-profile-avatar-no-avatars { display: none; }
+
+.wp-user-profile-avatar .alignleft {float: left;margin: 0.3rem 2rem 2rem 2rem;}
+.wp-user-profile-avatar .alignright {float: right;margin: 0.3rem 0 2rem 2rem;}
+.wp-user-profile-avatar .aligncenter {margin-bottom: 4rem;margin-top: 4rem;margin-left: auto;margin-right: auto;text-align: center;}
+.wp-user-profile-avatar .alignnone {margin-bottom: 4rem;margin-top: 4rem;margin-left: auto;margin-right: auto;text-align: center;}

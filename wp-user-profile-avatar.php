@@ -161,9 +161,9 @@ class WP_User_Profile_Avatar {
      */
 	public function frontend_scripts() {
 
-		wp_enqueue_style( 'wp-user-profile-avatar-frontend', WP_USER_PROFILE_AVATAR_PLUGIN_URL . '/assets/css/frontend.css');
+		wp_enqueue_style( 'wp-user-profile-avatar-frontend', WP_USER_PROFILE_AVATAR_PLUGIN_URL . '/assets/css/frontend.min.css');
 
-		wp_register_script( 'wp-user-profile-avatar-frontend-avatar', WP_USER_PROFILE_AVATAR_PLUGIN_URL . '/assets/js/frontend-avatar.js', array( 'jquery' ), WP_USER_PROFILE_AVATAR_VERSION, true);
+		wp_register_script( 'wp-user-profile-avatar-frontend-avatar', WP_USER_PROFILE_AVATAR_PLUGIN_URL . '/assets/js/frontend-avatar.min.js', array( 'jquery' ), WP_USER_PROFILE_AVATAR_VERSION, true);
 		
 		wp_localize_script( 'wp-user-profile-avatar-frontend-avatar', 'wp_user_profile_avatar_frontend_avatar', array( 
 								'ajax_url' 	 => admin_url( 'admin-ajax.php' ),

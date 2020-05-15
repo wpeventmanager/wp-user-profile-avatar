@@ -33,7 +33,7 @@ var AdminAvatar = function () {
                 setTimeout(function(){ 
                     jQuery('.mce-thickbox button').remove();
                     jQuery('.mce-thickbox').html('<a href="' + wp_user_profile_avatar_admin_avatar.thinkbox_ajax_url + '" class="thickbox mce-toolbar" title="' + wp_user_profile_avatar_admin_avatar.thinkbox_title + '"><img class="mce-ico" src="' + wp_user_profile_avatar_admin_avatar.default_avatar + '"></a>');
-                }, 1000);
+                }, 1500);
             }            
 
         },

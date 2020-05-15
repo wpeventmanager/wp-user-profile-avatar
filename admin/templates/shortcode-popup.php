@@ -33,6 +33,7 @@
 			    					}
 			    					?>
 		    					</select>
+		    					<span class="wp-user-profile-avatar-tool-tip" title="<?php _e('Size parameter only work when you have uploaded avatar using media library. It will not give effect when you will set avatar using custom url.', 'wp-user-profile-avatar'); ?>"></span>
 		    				</td>
 		    			</tr>
 		    			<tr>
