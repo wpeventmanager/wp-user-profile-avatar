@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 			<tr>
 				<td>
 					<p>
-					<input type="text" name="wp_user_profile_avatar_url" class="regular-text code" value="<?php echo $wp_user_profile_avatar_url; ?>" placeholder="Enter Image URL">
+					<input type="text" name="wp_user_profile_avatar_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
 					</p>
 
 					<p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 						<?php /* <button type="button" class="button" id="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button> */ ?>
 						<input type="file" name="wp_user_profile_avatar_upload" class="input-text wp-user-profile-avatar-image" accept="image/jpg, image/jpeg, image/gif, image/png" >
 
-						<input type="hidden" name="wp_user_profile_avatar_attachment_id" id="wp_user_profile_avatar_attachment_id" value="<?php echo $wp_user_profile_avatar_attachment_id; ?>">
+						<input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo $wpupa_attachment_id; ?>">
 						<input type="hidden" name="user_id" id="wp_user_id" value="<?php echo $user_id; ?>">
 					</p>
 				</td>
@@ -27,7 +27,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 
 			<?php
           	$class_hide = 'wp-user-profile-avatar-hide';
-          	if(!empty($wp_user_profile_avatar_attachment_id))
+          	if(!empty($wpupa_attachment_id))
           	{
           		$class_hide = '';
           	}
@@ -35,11 +35,11 @@ if ( ! defined( 'ABSPATH' ) ) exit; ?>
 			<tr id="wp-user-profile-avatar-images-existing">
 				<td>
 			      	<p id="wp-user-profile-avatar-preview">
-			        	<img src="<?php echo $wp_user_profile_avatar_original; ?>" alt="">
+			        	<img src="<?php echo $wpupa_original; ?>" alt="">
 			        	<span class="description"><?php _e('Original Size', 'wp-user-profile-avatar'); ?></span>
 			      	</p>
 			      	<p id="wp-user-profile-avatar-thumbnail">
-			        	<img src="<?php echo $wp_user_profile_avatar_thumbnail; ?>" alt="">
+			        	<img src="<?php echo $wpupa_thumbnail; ?>" alt="">
 			        	<span class="description"><?php _e('Thumbnail', 'wp-user-profile-avatar'); ?></span>
 			      	</p>
 			      	<p id="wp-user-profile-avatar-remove-button" class="<?php echo $class_hide; ?>">

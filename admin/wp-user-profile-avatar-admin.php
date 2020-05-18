@@ -17,8 +17,8 @@ class WPUPA_Admin {
 	{
 		include_once( 'wp-user-profile-avatar-settings.php' );
 
-		$wp_user_profile_avatar_tinymce = get_option('wp_user_profile_avatar_tinymce');
-	    if($wp_user_profile_avatar_tinymce) 
+		$wpupa_tinymce = get_option('wpupa_tinymce');
+	    if($wpupa_tinymce) 
 	    {	
 	      	add_action('init', array( $this, 'wpupa_add_buttons'));
 	    }
@@ -98,11 +98,11 @@ class WPUPA_Admin {
 
 		$user_id = $user->ID;
 
-		$wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
-		$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+		$wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
+		$wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
-		$wp_user_profile_avatar_attachment_id = get_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', true);
-		$wp_user_profile_avatar_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
+		$wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
+		$wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
 
 		?>
 		<h3><?php _e('WP User Profile Avatar', 'wp-user-profile-avatar'); ?></h3>
@@ -114,23 +114,23 @@ class WPUPA_Admin {
 				</th>
 				<td>
 					<p>
-						<input type="text" name="wp_user_profile_avatar_url" id="wp_user_profile_avatar_url" class="regular-text code" value="<?php echo $wp_user_profile_avatar_url; ?>" placeholder="Enter Image URL">
+						<input type="text" name="wp_user_profile_avatar_url" id="wp_user_profile_avatar_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
 					</p>
 
 					<p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
 
 					<p id="wp-user-profile-avatar-add-button-existing">
 						<button type="button" class="button" id="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button>
-						<input type="hidden" name="wp_user_profile_avatar_attachment_id" id="wp_user_profile_avatar_attachment_id" value="<?php echo $wp_user_profile_avatar_attachment_id; ?>">
+						<input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo $wpupa_attachment_id; ?>">
 					</p>
 
 					<?php
 	              	$class_hide = 'wp-user-profile-avatar-hide';
-	              	if(!empty($wp_user_profile_avatar_attachment_id))
+	              	if(!empty($wpupa_attachment_id))
 	              	{
 	              		$class_hide = '';
 	              	}
-	              	else if(!empty($wp_user_profile_avatar_url))
+	              	else if(!empty($wpupa_url))
 	              	{
 	              		$class_hide = '';
 	              	}
@@ -138,11 +138,11 @@ class WPUPA_Admin {
 	              	?>
 					<div id="wp-user-profile-avatar-images-existing">
 				      	<p id="wp-user-profile-avatar-preview">
-				        	<img src="<?php echo $wp_user_profile_avatar_original; ?>" alt="">
+				        	<img src="<?php echo $wpupa_original; ?>" alt="">
 				        	<span class="description"><?php _e('Original Size', 'wp-user-profile-avatar'); ?></span>
 				      	</p>
 				      	<p id="wp-user-profile-avatar-thumbnail">
-				        	<img src="<?php echo $wp_user_profile_avatar_thumbnail; ?>" alt="">
+				        	<img src="<?php echo $wpupa_thumbnail; ?>" alt="">
 				        	<span class="description"><?php _e('Thumbnail', 'wp-user-profile-avatar'); ?></span>
 				      	</p>
 				      	<p id="wp-user-profile-avatar-remove-button" class="<?php echo $class_hide; ?>">
@@ -172,18 +172,18 @@ class WPUPA_Admin {
 			return FALSE;
 
 		$wpupa_url=esc_url_raw($_POST['wp_user_profile_avatar_url']);
-		$wpupa_attachment_id=absint($_POST['wp_user_profile_avatar_attachment_id']);
+		$wpupa_attachment_id=absint($_POST['wpupa_attachment_id']);
 		
-		update_user_meta( $user_id, 'wp_user_profile_avatar_attachment_id', $wpupa_attachment_id );
-		update_user_meta( $user_id, 'wp_user_profile_avatar_url', $wpupa_url );
+		update_user_meta( $user_id, '_wpupa_attachment_id', $wpupa_attachment_id );
+		update_user_meta( $user_id, '_wpupa_url', $wpupa_url );
 
 		if( !empty($wpupa_attachment_id) || !empty($wpupa_url) )
 		{
-			update_user_meta( $user_id, 'wp_user_profile_avatar_default', 'wp_user_profile_avatar' );
+			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
 		}
 		else
 		{
-			update_user_meta( $user_id, 'wp_user_profile_avatar_default', '' );
+			update_user_meta( $user_id, '_wpupa_default', '' );
 		}
 		
 	}

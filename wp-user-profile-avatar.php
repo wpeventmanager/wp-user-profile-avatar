@@ -112,7 +112,7 @@ class WP_User_Profile_Avatar {
      * @since 1.0
      */
 	public function updater() {
-		if ( version_compare( WPUPA_VERSION, get_option( 'wp_user_profile_avatar_version' ), '>' ) ) {
+		if ( version_compare( WPUPA_VERSION, get_option( 'wpupa_version' ), '>' ) ) {
 
 			WPUPA_Install::install();
 			flush_rewrite_rules();

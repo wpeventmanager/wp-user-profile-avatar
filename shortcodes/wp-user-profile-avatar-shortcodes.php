@@ -85,7 +85,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 			return false;
 		}
 
-		$wp_user_profile_avatar_allow_upload = get_option('wp_user_profile_avatar_allow_upload');
+		$wpupa_allow_upload = get_option('wpupa_allow_upload');
 
 		$user_id = get_current_user_id();
 
@@ -93,7 +93,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 
 		if(in_array('contributor', $user_data->roles))
 		{	
-			if(empty($wp_user_profile_avatar_allow_upload))
+			if(empty($wpupa_allow_upload))
 			{
 				echo '<h5><strong style="color:red;">' . __( 'ERROR: ', 'wp-event-manager-zoom' ) . '</strong>' . __( 'You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar' ) . '</h5>';
 
@@ -103,7 +103,7 @@ class WP_User_Profile_Avatar_Shortcodes {
 
 		if(in_array('subscriber', $user_data->roles))
 		{	
-			if(empty($wp_user_profile_avatar_allow_upload))
+			if(empty($wpupa_allow_upload))
 			{
 				echo '<h5><strong style="color:red;">' . __( 'ERROR: ', 'wp-event-manager-zoom' ) . '</strong>' . __( 'You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar' ) . '</h5>';
 
@@ -113,11 +113,11 @@ class WP_User_Profile_Avatar_Shortcodes {
 
 		wp_enqueue_script( 'wp-user-profile-avatar-frontend-avatar' );
 
-		$wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
-		$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+		$wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
+		$wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
-		$wp_user_profile_avatar_attachment_id = get_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', true);
-		$wp_user_profile_avatar_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
+		$wpupa_attachment_id = get_user_meta($user_id, 'wpupa_attachment_id', true);
+		$wpupa_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
 		
 		include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
 
@@ -166,44 +166,44 @@ class WP_User_Profile_Avatar_Shortcodes {
 
             $result = wp_update_attachment_metadata($attach_id, $attach_data);
 
-            update_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', $attach_id);
+            update_user_meta($user_id, '_wpupa_attachment_id', $attach_id);
         }
         else
         {
-        	update_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', $form_data['wp_user_profile_avatar_attachment_id']);
+        	update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
         }
 
-        update_user_meta($user_id, 'wp_user_profile_avatar_url', $form_data['wp_user_profile_avatar_url']);
+        update_user_meta($user_id, '_wpupa_url', $form_data['wp_user_profile_avatar_url']);
 
-        if(!empty($form_data['wp_user_profile_avatar_attachment_id']) || $form_data['wp_user_profile_avatar_url'])
+        if(!empty($form_data['wpupa_attachment_id']) || $form_data['wp_user_profile_avatar_url'])
 		{
-			update_user_meta( $user_id, 'wp_user_profile_avatar_default', 'wp_user_profile_avatar' );
+			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
 		}
 		else
 		{
-			update_user_meta( $user_id, 'wp_user_profile_avatar_default', '' );
+			update_user_meta( $user_id, '_wpupa_default', '' );
 		}
 
 
-        $wp_user_profile_avatar_attachment_id = get_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', true);
-		$wp_user_profile_avatar_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
+        $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
+		$wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
 
-		if( empty($wp_user_profile_avatar_attachment_id) && empty($wp_user_profile_avatar_url))
+		if( empty($wpupa_attachment_id) && empty($wpupa_url))
 		{
-			$wp_user_profile_avatar_original = '';
-			$wp_user_profile_avatar_thumbnail = '';
+			$wpupa_original = '';
+			$wpupa_thumbnail = '';
 			$message = __( 'Error! Select Image', 'wp-user-profile-avatar');
 			$class = 'wp-user-profile-avatar-error';
 		}
 		else
 		{
-			$wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
-			$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+			$wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
+			$wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 			$message = __( 'Successfully Updated Avatar', 'wp-user-profile-avatar');
 			$class = 'wp-user-profile-avatar-success';
 		}
 
-		echo json_encode(['avatar_original' => $wp_user_profile_avatar_original, 'avatar_thumbnail' => $wp_user_profile_avatar_thumbnail, 'message' => $message, 'class' => $class]);
+		echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
 
         wp_die();
 	}
@@ -223,17 +223,17 @@ class WP_User_Profile_Avatar_Shortcodes {
         parse_str($form_data, $_POST['form_data']); 
         $user_id = absint($form_data['user_id']);
 
-        update_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', '');
-        update_user_meta($user_id, 'wp_user_profile_avatar_url', '');
-        update_user_meta( $user_id, 'wp_user_profile_avatar_default', '' );
+        update_user_meta($user_id, '_wpupa_attachment_id', '');
+        update_user_meta($user_id, '_wpupa_url', '');
+        update_user_meta( $user_id, '_wpupa_default', '' );
 
-        $wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
-		$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+        $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
+		$wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
 		$message = __( 'Successfully Removed Avatar', 'wp-user-profile-avatar');
 		$class = 'wp-user-profile-avatar-success';
 
-		echo json_encode(['avatar_original' => $wp_user_profile_avatar_original, 'avatar_thumbnail' => $wp_user_profile_avatar_thumbnail, 'message' => $message, 'class' => $class]);
+		echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
 
         wp_die();
     }
@@ -255,25 +255,25 @@ class WP_User_Profile_Avatar_Shortcodes {
 
         //_wpupa_attachment_id
 
-        update_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', $form_data['wp_user_profile_avatar_attachment_id']);
-        update_user_meta($user_id, 'wp_user_profile_avatar_url', $form_data['wp_user_profile_avatar_url']);
+        update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
+        update_user_meta($user_id, '_wpupa_url', $form_data['wp_user_profile_avatar_url']);
 
-        if(!empty($form_data['wp_user_profile_avatar_attachment_id']) || $form_data['wp_user_profile_avatar_url'])
+        if(!empty($form_data['wpupa_attachment_id']) || $form_data['wp_user_profile_avatar_url'])
 		{
-			update_user_meta( $user_id, 'wp_user_profile_avatar_default', 'wp_user_profile_avatar' );
+			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
 		}
 		else
 		{
-			update_user_meta( $user_id, 'wp_user_profile_avatar_default', '' );
+			update_user_meta( $user_id, '_wpupa_default', '' );
 		}
 
-        $wp_user_profile_avatar_original = get_wpupa_url($user_id, ['size' => 'original']);
-		$wp_user_profile_avatar_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+        $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
+		$wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
 		$message = __( 'Successfully Undo Avatar', 'wp-user-profile-avatar');
 		$class = 'wp-user-profile-avatar-success';
 
-		echo json_encode(['avatar_original' => $wp_user_profile_avatar_original, 'avatar_thumbnail' => $wp_user_profile_avatar_thumbnail, 'message' => $message, 'class' => $class]);
+		echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
 
         wp_die();
     }

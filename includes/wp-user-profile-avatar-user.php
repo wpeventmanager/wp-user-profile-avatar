@@ -28,13 +28,13 @@ class WPUPA_User {
      */
 	public function get_user_avatar_url($url, $id_or_email, $args)
 	{
-		$wp_user_profile_avatar_disable_gravatar = get_option('wp_user_profile_avatar_disable_gravatar');
+		$wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
 
-		$wp_user_profile_avatar_show_avatars = get_option('wp_user_profile_avatar_show_avatars');
+		$wpupa_show_avatars = get_option('wpupa_show_avatars');
 
-		$wp_user_profile_avatar_default = get_option('wp_user_profile_avatar_default');	
+		$wpupa_default = get_option('wpupa_default');	
 
-		if(!$wp_user_profile_avatar_show_avatars)
+		if(!$wpupa_show_avatars)
 		{
 			return false;
 		}
@@ -68,7 +68,7 @@ class WPUPA_User {
 	    {
 	    	$url = get_wpupa_url( $user_id, ['size' => 'thumbnail'] );
 	    } 
-	    else if( $wp_user_profile_avatar_disable_gravatar ) 
+	    else if( $wpupa_disable_gravatar ) 
 	    {
 	    	$url = get_wpupa_default_avatar_url(['size' => 'thumbnail']);
 	    }
@@ -81,7 +81,7 @@ class WPUPA_User {
 	      	}
 	      	else
 	      	{
-	      		if($wp_user_profile_avatar_default != 'wp_user_profile_avatar' && !empty($user_id))
+	      		if($wpupa_default != 'wp_user_profile_avatar' && !empty($user_id))
 				{
 					$url = get_wpupa_url( $user_id, ['size' => 'thumbnail' ] );
 				}
