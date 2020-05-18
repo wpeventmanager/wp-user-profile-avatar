@@ -1,5 +1,5 @@
 <?php
-class WP_User_Profile_Avatar_Shortcodes {
+class WPUPA_Shortcodes {
 
 	/**
 	 * Constructor - get the plugin hooked in and ready
@@ -299,4 +299,4 @@ class WP_User_Profile_Avatar_Shortcodes {
 
 }
 
-new WP_User_Profile_Avatar_Shortcodes();
+new WPUPA_Shortcodes();
