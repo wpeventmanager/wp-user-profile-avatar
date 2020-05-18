@@ -187,7 +187,7 @@ add_filter('plugin_action_links_'.plugin_basename(__FILE__), 'add_plugin_page_wp
 /**
  * Main instance of WP User Profile Avatar.
  *
- * Returns the main instance of WP User Profile Avatar to prevent the need to use globals.
+ * Returns the main instance of WP User Profile Avatar to prevent the need to use globals.  
  *
  * @since  1.0
  * @return WP_User_Profile_Avatar

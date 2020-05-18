@@ -26,11 +26,11 @@ var FrontendAvatar = function () {
                 jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-success');
                 jQuery('#upload_avatar_responce').html('');
 
-                var formData = jQuery('.update-user-profile-avatar').serialize();
+                var form_data = jQuery('.update-user-profile-avatar').serialize();
 
                 var fd = new FormData();
                 fd.append("action", 'remove_user_avatar');
-                fd.append("formData", formData);
+                fd.append("form_data", form_data);
                 fd.append("security", wp_user_profile_avatar_frontend_avatar.wp_user_profile_avatar_security);
 
                 jQuery.ajax({
@@ -72,11 +72,11 @@ var FrontendAvatar = function () {
                 jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-success');
                 jQuery('#upload_avatar_responce').html('');
 
-                var formData = jQuery('.update-user-profile-avatar').serialize();
+                var form_data = jQuery('.update-user-profile-avatar').serialize();
 
                 var fd = new FormData();
                 fd.append("action", 'undo_user_avatar');
-                fd.append("formData", formData);
+                fd.append("form_data", form_data);
                 fd.append("security", wp_user_profile_avatar_frontend_avatar.wp_user_profile_avatar_security);
 
                 jQuery.ajax({
@@ -116,12 +116,12 @@ var FrontendAvatar = function () {
                 jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-success');
                 jQuery('#upload_avatar_responce').html('');
                 
-                var formData = jQuery('.update-user-profile-avatar').serialize();
+                var form_data = jQuery('.update-user-profile-avatar').serialize();
 
                 var fd = new FormData();
                 fd.append("user-avatar", jQuery('.wp-user-profile-avatar-image')[0].files[0]);
                 fd.append("action", 'update_user_avatar');
-                fd.append("formData", formData);
+                fd.append("form_data", form_data);
                 fd.append("security", wp_user_profile_avatar_frontend_avatar.wp_user_profile_avatar_security);
 
                 jQuery.ajax({

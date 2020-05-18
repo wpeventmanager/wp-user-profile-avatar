@@ -169,12 +169,15 @@ class WPUPA_Admin {
 	public function wpupa_save_fields( $user_id ) 
 	{
 		if ( !current_user_can( 'edit_user', $user_id ) )
-		return FALSE;
-		
-		update_user_meta( $user_id, 'wp_user_profile_avatar_attachment_id', $_POST['wp_user_profile_avatar_attachment_id'] );
-		update_user_meta( $user_id, 'wp_user_profile_avatar_url', $_POST['wp_user_profile_avatar_url'] );
+			return FALSE;
 
-		if( !empty($_POST['wp_user_profile_avatar_attachment_id']) || !empty($_POST['wp_user_profile_avatar_url']) )
+		$wpupa_url=esc_url_raw($_POST['wp_user_profile_avatar_url']);
+		$wpupa_attachment_id=absint($_POST['wp_user_profile_avatar_attachment_id']);
+		
+		update_user_meta( $user_id, 'wp_user_profile_avatar_attachment_id', $wpupa_attachment_id );
+		update_user_meta( $user_id, 'wp_user_profile_avatar_url', $wpupa_url );
+
+		if( !empty($wpupa_attachment_id) || !empty($wpupa_url) )
 		{
 			update_user_meta( $user_id, 'wp_user_profile_avatar_default', 'wp_user_profile_avatar' );
 		}

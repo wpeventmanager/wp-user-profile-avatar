@@ -107,8 +107,9 @@ You will need to place below code in each area of your theme where you wish to a
     $imgURL='';
 
     // Get the image URL using the author ID and image size params
-    if (function_exists('get_user_profile_avatar_url')) 
-        $imgURL = get_user_profile_avatar_url($authorID, $size);
+    if (function_exists('get_wpupa_url')) 
+            
+        $imgURL = get_wpupa_url($authorID, ['size' => $size]);
 
     // display image on the page
     echo '<img src="'. $imgURL .'" alt="'. $authorname .'">';

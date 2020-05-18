@@ -7,7 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WPUPA_Settings class.
  */
-
 class WPUPA_Settings {
 
 	/**

@@ -136,19 +136,17 @@ class WP_User_Profile_Avatar_Shortcodes {
 	{
 		check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-		$form_data = $_POST['formData'];
-        parse_str($form_data, $form_data);
+		parse_str($form_data, $_POST['form_data']);        
+        $user_id = absint($form_data['user_id']);
+        $file = sanitize_file_name($_FILES['user-avatar']);         
 
-        $user_id = $form_data['user_id'];
-
-		if (!empty($_FILES['user-avatar']))
+		if (!empty($file))
         {
-            $file = $_FILES['user-avatar'];            
-
+              
             $post_id = 0;
 
             // Upload file
-            $overrides     = array('test_form' => false);
+            $overrides     = array('wpupa_frontend_form' => false);
             $uploaded_file = $this->handle_upload($file, $overrides);
 
             $attachment = array(
@@ -222,10 +220,8 @@ class WP_User_Profile_Avatar_Shortcodes {
     {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-		$form_data = $_POST['formData'];
-        parse_str($form_data, $form_data);
-
-        $user_id = $form_data['user_id'];
+        parse_str($form_data, $_POST['form_data']); 
+        $user_id = absint($form_data['user_id']);
 
         update_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', '');
         update_user_meta($user_id, 'wp_user_profile_avatar_url', '');
@@ -254,10 +250,10 @@ class WP_User_Profile_Avatar_Shortcodes {
     {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-		$form_data = $_POST['formData'];
-        parse_str($form_data, $form_data);
+        parse_str($form_data, $_POST['form_data']); 
+        $user_id = absint($form_data['user_id']);
 
-        $user_id = $form_data['user_id'];
+        //_wpupa_attachment_id
 
         update_user_meta($user_id, 'wp_user_profile_avatar_attachment_id', $form_data['wp_user_profile_avatar_attachment_id']);
         update_user_meta($user_id, 'wp_user_profile_avatar_url', $form_data['wp_user_profile_avatar_url']);

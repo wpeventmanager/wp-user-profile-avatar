@@ -353,18 +353,3 @@ if ( ! function_exists( 'get_wpupa_image_link_to' ) ) {
 		) );
 	}
 }
-
-if ( ! function_exists( 'get_user_profile_avatar_url' ) ) {
-	/**
-     * get_user_profile_avatar_url function.
-     *
-     * @access public
-     * @param $user_id, $size
-     * @return string
-     * @since 1.0
-     */
-	function get_user_profile_avatar_url($user_id = '', $size = 'thumbnail')
-	{
-		return get_wpupa_url($user_id, ['size' => $size]);
-	}
-}
