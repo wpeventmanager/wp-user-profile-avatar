@@ -168,22 +168,31 @@ class WPUPA_Admin {
      */
 	public function wpupa_save_fields( $user_id ) 
 	{
-		if ( !current_user_can( 'edit_user', $user_id ) )
-			return FALSE;
-
-		$wpupa_url=esc_url_raw($_POST['wp_user_profile_avatar_url']);
-		$wpupa_attachment_id=absint($_POST['wpupa_attachment_id']);
-		
-		update_user_meta( $user_id, '_wpupa_attachment_id', $wpupa_attachment_id );
-		update_user_meta( $user_id, '_wpupa_url', $wpupa_url );
-
-		if( !empty($wpupa_attachment_id) || !empty($wpupa_url) )
+		if (current_user_can( 'edit_user', $user_id ) )
 		{
-			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
+			$wpupa_url=esc_url_raw($_POST['wp_user_profile_avatar_url']);
+			$wpupa_attachment_id=absint($_POST['wpupa_attachment_id']);
+
+			if(isset($wpupa_url,$wpupa_attachment_id))
+			{
+				update_user_meta( $user_id, '_wpupa_attachment_id', $wpupa_attachment_id );
+				update_user_meta( $user_id, '_wpupa_url', $wpupa_url );
+			}
+
+
+			if( !empty($wpupa_attachment_id) || !empty($wpupa_url) )
+			{
+				update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
+			}
+			else
+			{
+				update_user_meta( $user_id, '_wpupa_default', '' );
+			}
 		}
 		else
 		{
-			update_user_meta( $user_id, '_wpupa_default', '' );
+		    status_header( '403' );
+		    die();
 		}
 		
 	}

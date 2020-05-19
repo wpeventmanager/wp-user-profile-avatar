@@ -159,28 +159,32 @@ class WPUPA_Shortcodes {
             );
 
             $attachment['post_parent'] = $post_id;
-
             $attach_id = wp_insert_attachment($attachment, $uploaded_file['file'], $post_id);
-
             $attach_data = wp_generate_attachment_metadata($attach_id, $uploaded_file['file']);
 
-            $result = wp_update_attachment_metadata($attach_id, $attach_data);
-
-            update_user_meta($user_id, '_wpupa_attachment_id', $attach_id);
+			if(isset($user_id,$attach_id))
+			{
+				$result = wp_update_attachment_metadata($attach_id, $attach_data);
+            	update_user_meta($user_id, '_wpupa_attachment_id', $attach_id);
+			}
         }
         else
         {
-        	update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
+        	if(isset($user_id,$form_data['wpupa_attachment_id']))
+        		update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
         }
 
-        update_user_meta($user_id, '_wpupa_url', $form_data['wp_user_profile_avatar_url']);
+		if(isset($user_id,$form_data['wp_user_profile_avatar_url']))
+        	update_user_meta($user_id, '_wpupa_url', $form_data['wp_user_profile_avatar_url']);
 
         if(!empty($form_data['wpupa_attachment_id']) || $form_data['wp_user_profile_avatar_url'])
 		{
+			
 			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
 		}
 		else
 		{
+			
 			update_user_meta( $user_id, '_wpupa_default', '' );
 		}
 
@@ -223,9 +227,12 @@ class WPUPA_Shortcodes {
         parse_str($form_data, $_POST['form_data']); 
         $user_id = absint($form_data['user_id']);
 
-        update_user_meta($user_id, '_wpupa_attachment_id', '');
-        update_user_meta($user_id, '_wpupa_url', '');
-        update_user_meta( $user_id, '_wpupa_default', '' );
+		if(isset($user_id))
+		{
+			update_user_meta($user_id, '_wpupa_attachment_id', '');
+        	update_user_meta($user_id, '_wpupa_url', '');
+        	update_user_meta( $user_id, '_wpupa_default', '' );
+		}
 
         $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
 		$wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
@@ -253,10 +260,11 @@ class WPUPA_Shortcodes {
         parse_str($form_data, $_POST['form_data']); 
         $user_id = absint($form_data['user_id']);
 
-        //_wpupa_attachment_id
-
-        update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
-        update_user_meta($user_id, '_wpupa_url', $form_data['wp_user_profile_avatar_url']);
+		if(isset($user_id,$form_data['wpupa_attachment_id'],$form_data['wp_user_profile_avatar_url']))
+		{
+			update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
+        	update_user_meta($user_id, '_wpupa_url', $form_data['wp_user_profile_avatar_url']);
+		}
 
         if(!empty($form_data['wpupa_attachment_id']) || $form_data['wp_user_profile_avatar_url'])
 		{

@@ -40,8 +40,7 @@ class WPUPA_Settings {
 		$wpupa_rating = get_option('wpupa_rating');
 		$wpupa_default = get_option('wpupa_default');
 		$wpupa_attachment_id = get_option('wpupa_attachment_id');
-
-		$wp_user_profile_avatar_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
+		$wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
 		?>
 
 		<div class="wrap">
@@ -111,7 +110,7 @@ class WPUPA_Settings {
 							              	<?php _e('For users without a custom avatar of their own, you can either display a generic logo or a generated one based on their e-mail address.','wp-user-profile-avatar'); ?><br />
 							              	
 							              	<?php $selected = ($wpupa_default == 'wp_user_profile_avatar') ? 'checked="checked"' : ""; ?>
-							              	<label><input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> /> <div id="wp-user-profile-avatar-preview"><img src="<?php echo $wp_user_profile_avatar_attachment_url; ?>" width="32" /></div> <?php _e('WP User Profile Avatar'); ?> </label><br />
+							              	<label><input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> /> <div id="wp-user-profile-avatar-preview"><img src="<?php echo $wpupa_attachment_url; ?>" width="32" /></div> <?php _e('WP User Profile Avatar'); ?> </label><br />
 
 							              	<?php
 							              	$class_hide = 'wp-user-profile-avatar-hide';
@@ -208,6 +207,11 @@ class WPUPA_Settings {
 			update_option( 'wpupa_default', $wpupa_default );
 			update_option( 'wpupa_attachment_id', $wpupa_attachment_id );
 
+		}
+		else
+		{
+		    status_header( '401' );
+		    die();
 		}
 	}
 
