@@ -285,18 +285,32 @@ class WPUPA_Admin {
 		$organizer = get_role('organizer');
 		$contributor = get_role('contributor');
 
-		$wpupa_tinymce = get_option('wpupa_allow_upload');		
+		$wpupa_allow_upload = get_option('wpupa_allow_upload');		
 
-		if($wpupa_tinymce)
+		if(!empty($organizer))
 		{
-			$organizer->add_cap('upload_files');
-			$contributor->add_cap('upload_files');
+			if($wpupa_allow_upload)
+			{
+				$organizer->add_cap('upload_files');
+			}
+			else
+			{
+				$organizer->remove_cap('upload_files');
+			}
 		}
-		else
+
+		if(!empty($contributor))
 		{
-			$organizer->remove_cap('upload_files');
-			$contributor->remove_cap('upload_files');
+			if($wpupa_allow_upload)
+			{
+				$contributor->add_cap('upload_files');
+			}
+			else
+			{
+				$contributor->remove_cap('upload_files');
+			}
 		}
+		
 	}
 
 
