@@ -33,7 +33,7 @@ class WPUPA_Admin {
 		add_action( 'personal_options_update', array( $this, 'wpupa_save_fields' ) );
 		add_action( 'edit_user_profile_update', array( $this, 'wpupa_save_fields' ) );
 
-		add_action( 'admin_init', array($this,'allow_organizer_contributor_uploads'));
+		add_action( 'admin_init', array($this,'allow_contributor_subscriber_uploads'));
 
 		add_action('init', array( $this, 'thickbox_model_init'));
 		add_action('wp_ajax_thickbox_model_view', array( $this, 'thickbox_model_view'));
@@ -280,24 +280,12 @@ class WPUPA_Admin {
      * @return 
      * @since 1.0
      */
-	public function allow_organizer_contributor_uploads() 
-	{
-		$organizer = get_role('organizer');
+	public function allow_contributor_subscriber_uploads() 
+	{		
 		$contributor = get_role('contributor');
+		$subscriber = get_role('subscriber');
 
 		$wpupa_allow_upload = get_option('wpupa_allow_upload');		
-
-		if(!empty($organizer))
-		{
-			if($wpupa_allow_upload)
-			{
-				$organizer->add_cap('upload_files');
-			}
-			else
-			{
-				$organizer->remove_cap('upload_files');
-			}
-		}
 
 		if(!empty($contributor))
 		{
@@ -308,6 +296,18 @@ class WPUPA_Admin {
 			else
 			{
 				$contributor->remove_cap('upload_files');
+			}
+		}
+
+		if(!empty($subscriber))
+		{
+			if($wpupa_allow_upload)
+			{
+				$subscriber->add_cap('upload_files');
+			}
+			else
+			{
+				$subscriber->remove_cap('upload_files');
 			}
 		}
 		
