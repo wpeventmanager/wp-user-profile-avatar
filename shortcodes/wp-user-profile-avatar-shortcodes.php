@@ -135,15 +135,24 @@ class WPUPA_Shortcodes {
 	public function update_user_avatar() 
 	{
 		check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
-
+  
 		parse_str($_POST['form_data'], $form_data);
 
-        $user_id = absint($form_data['user_id']);
+		// Loop through the form_data and sanitize each of the values			
+		foreach ( $form_data as $key => $val ) {								
+			$form_data[ $key ] = ( isset( $form_data[ $key ] ) ) ? sanitize_text_field( $val ) : '';
+		}
+		$user_id = absint($form_data['user_id']);
 
-        if (isset($_FILES['user-avatar']) && !empty($file))
+		$file = $_FILES['user-avatar'];
+		// Loop through the file and sanitize each of the values			
+		foreach ( $file as $key => $val ) {								
+			$file[ $key ] = ( isset( $file[ $key ] ) ) ? sanitize_text_field( $val ) : '';
+		}
+
+        if (isset($file) && !empty($file))
         {
-        	$file = $_FILES['user-avatar'];
-
+        	
             $post_id = 0;
 
             // Upload file
@@ -225,7 +234,11 @@ class WPUPA_Shortcodes {
 
         parse_str($_POST['form_data'], $form_data);
 
-        $user_id = absint($form_data['user_id']);
+        // Loop through the form_data and sanitize each of the values			
+		foreach ( $form_data as $key => $val ) {								
+			$form_data[ $key ] = ( isset( $form_data[ $key ] ) ) ? sanitize_text_field( $val ) : '';
+		}
+		$user_id = absint($form_data['user_id']);
 
 		if(isset($user_id))
 		{
@@ -258,7 +271,11 @@ class WPUPA_Shortcodes {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
         parse_str($_POST['form_data'], $form_data); 
-        
+
+        // Loop through the form_data and sanitize each of the values			
+		foreach ($form_data as $key => $val ) {								
+			$form_data[ $key ] = ( isset( $form_data[ $key ] ) ) ? sanitize_text_field( $val ) : '';
+		}
         $user_id = absint($form_data['user_id']);
 
 		if(isset($user_id,$form_data['wpupa_attachment_id'],$form_data['wpupa_url']))
