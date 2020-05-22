@@ -89,7 +89,11 @@ if ( ! function_exists( 'get_wpupa_default_avatar_url' ) ) {
 		{
 			if(!empty($wpupa_default))
 			{
-				if($size == 'original')
+				if($size == 'admin')
+				{
+					return WPUPA_PLUGIN_URL.'/assets/images/wp-user-'. $size .'.png';
+				}
+				else if($size == 'original')
 				{
 					$size_no = 512;
 				}
