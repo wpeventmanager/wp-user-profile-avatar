@@ -138,33 +138,35 @@ class WPUPA_Shortcodes {
   
 		parse_str($_POST['form_data'], $form_data);
 
-		// Loop through the form_data and sanitize each of the values			
-		foreach ( $form_data as $key => $val ) {								
-			$form_data[ $key ] = ( isset( $form_data[ $key ] ) ) ? sanitize_text_field( $val ) : '';
-		}
-		$user_id = absint($form_data['user_id']);
+		//sanitize each of the values of form data
+		$form_wpupa_url =esc_url_raw($form_data['wpupa_url']);
+		$form_wpupa_attachment_id =absint($form_data['wpupa_attachment_id']);
+		$user_id =absint($form_data['user_id']);
 
+		
 		$file = $_FILES['user-avatar'];
-		// Loop through the file and sanitize each of the values			
-		foreach ( $file as $key => $val ) {								
-			$file[ $key ] = ( isset( $file[ $key ] ) ) ? sanitize_text_field( $val ) : '';
-		}
 
         if (isset($file) && !empty($file))
         {
         	
             $post_id = 0;
 
+			//sanitize each of the values of file data
+            $file_name=sanitize_file_name($file['name']);
+			$file_type=sanitize_text_field($file['type']);
+			$file_tmp_name=sanitize_text_field($file['tmp_name']);
+			$file_size=absint($file['size']);
+
             // Upload file
             $overrides     = array('test_form' => false);
             $uploaded_file = $this->handle_upload($file, $overrides);
 
             $attachment = array(
-                'post_title'     => $file['name'],
+                'post_title'     => $file_name,
                 'post_content'   => '',
                 'post_type'      => 'attachment',
                 'post_parent'    => null, // populated after inserting post
-                'post_mime_type' => $file['type'],
+                'post_mime_type' => $file_type,
                 'guid'           => $uploaded_file['url']
             );
 
@@ -180,14 +182,14 @@ class WPUPA_Shortcodes {
         }
         else
         {
-        	if(isset($user_id,$form_data['wpupa_attachment_id']))
-        		update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
+        	if(isset($user_id,$form_wpupa_attachment_id))
+        		update_user_meta($user_id, '_wpupa_attachment_id', $form_wpupa_attachment_id);
         }
 
-		if(isset($user_id,$form_data['wpupa_url']))
-        	update_user_meta($user_id, '_wpupa_url', $form_data['wpupa_url']);
+		if(isset($user_id,$form_wpupa_url))
+        	update_user_meta($user_id, '_wpupa_url', $form_wpupa_url);
 
-        if(!empty($form_data['wpupa_attachment_id']) || $form_data['wpupa_url'])
+        if(!empty($form_wpupa_attachment_id) || $form_wpupa_url)
 		{			
 			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
 		}
@@ -195,7 +197,6 @@ class WPUPA_Shortcodes {
 		{			
 			update_user_meta( $user_id, '_wpupa_default', '' );
 		}
-
 
         $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
 		$wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
@@ -234,17 +235,19 @@ class WPUPA_Shortcodes {
 
         parse_str($_POST['form_data'], $form_data);
 
-        // Loop through the form_data and sanitize each of the values			
-		foreach ( $form_data as $key => $val ) {								
-			$form_data[ $key ] = ( isset( $form_data[ $key ] ) ) ? sanitize_text_field( $val ) : '';
-		}
-		$user_id = absint($form_data['user_id']);
+		//sanitize each of the values of form data
+		$wpupa_url =esc_url_raw($form_data['wpupa_url']);
+		$wpupa_attachment_id =absint($form_data['wpupa_attachment_id']);
+		$user_id =absint($form_data['user_id']);
 
 		if(isset($user_id))
 		{
 			update_user_meta($user_id, '_wpupa_attachment_id', '');
         	update_user_meta($user_id, '_wpupa_url', '');
         	update_user_meta( $user_id, '_wpupa_default', '' );
+
+        	//delete also attachment
+        	wp_delete_attachment($wpupa_attachment_id,true);
 		}
 
         $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
@@ -272,19 +275,18 @@ class WPUPA_Shortcodes {
 
         parse_str($_POST['form_data'], $form_data); 
 
-        // Loop through the form_data and sanitize each of the values			
-		foreach ($form_data as $key => $val ) {								
-			$form_data[ $key ] = ( isset( $form_data[ $key ] ) ) ? sanitize_text_field( $val ) : '';
-		}
-        $user_id = absint($form_data['user_id']);
+		//sanitize each of the values of form data
+		$wpupa_url =esc_url_raw($form_data['wpupa_url']);
+		$wpupa_attachment_id =absint($form_data['wpupa_attachment_id']);
+		$user_id =absint($form_data['user_id']);
 
-		if(isset($user_id,$form_data['wpupa_attachment_id'],$form_data['wpupa_url']))
+		if(isset($user_id,$wpupa_attachment_id,$wpupa_url))
 		{
-			update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
-        	update_user_meta($user_id, '_wpupa_url', $form_data['wpupa_url']);
+			update_user_meta($user_id, '_wpupa_attachment_id', $wpupa_attachment_id);
+        	update_user_meta($user_id, '_wpupa_url', $wpupa_url);
 		}
 
-        if(!empty($form_data['wpupa_attachment_id']) || $form_data['wpupa_url'])
+        if(!empty($wpupa_attachment_id) || $wpupa_url)
 		{
 			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
 		}
