@@ -1,12 +1,12 @@
 <div class="wrap wp-user-profile-avatar-shortcode-wrap">
 	<h2 class="nav-tab-wrapper">
-    	<a href="#settings-user_avatar" class="nav-tab"><?php _e('User Avatar', 'wp-user-profile-avatar'); ?></a>
-    	<a href="#settings-upload_avatar" class="nav-tab"><?php _e('Upload Avatar', 'wp-user-profile-avatar'); ?></a>		    
+    	<a href="#settings_user_avatar" class="nav-tab"><?php _e('User Avatar', 'wp-user-profile-avatar'); ?></a>
+    	<a href="#settings_upload_avatar" class="nav-tab"><?php _e('Upload Avatar', 'wp-user-profile-avatar'); ?></a>		    
 	</h2>
 
 	<div class="admin-setting-left">			     	
 	    <div class="white-background">
-	    	<div id="settings-user_avatar" class="settings_panel">
+	    	<div id="settings_user_avatar" class="settings-panel">
 	    		<form name="user_avatar_form" class="user_avatar_form">
 		    		<table class="form-table">
 		    			<tr>
@@ -86,8 +86,8 @@
 	    		</form>
 	    	</div>
 
-	    	<div id="settings-upload_avatar" class="settings_panel">
-	    		<form name="upload_avatar_form" class="upload_avatar_form">
+	    	<div id="settings_upload_avatar" class="settings-panel">
+	    		<form name="upload_avatar_form" class="upload-avatar-form">
 		    		<table class="form-table">
 		    			<tr>
 		    				<th><?php _e('Shortcode', 'wp-user-profile-avatar'); ?></th>

@@ -16,6 +16,7 @@ class WPUPA_Admin {
 	public function __construct() 
 	{
 		include_once( 'wp-user-profile-avatar-settings.php' );
+		$this->settings_page = new WPUPA_Settings();
 
 		$wpupa_tinymce = get_option('wpupa_tinymce');
 	    if($wpupa_tinymce) 
@@ -32,7 +33,7 @@ class WPUPA_Admin {
 		add_action( 'personal_options_update', array( $this, 'wpupa_save_fields' ) );
 		add_action( 'edit_user_profile_update', array( $this, 'wpupa_save_fields' ) );
 
-		$this->settings_page = new WPUPA_Settings();
+		add_action( 'admin_init', array($this,'allow_organizer_contributor_uploads'));
 
 		add_action('init', array( $this, 'thickbox_model_init'));
 		add_action('wp_ajax_thickbox_model_view', array( $this, 'thickbox_model_view'));
@@ -114,13 +115,13 @@ class WPUPA_Admin {
 				</th>
 				<td>
 					<p>
-						<input type="text" name="wp_user_profile_avatar_url" id="wp_user_profile_avatar_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
+						<input type="text" name="wpupa_url" id="wpupa_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
 					</p>
 
 					<p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
 
-					<p id="wp-user-profile-avatar-add-button-existing">
-						<button type="button" class="button" id="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button>
+					<p id="wp_user_profile_avatar_add_button_existing">
+						<button type="button" class="button" id="wp_user_profile_avatar_add"><?php _e('Choose Image'); ?></button>
 						<input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo $wpupa_attachment_id; ?>">
 					</p>
 
@@ -136,20 +137,20 @@ class WPUPA_Admin {
 	              	}
 
 	              	?>
-					<div id="wp-user-profile-avatar-images-existing">
-				      	<p id="wp-user-profile-avatar-preview">
+					<div id="wp_user_profile_avatar_images_existing">
+				      	<p id="wp_user_profile_avatar_preview">
 				        	<img src="<?php echo $wpupa_original; ?>" alt="">
 				        	<span class="description"><?php _e('Original Size', 'wp-user-profile-avatar'); ?></span>
 				      	</p>
-				      	<p id="wp-user-profile-avatar-thumbnail">
+				      	<p id="wp_user_profile_avatar_thumbnail">
 				        	<img src="<?php echo $wpupa_thumbnail; ?>" alt="">
 				        	<span class="description"><?php _e('Thumbnail', 'wp-user-profile-avatar'); ?></span>
 				      	</p>
-				      	<p id="wp-user-profile-avatar-remove-button" class="<?php echo $class_hide; ?>">
-					        <button type="button" class="button" id="wp-user-profile-avatar-remove"><?php _e('Remove Image', 'wp-user-profile-avatar'); ?></button>
+				      	<p id="wp_user_profile_avatar_remove_button" class="<?php echo $class_hide; ?>">
+					        <button type="button" class="button" id="wp_user_profile_avatar_remove"><?php _e('Remove Image', 'wp-user-profile-avatar'); ?></button>
 				        </p>
-				      	<p id="wp-user-profile-avatar-undo-button">
-				      		<button type="button" class="button" id="wp-user-profile-avatar-undo"><?php _e('Undo', 'wp-user-profile-avatar'); ?></button>
+				      	<p id="wp_user_profile_avatar_undo_button">
+				      		<button type="button" class="button" id="wp_user_profile_avatar_undo"><?php _e('Undo', 'wp-user-profile-avatar'); ?></button>
 				      	</p>
 				    </div>
 				</td>
@@ -170,7 +171,7 @@ class WPUPA_Admin {
 	{
 		if (current_user_can( 'edit_user', $user_id ) )
 		{
-			$wpupa_url=esc_url_raw($_POST['wp_user_profile_avatar_url']);
+			$wpupa_url=esc_url_raw($_POST['wpupa_url']);
 			$wpupa_attachment_id=absint($_POST['wpupa_attachment_id']);
 
 			if(isset($wpupa_url,$wpupa_attachment_id))
@@ -269,6 +270,33 @@ class WPUPA_Admin {
 		include_once (WPUPA_PLUGIN_DIR . '/admin/templates/shortcode-popup.php' );
 
 		wp_die();
+	}
+
+	/**
+     * allow_contributor_uploads function.
+     *`
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+	public function allow_organizer_contributor_uploads() 
+	{
+		$organizer = get_role('organizer');
+		$contributor = get_role('contributor');
+
+		$wpupa_tinymce = get_option('wpupa_allow_upload');		
+
+		if($wpupa_tinymce)
+		{
+			$organizer->add_cap('upload_files');
+			$contributor->add_cap('upload_files');
+		}
+		else
+		{
+			$organizer->remove_cap('upload_files');
+			$contributor->remove_cap('upload_files');
+		}
 	}
 
 

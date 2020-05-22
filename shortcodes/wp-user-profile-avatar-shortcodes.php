@@ -116,8 +116,8 @@ class WPUPA_Shortcodes {
 		$wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
 		$wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
-		$wpupa_attachment_id = get_user_meta($user_id, 'wpupa_attachment_id', true);
-		$wpupa_url = get_user_meta($user_id, 'wp_user_profile_avatar_url', true);
+		$wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
+		$wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
 		
 		include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
 
@@ -136,17 +136,18 @@ class WPUPA_Shortcodes {
 	{
 		check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-		parse_str($form_data, $_POST['form_data']);        
-        $user_id = absint($form_data['user_id']);
-        $file = sanitize_file_name($_FILES['user-avatar']);         
+		parse_str($_POST['form_data'], $form_data);
 
-		if (!empty($file))
+        $user_id = absint($form_data['user_id']);
+
+        if (isset($_FILES['user-avatar']) && !empty($file))
         {
-              
+        	$file = $_FILES['user-avatar'];
+
             $post_id = 0;
 
             // Upload file
-            $overrides     = array('wpupa_frontend_form' => false);
+            $overrides     = array('test_form' => false);
             $uploaded_file = $this->handle_upload($file, $overrides);
 
             $attachment = array(
@@ -174,17 +175,15 @@ class WPUPA_Shortcodes {
         		update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
         }
 
-		if(isset($user_id,$form_data['wp_user_profile_avatar_url']))
-        	update_user_meta($user_id, '_wpupa_url', $form_data['wp_user_profile_avatar_url']);
+		if(isset($user_id,$form_data['wpupa_url']))
+        	update_user_meta($user_id, '_wpupa_url', $form_data['wpupa_url']);
 
-        if(!empty($form_data['wpupa_attachment_id']) || $form_data['wp_user_profile_avatar_url'])
-		{
-			
+        if(!empty($form_data['wpupa_attachment_id']) || $form_data['wpupa_url'])
+		{			
 			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
 		}
 		else
-		{
-			
+		{			
 			update_user_meta( $user_id, '_wpupa_default', '' );
 		}
 
@@ -224,7 +223,8 @@ class WPUPA_Shortcodes {
     {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-        parse_str($form_data, $_POST['form_data']); 
+        parse_str($_POST['form_data'], $form_data);
+
         $user_id = absint($form_data['user_id']);
 
 		if(isset($user_id))
@@ -257,16 +257,17 @@ class WPUPA_Shortcodes {
     {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-        parse_str($form_data, $_POST['form_data']); 
+        parse_str($_POST['form_data'], $form_data); 
+        
         $user_id = absint($form_data['user_id']);
 
-		if(isset($user_id,$form_data['wpupa_attachment_id'],$form_data['wp_user_profile_avatar_url']))
+		if(isset($user_id,$form_data['wpupa_attachment_id'],$form_data['wpupa_url']))
 		{
 			update_user_meta($user_id, '_wpupa_attachment_id', $form_data['wpupa_attachment_id']);
-        	update_user_meta($user_id, '_wpupa_url', $form_data['wp_user_profile_avatar_url']);
+        	update_user_meta($user_id, '_wpupa_url', $form_data['wpupa_url']);
 		}
 
-        if(!empty($form_data['wpupa_attachment_id']) || $form_data['wp_user_profile_avatar_url'])
+        if(!empty($form_data['wpupa_attachment_id']) || $form_data['wpupa_url'])
 		{
 			update_user_meta( $user_id, '_wpupa_default', 'wp_user_profile_avatar' );
 		}

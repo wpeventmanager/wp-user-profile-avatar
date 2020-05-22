@@ -4,10 +4,10 @@ var FrontendAvatar = function () {
 
 	    init: function() 
         {
-        	jQuery( '#wp-user-profile-avatar-add' ).on('click', FrontendAvatar.actions.chooseAvatar);
-            jQuery( '#wp-user-profile-avatar-remove' ).on('click', FrontendAvatar.actions.removeAvatar);
-            jQuery( '#wp-user-profile-avatar-undo' ).on('click', FrontendAvatar.actions.undoAvatar);
-            jQuery( '#wp-user-profile-avatar-update-profile' ).on('click', FrontendAvatar.actions.updateAvatar);
+        	jQuery( '#wp_user_profile_avatar_add' ).on('click', FrontendAvatar.actions.chooseAvatar);
+            jQuery( '#wp_user_profile_avatar_remove' ).on('click', FrontendAvatar.actions.removeAvatar);
+            jQuery( '#wp_user_profile_avatar_undo' ).on('click', FrontendAvatar.actions.undoAvatar);
+            jQuery( '#wp_user_profile_avatar_update_profile' ).on('click', FrontendAvatar.actions.updateAvatar);
         },
 
 	    actions:
@@ -47,12 +47,12 @@ var FrontendAvatar = function () {
 
                         if(responce.class == 'wp-user-profile-avatar-success')
                         {
-                            jQuery('#wp-user-profile-avatar-preview img').attr('src', responce.avatar_original);
-                            jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
+                            jQuery('#wp_user_profile_avatar_preview img').attr('src', responce.avatar_original);
+                            jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', responce.avatar_thumbnail);
 
-                            jQuery('.update-user-profile-avatar #wp_user_profile_avatar_url').val('');
+                            jQuery('.update-user-profile-avatar #wpupa_url').val('');
                             jQuery('.update-user-profile-avatar #wpupa_attachment_id').val('');
-                            jQuery('#wp-user-profile-avatar-remove-button').hide(); 
+                            jQuery('#wp_user_profile_avatar_remove_button').hide(); 
                         }
                     }
                 });
@@ -93,10 +93,10 @@ var FrontendAvatar = function () {
 
                         if(responce.class == 'wp-user-profile-avatar-success')
                         {
-                            jQuery('#wp-user-profile-avatar-preview img').attr('src', responce.avatar_original);
-                            jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
+                            jQuery('#wp_user_profile_avatar_preview img').attr('src', responce.avatar_original);
+                            jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', responce.avatar_thumbnail);
 
-                            jQuery('#wp-user-profile-avatar-undo-button').hide();    
+                            jQuery('#wp_user_profile_avatar_undo_button').hide();    
                         }
                     }
                 });
@@ -138,10 +138,10 @@ var FrontendAvatar = function () {
 
                         if(responce.class == 'wp-user-profile-avatar-success')
                         {
-                            jQuery('#wp-user-profile-avatar-preview img').attr('src', responce.avatar_original);
-                            jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
+                            jQuery('#wp_user_profile_avatar_preview img').attr('src', responce.avatar_original);
+                            jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', responce.avatar_thumbnail);
 
-                            jQuery('#wp-user-profile-avatar-undo-button').show();    
+                            jQuery('#wp_user_profile_avatar_undo_button').show();    
                         }
                     }
                 });

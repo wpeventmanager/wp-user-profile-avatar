@@ -110,7 +110,7 @@ class WPUPA_Settings {
 							              	<?php _e('For users without a custom avatar of their own, you can either display a generic logo or a generated one based on their e-mail address.','wp-user-profile-avatar'); ?><br />
 							              	
 							              	<?php $selected = ($wpupa_default == 'wp_user_profile_avatar') ? 'checked="checked"' : ""; ?>
-							              	<label><input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> /> <div id="wp-user-profile-avatar-preview"><img src="<?php echo $wpupa_attachment_url; ?>" width="32" /></div> <?php _e('WP User Profile Avatar'); ?> </label><br />
+							              	<label><input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> /> <div id="wp_user_profile_avatar_preview"><img src="<?php echo $wpupa_attachment_url; ?>" width="32" /></div> <?php _e('WP User Profile Avatar'); ?> </label><br />
 
 							              	<?php
 							              	$class_hide = 'wp-user-profile-avatar-hide';
@@ -120,9 +120,9 @@ class WPUPA_Settings {
 							              	}
 							              	?>
 							              	<p id="wp-user-profile-avatar-edit">
-							              		<button type="button" class="button" id="wp-user-profile-avatar-add" name="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button>
-							              		<span id="wp-user-profile-avatar-remove-button" class="<?php echo $class_hide; ?>"><a href="javascript:void(0)" id="wp-user-profile-avatar-remove"><?php _e('Remove'); ?></a></span>
-							              		<span id="wp-user-profile-avatar-undo-button"><a href="javascript:void(0)" id="wp-user-profile-avatar-undo"><?php _e('Undo'); ?></a></span>
+							              		<button type="button" class="button" id="wp_user_profile_avatar_add" name="wp_user_profile_avatar_add"><?php _e('Choose Image'); ?></button>
+							              		<span id="wp_user_profile_avatar_remove_button" class="<?php echo $class_hide; ?>"><a href="javascript:void(0)" id="wp_user_profile_avatar_remove"><?php _e('Remove'); ?></a></span>
+							              		<span id="wp_user_profile_avatar_undo_button"><a href="javascript:void(0)" id="wp_user_profile_avatar_undo"><?php _e('Undo'); ?></a></span>
 							              		<input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo $wpupa_attachment_id; ?>">
 							              	</p>
 
@@ -207,12 +207,12 @@ class WPUPA_Settings {
 			update_option( 'wpupa_default', $wpupa_default );
 			update_option( 'wpupa_attachment_id', $wpupa_attachment_id );
 
-		}
+		} /*
 		else
 		{
 		    status_header( '401' );
 		    die();
-		}
+		} */
 	}
 
 }
