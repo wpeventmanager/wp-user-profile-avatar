@@ -100,7 +100,11 @@ var AdminAvatar = function () {
                 
                 var custom_link = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings_user_avatar #wp_custom_link_to').val();
                 
-                var target = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings_user_avatar #wp_image_open_new_window').val();
+                var target = '';
+                if(jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings_user_avatar #wp_image_open_new_window').prop("checked") == true)
+                {
+                    target = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings_user_avatar #wp_image_open_new_window').val();
+                }
                 
                 var caption = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings_user_avatar #wp_image_caption').val();
 
