@@ -301,19 +301,17 @@ You will need to place below code in each area of your theme where you wish to a
 
 1. Settings.
 
-2. Display avatar & upload avatar from frontend side shortcode for Visual Editor.
+2. Default Gavatars & Default avatar Settings.
 
-3. User profile avatar shortcode.
+3. Set custom default avatar example 1.
 
-4. User profile avatar upload shortcode.
+4. Set custom default avatar example 2.
 
-5. Upload shortcode GUI.
+5. Display avatar & upload avatar shortcode icon for Visual Editor.
 
-6. Successfully profile upload.
+6. Generate display user profile avatar shortcode.
 
-7. After refresh page show remove uploaded avatar option.
-
-8. Successfully removed avatar.
+7. Generate user profile avatar upload shortcode.
 
 
 
