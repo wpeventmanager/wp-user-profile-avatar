@@ -215,7 +215,7 @@ You can show user profile avatar two ways.
      size: original,medium,large,thumbnail.
      align: alignleft,aligncenter,alignright.
      link: image, attachment, custom.
-     target: _blank, "",
+     target: _blank, self,
      caption: you can give any text value in between shortcode bracket and it will display below user avtar profile.
 
 
