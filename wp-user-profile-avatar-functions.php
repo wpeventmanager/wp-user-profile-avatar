@@ -54,16 +54,16 @@ if ( ! function_exists( 'get_wpupa_default_avatar_url' ) ) {
 		$size = !empty($args['size']) ? $args['size'] : 'thumbnail';
 		$user_id = !empty($args['user_id']) ? $args['user_id'] : '';
 
-		$wpupa_default = get_option('wpupa_default');	
+		$wpupa_default = get_option('wpupa_default');
 
 		/*
 		if($size == 'admin')
 		{
 			$wpupa_default = '';
 		}
-		*/		
+		*/
 
-		if($wpupa_default == 'wp_user_profile_avatar')
+		if($wpupa_default == 'wp_user_profile_avatar' || $size == 'admin')
 		{
 			$attachment_id = get_option('wpupa_attachment_id');
 

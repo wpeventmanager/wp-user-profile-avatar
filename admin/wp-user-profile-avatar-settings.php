@@ -81,7 +81,7 @@ class WPUPA_Settings {
 
 							            <fieldset>
 							              <label for="wpupa_disable_gravatar">
-							                <input name="wpupa_disable_gravatar" type="checkbox" id="wpupa_disable_gravatar" value="1"<?php echo checked($wpupa_disable_gravatar, 1, 0); ?> > <?php _e('Disable Gravatar and use own custom avatars', 'wp-user-profile-avatar'); ?>
+							                <input name="wpupa_disable_gravatar" type="checkbox" id="wpupa_disable_gravatar" value="1"<?php echo checked($wpupa_disable_gravatar, 1, 0); ?> > <?php _e('Disable all default gravatar and set own custom default avatar.', 'wp-user-profile-avatar'); ?>
 							              </label>
 							            </fieldset>
 			  						</td>
@@ -196,6 +196,11 @@ class WPUPA_Settings {
 				$wpupa_tinymce = '';
 				$wpupa_allow_upload = '';
 				$wpupa_disable_gravatar = '';
+			}
+
+			if($wpupa_disable_gravatar)
+			{
+				$wpupa_default = 'wp_user_profile_avatar';
 			}
 
 			// options
