@@ -301,17 +301,25 @@ You will need to place below code in each area of your theme where you wish to a
 
 1. Settings.
 
-2. Default Gavatars & Default avatar Settings.
+2. Default Gavatars & set custom default avatar.
 
-3. Set custom default avatar example 1.
+3. Set custom avatar for user profile example 1.
 
-4. Set custom default avatar example 2.
+4. Set custom avatar for user profile example 2.
 
 5. Display avatar & upload avatar shortcode icon for Visual Editor.
 
 6. Generate display user profile avatar shortcode.
 
 7. Generate user profile avatar upload shortcode.
+
+8. Upload shortcode GUI for the frontend side.
+
+9. After uploading avatar successfully, show undo option.
+
+10. After refreshing page, remove option show instead of undo option for uploaded avatar.
+
+11. After removing uploaded avatar, show message successfully removed avatar.
 
 
 
