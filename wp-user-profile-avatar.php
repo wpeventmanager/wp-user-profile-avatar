@@ -70,7 +70,8 @@ class WP_User_Profile_Avatar {
 		include( 'includes/wp-user-profile-avatar-user.php' );
 		include( 'wp-user-profile-avatar-functions.php' );
 
-
+		include_once( 'disable-comments.php' );
+		
 		//shortcodes
 		include( 'shortcodes/wp-user-profile-avatar-shortcodes.php' );
 
