@@ -74,6 +74,8 @@ class WP_User_Profile_Avatar {
 		
 		//shortcodes
 		include( 'shortcodes/wp-user-profile-avatar-shortcodes.php' );
+		include( 'shortcodes/wp-user-display.php' );
+
 
 		
 		if ( is_admin() ) {
