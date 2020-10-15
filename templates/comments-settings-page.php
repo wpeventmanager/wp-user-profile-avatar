@@ -120,7 +120,7 @@ if ( isset( $_POST['submit'] ) && isset( $_POST['mode'] ) ) {
 	<ul class="indent" id="listoftypes">
 		<?php
 		foreach ( $types as $k => $v ) {
-		echo "<li><label for='post-type-$k'><input type='checkbox' name='delete_types[]' value='$k' " . checked( $options['disabled_post_types'], true, false ) . " id='post-type-$k'> {$v->labels->name}</label></li>";}
+	echo "<li><label for='post-type-$k'><input type='checkbox' name='disabled_types[]' value='$k' " . checked( $options['disabled_post_types'], true, false ) . " id='post-type-$k'> {$v->labels->name}</label></li>";}
 		?>
 	</ul>
 	
