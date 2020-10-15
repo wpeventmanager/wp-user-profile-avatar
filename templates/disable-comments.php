@@ -87,7 +87,7 @@ function filter_admin_menu() {
     }
 }
 function is_post_type_disabled( $type ) {
-    return in_array( $type, get_disabled_post_types() );
+  //  return in_array( $type, get_disabled_post_types() );
 }
 
 /**
