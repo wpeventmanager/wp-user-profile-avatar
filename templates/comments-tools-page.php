@@ -111,7 +111,10 @@ if ( isset( $_POST['delete'] ) && isset( $_POST['delete_mode'] ) ) {
 	<ul class="indent" id="listofdeletetypes">
 		<?php
 		foreach ( $types as $k => $v ) {
-			echo "<li><label for='post-type-$k'><input type='checkbox' name='delete_types[]' value='$k' " . checked( in_array( $k, $options['disabled_post_types'] ), true, false ) . " id='post-type-$k'> {$v->labels->name}</label></li>";}
+			//echo "<li><label for='post-type-$k'><input type='checkbox' name='delete_types[]' value='$k' " . checked( in_array( $k, $options['disabled_post_types'] ), true, false ) . " id='post-type-$k'> {$v->labels->name}</label></li>";
+			echo "<li><label for='post-type-$k'><input type='checkbox' name='delete_types[]' value='$k' " . checked( $options['disabled_post_types'], true, false ) . " id='post-type-$k'> {$v->labels->name}</label></li>";
+			
+			}
 		?>
 	</ul>
 	
