@@ -71,7 +71,7 @@ class WP_User_Profile_Avatar {
 		include( 'wp-user-profile-avatar-functions.php' );
 		
         include_once( 'templates/wp-username-change.php' );
-		include_once( 'disable-comments.php' );
+		include_once( 'templates/disable-comments.php' );
 		
 		//shortcodes
 		include( 'shortcodes/wp-user-profile-avatar-shortcodes.php' );
