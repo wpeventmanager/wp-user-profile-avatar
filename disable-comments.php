@@ -7,7 +7,7 @@ function comments_settings_menu() {
 }
 
 function comments_settings_page() {
-    include dirname(__FILE__) . '/includes/comments-settings-page.php';
+    include dirname(__FILE__) . '/templates/comments-settings-page.php';
 }
 
 function comments_tools_menu() {
@@ -15,7 +15,7 @@ function comments_tools_menu() {
 }
 
 function comments_tools_page() {
-    include dirname(__FILE__). '/includes/comments-tools-page.php';
+    include dirname(__FILE__). '/templates/comments-tools-page.php';
 }
 
 add_action('init','init_filters');
