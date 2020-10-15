@@ -21,6 +21,7 @@ function comments_tools_page() {
 add_action('init','init_filters');
 
 function init_filters() {
+	
 
     $options = get_option( 'disable_comments_options', array() );
     if ( $options['remove_everywhere'] ) {
