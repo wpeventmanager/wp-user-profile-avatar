@@ -8,7 +8,8 @@ class WPUPA_Shortcodes {
 	{
 		add_shortcode( 'user_profile_avatar', array( $this, 'user_profile_avatar' ) );
 		add_shortcode( 'user_profile_avatar_upload', array( $this, 'user_profile_avatar_upload' ) );		
-
+                add_shortcode( 'authorbox_social_info', array( $this, 'authorbox_social_info' ) );
+		
 		add_action( 'wp_ajax_nopriv_update_user_avatar', array( $this, 'update_user_avatar' ) );
 		add_action( 'wp_ajax_update_user_avatar', array( $this, 'update_user_avatar' ) );
 
@@ -17,6 +18,36 @@ class WPUPA_Shortcodes {
 
 		add_action( 'wp_ajax_nopriv_undo_user_avatar', array( $this, 'undo_user_avatar' ) );
 		add_action( 'wp_ajax_undo_user_avatar', array( $this, 'undo_user_avatar' ) );
+	}
+
+	/**
+     * author box social information function.
+     *
+     * @access public
+     * @param $atts, $content
+     * @return 
+     * @since 1.0
+     */
+	public function authorbox_social_info($atts = [], $content = null) 
+	{
+		global $blog_id, $post, $wpdb;
+
+		$current_user_id = get_current_user_id();
+
+		extract( shortcode_atts( array(
+			'user_id' 	=> '',
+			'size' 		=> 'thumbnail',
+			'align' 	=> 'alignnone',
+			
+		), $atts ) );
+
+		ob_start();
+
+		
+		include_once (WPUPA_PLUGIN_DIR . '/templates/wp-author-box-display.php' );
+
+		return ob_get_clean();
+
 	}
 
     /**
