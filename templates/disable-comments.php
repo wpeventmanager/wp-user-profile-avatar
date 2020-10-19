@@ -115,8 +115,8 @@ function disable_comment() {
 		foreach ( array( 'remove_everywhere', 'extra_post_types' ) as $v ) {
 				if ( ! isset( $this->options[ $v ] ) ) {
 					$this->options[ $v ] = false;
-				}
-	}
+        }
+    }
 }
 /**
  * Remove comment links from the admin bar.
