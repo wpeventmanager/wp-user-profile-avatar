@@ -1,10 +1,9 @@
 <?php
 /**
- *Comment Tools page.
+ * Tools page.
  *
  * @package Disable_Comments
  */
-
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -103,18 +102,21 @@ if ( isset( $_POST['delete'] ) && isset( $_POST['delete_mode'] ) ) {
 ?>
 <form action="" method="post" id="delete-comments">
 <ul>
-<li><label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="delete_everywhere" <?php checked( $options['remove_everywhere'] ); ?> /> <strong><?php _e( 'Everywhere', 'disable-comments' ); ?></strong>: <?php _e( 'Delete all comments in WordPress.', 'disable-comments' ); ?></label>
+<li><label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="delete_everywhere" <?php checked(isset ($options['remove_everywhere'] ) ); ?> /> <strong><?php _e( 'Everywhere', 'disable-comments' ); ?></strong>: <?php _e( 'Delete all comments in WordPress.', 'disable-comments' ); ?></label>
 	<p class="indent"><?php printf( __( '%s: This function and will affect your entire site. Use it only if you want to delete comments <em>everywhere</em>.', 'disable-comments' ), '<strong style="color: #900">' . __( 'Warning', 'disable-comments' ) . '</strong>' ); ?></p>
 </li>
-<li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php checked( ! $options['remove_everywhere'] ); ?> /> <strong><?php _e( 'For certain post types', 'disable-comments' ); ?></strong>:</label>
+<li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php checked(! $options['remove_everywhere'] ) ; ?> /> <strong><?php _e( 'For certain post types', 'disable-comments' ); ?></strong>:</label>
 	<p></p>
 	<ul class="indent" id="listofdeletetypes">
+
 		<?php
+		if(isset($options['disabled_post_types']) && is_array($options['disabled_post_types'])){
+			$disabled_post_types = $options['disabled_post_types'];
+		}else{
+			$disabled_post_types = [];
+		}
 		foreach ( $types as $k => $v ) {
-			//echo "<li><label for='post-type-$k'><input type='checkbox' name='delete_types[]' value='$k' " . checked( in_array( $k, $options['disabled_post_types'] ), true, false ) . " id='post-type-$k'> {$v->labels->name}</label></li>";
-			echo "<li><label for='post-type-$k'><input type='checkbox' name='delete_types[]' value='$k' " . checked( $options['disabled_post_types'], true, false ) . " id='post-type-$k'> {$v->labels->name}</label></li>";
-			
-			}
+			echo "<li><label for='post-type-$k'><input type='checkbox' name='delete_types[]' value='$k' " . checked( in_array( $k,  $disabled_post_types), true, false ) . " id='post-type-$k'> {$v->labels->name}</label></li>";}
 		?>
 	</ul>
 	
