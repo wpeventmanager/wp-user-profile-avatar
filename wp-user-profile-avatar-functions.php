@@ -17,7 +17,8 @@ if ( ! function_exists( 'get_wpupa_rating' ) ) {
 		) );
 	}
 }
-
+//function get_wpupa_add_new_avatar() {}
+		
 if ( ! function_exists( 'get_wpupa_default_avatar' ) ) {
 	/**
      * get_wpupa_default_avatar function.
