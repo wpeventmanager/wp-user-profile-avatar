@@ -22,7 +22,7 @@ Class WpUserNameChange {
     public function Wp_user_list() {
         $allowed_group = 'manage_options';
         if (function_exists('add_submenu_page')) {
-            add_submenu_page('users.php', __('WpUserNameChange', 'WP_Username_change') , __('WpUserNameChange ', 'WP_Username_change') , $allowed_group, 'WP_Username_change', 'Wp_username_edit');
+            add_submenu_page('users.php', __('WP Username Change', 'WP_Username_change') , __('WP Username Change ', 'WP_Username_change') , $allowed_group, 'WP_Username_change', 'Wp_username_edit');
             add_submenu_page(null, __('Update', 'WP_Username_change') , __('Update', 'WP_Username_change') , $allowed_group, 'Wp_username_update', 'Wp_user_update');
         }
     }
