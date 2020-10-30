@@ -27,14 +27,14 @@ Class WpUserNameChange {
         }
     }
     public function wpuser_select() {
-        $records = $this->db->get_results("SELECT * FROM `" . $this->db->prefix . "users`");
+        $records = $this->db->get_results("SELECT * FROM `" . $this->db->prefix . "users");
         return $records;
     }
     public function wpuser_update( $id,$name ) {
         $result=$this->db->update(
                     $this->db->prefix.'users',
                     array('user_login' => $name, 'display_name'=> $name), 
-                    array('id' => $id), 
+                    array('id' => $id)
         );
         return $result;
     }
