@@ -27,7 +27,7 @@ Class WpUserNameChange {
         }
     }
     public function wpuser_select() {
-        $records = $this->db->get_results("SELECT * FROM `" . $this->db->prefix . "users");
+        $records = $this->db->get_results("SELECT * FROM `" . $this->db->prefix . "users`");
         return $records;
     }
     public function wpuser_update( $id,$name ) {
