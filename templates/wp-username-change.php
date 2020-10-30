@@ -16,7 +16,7 @@ Class WpUserNameChange {
     }
 	 public function wp_file_include() {
       if( is_admin() ) {
-         require_once (plugin_dir_path(__FILE__) . '/Wp-user-list.php');
+         require_once (plugin_dir_path(__FILE__) . '/wp-user-list.php');
       }
     }
     public function Wp_user_list() {
