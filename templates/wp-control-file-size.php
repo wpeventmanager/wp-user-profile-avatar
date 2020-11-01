@@ -63,7 +63,7 @@ class Wp_Control_File_Size
     $max_size = $max_size / 1024 / 1024;
 
 
-    $upload_sizes = array(16, 32, 64, 128, 256, 512, 1024);
+    $upload_sizes = array(1,2,4,8,16, 32, 64, 128, 256, 512, 1024);
 
     $current_max_size = self::get_closest($max_size, $upload_sizes);
     echo '<form method="post">';
