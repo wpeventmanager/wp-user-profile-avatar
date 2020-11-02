@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) )
 			
 			  <p class="author_bio"><?php the_author_meta('description'); ?></p>
 			
-		      <p> <a href="<?php the_author_meta('url'); ?>" target="_blank" rel="nofollow">Website</a></p>
+		     
 <?php		
 /**
 	 * authorbox_social_link function
