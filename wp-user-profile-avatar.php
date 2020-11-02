@@ -72,6 +72,7 @@ class WP_User_Profile_Avatar {
 	        include_once( 'templates/wp-username-change.php' );
 		include_once( 'disable-comments.php' );
 		include_once( 'templates/wp-author-box-social-info.php' );
+		include_once( 'templates/wp-avatar-social profile-picture.php' );
 		include_once( 'templates/wp-control-file-size.php' );
 		
 		//shortcodes
