@@ -50,9 +50,6 @@ $display_name = get_the_author_meta( 'nickname', $post->post_author );
 // Get author's biographical description
 $user_description = get_the_author_meta( 'user_description', $post->post_author );
 
-// Get author's website URL 
-$user_website = get_the_author_meta('url', $post->post_author);
-
 // Get author's email
 $user_email = get_the_author_meta('email', $post->post_author);
 
@@ -90,18 +87,9 @@ if ( ! empty( $display_name ) )
 $author_details = '<p class="author_name">' .get_the_author_meta('display_name'). '</p>';
 $author_details .= '<p class="author_image">' . get_avatar( get_the_author_meta('ID') , 90 ) . '</p>';
 $author_details .= '<p class="author_bio">' . get_the_author_meta( 'description' ). '</p>';
-$author_details .= '<p class="author_links"><a href="'. $user_posts .'">View all posts by ' . get_the_author_meta('display_name') . '</a></p>'; 
-
-// Display author website link
-if ( ! empty( $user_website ) ) {
-$author_details .= '<a href="' . $user_website .'" target="_blank" rel="nofollow" >Website</a></p>';
-} else { 
-$author_details .= '</p>';
-}
 
 // Display author Email link
 $author_details .= ' <a href="mailto:' . $user_email .'" target="_blank" rel="nofollow" title="E-mail" class="tooltip"><i class="fa fa-envelope-square fa-2x"></i> </a>';
-
 
 // Display author Facebook link
 if ( ! empty( $user_facebook ) ) {
