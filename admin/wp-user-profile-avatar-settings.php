@@ -102,6 +102,18 @@ class WPUPA_Settings {
                                     </td>
                                 </tr>
 
+                                <tr>
+                                    <th><label for="profile_avtar_image_size"><?php _e("Avatar Size"); ?></label></th>
+                                    <?php
+                                    if ($profile_avtar_image_size == '') {
+                                        $profile_avtar_image_size = get_avatar_data($user_id)['size'];
+                                    }
+                                    ?>
+                                    <td>
+                                        <input type="number" name="profile_avtar_image_size" id="profile_avtar_image_size" value="<?php echo esc_attr($profile_avtar_image_size); ?>" class="regular-text" />
+                                    </td>
+                                </tr>
+
                                 <tr valign="top">
                                     <th scope="row"><?php _e('Default Avatar', 'wp-user-profile-avatar'); ?></th>
                                     <td class="defaultavatarpicker">
@@ -139,17 +151,6 @@ class WPUPA_Settings {
                                         </fieldset>
                                     </td>
 
-                                </tr>
-                                <tr>
-                                    <th><label for="profile_avtar_image_size"><?php _e("Avatar Size"); ?></label></th>
-                                    <?php 
-                                    if( $profile_avtar_image_size == '' ) {
-                                        $profile_avtar_image_size = get_avatar_data($user_id)['size'];
-                                    }
-                                    ?>
-                                    <td>
-                                        <input type="number" name="profile_avtar_image_size" id="profile_avtar_image_size" value="<?php echo esc_attr($profile_avtar_image_size); ?>" class="regular-text" />
-                                    </td>
                                 </tr>
 
                                 <tr>
@@ -200,7 +201,7 @@ class WPUPA_Settings {
             $wpupa_default = !empty($_POST['wpupa_default']) ? sanitize_text_field($_POST['wpupa_default']) : '';
 
             $wpupa_attachment_id = !empty($_POST['wpupa_attachment_id']) ? sanitize_text_field($_POST['wpupa_attachment_id']) : '';
-            
+
             $profile_avtar_image_size = !empty($_POST['profile_avtar_image_size']) ? sanitize_text_field($_POST['profile_avtar_image_size']) : '';
 
             if ($wpupa_show_avatars == '') {
@@ -222,7 +223,7 @@ class WPUPA_Settings {
             update_option('wpupa_default', $wpupa_default);
             update_option('wpupa_attachment_id', $wpupa_attachment_id);
             update_option('profile_avtar_image_size', $profile_avtar_image_size);
-        } 
+        }
     }
 
 }
