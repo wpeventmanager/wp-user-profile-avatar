@@ -75,11 +75,11 @@ class WPUPA_Shortcodes {
 
 		ob_start();
 
-		$image_url = get_wpupa_url( $user_id, ['size' => $size ] );
+		$image_url = get_wpupa_url( $current_user_id, ['size' => $size ] );
 
 		if($link == 'image') {
 	        // Get image src
-	        $link = get_wpupa_url( $user_id, ['size' => 'original' ] );
+	        $link = get_wpupa_url( $current_user_id, ['size' => 'original' ] );
 	    } 
 	    elseif($link == 'attachment') 
 	    {

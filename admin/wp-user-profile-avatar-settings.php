@@ -37,10 +37,12 @@ class WPUPA_Settings {
         $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
         $wpupa_show_avatars = get_option('wpupa_show_avatars');
         $wpupa_rating = get_option('wpupa_rating');
+        $wpupa_file_size = get_option('wpupa_file_size');
         $wpupa_default = get_option('wpupa_default');
         $wpupa_attachment_id = get_option('wpupa_attachment_id');
         $wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
-        $profile_avtar_image_size = get_option('profile_avtar_image_size');
+        $wpupa_size = get_option('wpupa_size');
+
         ?>
 
         <div class="wrap">
@@ -87,8 +89,6 @@ class WPUPA_Settings {
                                     </td>
                                 </tr>
 
-
-
                                 <tr valign="top">
                                     <th scope="row"><?php _e('Avatar Rating', 'wp-user-profile-avatar'); ?></th>
                                     <td>
@@ -103,14 +103,28 @@ class WPUPA_Settings {
                                 </tr>
 
                                 <tr>
-                                    <th><label for="profile_avtar_image_size"><?php _e("Avatar Size"); ?></label></th>
+                                    <th scope="row">
+                                        <label for="wpupa_file_size">Avatar Max File Size</label>
+                                    </th>
+                                    <td>
+                                        <select id="wpupa_file_size" name="wpupa_file_size">
+                                            <?php foreach (get_wpupa_file_size() as $name => $size) {  ?>
+                                                <?php $selected = ($wpupa_file_size == $name) ? 'selected="selected"' : ""; ?>
+                                                <option value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /><?php echo esc_attr($name == 1024 ? '1GB' : $size ); ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th><label for="wpupa_size"><?php _e("Avatar Size"); ?></label></th>
                                     <?php
-                                    if ($profile_avtar_image_size == '') {
-                                        $profile_avtar_image_size = get_avatar_data($user_id)['size'];
+                                    if ($wpupa_size == '') {
+                                        $wpupa_size = get_avatar_data(get_current_user_id())['size'];
                                     }
                                     ?>
                                     <td>
-                                        <input type="number" name="profile_avtar_image_size" id="profile_avtar_image_size" value="<?php echo esc_attr($profile_avtar_image_size); ?>" class="regular-text" />
+                                        <input type="number" name="wpupa_size" id="wpupa_size" value="<?php echo esc_attr($wpupa_size); ?>" />
                                     </td>
                                 </tr>
 
@@ -198,11 +212,13 @@ class WPUPA_Settings {
 
             $wpupa_rating = !empty($_POST['wpupa_rating']) ? sanitize_text_field($_POST['wpupa_rating']) : '';
 
+            $wpupa_file_size = !empty($_POST['wpupa_file_size']) ? sanitize_text_field($_POST['wpupa_file_size']) : '';
+
             $wpupa_default = !empty($_POST['wpupa_default']) ? sanitize_text_field($_POST['wpupa_default']) : '';
 
             $wpupa_attachment_id = !empty($_POST['wpupa_attachment_id']) ? sanitize_text_field($_POST['wpupa_attachment_id']) : '';
 
-            $profile_avtar_image_size = !empty($_POST['profile_avtar_image_size']) ? sanitize_text_field($_POST['profile_avtar_image_size']) : '';
+            $wpupa_size = !empty($_POST['wpupa_size']) ? sanitize_text_field($_POST['wpupa_size']) : '';
 
             if ($wpupa_show_avatars == '') {
                 $wpupa_tinymce = '';
@@ -220,9 +236,10 @@ class WPUPA_Settings {
             update_option('wpupa_disable_gravatar', $wpupa_disable_gravatar);
             update_option('wpupa_show_avatars', $wpupa_show_avatars);
             update_option('wpupa_rating', $wpupa_rating);
+            update_option('wpupa_file_size', $wpupa_file_size);
             update_option('wpupa_default', $wpupa_default);
             update_option('wpupa_attachment_id', $wpupa_attachment_id);
-            update_option('profile_avtar_image_size', $profile_avtar_image_size);
+            update_option('wpupa_size', $wpupa_size);
         }
     }
 

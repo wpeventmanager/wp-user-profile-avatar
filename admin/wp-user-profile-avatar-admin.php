@@ -92,7 +92,7 @@ class WPUPA_Admin {
 
         wp_enqueue_script('wp-user-profile-avatar-admin-avatar');
 
-        $user_id = $user->ID;
+        $user_id = get_current_user_id();
 
         $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
         $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
