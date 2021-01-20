@@ -39,9 +39,11 @@ var FrontendAvatar = function () {
                         });
                         file_frame.on('select', function () {
                             attachment = file_frame.state().get('selection').first().toJSON();
+                            console.log(attachment);
                             // do something with the file here
-                            jQuery('#wp_user_profile_avatar_add').hide();
-                            jQuery('#frontend-image').attr('src', attachment.url);
+                            jQuery('#wpupa_attachment_id').attr('value', attachment.id);
+                            jQuery('#wp_user_profile_avatar_preview img').attr('src', attachment.sizes['full']['url']);
+                            jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', attachment.sizes['thumbnail']['url']);
                         });
                         file_frame.open();
                     },
@@ -152,7 +154,7 @@ var FrontendAvatar = function () {
                         var form_data = jQuery('.update-user-profile-avatar').serialize();
 
                         var fd = new FormData();
-                        fd.append("user-avatar", jQuery('.wp-user-profile-avatar-image')[0].files[0]);
+                        fd.append("user-avatar", jQuery('#wp_user_profile_avatar_add'));
                         fd.append("action", 'update_user_avatar');
                         fd.append("form_data", form_data);
                         fd.append("security", wp_user_profile_avatar_frontend_avatar.wp_user_profile_avatar_security);
@@ -166,6 +168,7 @@ var FrontendAvatar = function () {
                             contentType: false,
                             success: function (responce)
                             {
+                                console.log(responce);
                                 jQuery('#upload_avatar_responce').addClass(responce.class);
                                 jQuery('#upload_avatar_responce').html(responce.message);
 
