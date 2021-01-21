@@ -61,7 +61,7 @@ class WPUPA_Admin {
     public function admin_enqueue_scripts() {
         wp_register_style('wp-user-profile-avatar-backend', WPUPA_PLUGIN_URL . '/assets/css/backend.min.css');
 
-        wp_register_script('wp-user-profile-avatar-admin-avatar', WPUPA_PLUGIN_URL . '/assets/js/admin-avatar.min.js', array('jquery'), WPUPA_VERSION, true);
+        wp_register_script('wp-user-profile-avatar-admin-avatar', WPUPA_PLUGIN_URL . '/assets/js/admin-avatar.js', array('jquery'), WPUPA_VERSION, true);
 
         wp_localize_script('wp-user-profile-avatar-admin-avatar', 'wp_user_profile_avatar_admin_avatar', array(
             'thinkbox_ajax_url' => admin_url('admin-ajax.php') . '?height=600&width=770&action=thickbox_model_view',

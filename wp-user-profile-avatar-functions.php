@@ -358,17 +358,31 @@ if (!function_exists('get_wpupa_image_link_to')) {
 }
 // Restrict access to Media Library (users can only see/select own media)
 
-add_filter('ajax_query_attachments_args', 'wpb_show_current_user_attachments');
+if (!function_exists('wpb_show_current_user_attachments')) {
+    
+    add_filter('ajax_query_attachments_args', 'wpb_show_current_user_attachments');
+    
+    /**
+     * wpb_show_current_user_attachments function.
+     * 
+     *
+     * @access public
+     * @param 
+     * @return array
+     * @since 1.0
+     */
 
-function wpb_show_current_user_attachments($query) {
-    $user_id = get_current_user_id();
-    if ($user_id) {
-        $query['author'] = $user_id;
-        $query['subscriber'] = $user_id;
-        $query['contributor'] = $user_id;
-        $query['editor'] = $user_id;
+    function wpb_show_current_user_attachments($query) {
+        $user_id = get_current_user_id();
+        if ($user_id) {
+            $query['author'] = $user_id;
+            $query['subscriber'] = $user_id;
+            $query['contributor'] = $user_id;
+            $query['editor'] = $user_id;
+        }
+        return $query;
     }
-    return $query;
+
 }
 
 if (!function_exists('wpupa_file_size_limit')) {

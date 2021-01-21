@@ -38,11 +38,7 @@ if ( ! empty( $disabled_post_types ) ) {
     }
 }
 $types = get_post_types( $typeargs, 'objects' );
-// foreach ( array_keys( $types ) as $type ) {
-// 	if ( ! in_array( $type, $modified_types ) && ! post_type_supports( $type, 'comments' ) ) {   // the type doesn't support comments anyway.
-// //		unset( $types[ $type ] );
-// 	}
-// }
+
 
 if ( isset( $_POST['delete'] ) && isset( $_POST['delete_mode'] ) ) {
 	check_admin_referer( 'delete-comments-admin' );
@@ -102,10 +98,11 @@ if ( isset( $_POST['delete'] ) && isset( $_POST['delete_mode'] ) ) {
 ?>
 <form action="" method="post" id="delete-comments">
 <ul>
-<li><label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="delete_everywhere" <?php checked(isset ($options['remove_everywhere'] ) ); ?> /> <strong><?php _e( 'Everywhere', 'disable-comments' ); ?></strong>: <?php _e( 'Delete all comments in WordPress.', 'disable-comments' ); ?></label>
+<li><label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="delete_everywhere" <?php checked(isset ($options['delete_everywhere'] ) ); ?> /> <strong><?php _e( 'Everywhere', 'disable-comments' ); ?></strong>: <?php _e( 'Delete all comments in WordPress.', 'disable-comments' ); ?></label>
 	<p class="indent"><?php printf( __( '%s: This function and will affect your entire site. Use it only if you want to delete comments <em>everywhere</em>.', 'disable-comments' ), '<strong style="color: #900">' . __( 'Warning', 'disable-comments' ) . '</strong>' ); ?></p>
 </li>
-<li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php checked(! $options['remove_everywhere'] ) ; ?> /> <strong><?php _e( 'For certain post types', 'disable-comments' ); ?></strong>:</label>
+<?php $selected = (! $options['delete_everywhere']) ? 'checked="checked"' : ""; ?>
+<li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php echo $selected; ?> /> <strong><?php _e( 'For certain post types', 'disable-comments' ); ?></strong>:</label>
 	<p></p>
 	<ul class="indent" id="listofdeletetypes">
 
