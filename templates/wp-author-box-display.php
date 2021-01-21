@@ -8,14 +8,14 @@ if (!defined('ABSPATH'))
 
 <!-- Get author detail-->
 
-<Div class="author_bio_section">
-
-    <p class="author_name"> <?php the_author_meta('display_name'); ?> </p>
-
-    <p class="author_image"><?php echo get_avatar(get_the_author_meta('ID'), 90); ?></p>
-
-    <p class="author_bio"><?php the_author_meta('description'); ?></p>
-
+<div class="author_bio_section">
+    <div class="author_details">
+        <div class="author_image"><?php echo get_avatar(get_the_author_meta('ID'), 90); ?></div>  
+        <div class="author_info">
+            <div class="author_name"> <?php the_author_meta('display_name'); ?> </div>
+            <div class="author_bio"><?php the_author_meta('description'); ?></div>
+        </div>
+    </div>
     <?php
     /**
      * authorbox_social_link function
@@ -27,7 +27,7 @@ if (!defined('ABSPATH'))
      */
     ?>	 
     <!-- Display social link to the author  page-->
-    <p>
+    <div class="authorbox-social-icons">
         <?php if (!empty(get_the_author_meta('facebook'))) { ?>
             <span> <a href="<?php the_author_meta('facebook'); ?>" title="facebook" target="_blank" id="facebook"><i class="fa fa-facebook-official fa-2x"></i></a></span>
         <?php } ?>
@@ -61,6 +61,6 @@ if (!defined('ABSPATH'))
         <?php if (!empty(get_the_author_meta('github'))) { ?>
             <span> <a href="<?php the_author_meta('github'); ?>" title="github" target="_blank" id="github"><i class="fa fa-github-square fa-2x"></i></a></span>
                 <?php } ?>
-    </p>
+    </div>
 </div>
 
