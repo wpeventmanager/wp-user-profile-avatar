@@ -224,9 +224,9 @@ if (!function_exists('check_wpupa_gravatar')) {
             return true;
 
         if (!is_object($id_or_email) && !empty($id_or_email)) {
-            // Find user by ID or e-mail address
+// Find user by ID or e-mail address
             $user = is_numeric($id_or_email) ? get_user_by('id', $id_or_email) : get_user_by('email', $id_or_email);
-            // Get registered user e-mail address
+// Get registered user e-mail address
             $email = !empty($user) ? $user->user_email : "";
         }
 
@@ -239,7 +239,7 @@ if (!function_exists('check_wpupa_gravatar')) {
         }
         if ($email != "") {
             $hash = md5(strtolower(trim($email)));
-            //check if gravatar exists for hashtag using options
+//check if gravatar exists for hashtag using options
 
             if (is_array($wp_user_hash_gravatar)) {
 
@@ -249,7 +249,7 @@ if (!function_exists('check_wpupa_gravatar')) {
                 }
             }
 
-            //end
+//end
             if (isset($_SERVER['HTTPS']) && ( 'on' == $_SERVER['HTTPS'] || 1 == $_SERVER['HTTPS'] ) || isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && 'https' == $_SERVER['HTTP_X_FORWARDED_PROTO']) {
                 $http = 'https';
             } else {
@@ -264,7 +264,7 @@ if (!function_exists('check_wpupa_gravatar')) {
                 $data = is_wp_error($response) ? 'not200' : $response['response']['code'];
 
                 wp_cache_set($hash, $data, $group = "", $expire = 60 * 5);
-                //here set if hashtag has avatar
+//here set if hashtag has avatar
                 $check_gravatar = ($data == '200') ? true : false;
                 if ($wp_user_hash_gravatar == false) {
                     $wp_user_hash_gravatar[$hash][date('m-d-Y')] = (bool) $check_gravatar;
@@ -284,13 +284,13 @@ if (!function_exists('check_wpupa_gravatar')) {
                         }
                     }
                 }
-                //end
+//end
             }
             $check_gravatar = ($data == '200') ? true : false;
         } else
             $check_gravatar = false;
 
-        // Check if Gravatar image returns 200 (OK) or 404 (Not Found)
+// Check if Gravatar image returns 200 (OK) or 404 (Not Found)
         return (bool) $check_gravatar;
     }
 
@@ -362,8 +362,11 @@ add_filter('ajax_query_attachments_args', 'wpb_show_current_user_attachments');
 
 function wpb_show_current_user_attachments($query) {
     $user_id = get_current_user_id();
-    if ($user_id && !current_user_can('activate_plugins') && !current_user_can('edit_others_posts')) {
+    if ($user_id) {
         $query['author'] = $user_id;
+        $query['subscriber'] = $user_id;
+        $query['contributor'] = $user_id;
+        $query['editor'] = $user_id;
     }
     return $query;
 }
@@ -390,3 +393,5 @@ if (!function_exists('wpupa_file_size_limit')) {
 
     add_filter('upload_size_limit', 'wpupa_file_size_limit');
 }
+
+    

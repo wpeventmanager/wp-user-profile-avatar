@@ -108,23 +108,15 @@ class WPUPA_Shortcodes {
         $wpupa_allow_upload = get_option('wpupa_allow_upload');
 
         $user_id = get_current_user_id();
-
+        $user = new WP_User($user_id);
         $user_data = get_userdata($user_id);
 
         if (in_array('contributor', $user_data->roles)) {
-            if (empty($wpupa_allow_upload)) {
-                echo '<h5><strong style="color:red;">' . __('ERROR: ', 'wp-event-manager-zoom') . '</strong>' . __('You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar') . '</h5>';
-
-                return false;
-            }
+            $user->add_cap('upload_files');
         }
 
         if (in_array('subscriber', $user_data->roles)) {
-            if (empty($wpupa_allow_upload)) {
-                echo '<h5><strong style="color:red;">' . __('ERROR: ', 'wp-event-manager-zoom') . '</strong>' . __('You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar') . '</h5>';
-
-                return false;
-            }
+            $user->add_cap('upload_files');
         }
 
         wp_enqueue_script('wp-user-profile-avatar-frontend-avatar');
