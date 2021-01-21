@@ -157,7 +157,7 @@ class WP_User_Profile_Avatar {
 
         wp_enqueue_style('wp-user-profile-avatar-frontend', WPUPA_PLUGIN_URL . '/assets/css/frontend.min.css');
 
-        wp_register_script('wp-user-profile-avatar-frontend-avatar', WPUPA_PLUGIN_URL . '/assets/js/frontend-avatar.js', array('jquery'), WPUPA_VERSION, true);
+        wp_register_script('wp-user-profile-avatar-frontend-avatar', WPUPA_PLUGIN_URL . '/assets/js/frontend-avatar.min.js', array('jquery'), WPUPA_VERSION, true);
 
         wp_localize_script('wp-user-profile-avatar-frontend-avatar', 'wp_user_profile_avatar_frontend_avatar', array(
             'ajax_url' => admin_url('admin-ajax.php'),
