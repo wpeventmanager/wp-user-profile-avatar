@@ -159,8 +159,12 @@ class WPUPA_Admin {
      */
     public function wpupa_save_fields($user_id) {
         if (current_user_can('edit_user', $user_id)) {
-            $wpupa_url = esc_url_raw($_POST['wpupa_url']);
-            $wpupa_attachment_id = absint($_POST['wpupa_attachment_id']);
+            if (isset($_POST['wpupa_url'])) {
+                $wpupa_url = esc_url_raw($_POST['wpupa_url']);
+            }
+            if (isset($_POST['wpupa_attachment_id'])) {
+                $wpupa_attachment_id = absint($_POST['wpupa_attachment_id']);
+            }
 
             if (isset($wpupa_url, $wpupa_attachment_id)) {
                 update_user_meta($user_id, '_wpupa_attachment_id', $wpupa_attachment_id);
@@ -281,6 +285,3 @@ class WPUPA_Admin {
 }
 
 new WPUPA_Admin();
-
-
-

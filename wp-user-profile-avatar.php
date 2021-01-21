@@ -152,7 +152,7 @@ class WP_User_Profile_Avatar {
      * @since 1.0
      */
     public function frontend_scripts() {
-        
+
         wp_enqueue_media();
 
         wp_enqueue_style('wp-user-profile-avatar-frontend', WPUPA_PLUGIN_URL . '/assets/css/frontend.min.css');

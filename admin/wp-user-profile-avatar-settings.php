@@ -42,9 +42,7 @@ class WPUPA_Settings {
         $wpupa_attachment_id = get_option('wpupa_attachment_id');
         $wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
         $wpupa_size = get_option('wpupa_size');
-
         ?>
-
         <div class="wrap">
             <h2><?php _e('WP User Profile Avatar', 'wp-user-profile-avatar'); ?></h2>
             <table>
@@ -108,7 +106,7 @@ class WPUPA_Settings {
                                     </th>
                                     <td>
                                         <select id="wpupa_file_size" name="wpupa_file_size">
-                                            <?php foreach (get_wpupa_file_size() as $name => $size) {  ?>
+                                            <?php foreach (get_wpupa_file_size() as $name => $size) { ?>
                                                 <?php $selected = ($wpupa_file_size == $name) ? 'selected="selected"' : ""; ?>
                                                 <option value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /><?php echo esc_attr($name == 1024 ? '1GB' : $size ); ?></option>
                                             <?php } ?>

@@ -20,10 +20,10 @@ if (!defined('ABSPATH'))
                     <p id="wp_user_profile_avatar_add_button_existing">
                         <button type="button" class="button" id="wp_user_profile_avatar_add" ><?php _e('Choose Image'); ?></button>
 <!--                        <input type="file" name="wp_user_profile_avatar_upload" id="wp_user_profile_avatar_upload" class="input-text wp-user-profile-avatar-image" accept="image/jpg, image/jpeg, image/gif, image/png" >-->
-                        
+
                         <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id">
                         <input type="hidden" name="user_id" id="wp_user_id" value="<?php echo $user_id; ?>">
-                        
+
                     </p>
                 </td>
             </tr>
