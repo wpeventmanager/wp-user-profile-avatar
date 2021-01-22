@@ -19,3 +19,11 @@ $options = array(
 foreach ($options as $option) {
     delete_option($option);
 }
+
+$users = get_users();
+
+foreach ($users as $user) {
+    delete_user_meta($user->ID, '_wpupa_attachment_id');
+    delete_user_meta($user->ID, '_wpupa_default');
+    delete_user_meta($user->ID, '_wpupa_url');
+}
