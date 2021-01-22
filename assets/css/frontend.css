@@ -16,3 +16,4 @@
 .wp-user-profile-avatar .alignright {float: right;margin: 0.3rem 0 2rem 2rem;}
 .wp-user-profile-avatar .aligncenter {margin-bottom: 4rem;margin-top: 4rem;margin-left: auto;margin-right: auto;text-align: center;}
 .wp-user-profile-avatar .alignnone {margin-bottom: 4rem;margin-top: 4rem;margin-left: auto;margin-right: auto;text-align: center;}
+.author_bio_section{border: 1px solid #111;padding: 15px 25px;}.author_bio_section .author_details {display: flex;align-items: flex-start;margin-bottom: 10px;}.author_bio_section .author_image {margin: 10px 0;min-width: 100px;}.author_bio_section .author_info {margin-left: 20px;}.author_bio_section .author_info .author_name {font-weight: 500;text-transform: capitalize;}.author_bio_section .authorbox-social-icons {border-top: 1px solid #111;margin: 0px 0 10px 0;padding-top: 20px;}

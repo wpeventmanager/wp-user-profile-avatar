@@ -1,7 +1,8 @@
 <?php
+
 // Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
 /**
@@ -9,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WPUPA_Install {
 
-	/**
+    /**
      * install function.
      *
      * @access public static
@@ -17,12 +18,13 @@ class WPUPA_Install {
      * @return 
      * @since 1.0
      */
-	public static function install() 
-	{
-		update_option( 'wpupa_tinymce', 1 );
-		update_option( 'wpupa_show_avatars', 1 );
-		update_option( 'wpupa_rating', 'G' );
-		update_option( 'wpupa_default', 'mystery' );
-		update_option( 'wpupa_version', WPUPA_VERSION );
-	}
+    public static function install() {
+
+        update_option('wpupa_tinymce', 1);
+        update_option('wpupa_show_avatars', 1);
+        update_option('wpupa_rating', 'G');
+        update_option('wpupa_default', 'mystery');
+        update_option('wpupa_version', WPUPA_VERSION);
+    }
+
 }
