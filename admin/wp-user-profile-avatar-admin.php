@@ -140,7 +140,7 @@ class WPUPA_Admin {
             </tr>
             <tr>
                 <th scope="row">
-                    <label for="wpupa_file_size">Avatar Max File Size</label>
+                    <label for="wpupa_file_size"><?php _e('Avatar Max File Size', 'wp-user-profile-avatar'); ?></label>
                 </th>
                 <td>
                     <select id="wpupa_file_size" name="wpupa_file_size">
