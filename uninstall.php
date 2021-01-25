@@ -5,13 +5,13 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 }
 
 $options = array(
-    'wpupa_tinymce',
+    'wpupa_tinymce_settings',
     'wpupa_show_avatars',
-    'wpupa_rating',
-    'wpupa_default',
+    'wpupa_file_size',
+    'wpupa_size',
     'wpupa_version',
-    'wpupa_allow_upload',
-    'wpupa_disable_gravatar',
+    'wpupa_allow_upload_settings',
+    'wpupa_disable_gravatar_settings',
     'wpupa_show_avatars',
     'wpupa_attachment_id',
 );

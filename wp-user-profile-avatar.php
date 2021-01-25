@@ -2,37 +2,41 @@
 
 /**
   Plugin Name: WP User Profile Avatar
-  Plugin URI: https://www.wp-eventmanager.com/
+  Plugin URI: https://www.wp-eventmanager.com
   Description: WP User Profile Avatar
   Author: WP Event Manager
   Author URI: https://www.wp-eventmanager.com
   Text Domain: wp-user-profile-avatar
   Domain Path: /languages
-  Version: 1.0
-  Since: 1.0
+  Version: 1.0.0
+  Since: 1.0.0
   Requires WordPress Version at least: 4.1
   Copyright: 2020 WP Event Manager
   License: GNU General Public License v3.0
   License URI: http://www.gnu.org/licenses/gpl-3.0.html
-
  * */
 // Exit if accessed directly
-
 if (!defined('ABSPATH')) {
 
     exit;
 }
 
+if (!class_exists('WPEM_Updater')) {
+    include( 'autoupdater/wpem-updater.php' );
+}
+
+include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+
 /**
  * WP_User_Profile_Avatar class.
  */
-class WP_User_Profile_Avatar {
+class WP_User_Profile_Avatar extends WPEM_Updater {
 
     /**
      * The single instance of the class.
      *
      * @var self
-     * @since  1.0
+     * @since 1.0.0
      */
     private static $_instance = null;
 
@@ -41,7 +45,7 @@ class WP_User_Profile_Avatar {
      *
      * Ensures only one instance of WP User Profile Avatar is loaded or can be loaded.
      *
-     * @since  1.0
+     * @since 1.0.0
      * @static
      * @see WP_User_Profile_Avatar()
      * @return self Main instance.
@@ -57,42 +61,43 @@ class WP_User_Profile_Avatar {
      * Constructor - get the plugin hooked in and ready
      */
     public function __construct() {
+
         // Define constants
-        define('WPUPA_VERSION', '1.0');
+        define('WPUPA_VERSION', '1.0.0');
         define('WPUPA_PLUGIN_DIR', untrailingslashit(plugin_dir_path(__FILE__)));
         define('WPUPA_PLUGIN_URL', untrailingslashit(plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__))));
 
-
-        //Includes		
-        include( 'includes/wp-user-profile-avatar-install.php' );
-        include( 'includes/wp-user-profile-avatar-user.php' );
+        //Includes
+        include('includes/wp-user-profile-avatar-install.php');
         include( 'wp-user-profile-avatar-functions.php' );
-        include_once( 'templates/wp-username-change.php' );
-        include_once( 'disable-comments.php' );
-        include_once( 'templates/wp-author-box-social-info.php' );
-        include_once( 'templates/wp-add-new-avatar.php' );
-        include_once( 'templates/wp-avatar-social profile-picture.php' );
 
         //shortcodes
         include( 'shortcodes/wp-user-profile-avatar-shortcodes.php' );
-        include( 'shortcodes/wp-user-display.php' );
-        include( 'shortcodes/wp-author-social-info-shortcodes.php' );
 
+        //external 
+        include('external/external.php');
 
-
-        if (is_admin()) {
-            include( 'admin/wp-user-profile-avatar-admin.php' );
-        }
-
-        // Activation - works with symlinks
+        // Activation / deactivation - works with symlinks
         register_activation_hook(basename(dirname(__FILE__)) . '/' . basename(__FILE__), array($this, 'activate'));
 
         // Actions
         add_action('after_setup_theme', array($this, 'load_plugin_textdomain'));
-
+        
         add_action('wp_enqueue_scripts', array($this, 'frontend_scripts'));
 
         add_action('admin_init', array($this, 'updater'));
+
+        // Filters
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'wpupa_settings_link'));
+
+
+        if (is_admin()) {
+            include('admin/wp-user-profile-avatar-admin.php');
+        }
+
+
+        // Init license updates
+        $this->init_updates(__FILE__);
     }
 
     /**
@@ -101,10 +106,10 @@ class WP_User_Profile_Avatar {
      * @access public
      * @param 
      * @return 
-     * @since 1.0
+     * @since 1.0.0
      */
     public function activate() {
-
+        //installation process after activating
         WPUPA_Install::install();
     }
 
@@ -114,13 +119,13 @@ class WP_User_Profile_Avatar {
      * @access public
      * @param 
      * @return 
-     * @since 1.0
+     * @since 1.0.0
      */
     public function updater() {
         if (version_compare(WPUPA_VERSION, get_option('wpupa_version'), '>')) {
 
-            WPUPA_Install::install();
-            flush_rewrite_rules();
+            //WPUPA_Install::update();
+            //flush_rewrite_rules();
         }
     }
 
@@ -128,9 +133,9 @@ class WP_User_Profile_Avatar {
      * load_plugin_textdomain function.
      *
      * @access public
-     * @param 
+     * @param
      * @return 
-     * @since 1.0
+     * @since 1.0.0
      */
     public function load_plugin_textdomain() {
 
@@ -168,33 +173,40 @@ class WP_User_Profile_Avatar {
         );
     }
 
+    /**
+     * wpupa_settings_link function.
+     * 
+     * Create link on plugin page for wp user profile avatar plugin settings.
+     * 
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+    public function wpupa_settings_link($links) {
+        $links[] = '<a href="' . admin_url('options-discussion.php') . '">' . __('Settings', 'wp-user-profile-avatar') . '</a>';
+        return $links;
+    }
+
 }
 
 /**
- * add_plugin_page_wp_user_profile_avatar_settings_link function.
- * Create link on plugin page for wp user profile avatar plugin settings
- * @access public
- * @param 
- * @return 
- * @since 1.0
+ * Main instance of WP Event Manager Zoom.
+ *
+ * Returns the main instance of WP Event Manager Zoom to prevent the need to use globals.
+ *
+ * @since 1.0.0
+ * @return WP_Event_Manager_Pluginslug
  */
-function add_plugin_page_wp_user_profile_avatar_settings_link($links) {
-    $links[] = '<a href="' . admin_url('users.php?page=wp-user-profile-avatar-settings') . '">' . __('Settings', 'wp-user-profile-avatar') . '</a>';
-    return $links;
+function WPUPA() {
+    // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
+
+    /*
+     * Check weather WP Event Manager is installed or not. If WP Event Manger is not installed or active then it will give notification to admin panel
+     */
+    if (is_plugin_active('wp-event-manager/wp-event-manager.php')) {
+        return WP_User_Profile_Avatar::instance();
+    }
 }
 
-add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'add_plugin_page_wp_user_profile_avatar_settings_link');
-
-/**
- * Main instance of WP User Profile Avatar.
- *
- * Returns the main instance of WP User Profile Avatar to prevent the need to use globals.  
- *
- * @since  1.0
- * @return WP_User_Profile_Avatar
- */
-function WPUPA() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
-    return WP_User_Profile_Avatar::instance();
-}
-
-$GLOBALS['WP_User_Profile_Avatar'] = WPUPA();
+$GLOBALS['wp_user_profile_avatar'] = WPUPA();

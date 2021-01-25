@@ -6,9 +6,12 @@ class WPUPA_Shortcodes {
      * Constructor - get the plugin hooked in and ready
      */
     public function __construct() {
+        
+        add_shortcode('authorbox_social_info', array($this, 'authorbox_social_info'));
+        add_shortcode('authorbox_social_link', array($this, 'authorbox_social_link'));
+        add_shortcode('user_display', array($this, 'user_display'));
         add_shortcode('user_profile_avatar', array($this, 'user_profile_avatar'));
         add_shortcode('user_profile_avatar_upload', array($this, 'user_profile_avatar_upload'));
-        add_shortcode('authorbox_social_info', array($this, 'authorbox_social_info'));
 
         add_action('wp_ajax_nopriv_update_user_avatar', array($this, 'update_user_avatar'));
         add_action('wp_ajax_update_user_avatar', array($this, 'update_user_avatar'));
@@ -18,6 +21,8 @@ class WPUPA_Shortcodes {
 
         add_action('wp_ajax_nopriv_undo_user_avatar', array($this, 'undo_user_avatar'));
         add_action('wp_ajax_undo_user_avatar', array($this, 'undo_user_avatar'));
+        
+        add_filter( 'get_avatar_url', array($this,'get_user_avatar_url'), 10, 3 );
     }
 
     /**
@@ -42,7 +47,57 @@ class WPUPA_Shortcodes {
         ob_start();
 
 
-        include_once (WPUPA_PLUGIN_DIR . '/templates/wp-author-box-display.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-author-box-display.php' );
+
+        return ob_get_clean();
+    }
+    
+    /**
+     * authorbox_social_link function
+     * 
+     * @access public
+     * @param $atts
+     * @return
+     * @since 1.0
+     */
+    public function authorbox_social_link() {
+
+        $id = get_current_user_id();
+
+        $details = array(
+        );
+        ob_start();
+
+        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-author-box-social-info.php' );
+
+        return ob_get_clean();
+    }
+
+    /**
+     * user_display function
+     * 
+     * @access public
+     * @param $atts
+     * @return
+     * @since 1.0
+     */
+    public function user_display() {
+
+        $id = get_current_user_id();
+
+        $details = array(
+            'first_name' => get_the_author_meta('first_name', $id),
+            'last_name' => get_the_author_meta('last_name', $id),
+            'description' => get_the_author_meta('description', $id),
+            'email' => get_the_author_meta('email', $id),
+            'sabox_social_links' => get_the_author_meta('sabox_social_links', $id),
+            'sabox-profile-image' => get_the_author_meta('sabox-profile-image', $id),
+        );
+
+
+        ob_start();
+
+        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-display-user.php' );
 
         return ob_get_clean();
     }
@@ -80,7 +135,7 @@ class WPUPA_Shortcodes {
             $link = get_attachment_link(get_the_author_meta($wpdb->get_blog_prefix($blog_id) . 'user_avatar', $user_id));
         }
 
-        include_once (WPUPA_PLUGIN_DIR . '/templates/wp-user-avatar.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-user-avatar.php' );
 
         return ob_get_clean();
     }
@@ -112,11 +167,19 @@ class WPUPA_Shortcodes {
         $user_data = get_userdata($user_id);
 
         if (in_array('contributor', $user_data->roles)) {
-            $user->add_cap('upload_files');
+            if (empty($wpupa_allow_upload)) {
+                echo '<h5><strong style="color:red;">' . __('ERROR: ', 'wp-event-manager-zoom') . '</strong>' . __('You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar') . '</h5>';
+
+                return false;
+            }
         }
 
         if (in_array('subscriber', $user_data->roles)) {
-            $user->add_cap('upload_files');
+            if (empty($wpupa_allow_upload)) {
+                echo '<h5><strong style="color:red;">' . __('ERROR: ', 'wp-event-manager-zoom') . '</strong>' . __('You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar') . '</h5>';
+
+                return false;
+            }
         }
 
         wp_enqueue_script('wp-user-profile-avatar-frontend-avatar');
@@ -127,7 +190,7 @@ class WPUPA_Shortcodes {
         $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
         $wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
 
-        include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-avatar-upload.php' );
 
         return ob_get_clean();
     }
@@ -312,6 +375,61 @@ class WPUPA_Shortcodes {
         $upload = wp_handle_upload($file_handler, $overrides);
 
         return $upload;
+    }
+    
+    /**
+     * get_user_avatar_url function.
+     *
+     * @access public
+     * @param $url, $id_or_email, $args
+     * @return 
+     * @since 1.0
+     */
+    public function get_user_avatar_url($url, $id_or_email, $args) {
+        
+        $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
+
+        $wpupa_show_avatars = get_option('wpupa_show_avatars');
+
+        $wpupa_default = get_option('wpupa_default');
+
+        if (!$wpupa_show_avatars) {
+            return false;
+        }
+
+        $user_id = null;
+        if (is_object($id_or_email)) {
+            if (!empty($id_or_email->comment_author_email)) {
+                $user_id = $id_or_email->user_id;
+            }
+        } else {
+            if (is_email($id_or_email)) {
+                $user = get_user_by('email', $id_or_email);
+                if ($user) {
+                    $user_id = $user->ID;
+                }
+            } else {
+                $user_id = $id_or_email;
+            }
+        }
+        
+        // First checking custom avatar.
+        if (check_wpupa_url($user_id)) {
+            $url = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+        } else if ($wpupa_disable_gravatar) {
+            $url = get_wpupa_default_avatar_url(['size' => 'thumbnail']);
+        } else {
+            $has_valid_url = check_wpupa_gravatar($id_or_email);
+            if (!$has_valid_url) {
+                $url = get_wpupa_default_avatar_url(['size' => 'thumbnail']);
+            } else {
+                if ($wpupa_default != 'wp_user_profile_avatar' && !empty($user_id)) {
+                    $url = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+                }
+            }
+        }
+
+        return $url;
     }
 
 }

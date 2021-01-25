@@ -1,26 +1,5 @@
 <?php
 
-if (!function_exists('get_wpupa_rating')) {
-
-    /**
-     * get_wpupa_rating function.
-     *
-     * @access public
-     * @param 
-     * @return array
-     * @since 1.0
-     */
-    function get_wpupa_rating() {
-        return apply_filters('wp_user_avatar_rating', array(
-            'G' => __('G &#8212; Suitable for all audiences', 'wp-user-profile-avatar'),
-            'PG' => __('PG &#8212; Possibly offensive, usually for audiences 13 and above', 'wp-user-profile-avatar'),
-            'R' => __('R &#8212; Intended for adult audiences above 17', 'wp-user-profile-avatar'),
-            'X' => __('X &#8212; Even more mature than above', 'wp-user-profile-avatar')
-        ));
-    }
-
-}
-
 if (!function_exists('get_wpupa_file_size')) {
 
     /**
@@ -48,7 +27,6 @@ if (!function_exists('get_wpupa_file_size')) {
     }
 
 }
-
 
 if (!function_exists('get_wpupa_default_avatar')) {
 
@@ -91,12 +69,6 @@ if (!function_exists('get_wpupa_default_avatar_url')) {
 
         $wpupa_default = get_option('wpupa_default');
 
-        /*
-          if($size == 'admin')
-          {
-          $wpupa_default = '';
-          }
-         */
 
         if ($wpupa_default == 'wp_user_profile_avatar' || $size == 'admin') {
             $attachment_id = get_option('wpupa_attachment_id');
@@ -264,7 +236,7 @@ if (!function_exists('check_wpupa_gravatar')) {
                 $data = is_wp_error($response) ? 'not200' : $response['response']['code'];
 
                 wp_cache_set($hash, $data, $group = "", $expire = 60 * 5);
-//here set if hashtag has avatar
+                //here set if hashtag has avatar
                 $check_gravatar = ($data == '200') ? true : false;
                 if ($wp_user_hash_gravatar == false) {
                     $wp_user_hash_gravatar[$hash][date('m-d-Y')] = (bool) $check_gravatar;
@@ -284,13 +256,13 @@ if (!function_exists('check_wpupa_gravatar')) {
                         }
                     }
                 }
-//end
+            //end
             }
             $check_gravatar = ($data == '200') ? true : false;
         } else
             $check_gravatar = false;
 
-// Check if Gravatar image returns 200 (OK) or 404 (Not Found)
+            // Check if Gravatar image returns 200 (OK) or 404 (Not Found)
         return (bool) $check_gravatar;
     }
 

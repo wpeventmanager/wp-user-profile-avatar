@@ -13,6 +13,7 @@ class WPUPA_Admin {
      * Constructor - get the plugin hooked in and ready
      */
     public function __construct() {
+
         include_once( 'wp-user-profile-avatar-settings.php' );
         $this->settings_page = new WPUPA_Settings();
 
@@ -21,7 +22,6 @@ class WPUPA_Admin {
             add_action('init', array($this, 'wpupa_add_buttons'));
         }
 
-        add_action('admin_menu', array($this, 'admin_menu'), 12);
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 
         add_action('show_user_profile', array($this, 'wpupa_add_fields'));
@@ -38,25 +38,12 @@ class WPUPA_Admin {
     }
 
     /**
-     * admin_menu function.
-     *
-     * @access public
-     * @param 
-     * @return 
-     * @since 1.0
-     */
-    public function admin_menu() {
-
-        add_submenu_page('users.php', __('Profile Avatar Settings', 'wp-user-profile-avatar'), __('Profile Avatar Settings', 'wp-user-profile-avatar'), 'manage_options', 'wp-user-profile-avatar-settings', array($this->settings_page, 'settings'));
-    }
-
-    /**
      * admin_enqueue_scripts function.
-     *
+     * enqueue style and script for admin
      * @access public
      * @param 
      * @return 
-     * @since 1.0
+     * @since 1.0.0
      */
     public function admin_enqueue_scripts() {
         wp_register_style('wp-user-profile-avatar-backend', WPUPA_PLUGIN_URL . '/assets/css/backend.min.css');
@@ -99,6 +86,12 @@ class WPUPA_Admin {
 
         $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
         $wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
+
+        $wpupa_file_size = get_user_meta($user_id, 'wpupa_file_size', true);
+        $wpupa_size = get_user_meta($user_id, 'wpupa_size', true);
+        $wpupa_tinymce = get_user_meta($user_id, 'wpupa_tinymce', true);
+        $wpupa_allow_upload = get_user_meta($user_id, 'wpupa_allow_upload', true);
+        $wpupa_disable_gravatar = get_user_meta($user_id, 'wpupa_disable_gravatar', true);
         ?>
         <h3><?php _e('WP User Profile Avatar', 'wp-user-profile-avatar'); ?></h3>
 
@@ -145,6 +138,54 @@ class WPUPA_Admin {
                     </div>
                 </td>
             </tr>
+            <tr>
+                <th scope="row">
+                    <label for="wpupa_file_size">Avatar Max File Size</label>
+                </th>
+                <td>
+                    <select id="wpupa_file_size" name="wpupa_file_size">
+                        <?php foreach (get_wpupa_file_size() as $name => $size) { ?>
+                            <?php $selected = ($wpupa_file_size == $name) ? 'selected="selected"' : ""; ?>
+                            <option value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /><?php echo esc_attr($name == 1024 ? '1GB' : $size ); ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th><label for="wpupa_size"><?php _e("Avatar Size"); ?></label></th>
+                <?php
+                if ($wpupa_size == '') {
+                    $wpupa_size = get_avatar_data(get_current_user_id())['size'];
+                }
+                ?>
+                <td>
+                    <input type="number" name="wpupa_size" id="wpupa_size" value="<?php echo esc_attr($wpupa_size); ?>" />
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row"><?php _e('Settings', 'wp-user-profile-avatar'); ?></th>
+                <td>
+                    <fieldset>
+                        <label for="wpupa_tinymce">
+                            <input name="wpupa_tinymce" type="checkbox" id="wpupa_tinymce" value="1" <?php echo checked($wpupa_tinymce, 1, 0); ?> > <?php _e('Add shortcode avatar button to Visual Editor', 'wp-user-profile-avatar'); ?>
+                        </label>
+                    </fieldset>
+
+                    <fieldset>
+                        <label for="wpupa_allow_upload">
+                            <input name="wpupa_allow_upload" type="checkbox" id="wpupa_allow_upload" value="1"<?php echo checked($wpupa_allow_upload, 1, 0); ?> > <?php _e('Allow Contributors &amp; Subscribers to upload avatars', 'wp-user-profile-avatar'); ?>
+                        </label>
+                    </fieldset>
+
+                    <fieldset>
+                        <label for="wpupa_disable_gravatar">
+                            <input name="wpupa_disable_gravatar" type="checkbox" id="wpupa_disable_gravatar" value="1"<?php echo checked($wpupa_disable_gravatar, 1, 0); ?> > <?php _e('Disable all default gravatar and set own custom default avatar.', 'wp-user-profile-avatar'); ?>
+                        </label>
+                    </fieldset>
+                </td>
+            </tr>
         </table>
         <?php
     }
@@ -166,6 +207,28 @@ class WPUPA_Admin {
                 $wpupa_attachment_id = absint($_POST['wpupa_attachment_id']);
             }
 
+            if (isset($_POST['wpupa_file_size'])) {
+                $wpupa_file_size = esc_attr($_POST['wpupa_file_size']);
+                update_user_meta($user_id, 'wpupa_file_size', $wpupa_file_size);
+            }
+
+            if (isset($_POST['wpupa_size'])) {
+                $wpupa_size = absint($_POST['wpupa_size']);
+                update_user_meta($user_id, 'wpupa_size', $wpupa_size);
+            }
+            if (isset($_POST['wpupa_tinymce'])) {
+                $wpupa_tinymce = $_POST['wpupa_tinymce'];
+                update_user_meta($user_id, 'wpupa_tinymce', $wpupa_tinymce);
+            }
+            if (isset($_POST['wpupa_allow_upload'])) {
+                $wpupa_allow_upload = $_POST['wpupa_allow_upload'];
+                update_user_meta($user_id, 'wpupa_allow_upload', $wpupa_allow_upload);
+            }
+            if (isset($_POST['wpupa_disable_gravatar'])) {
+                $wpupa_disable_gravatar = $_POST['wpupa_disable_gravatar'];
+                update_user_meta($user_id, 'wpupa_disable_gravatar', $wpupa_disable_gravatar);
+            }
+
             if (isset($wpupa_url, $wpupa_attachment_id)) {
                 update_user_meta($user_id, '_wpupa_attachment_id', $wpupa_attachment_id);
                 update_user_meta($user_id, '_wpupa_url', $wpupa_url);
@@ -177,6 +240,7 @@ class WPUPA_Admin {
             } else {
                 update_user_meta($user_id, '_wpupa_default', '');
             }
+            
         } else {
             status_header('403');
             die();
@@ -246,7 +310,7 @@ class WPUPA_Admin {
      * @since 1.0
      */
     public function thickbox_model_view() {
-        include_once (WPUPA_PLUGIN_DIR . '/admin/templates/shortcode-popup.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/shortcode-popup.php' );
 
         wp_die();
     }
@@ -285,3 +349,4 @@ class WPUPA_Admin {
 }
 
 new WPUPA_Admin();
+
