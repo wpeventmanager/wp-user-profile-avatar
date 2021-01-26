@@ -63,7 +63,7 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
     public function __construct() {
 
         // Define constants
-        define('WPUPA_VERSION', '1.0.0');
+        define('WPUPA_VERSION', '1.0');
         define('WPUPA_PLUGIN_DIR', untrailingslashit(plugin_dir_path(__FILE__)));
         define('WPUPA_PLUGIN_URL', untrailingslashit(plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__))));
 
@@ -87,15 +87,13 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
 
         add_action('admin_init', array($this, 'updater'));
 
-        // Filters
-        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'wpupa_settings_link'));
-
-
         if (is_admin()) {
             include('admin/wp-user-profile-avatar-admin.php');
         }
-
-
+        
+        // Filters
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'wpupa_settings_link'));
+        
         // Init license updates
         $this->init_updates(__FILE__);
     }
@@ -124,8 +122,8 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
     public function updater() {
         if (version_compare(WPUPA_VERSION, get_option('wpupa_version'), '>')) {
 
-            //WPUPA_Install::update();
-            //flush_rewrite_rules();
+            WPUPA_Install::update();
+            flush_rewrite_rules();
         }
     }
 
@@ -183,7 +181,7 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
      * @return 
      * @since 1.0
      */
-    public function wpupa_settings_link($links) {
+    public static function wpupa_settings_link( $links ) {
         $links[] = '<a href="' . admin_url('profile.php') . '">' . __('Settings', 'wp-user-profile-avatar') . '</a>';
         return $links;
     }
@@ -201,12 +199,7 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
 function WPUPA() {
     // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
 
-    /*
-     * Check weather WP Event Manager is installed or not. If WP Event Manger is not installed or active then it will give notification to admin panel
-     */
-    if (is_plugin_active('wp-event-manager/wp-event-manager.php')) {
         return WP_User_Profile_Avatar::instance();
-    }
 }
 
 $GLOBALS['wp_user_profile_avatar'] = WPUPA();
