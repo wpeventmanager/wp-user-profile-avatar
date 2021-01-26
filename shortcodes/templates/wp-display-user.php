@@ -7,10 +7,10 @@ if (!defined('ABSPATH'))
 ?>
 
 <div class="author-details">
-    <p class="caption-text"><?php echo $details['first_name']; ?></p>
-    <p class="caption-text"><?php echo $details['last_name']; ?></p>
-    <p class="caption-text"><?php echo $details['description']; ?></p>
-    <p class="caption-text"><?php echo $details['email']; ?></p>
+    <p class="caption-text"><?php echo isset($details['first_name']) ? $details['first_name'] : '' ; ?></p>
+    <p class="caption-text"><?php echo isset($details['last_name']) ? $details['last_name'] : ''; ?></p>
+    <p class="caption-text"><?php echo isset($details['description']) ? $details['description'] : ''; ?></p>
+    <p class="caption-text"><?php echo isset($details['email']) ? $details['email'] : ''; ?></p>
     <?php
     if (!empty($details['sabox_social_links'])) {
         foreach ($details['sabox_social_links'] as $name => $link) {

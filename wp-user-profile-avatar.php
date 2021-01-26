@@ -184,7 +184,7 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
      * @since 1.0
      */
     public function wpupa_settings_link($links) {
-        $links[] = '<a href="' . admin_url('options-discussion.php') . '">' . __('Settings', 'wp-user-profile-avatar') . '</a>';
+        $links[] = '<a href="' . admin_url('profile.php') . '">' . __('Settings', 'wp-user-profile-avatar') . '</a>';
         return $links;
     }
 

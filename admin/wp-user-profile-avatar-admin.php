@@ -1,4 +1,5 @@
 <?php
+
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
     exit;
@@ -22,6 +23,8 @@ class WPUPA_Admin {
             add_action('init', array($this, 'wpupa_add_buttons'));
         }
 
+        include_once( 'templates/wp-username-change.php' );
+
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 
         add_action('show_user_profile', array($this, 'wpupa_add_fields'));
@@ -35,6 +38,17 @@ class WPUPA_Admin {
         add_action('init', array($this, 'thickbox_model_init'));
         add_action('wp_ajax_thickbox_model_view', array($this, 'thickbox_model_view'));
         add_action('wp_ajax_nopriv_thickbox_model_view', array($this, 'thickbox_model_view'));
+
+        add_action('show_user_profile', array($this, 'wpupa_add_extra_profile_picture_fields'));
+        add_action('edit_user_profile', array($this, 'wpupa_add_extra_profile_picture_fields'));
+        add_action('personal_options_update', array($this, 'wpupa_avatar_save_extra_profile_fields'));
+        add_action('edit_user_profile_update', array($this, 'wpupa_avatar_save_extra_profile_fields'));
+        add_action('wp_ajax_wp_social_avatar_gplus_clear_cache', array($this, 'wpupa_social_profile_cache_clear'));
+        add_action('wp_ajax_nopriv_wp_social_avatar_gplus_clear_cache', array($this, 'wpupa_social_profile_cache_clear'));
+
+        add_filter('get_avatar', array($this, 'wpupa_fb_profile'), 10, 5);
+        add_filter('get_avatar', array($this, 'wpupa_gplus_profile'), 10, 5);
+
     }
 
     /**
@@ -46,6 +60,8 @@ class WPUPA_Admin {
      * @since 1.0.0
      */
     public function admin_enqueue_scripts() {
+        global $pagenow;
+
         wp_register_style('wp-user-profile-avatar-backend', WPUPA_PLUGIN_URL . '/assets/css/backend.min.css');
 
         wp_register_script('wp-user-profile-avatar-admin-avatar', WPUPA_PLUGIN_URL . '/assets/js/admin-avatar.min.js', array('jquery'), WPUPA_VERSION, true);
@@ -60,8 +76,13 @@ class WPUPA_Admin {
                 )
         );
 
+        if ('profile.php' == $pagenow || 'user-edit.php' == $pagenow) {
+            wp_register_script('wp-user-profile-avatar-social-profile', WPUPA_PLUGIN_URL . '/assets/js/wp-avatar.js', array('jquery'), WPUPA_VERSION, true);
+        }
+
         wp_enqueue_style('wp-user-profile-avatar-backend');
         wp_enqueue_script('wp-user-profile-avatar-admin-avatar');
+        wp_enqueue_script('wp-user-profile-avatar-social-profile');
     }
 
     /**
@@ -92,102 +113,8 @@ class WPUPA_Admin {
         $wpupa_tinymce = get_user_meta($user_id, 'wpupa_tinymce', true);
         $wpupa_allow_upload = get_user_meta($user_id, 'wpupa_allow_upload', true);
         $wpupa_disable_gravatar = get_user_meta($user_id, 'wpupa_disable_gravatar', true);
-        ?>
-        <h3><?php _e('WP User Profile Avatar', 'wp-user-profile-avatar'); ?></h3>
 
-        <table class="form-table">
-            <tr>
-                <th>
-                    <label for="wp_user_profile_avatar"><?php _e('Image', 'wp-user-profile-avatar'); ?></label>
-                </th>
-                <td>
-                    <p>
-                        <input type="text" name="wpupa_url" id="wpupa_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
-                    </p>
-
-                    <p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
-
-                    <p id="wp_user_profile_avatar_add_button_existing">
-                        <button type="button" class="button" id="wp_user_profile_avatar_add"><?php _e('Choose Image'); ?></button>
-                        <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo $wpupa_attachment_id; ?>">
-                    </p>
-
-                    <?php
-                    $class_hide = 'wp-user-profile-avatar-hide';
-                    if (!empty($wpupa_attachment_id)) {
-                        $class_hide = '';
-                    } else if (!empty($wpupa_url)) {
-                        $class_hide = '';
-                    }
-                    ?>
-                    <div id="wp_user_profile_avatar_images_existing">
-                        <p id="wp_user_profile_avatar_preview">
-                            <img src="<?php echo $wpupa_original; ?>" alt="">
-                            <span class="description"><?php _e('Original Size', 'wp-user-profile-avatar'); ?></span>
-                        </p>
-                        <p id="wp_user_profile_avatar_thumbnail">
-                            <img src="<?php echo $wpupa_thumbnail; ?>" alt="">
-                            <span class="description"><?php _e('Thumbnail', 'wp-user-profile-avatar'); ?></span>
-                        </p>
-                        <p id="wp_user_profile_avatar_remove_button" class="<?php echo $class_hide; ?>">
-                            <button type="button" class="button" id="wp_user_profile_avatar_remove"><?php _e('Remove Image', 'wp-user-profile-avatar'); ?></button>
-                        </p>
-                        <p id="wp_user_profile_avatar_undo_button">
-                            <button type="button" class="button" id="wp_user_profile_avatar_undo"><?php _e('Undo', 'wp-user-profile-avatar'); ?></button>
-                        </p>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    <label for="wpupa_file_size"><?php _e('Avatar Max File Size', 'wp-user-profile-avatar'); ?></label>
-                </th>
-                <td>
-                    <select id="wpupa_file_size" name="wpupa_file_size">
-                        <?php foreach (get_wpupa_file_size() as $name => $size) { ?>
-                            <?php $selected = ($wpupa_file_size == $name) ? 'selected="selected"' : ""; ?>
-                            <option value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /><?php echo esc_attr($name == 1024 ? '1GB' : $size ); ?></option>
-                        <?php } ?>
-                    </select>
-                </td>
-            </tr>
-
-            <tr>
-                <th><label for="wpupa_size"><?php _e("Avatar Size"); ?></label></th>
-                <?php
-                if ($wpupa_size == '') {
-                    $wpupa_size = get_avatar_data(get_current_user_id())['size'];
-                }
-                ?>
-                <td>
-                    <input type="number" name="wpupa_size" id="wpupa_size" value="<?php echo esc_attr($wpupa_size); ?>" />
-                </td>
-            </tr>
-
-            <tr valign="top">
-                <th scope="row"><?php _e('Settings', 'wp-user-profile-avatar'); ?></th>
-                <td>
-                    <fieldset>
-                        <label for="wpupa_tinymce">
-                            <input name="wpupa_tinymce" type="checkbox" id="wpupa_tinymce" value="1" <?php echo checked($wpupa_tinymce, 1, 0); ?> > <?php _e('Add shortcode avatar button to Visual Editor', 'wp-user-profile-avatar'); ?>
-                        </label>
-                    </fieldset>
-
-                    <fieldset>
-                        <label for="wpupa_allow_upload">
-                            <input name="wpupa_allow_upload" type="checkbox" id="wpupa_allow_upload" value="1"<?php echo checked($wpupa_allow_upload, 1, 0); ?> > <?php _e('Allow Contributors &amp; Subscribers to upload avatars', 'wp-user-profile-avatar'); ?>
-                        </label>
-                    </fieldset>
-
-                    <fieldset>
-                        <label for="wpupa_disable_gravatar">
-                            <input name="wpupa_disable_gravatar" type="checkbox" id="wpupa_disable_gravatar" value="1"<?php echo checked($wpupa_disable_gravatar, 1, 0); ?> > <?php _e('Disable all default gravatar and set own custom default avatar.', 'wp-user-profile-avatar'); ?>
-                        </label>
-                    </fieldset>
-                </td>
-            </tr>
-        </table>
-        <?php
+        include('templates/user-profile-avatar-settings.php');
     }
 
     /**
@@ -240,10 +167,168 @@ class WPUPA_Admin {
             } else {
                 update_user_meta($user_id, '_wpupa_default', '');
             }
-            
         } else {
             status_header('403');
             die();
+        }
+    }
+
+    /**
+     * wpupa_add_extra_profile_picture_fields function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+    public function wpupa_add_extra_profile_picture_fields($socialprofile) {
+        $wp_avatar_add_social_picture = get_option('wp_avatar_add_social_picture', 'read');
+
+        if (!current_user_can($wp_avatar_add_social_picture))
+            return;
+        $wp_user_social_profile = get_user_meta($socialprofile->ID, 'wp_user_social_profile', true);
+        $wp_social_fb_profile = get_user_meta($socialprofile->ID, 'wp_social_fb_profile', true);
+        $wp_social_gplus_profile = get_user_meta($socialprofile->ID, 'wp_social_gplus_profile', true);
+
+        include('templates/social-profile-avatar-settings.php');
+    }
+
+    /**
+     * wpupa_avatar_save_extra_profile_fields function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+    public function wpupa_avatar_save_extra_profile_fields($user_id) {
+
+        update_user_meta($user_id, 'wp_social_fb_profile', trim($_POST['fb-profile']));
+        update_user_meta($user_id, 'wp_social_gplus_profile', trim($_POST['gplus-profile']));
+        update_user_meta($user_id, 'wp_user_social_profile', $_POST['wp-user-social-profile']);
+    }
+
+    /**
+     * wpupa_avatar_save_extra_profile_fields function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+    public function wpupa_user_social_profile_cache_clear() {
+        $user_id = sanitize_text_field($_POST['user_id']);
+        $delete_transient = delete_transient("wp_social_avatar_gplus_{$user_id}");
+
+        echo $delete_transient;
+        die();
+    }
+
+    /**
+     * wpupa_fb_profile function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+    public function wpupa_fb_profile($avatar, $id_or_email, $size, $default, $alt) {
+
+
+        if (is_int($id_or_email))
+            $user_id = $id_or_email;
+
+        if (is_object($id_or_email))
+            $user_id = $id_or_email->user_id;
+
+        if (!is_numeric($id_or_email)) {
+            return $avatar;
+        }
+        if (is_string($id_or_email)) {
+            $user = get_user_by('email', $id_or_email);
+            if ($user)
+                $user_id = $user->ID;
+            else
+                $user_id = $id_or_email;
+        }
+
+        $wp_user_social_profile = get_user_meta($user_id, 'wp_user_social_profile', true);
+        $wp_social_fb_profile = get_user_meta($user_id, 'wp_social_fb_profile', true);
+        $wp_avatar_add_social_picture = get_option('wp_avatar_add_social_picture', 'read');
+
+        if (user_can($user_id, $wp_avatar_add_social_picture)) {
+            if ('wp-facebook' == $wp_user_social_profile && !empty($wp_social_fb_profile)) {
+
+                $fb = 'https://graph.facebook.com/' . $wp_social_fb_profile . '/picture?width=' . $size . '&height=' . $size;
+                $avatar = "<img alt='facebook-profile-picture' src='{$fb}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
+
+                return $avatar;
+            } else {
+                return $avatar;
+            }
+        } else {
+            return $avatar;
+        }
+    }
+
+    /**
+     * wpupa_gplus_profile function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+    function wpupa_gplus_profile($avatar, $id_or_email, $size, $default, $alt) {
+
+
+        if (is_int($id_or_email))
+            $user_id = $id_or_email;
+
+        if (is_object($id_or_email))
+            $user_id = $id_or_email->user_id;
+
+        if (!is_numeric($id_or_email)) {
+            return $avatar;
+        }
+        if (is_string($id_or_email)) {
+            $user = get_user_by('email', $id_or_email);
+            if ($user)
+                $user_id = $user->ID;
+            else
+                $user_id = $id_or_email;
+        }
+
+        $wp_user_social_profile = get_user_meta($user_id, 'wp_user_social_profile', true);
+        $wp_social_gplus_profile = get_user_meta($user_id, 'wp_social_gplus_profile', true);
+        $wp_avatar_add_social_picture = get_option('wp_avatar_add_social_picture', 'read');
+
+        if (user_can($user_id, $wp_avatar_add_social_picture)) {
+            if ('wp-gplus' == $wp_user_social_profile && !empty($wp_social_gplus_profile)) {
+                if (false === ( $gplus = get_transient("wp_social_avatar_gplus_{$user_id}") )) {
+                    $url = 'https://www.googleapis.com/plus/v1/people/' . $wp_social_gplus_profile . '?fields=image&key=AIzaSyBrLkua-XeZh637G1T1J8DoNHK3Oqw81ao';
+                    $results = wp_remote_get($url, array('timeout' => -1));
+                    if (!is_wp_error($results)) {
+                        if (200 == $results['response']['code']) {
+                            $gplusdetails = json_decode($results['body']);
+                            $gplus = $gplusdetails->image->url;
+                            set_transient("wp_social_avatar_gplus_{$user_id}", $gplus, 48 * HOUR_IN_SECONDS);
+                            $gplus = str_replace('sz=50', "sz={$size}", $gplus);
+
+                            $avatar = "<img alt='gplus-profile-picture' src='{$gplus}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
+                        }
+                    }
+                } else {
+                    $gplus = str_replace('sz=50', "sz={$size}", $gplus);
+
+                    $avatar = "<img alt='gplus-profile-picture' src='{$gplus}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
+                }
+                return $avatar;
+            } else {
+                return $avatar;
+            }
+        } else {
+            return $avatar;
         }
     }
 
