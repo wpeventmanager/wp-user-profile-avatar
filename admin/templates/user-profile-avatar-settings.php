@@ -60,7 +60,7 @@
     <tr>
         <th><label for="wpupa_size"><?php _e("Avatar Size"); ?></label></th>
         <?php
-        if ($wpupa_size == '') {
+        if ($wpupa_size == '' || $wpupa_size == 0) {
             $wpupa_size = get_avatar_data(get_current_user_id())['size'];
         }
         ?>
@@ -74,19 +74,19 @@
         <td>
             <fieldset>
                 <label for="wpupa_tinymce">
-                    <input name="wpupa_tinymce" type="checkbox" id="wpupa_tinymce" value="1" <?php echo checked($wpupa_tinymce, 1, 0); ?> > <?php _e('Add shortcode avatar button to Visual Editor', 'wp-user-profile-avatar'); ?>
+                    <input name="wpupa_tinymce" type="checkbox" id="wpupa_tinymce" value="1" <?php echo checked($wpupa_tinymce, 1, true); ?> > <?php _e('Add shortcode avatar button to Visual Editor', 'wp-user-profile-avatar'); ?>
                 </label>
             </fieldset>
 
             <fieldset>
                 <label for="wpupa_allow_upload">
-                    <input name="wpupa_allow_upload" type="checkbox" id="wpupa_allow_upload" value="1"<?php echo checked($wpupa_allow_upload, 1, 0); ?> > <?php _e('Allow Contributors &amp; Subscribers to upload avatars', 'wp-user-profile-avatar'); ?>
+                    <input name="wpupa_allow_upload" type="checkbox" id="wpupa_allow_upload" value="1" <?php echo checked($wpupa_allow_upload, 1, false); ?> > <?php _e('Allow Contributors &amp; Subscribers to upload avatars', 'wp-user-profile-avatar'); ?>
                 </label>
             </fieldset>
 
             <fieldset>
                 <label for="wpupa_disable_gravatar">
-                    <input name="wpupa_disable_gravatar" type="checkbox" id="wpupa_disable_gravatar" value="1"<?php echo checked($wpupa_disable_gravatar, 1, 0); ?> > <?php _e('Disable all default gravatar and set own custom default avatar.', 'wp-user-profile-avatar'); ?>
+                    <input name="wpupa_disable_gravatar" type="checkbox" id="wpupa_disable_gravatar" value="1" <?php echo checked($wpupa_disable_gravatar, 1, false); ?> > <?php _e('Disable all default gravatar and set own custom default avatar.', 'wp-user-profile-avatar'); ?>
                 </label>
             </fieldset>
         </td>
