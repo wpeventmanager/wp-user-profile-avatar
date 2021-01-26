@@ -47,7 +47,7 @@ class WPUPA_Shortcodes {
         ob_start();
 
 
-        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-author-box-display.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/templates/wp-author-box-display.php' );
 
         return ob_get_clean();
     }
@@ -68,7 +68,7 @@ class WPUPA_Shortcodes {
         );
         ob_start();
 
-        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-author-box-social-info.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/templates/wp-author-box-social-info.php' );
 
         return ob_get_clean();
     }
@@ -97,7 +97,7 @@ class WPUPA_Shortcodes {
 
         ob_start();
 
-        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-display-user.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/templates/wp-display-user.php' );
 
         return ob_get_clean();
     }
@@ -135,7 +135,7 @@ class WPUPA_Shortcodes {
             $link = get_attachment_link(get_the_author_meta($wpdb->get_blog_prefix($blog_id) . 'user_avatar', $user_id));
         }
 
-        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-user-avatar.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/templates/wp-user-avatar.php' );
 
         return ob_get_clean();
     }
@@ -190,7 +190,7 @@ class WPUPA_Shortcodes {
         $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
         $wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
 
-        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/wp-avatar-upload.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
 
         return ob_get_clean();
     }

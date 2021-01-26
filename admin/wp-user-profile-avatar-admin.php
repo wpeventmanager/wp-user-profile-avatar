@@ -222,7 +222,7 @@ class WPUPA_Admin {
      * @since 1.0
      */
     public function thickbox_model_view() {
-        include_once (WPUPA_PLUGIN_DIR . '/shortcodes/templates/shortcode-popup.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/templates/shortcode-popup.php' );
 
         wp_die();
     }
