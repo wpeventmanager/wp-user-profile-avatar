@@ -91,13 +91,11 @@ class Elementor_WPUPA extends Widget_Base {
         $this->start_controls_section(
                 'section_shortcode',
                 [
-                    'label' => __('Wp User Profile Avatar Shortcode', 'wp-user-profile-avatar'),
+                    'label' => __('Wp User Profile Avatar', 'wp-user-profile-avatar'),
                 ]
         );
 
         $user_id = get_current_user_id();
-
-        $args = [];
 
         $users_list = [];
 
@@ -137,7 +135,7 @@ class Elementor_WPUPA extends Widget_Base {
                     'options' => get_wpupa_image_alignment()
                 ]
         );
-        
+
         $this->add_control(
                 'link',
                 [
@@ -153,10 +151,19 @@ class Elementor_WPUPA extends Widget_Base {
                 [
                     'label' => __('Open link in a new window', 'wp-user-profile-avatar'),
                     'type' => Controls_Manager::SWITCHER,
-                    'label_on' => __('Show', 'your-plugin'),
-                    'label_off' => __('Hide', 'your-plugin'),
+                    'label_on' => __('Show', 'wp-user-profile-avatar'),
+                    'label_off' => __('Hide', 'wp-user-profile-avatar'),
                     'return_value' => 'yes',
                     'default' => 'yes',
+                ]
+        );
+
+        $this->add_control(
+                'content',
+                [
+                    'label' => __('Caption', 'wp-user-profile-avatar'),
+                    'type' => Controls_Manager::TEXT,
+                    'default' => __('', 'wp-user-profile-avatar'),
                 ]
         );
 
@@ -172,15 +179,15 @@ class Elementor_WPUPA extends Widget_Base {
      */
     protected function render() {
         $settings = $this->get_settings_for_display();
-        
-        if(isset($settings['target']) && $settings['target'] == 'yes'){
+
+        if (isset($settings['target']) && $settings['target'] == 'yes') {
             $target = '_blank';
         } else {
             $target = '_self';
         }
 
         echo '<div class="elementor-user-profile-avatar-widget">';
-        echo do_shortcode('[user_profile_avatar user_id="' . $settings['user_id'] . '" size="' . $settings['size'] . '" align="' . $settings['align'] . '" link="' . $settings['link'] . '" target="'. $target .'"]');
+        echo do_shortcode('[user_profile_avatar user_id="' . $settings['user_id'] . '" size="' . $settings['size'] . '" align="' . $settings['align'] . '" link="' . $settings['link'] . '" target="' . $target . '"]'. $settings['content'] .'[/user_profile_avatar]');
         echo '</div>';
     }
 

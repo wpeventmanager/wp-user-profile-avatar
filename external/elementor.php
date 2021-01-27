@@ -74,6 +74,8 @@ class Plugin {
      */
     private function include_widgets_files() {
         require_once( __DIR__ . '/elementor-widgets/elementor-user-profile-avatar.php' );
+        require_once( __DIR__ . '/elementor-widgets/elementor-user-profile-avatar-upload.php' );
+        require_once( __DIR__ . '/elementor-widgets/elementor-user-profile-avatar-authorbox.php' );
     }
 
     /**
@@ -89,6 +91,8 @@ class Plugin {
 
         // Register Widgets
         \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\Elementor_WPUPA());
+        \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\Elementor_WPUPA_Upload());
+        \Elementor\Plugin::instance()->widgets_manager->register_widget_type(new Widgets\Elementor_WPUPA_Authorbox());
     }
 
 }
