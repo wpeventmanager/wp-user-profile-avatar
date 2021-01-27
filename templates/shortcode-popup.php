@@ -53,7 +53,6 @@
                             <th><?php _e('Link To', 'wp-user-profile-avatar'); ?></th>
                             <td>
                                 <select id="wp_image_link_to" name="wp_image_link_to" class="regular-text">
-                                    <option value=""><?php _e('None', 'wp-user-profile-avatar'); ?>
                                         <?php
                                         foreach (get_wpupa_image_link_to() as $name => $label) {
                                             echo '<option value="' . $name . '">' . $label . '</option>';

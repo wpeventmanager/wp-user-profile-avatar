@@ -321,6 +321,7 @@ if (!function_exists('get_wpupa_image_link_to')) {
      */
     function get_wpupa_image_link_to() {
         return apply_filters('wp_image_link_to', array(
+            'none' => __('None', 'wp-user-profile-avatar'),
             'image' => __('Image File', 'wp-user-profile-avatar'),
             'attachment' => __('Attachment Page', 'wp-user-profile-avatar'),
             'custom' => __('Custom URL', 'wp-user-profile-avatar'),

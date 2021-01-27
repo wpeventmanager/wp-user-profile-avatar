@@ -76,13 +76,15 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
 
         //external 
         include('external/external.php');
+        
+        include_once( 'templates/wp-author-box-social-info.php' );
 
         // Activation / deactivation - works with symlinks
         register_activation_hook(basename(dirname(__FILE__)) . '/' . basename(__FILE__), array($this, 'activate'));
 
         // Actions
         add_action('after_setup_theme', array($this, 'load_plugin_textdomain'));
-        
+
         add_action('wp_enqueue_scripts', array($this, 'frontend_scripts'));
 
         add_action('admin_init', array($this, 'updater'));
@@ -90,10 +92,10 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
         if (is_admin()) {
             include('admin/wp-user-profile-avatar-admin.php');
         }
-        
+
         // Filters
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'wpupa_settings_link'));
-        
+
         // Init license updates
         $this->init_updates(__FILE__);
     }
@@ -181,7 +183,7 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
      * @return 
      * @since 1.0
      */
-    public static function wpupa_settings_link( $links ) {
+    public static function wpupa_settings_link($links) {
         $links[] = '<a href="' . admin_url('profile.php') . '">' . __('Settings', 'wp-user-profile-avatar') . '</a>';
         return $links;
     }
@@ -199,7 +201,7 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
 function WPUPA() {
     // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
 
-        return WP_User_Profile_Avatar::instance();
+    return WP_User_Profile_Avatar::instance();
 }
 
 $GLOBALS['wp_user_profile_avatar'] = WPUPA();
