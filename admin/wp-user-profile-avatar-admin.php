@@ -18,7 +18,7 @@ class WPUPA_Admin {
         include_once( 'wp-user-profile-avatar-settings.php' );
         $this->settings_page = new WPUPA_Settings();
 
-        $wpupa_tinymce = get_user_meta(get_current_user_id(), 'wpupa_tinymce', true);
+        $wpupa_tinymce = get_option('wpupa_tinymce');
         if ($wpupa_tinymce) {
             add_action('init', array($this, 'wpupa_add_buttons'));
         }
@@ -95,9 +95,9 @@ class WPUPA_Admin {
 
         $wpupa_file_size = get_user_meta($user->ID, 'wpupa_file_size', true);
         $wpupa_size = get_user_meta($user->ID, 'wpupa_size', true);
-        $wpupa_tinymce = get_user_meta($user->ID, 'wpupa_tinymce', true);
-        $wpupa_allow_upload = get_user_meta($user->ID, 'wpupa_allow_upload', true);
-        $wpupa_disable_gravatar = get_user_meta($user->ID, 'wpupa_disable_gravatar', true);
+        $wpupa_tinymce = get_option('wpupa_tinymce');
+        $wpupa_allow_upload = get_option('wpupa_allow_upload');
+        $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
 
         include('templates/user-profile-avatar-settings.php');
     }
@@ -128,25 +128,23 @@ class WPUPA_Admin {
                 $wpupa_size = absint($_POST['wpupa_size']);
                 update_user_meta($user_id, 'wpupa_size', $wpupa_size);
             }
-            if (isset($_POST['wpupa_tinymce'])) {
-                $wpupa_tinymce = $_POST['wpupa_tinymce'];
-                update_user_meta($user_id, 'wpupa_tinymce', $wpupa_tinymce);
-            }
-            if (isset($_POST['wpupa_allow_upload'])) {
-                $wpupa_allow_upload = $_POST['wpupa_allow_upload'];
-                update_user_meta($user_id, 'wpupa_allow_upload', $wpupa_allow_upload);
-            }
-            if (isset($_POST['wpupa_disable_gravatar'])) {
-                $wpupa_disable_gravatar = $_POST['wpupa_disable_gravatar'];
-                update_user_meta($user_id, 'wpupa_disable_gravatar', $wpupa_disable_gravatar);
-            }
+            
 
             if (isset($wpupa_url, $wpupa_attachment_id)) {
                 update_user_meta($user_id, '_wpupa_attachment_id', $wpupa_attachment_id);
                 update_user_meta($user_id, '_wpupa_url', $wpupa_url);
             }
+            
+            $wpupa_tinymce = !empty($_POST['wpupa_tinymce']) ? sanitize_text_field($_POST['wpupa_tinymce']) : '';
 
+            $wpupa_allow_upload = !empty($_POST['wpupa_allow_upload']) ? sanitize_text_field($_POST['wpupa_allow_upload']) : '';
 
+            $wpupa_disable_gravatar = !empty($_POST['wpupa_disable_gravatar']) ? sanitize_text_field($_POST['wpupa_disable_gravatar']) : '';
+            
+            update_option('wpupa_tinymce', $wpupa_tinymce);
+            update_option('wpupa_allow_upload', $wpupa_allow_upload);
+            update_option('wpupa_disable_gravatar', $wpupa_disable_gravatar);
+            
             if (!empty($wpupa_attachment_id) || !empty($wpupa_url)) {
                 update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
             } else {
@@ -222,7 +220,7 @@ class WPUPA_Admin {
      * @since 1.0
      */
     public function thickbox_model_view() {
-        include_once (WPUPA_PLUGIN_DIR . '/templates/shortcode-popup.php' );
+        include_once (WPUPA_PLUGIN_DIR . '/admin/templates/shortcode-popup.php' );
 
         wp_die();
     }

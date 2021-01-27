@@ -6,23 +6,20 @@ class WPUPA_Shortcodes {
      * Constructor - get the plugin hooked in and ready
      */
     public function __construct() {
-        
+
         add_shortcode('authorbox_social_info', array($this, 'authorbox_social_info'));
         add_shortcode('authorbox_social_link', array($this, 'authorbox_social_link'));
         add_shortcode('user_display', array($this, 'user_display'));
         add_shortcode('user_profile_avatar', array($this, 'user_profile_avatar'));
         add_shortcode('user_profile_avatar_upload', array($this, 'user_profile_avatar_upload'));
 
-        add_action('wp_ajax_nopriv_update_user_avatar', array($this, 'update_user_avatar'));
         add_action('wp_ajax_update_user_avatar', array($this, 'update_user_avatar'));
 
-        add_action('wp_ajax_nopriv_remove_user_avatar', array($this, 'remove_user_avatar'));
         add_action('wp_ajax_remove_user_avatar', array($this, 'remove_user_avatar'));
 
-        add_action('wp_ajax_nopriv_undo_user_avatar', array($this, 'undo_user_avatar'));
         add_action('wp_ajax_undo_user_avatar', array($this, 'undo_user_avatar'));
-        
-        add_filter( 'get_avatar_url', array($this,'get_user_avatar_url'), 10, 3 );
+
+        add_filter('get_avatar_url', array($this, 'get_user_avatar_url'), 10, 3);
     }
 
     /**
@@ -51,7 +48,7 @@ class WPUPA_Shortcodes {
 
         return ob_get_clean();
     }
-    
+
     /**
      * authorbox_social_link function
      * 
@@ -155,8 +152,11 @@ class WPUPA_Shortcodes {
         ob_start();
 
         if (!is_user_logged_in()) {
-            echo '<h5><strong style="color:red;">' . __('ERROR: ', 'wp-event-manager-zoom') . '</strong>' . __('You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar') . '</h5>';
-
+            ?>
+            <h5><strong style="color:red;"><?php echo __('ERROR: ', 'wp-user-profile-avatar'); ?></strong> 
+                <?php printf('You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', wp_login_url()); ?> 
+            </h5>
+            <?php
             return false;
         }
 
@@ -168,16 +168,22 @@ class WPUPA_Shortcodes {
 
         if (in_array('contributor', $user_data->roles)) {
             if (empty($wpupa_allow_upload)) {
-                echo '<h5><strong style="color:red;">' . __('ERROR: ', 'wp-event-manager-zoom') . '</strong>' . __('You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar') . '</h5>';
-
+                ?>
+                <h5><strong style="color:red;"><?php echo __('ERROR: ', 'wp-user-profile-avatar'); ?></strong> 
+                    <?php printf('You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', wp_login_url()); ?> 
+                </h5>
+                <?php
                 return false;
             }
         }
 
         if (in_array('subscriber', $user_data->roles)) {
             if (empty($wpupa_allow_upload)) {
-                echo '<h5><strong style="color:red;">' . __('ERROR: ', 'wp-event-manager-zoom') . '</strong>' . __('You do not have enough priviledge to access this page. Please login to continue.', 'wp-user-profile-avatar') . '</h5>';
-
+                ?>
+                <h5><strong style="color:red;"><?php echo __('ERROR: ', 'wp-user-profile-avatar'); ?></strong> 
+                    <?php printf('You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', wp_login_url()); ?> 
+                </h5>
+                <?php
                 return false;
             }
         }
@@ -376,7 +382,7 @@ class WPUPA_Shortcodes {
 
         return $upload;
     }
-    
+
     /**
      * get_user_avatar_url function.
      *
@@ -386,7 +392,7 @@ class WPUPA_Shortcodes {
      * @since 1.0
      */
     public function get_user_avatar_url($url, $id_or_email, $args) {
-        
+
         $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
 
         $wpupa_show_avatars = get_option('wpupa_show_avatars');
@@ -412,7 +418,7 @@ class WPUPA_Shortcodes {
                 $user_id = $id_or_email;
             }
         }
-        
+
         // First checking custom avatar.
         if (check_wpupa_url($user_id)) {
             $url = get_wpupa_url($user_id, ['size' => 'thumbnail']);
