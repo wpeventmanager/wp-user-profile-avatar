@@ -58,7 +58,7 @@ class WPUPA_Admin {
 
         wp_localize_script('wp-user-profile-avatar-admin-avatar', 'wp_user_profile_avatar_admin_avatar', array(
             'thinkbox_ajax_url' => admin_url('admin-ajax.php') . '?height=600&width=770&action=thickbox_model_view',
-            'thinkbox_title' => __('WP User Profile Avatar', 'wp-user-profile-avatar'),
+            'thinkbox_title' => '',
             'icon_title' => __('WP User Profile Avatar', 'wp-user-profile-avatar'),
             'wp_user_profile_avatar_security' => wp_create_nonce("_nonce_user_profile_avatar_security"),
             'media_box_title' => __('Choose Image: Default Avatar', 'wp-user-profile-avatar'),
