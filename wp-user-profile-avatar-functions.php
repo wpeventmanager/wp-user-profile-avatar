@@ -145,7 +145,11 @@ if (!function_exists('get_wpupa_url')) {
                 $image_attributes = wp_get_attachment_image_src($attachment_id, $size);
 
             if (!empty($image_attributes)) {
-                return $image_attributes;
+                if($size == 'wpupavatar_default') {
+                    return $image_attributes;
+                } else {
+                    return $image_attributes[0];
+                }
             } else {
                 return get_wpupa_default_avatar_url(['user_id' => $user_id, 'size' => $size]);
             }
