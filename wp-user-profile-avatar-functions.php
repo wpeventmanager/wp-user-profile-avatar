@@ -134,19 +134,25 @@ if (!function_exists('get_wpupa_url')) {
 
         $wpupa_default = get_user_meta($user_id, '_wpupa_default', true);
 
+        $wpupa_size = get_user_meta($user_id, 'wpupa_size', true);
+
+        add_image_size( 'wpupavatar_default', $wpupa_size, $wpupa_size, true ); 
+
         if (!empty($wpupa_url)) {
             return $wpupa_url;
         } else if (!empty($attachment_id)) {
-            $image_attributes = wp_get_attachment_image_src($attachment_id, $size);
+
+                $image_attributes = wp_get_attachment_image_src($attachment_id, $size);
 
             if (!empty($image_attributes)) {
-                return $image_attributes[0];
+                return $image_attributes;
             } else {
                 return get_wpupa_default_avatar_url(['user_id' => $user_id, 'size' => $size]);
             }
         } else {
             return get_wpupa_default_avatar_url(['user_id' => $user_id, 'size' => $size]);
         }
+
     }
 
 }
