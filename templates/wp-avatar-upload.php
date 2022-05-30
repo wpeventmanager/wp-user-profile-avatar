@@ -6,12 +6,12 @@ if (!defined('ABSPATH'))
     exit;
 ?>
 <div class="wp-user-profile-avatar-upload">
-    <form method="post" name="update-user-profile-avatar" class="update-user-profile-avatar" enctype="multipart/form-data">
+    <form method="post" name="update-user-profile-avatar" id="update_user_profile_avatar" class="update-user-profile-avatar" enctype="multipart/form-data">
         <table class="form-table">
             <tr>
                 <td>
                     <p>
-                        <input type="text" name="wpupa_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
+                        <input type="text" name="wpupa_url" id="wpupa_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
                     </p>
 
                     <p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
