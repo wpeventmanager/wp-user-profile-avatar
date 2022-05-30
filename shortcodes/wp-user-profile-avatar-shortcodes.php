@@ -343,16 +343,13 @@ class WPUPA_Shortcodes {
         $wpupa_attachment_id = absint($form_data['wpupa_attachment_id']);
         $user_id = absint($form_data['user_id']);
 
-        if (isset($user_id, $wpupa_attachment_id, $wpupa_url)) {
-            update_user_meta($user_id, '_wpupa_attachment_id', $wpupa_attachment_id);
-            update_user_meta($user_id, '_wpupa_url', $wpupa_url);
-        }
-
-        if (!empty($wpupa_attachment_id) || $wpupa_url) {
-            update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
-        } else {
+        if (isset($user_id)) {
+            update_user_meta($user_id, '_wpupa_attachment_id', '');
+            update_user_meta($user_id, '_wpupa_url', '');
             update_user_meta($user_id, '_wpupa_default', '');
         }
+
+        
 
         $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
         $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);

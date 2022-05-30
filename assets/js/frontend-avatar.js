@@ -176,7 +176,7 @@ var FrontendAvatar = function () {
                                 {
                                     jQuery('#wp_user_profile_avatar_preview img').attr('src', responce.avatar_original);
                                     jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', responce.avatar_thumbnail);
-
+                                    jQuery('#update_user_profile_avatar').trigger('reset');
                                     jQuery('#wp_user_profile_avatar_undo_button').show();
                                 }
                             }
