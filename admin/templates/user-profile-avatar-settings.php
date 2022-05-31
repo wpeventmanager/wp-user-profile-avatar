@@ -43,19 +43,7 @@
             </div>
         </td>
     </tr>
-    <tr>
-        <th scope="row">
-            <label for="wpupa_file_size"><?php _e('Avatar Max File Size', 'wp-user-profile-avatar'); ?></label>
-        </th>
-        <td>
-            <select id="wpupa_file_size" name="wpupa_file_size">
-                <?php foreach (get_wpupa_file_size() as $name => $size) { ?>
-                    <?php $selected = ($wpupa_file_size == $name) ? 'selected="selected"' : ""; ?>
-                    <option value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /><?php echo esc_attr($name == 1024 ? '1GB' : $size ); ?></option>
-                <?php } ?>
-            </select>
-        </td>
-    </tr>
+
 
     <tr>
         <th><label for="wpupa_size"><?php _e("Avatar Size"); ?></label></th>
@@ -66,6 +54,18 @@
         ?>
         <td>
             <input type="number" name="wpupa_size" id="wpupa_size" value="<?php echo esc_attr($wpupa_size); ?>" />
+        </td>
+    </tr>
+
+    <tr>
+        <th scope="row"><label for="wpem_upload_max_file_size_field">WP Control File Size</label></th>
+        <td>
+            <select id="wpem_upload_max_file_size_field" name="wpem_upload_max_file_size_field">
+            <?php
+                foreach ( $wpupa_upload_sizes as $size_wpupa ) {
+                    echo '<option value="' . esc_attr($size_wpupa) . '" ' . ($size_wpupa == $wpupa_current_max_size ? 'selected' : '') . '>' . ( $size_wpupa . 'MB') . '</option>';
+                } ?>
+            </select>
         </td>
     </tr>
 
@@ -91,5 +91,6 @@
             </fieldset>
         </td>
     </tr>
+    
 </table>
 
