@@ -39,7 +39,7 @@ class WPUPA_Admin {
         add_action('wp_ajax_thickbox_model_view', array($this, 'thickbox_model_view'));
         add_action('wp_ajax_nopriv_thickbox_model_view', array($this, 'thickbox_model_view'));
 
-        add_action('admin_init', array($this, 'init_size'));
+        //add_action('admin_init', array($this, 'init_size'));
 
     }
 
@@ -102,14 +102,14 @@ class WPUPA_Admin {
         $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
 
         // Custom uplaod file size
-        $wpupa_max_size = get_option('wpem_max_file_size');
+        /*$wpupa_max_size = get_option('wpem_max_file_size');
         if ( ! $wpupa_max_size ) {
             $wpupa_max_size = 64 * 1024 * 1024;
         }
         $wpupa_max_size = $wpupa_max_size / 1024 / 1024;
         $wpupa_upload_sizes = array( 1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024 ); 
         $wpupa_current_max_size = self::wpupa_get_closest($wpupa_max_size, $wpupa_upload_sizes);
-
+		*/
         include('templates/user-profile-avatar-settings.php');
 
     }
@@ -275,7 +275,7 @@ class WPUPA_Admin {
      * Get closest value from array
      *
      */
-    function wpupa_get_closest( $wpupa_search, $wpupa_arr ) {
+    /*function wpupa_get_closest( $wpupa_search, $wpupa_arr ) {
         $closest = null;
         foreach ( $wpupa_arr as $wpupa_item ) {
             if ( $wpupa_closest === null || abs($wpupa_search - $wpupa_closest) > abs($wpupa_item - $wpupa_search) ) {
@@ -298,7 +298,7 @@ class WPUPA_Admin {
      * Increase max_file_size
      *
      */
-    function wpem_upload_max_increase_upload() {
+    /*function wpem_upload_max_increase_upload() {
         $wpupa_max_size = (int)get_option('wpem_max_file_size');
         
         if ( ! $wpupa_max_size ) {
@@ -306,7 +306,7 @@ class WPUPA_Admin {
         }
 
         return $wpupa_max_size;
-    }
+    }*/
 }
 
 new WPUPA_Admin();
