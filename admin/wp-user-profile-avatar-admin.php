@@ -273,9 +273,7 @@ class WPUPA_Admin {
 
     /**
      * Get closest value from array
-     * @param $search
-     * @param $arr
-     * @return mixed|null
+     *
      */
     function wpupa_get_closest( $wpupa_search, $wpupa_arr ) {
         $closest = null;
