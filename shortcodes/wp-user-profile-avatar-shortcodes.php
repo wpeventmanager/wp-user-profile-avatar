@@ -269,7 +269,7 @@ class WPUPA_Shortcodes {
 
         $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
         $wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
-
+     
         if (empty($wpupa_attachment_id) && empty($wpupa_url)) {
             $wpupa_original = '';
             $wpupa_thumbnail = '';
@@ -319,7 +319,7 @@ class WPUPA_Shortcodes {
 
         $message = __('Successfully Removed Avatar', 'wp-user-profile-avatar');
         $class = 'wp-user-profile-avatar-success';
-
+        
         echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
 
         wp_die();

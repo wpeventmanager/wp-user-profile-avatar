@@ -237,7 +237,7 @@ if (!function_exists('check_wpupa_gravatar')) {
             } else {
                 $http = 'http';
             }
-            $gravatar = $http . '://www.gravatar.com/avatar/' . $hash . '?d=404';
+            $gravatar = $http . '://www.gravatar.com/avatar/' . $hash . '?d=404'; 
 
             $data = wp_cache_get($hash);
 
