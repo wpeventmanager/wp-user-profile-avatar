@@ -18,3 +18,7 @@
 #TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .admin-setting-left #settings_upload_avatar{
 	display: none;
 }
+.mce-widget[aria-label="WP User Profile Avatar"] {
+    padding: 2px 3px;
+    line-height: normal;
+}
