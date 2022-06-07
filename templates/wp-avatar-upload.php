@@ -53,7 +53,7 @@ if (!defined('ABSPATH'))
 
             <tr>
                 <td>
-                    <button type="button" class="button" id="wp_user_profile_avatar_update_profile"><?php _e('Update Profile', 'wp-user-profile-avatar'); ?></button>
+                    <button type="button" class="wpem-theme-button" id="wp_user_profile_avatar_update_profile"><?php _e('Update Profile', 'wp-user-profile-avatar'); ?></button>
                 </td>
             </tr>
 
