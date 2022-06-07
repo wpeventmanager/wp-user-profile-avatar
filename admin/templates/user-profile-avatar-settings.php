@@ -43,19 +43,6 @@
             </div>
         </td>
     </tr>
-    <tr>
-        <th scope="row">
-            <label for="wpupa_file_size"><?php _e('Avatar Max File Size', 'wp-user-profile-avatar'); ?></label>
-        </th>
-        <td>
-            <select id="wpupa_file_size" name="wpupa_file_size">
-                <?php foreach (get_wpupa_file_size() as $name => $size) { ?>
-                    <?php $selected = ($wpupa_file_size == $name) ? 'selected="selected"' : ""; ?>
-                    <option value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /><?php echo esc_attr($name == 1024 ? '1GB' : $size ); ?></option>
-                <?php } ?>
-            </select>
-        </td>
-    </tr>
 
     <tr>
         <th><label for="wpupa_size"><?php _e("Avatar Size"); ?></label></th>
