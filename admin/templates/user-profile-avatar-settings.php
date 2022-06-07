@@ -66,7 +66,7 @@
                 } ?>
             </select>
         </td>
-    </tr>-->
+    </tr>
 
     <tr valign="top">
         <th scope="row"><?php _e('Settings', 'wp-user-profile-avatar'); ?></th>
