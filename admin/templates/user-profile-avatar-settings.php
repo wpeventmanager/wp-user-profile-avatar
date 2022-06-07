@@ -69,14 +69,14 @@
         </td>
     </tr>
 
-    <!--<tr>
+    <tr>
         <th scope="row"><label for="wpem_upload_max_file_size_field">WP Control File Size</label></th>
         <td>
             <select id="wpem_upload_max_file_size_field" name="wpem_upload_max_file_size_field">
             <?php
-                //foreach ( $wpupa_upload_sizes as $size_wpupa ) {
-                    //echo '<option value="' . esc_attr($size_wpupa) . '" ' . ($size_wpupa == $wpupa_current_max_size ? 'selected' : '') . '>' . ( $size_wpupa . 'MB') . '</option>';
-                //} ?>
+                foreach ( $wpupa_upload_sizes as $size_wpupa ) {
+                    echo '<option value="' . esc_attr($size_wpupa) . '" ' . ($size_wpupa == $wpupa_current_max_size ? 'selected' : '') . '>' . ( $size_wpupa . 'MB') . '</option>';
+                } ?>
             </select>
         </td>
     </tr>-->
