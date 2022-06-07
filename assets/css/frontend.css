@@ -17,3 +17,37 @@
 .wp-user-profile-avatar .aligncenter {margin-bottom: 4rem;margin-top: 4rem;margin-left: auto;margin-right: auto;text-align: center;}
 .wp-user-profile-avatar .alignnone {margin-bottom: 4rem;margin-top: 4rem;margin-left: auto;margin-right: auto;text-align: center;}
 .author_bio_section{border: 1px solid #111;padding: 15px 25px;}.author_bio_section .author_details {display: flex;align-items: flex-start;margin-bottom: 10px;}.author_bio_section .author_image {margin: 10px 0;min-width: 100px;}.author_bio_section .author_info {margin-left: 20px;}.author_bio_section .author_info .author_name {font-weight: 500;text-transform: capitalize;}.author_bio_section .authorbox-social-icons {border-top: 1px solid #111;margin: 0px 0 10px 0;padding-top: 20px;}
+
+.update-user-profile-avatar td, .update-user-profile-avatar th {
+    border-color: #eee;
+    padding: 20px;
+}
+.update-user-profile-avatar #wpupa_url {
+    width: 100%;
+    max-width: 500px;
+    border-color: var(--wpem-gray-border-color);
+    padding: 10px;
+}
+.update-user-profile-avatar #wp_user_profile_avatar_add_button_existing .button{
+    border: 1px solid var(--wpem-gray-border-color);
+    background-color: var(--wpem-gray-bg-color);
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.update-user-profile-avatar #wp_user_profile_avatar_add_button_existing .button:hover {
+    background-color: var(--wpem-gray-border-color);
+    color: var(--wpem-dark-color);
+}
+.update-user-profile-avatar #wp_user_profile_avatar_add_button_existing {
+    margin: 0;
+}
+.update-user-profile-avatar #wp_user_profile_avatar_preview,
+.update-user-profile-avatar #wp_user_profile_avatar_thumbnail,
+.update-user-profile-avatar #wp_user_profile_avatar_remove_button,
+.update-user-profile-avatar #wp_user_profile_avatar_undo_button {
+    margin-bottom: 0;
+}
+.update-user-profile-avatar #wp_user_profile_avatar_preview img,
+.update-user-profile-avatar #wp_user_profile_avatar_thumbnail img {
+    margin-bottom: 5px;
+}
