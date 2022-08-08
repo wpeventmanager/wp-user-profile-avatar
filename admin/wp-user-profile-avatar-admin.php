@@ -276,7 +276,7 @@ class WPUPA_Admin {
      *
      */
     function wpupa_get_closest( $wpupa_search, $wpupa_arr ) {
-        $closest = null;
+        $wpupa_closest = null;
         foreach ( $wpupa_arr as $wpupa_item ) {
             if ( $wpupa_closest === null || abs($wpupa_search - $wpupa_closest) > abs($wpupa_item - $wpupa_search) ) {
                 $wpupa_closest = $wpupa_item;
