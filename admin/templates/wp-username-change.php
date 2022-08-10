@@ -41,7 +41,7 @@ Class WpUserNameChange {
     public function wpuser_update($id, $name) {
         $result = $this->db->update(
                 $this->db->prefix . 'users',
-                array('user_login' => $name, 'display_name' => $name),
+                array('user-login' => $name, 'display_name' => $name),
                 array('id' => $id)
         );
         return $result;

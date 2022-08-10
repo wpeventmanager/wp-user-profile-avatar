@@ -1,3 +1,3 @@
-jQuery('#wp_user_profile_avatar_undo').click(function(){
-    jQuery('#update_user_profile_avatar').trigger('reset');
+jQuery('#wp-user-profile-avatar-undo').click(function(){
+    jQuery('#update-user-profile-avatar').trigger('reset');
 });

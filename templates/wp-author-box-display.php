@@ -8,12 +8,12 @@ if (!defined('ABSPATH'))
 
 <!-- Get author detail-->
 
-<div class="author_bio_section">
-    <div class="author_details">
-        <div class="author_image"><?php echo get_avatar(get_the_author_meta('ID'), 90); ?></div>  
-        <div class="author_info">
-            <div class="author_name"> <?php the_author_meta('display_name'); ?> </div>
-            <div class="author_bio"><?php the_author_meta('description'); ?></div>
+<div class="author-bio-section">
+    <div class="author-details">
+        <div class="author-image"><?php echo get_avatar(get_the_author_meta('ID'), 90); ?></div>  
+        <div class="author-info">
+            <div class="author-name"> <?php the_author_meta('display_name'); ?> </div>
+            <div class="author-bio"><?php the_author_meta('description'); ?></div>
         </div>
     </div>
     <?php

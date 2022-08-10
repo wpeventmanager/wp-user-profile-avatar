@@ -34,7 +34,7 @@ function Wp_username_edit() {
                     ?>
                     <tr>
                         <td><?php echo $user->ID; ?></td>
-                        <td><?php echo $user->user_login; ?></td>
+                        <td><?php echo $user->user-login; ?></td>
                         <td><?php echo implode(', ', $user_info->roles); ?></td>
                         <td><a href="<?php echo admin_url('admin.php?page=Wp_username_update&update=' . $user->ID); ?>">update</a></td>
                     </tr>
@@ -56,10 +56,10 @@ function Wp_user_update() {
         $user_info = get_userdata($id);
         $result = $wpdb->get_results($wpdb->prepare("SELECT * from $wpdb->users WHERE ID = %d", $id));
         foreach ($result as $user) {
-            $username = $user->user_login;
+            $username = $user->user-login;
         }
         if (!empty($_REQUEST['submit'])) {
-            $name = sanitize_user($_POST["user_login"]);
+            $name = sanitize_user($_POST["user-login"]);
             if (empty($name)) {
                 $errorMsg = "Error : Please do not enter  empty username.";
             } elseif (username_exists($name)) {
@@ -78,15 +78,15 @@ function Wp_user_update() {
             }
             ?>
         </div>
-        <form method="post" id="user_udate" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
+        <form method="post" id="user-udate" action="<?php echo $_SERVER['REQUEST_URI']; ?>">
             <table class="form-table">
                 <tr>
-                    <th><label for="olduser_login"><?php _e('Old Username', 'WP_Username_change') ?></label></th>
+                    <th><label for="olduser-login"><?php _e('Old Username', 'WP_Username_change') ?></label></th>
                     <td><strong><?php echo $username; ?></strong></td>
                 </tr>
                 <tr>
-                    <th><label for="user_login"><?php _e('New Username', 'WP_Username_change') ?></label></th>
-                    <td><input type="text" name="user_login" class="regular-text" id="user_login" value="<?php if (!empty($_POST["user_login"])) echo $name; ?>"/></td>
+                    <th><label for="user-login"><?php _e('New Username', 'WP_Username_change') ?></label></th>
+                    <td><input type="text" name="user-login" class="regular-text" id="user-login" value="<?php if (!empty($_POST["user-login"])) echo $name; ?>"/></td>
                 </tr>
             </table>
             <input type="submit" name="submit" id="submit" class="button button-primary" value="Update WP Username">

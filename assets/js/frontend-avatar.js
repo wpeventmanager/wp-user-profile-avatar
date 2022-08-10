@@ -4,10 +4,10 @@ var FrontendAvatar = function () {
 
         init: function ()
         {
-            jQuery('#wp_user_profile_avatar_add').on('click', FrontendAvatar.actions.chooseAvatar);
-            jQuery('#wp_user_profile_avatar_remove').on('click', FrontendAvatar.actions.removeAvatar);
-            jQuery('#wp_user_profile_avatar_undo').on('click', FrontendAvatar.actions.undoAvatar);
-            jQuery('#wp_user_profile_avatar_update_profile').on('click', FrontendAvatar.actions.updateAvatar);
+            jQuery('#wp-user-profile-avatar-add').on('click', FrontendAvatar.actions.chooseAvatar);
+            jQuery('#wp-user-profile-avatar-remove').on('click', FrontendAvatar.actions.removeAvatar);
+            jQuery('#wp-user-profile-avatar-undo').on('click', FrontendAvatar.actions.undoAvatar);
+            jQuery('#wp-user-profile-avatar-update-profile').on('click', FrontendAvatar.actions.updateAvatar);
         },
 
         actions:
@@ -41,9 +41,9 @@ var FrontendAvatar = function () {
                             attachment = file_frame.state().get('selection').first().toJSON();
                             console.log(attachment);
                             // do something with the file here
-                            jQuery('#wpupa_attachment_id').attr('value', attachment.id);
-                            jQuery('#wp_user_profile_avatar_preview img').attr('src', attachment.sizes['full']['url']);
-                            jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', attachment.sizes['thumbnail']['url']);
+                            jQuery('#wpupa-attachment-id').attr('value', attachment.id);
+                            jQuery('#wp-user-profile-avatar-preview img').attr('src', attachment.sizes['full']['url']);
+                            jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', attachment.sizes['thumbnail']['url']);
                         });
                         file_frame.open();
                     },
@@ -57,9 +57,9 @@ var FrontendAvatar = function () {
                      */
                     removeAvatar: function (event)
                     {
-                        jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-error');
-                        jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-success');
-                        jQuery('#upload_avatar_responce').html('');
+                        jQuery('#upload-avatar-responce').removeClass('wp-user-profile-avatar-error');
+                        jQuery('#upload-avatar-responce').removeClass('wp-user-profile-avatar-success');
+                        jQuery('#upload-avatar-responce').html('');
 
                         var form_data = jQuery('.update-user-profile-avatar').serialize();
 
@@ -77,17 +77,17 @@ var FrontendAvatar = function () {
                             contentType: false,
                             success: function (responce)
                             {
-                                jQuery('#upload_avatar_responce').addClass(responce.class);
-                                jQuery('#upload_avatar_responce').html(responce.message);
+                                jQuery('#upload-avatar-responce').addClass(responce.class);
+                                jQuery('#upload-avatar-responce').html(responce.message);
 
                                 if (responce.class == 'wp-user-profile-avatar-success')
                                 {
-                                    jQuery('#wp_user_profile_avatar_preview img').attr('src', responce.avatar_original);
-                                    jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', responce.avatar_thumbnail);
+                                    jQuery('#wp-user-profile-avatar-preview img').attr('src', responce.avatar_original);
+                                    jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
 
-                                    jQuery('.update-user-profile-avatar #wpupa_url').val('');
-                                    jQuery('.update-user-profile-avatar #wpupa_attachment_id').val('');
-                                    jQuery('#wp_user_profile_avatar_remove_button').hide();
+                                    jQuery('.update-user-profile-avatar #wpupa-url').val('');
+                                    jQuery('.update-user-profile-avatar #wpupa-attachment-id').val('');
+                                    jQuery('#wp-user-profile-avatar-remove-button').hide();
                                 }
                             }
                         });
@@ -103,9 +103,9 @@ var FrontendAvatar = function () {
                      */
                     undoAvatar: function (event)
                     {
-                        jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-error');
-                        jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-success');
-                        jQuery('#upload_avatar_responce').html('');
+                        jQuery('#upload-avatar-responce').removeClass('wp-user-profile-avatar-error');
+                        jQuery('#upload-avatar-responce').removeClass('wp-user-profile-avatar-success');
+                        jQuery('#upload-avatar-responce').html('');
 
                         var form_data = jQuery('.update-user-profile-avatar').serialize();
 
@@ -123,15 +123,15 @@ var FrontendAvatar = function () {
                             contentType: false,
                             success: function (responce)
                             {
-                                jQuery('#upload_avatar_responce').addClass(responce.class);
-                                jQuery('#upload_avatar_responce').html(responce.message);
+                                jQuery('#upload-avatar-responce').addClass(responce.class);
+                                jQuery('#upload-avatar-responce').html(responce.message);
 
                                 if (responce.class == 'wp-user-profile-avatar-success')
                                 {
-                                    jQuery('#wp_user_profile_avatar_preview img').attr('src', responce.avatar_original);
-                                    jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', responce.avatar_thumbnail);
+                                    jQuery('#wp-user-profile-avatar-preview img').attr('src', responce.avatar_original);
+                                    jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
 
-                                    jQuery('#wp_user_profile_avatar_undo_button').hide();
+                                    jQuery('#wp-user-profile-avatar-undo-button').hide();
                                 }
                             }
                         });
@@ -147,14 +147,14 @@ var FrontendAvatar = function () {
                      */
                     updateAvatar: function (event)
                     {
-                        jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-error');
-                        jQuery('#upload_avatar_responce').removeClass('wp-user-profile-avatar-success');
-                        jQuery('#upload_avatar_responce').html('');
+                        jQuery('#upload-avatar-responce').removeClass('wp-user-profile-avatar-error');
+                        jQuery('#upload-avatar-responce').removeClass('wp-user-profile-avatar-success');
+                        jQuery('#upload-avatar-responce').html('');
 
                         var form_data = jQuery('.update-user-profile-avatar').serialize();
 
                         var fd = new FormData();
-                        fd.append("user-avatar", jQuery('#wp_user_profile_avatar_add'));
+                        fd.append("user-avatar", jQuery('#wp-user-profile-avatar-add'));
                         fd.append("action", 'update_user_avatar');
                         fd.append("form_data", form_data);
                         fd.append("security", wp_user_profile_avatar_frontend_avatar.wp_user_profile_avatar_security);
@@ -169,15 +169,15 @@ var FrontendAvatar = function () {
                             success: function (responce)
                             {
                                 console.log(responce);
-                                jQuery('#upload_avatar_responce').addClass(responce.class);
-                                jQuery('#upload_avatar_responce').html(responce.message);
+                                jQuery('#upload-avatar-responce').addClass(responce.class);
+                                jQuery('#upload-avatar-responce').html(responce.message);
 
                                 if (responce.class == 'wp-user-profile-avatar-success')
                                 {
-                                    jQuery('#wp_user_profile_avatar_preview img').attr('src', responce.avatar_original);
-                                    jQuery('#wp_user_profile_avatar_thumbnail img').attr('src', responce.avatar_thumbnail);
-                                    jQuery('#update_user_profile_avatar').trigger('reset');
-                                    jQuery('#wp_user_profile_avatar_undo_button').show();
+                                    jQuery('#wp-user-profile-avatar-preview img').attr('src', responce.avatar_original);
+                                    jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
+                                    jQuery('#update-user-profile-avatar').trigger('reset');
+                                    jQuery('#wp-user-profile-avatar-undo-button').show();
                                 }
                             }
                         });

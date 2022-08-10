@@ -18,7 +18,7 @@ class WPUPA_Admin {
         include_once( 'wp-user-profile-avatar-settings.php' );
         $this->settings_page = new WPUPA_Settings();
 
-        $wpupa_tinymce = get_option('wpupa_tinymce');
+        $wpupa_tinymce = get_option('wpupa-tinymce');
         if ($wpupa_tinymce) {
             add_action('init', array($this, 'wpupa_add_buttons'));
         }
@@ -92,14 +92,14 @@ class WPUPA_Admin {
         $wpupa_original = get_wpupa_url($user->ID, ['size' => 'original']);
         $wpupa_thumbnail = get_wpupa_url($user->ID, ['size' => 'thumbnail']);
 
-        $wpupa_attachment_id = get_user_meta($user->ID, '_wpupa_attachment_id', true);
-        $wpupa_url = get_user_meta($user->ID, '_wpupa_url', true);
+        $wpupa_attachment_id = get_user_meta($user->ID, '-wpupa-attachment-id', true);
+        $wpupa_url = get_user_meta($user->ID, '-wpupa-url', true);
 
         $wpupa_file_size = get_user_meta($user->ID, 'wpupa_file_size', true);
-        $wpupa_size = get_user_meta($user->ID, 'wpupa_size', true);
-        $wpupa_tinymce = get_option('wpupa_tinymce');
-        $wpupa_allow_upload = get_option('wpupa_allow_upload');
-        $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
+        $wpupa_size = get_user_meta($user->ID, 'wpupa-size', true);
+        $wpupa_tinymce = get_option('wpupa-tinymce');
+        $wpupa_allow_upload = get_option('wpupa-allow-upload');
+        $wpupa_disable_gravatar = get_option('wpupa-disable-gravatar');
 
         // Custom uplaod file size
         $wpupa_max_size = get_option('wpem_max_file_size');
@@ -125,11 +125,11 @@ class WPUPA_Admin {
     public function wpupa_save_fields($user_id) {
         if (current_user_can('edit_user', $user_id)) {
             
-            if (isset($_POST['wpupa_url'])) {
-                $wpupa_url = esc_url_raw($_POST['wpupa_url']);
+            if (isset($_POST['wpupa-url'])) {
+                $wpupa_url = esc_url_raw($_POST['wpupa-url']);
             }
-            if (isset($_POST['wpupa_attachment_id'])) {
-                $wpupa_attachment_id = absint($_POST['wpupa_attachment_id']);
+            if (isset($_POST['wpupa-attachment-id'])) {
+                $wpupa_attachment_id = absint($_POST['wpupa-attachment-id']);
             }
 
             if (isset($_POST['wpupa_file_size'])) {
@@ -137,26 +137,26 @@ class WPUPA_Admin {
                 update_user_meta($user_id, 'wpupa_file_size', $wpupa_file_size);
             }
 
-            if (isset($_POST['wpupa_size'])) {
-                $wpupa_size = absint($_POST['wpupa_size']);
-                update_user_meta($user_id, 'wpupa_size', $wpupa_size);
+            if (isset($_POST['wpupa-size'])) {
+                $wpupa_size = absint($_POST['wpupa-size']);
+                update_user_meta($user_id, 'wpupa-size', $wpupa_size);
             }
             
 
             if (isset($wpupa_url, $wpupa_attachment_id)) {
-                update_user_meta($user_id, '_wpupa_attachment_id', $wpupa_attachment_id);
-                update_user_meta($user_id, '_wpupa_url', $wpupa_url);
+                update_user_meta($user_id, '-wpupa-attachment-id', $wpupa_attachment_id);
+                update_user_meta($user_id, '-wpupa-url', $wpupa_url);
             }
             
-            $wpupa_tinymce = !empty($_POST['wpupa_tinymce']) ? sanitize_text_field($_POST['wpupa_tinymce']) : '';
+            $wpupa_tinymce = !empty($_POST['wpupa-tinymce']) ? sanitize_text_field($_POST['wpupa-tinymce']) : '';
 
-            $wpupa_allow_upload = !empty($_POST['wpupa_allow_upload']) ? sanitize_text_field($_POST['wpupa_allow_upload']) : '';
+            $wpupa_allow_upload = !empty($_POST['wpupa-allow-upload']) ? sanitize_text_field($_POST['wpupa-allow-upload']) : '';
 
-            $wpupa_disable_gravatar = !empty($_POST['wpupa_disable_gravatar']) ? sanitize_text_field($_POST['wpupa_disable_gravatar']) : '';
+            $wpupa_disable_gravatar = !empty($_POST['wpupa-disable-gravatar']) ? sanitize_text_field($_POST['wpupa-disable-gravatar']) : '';
             
-            update_option('wpupa_tinymce', $wpupa_tinymce);
-            update_option('wpupa_allow_upload', $wpupa_allow_upload);
-            update_option('wpupa_disable_gravatar', $wpupa_disable_gravatar);
+            update_option('wpupa-tinymce', $wpupa_tinymce);
+            update_option('wpupa-allow-upload', $wpupa_allow_upload);
+            update_option('wpupa-disable-gravatar', $wpupa_disable_gravatar);
             
             if (!empty($wpupa_attachment_id) || !empty($wpupa_url)) {
                 update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
@@ -251,7 +251,7 @@ class WPUPA_Admin {
         $contributor = get_role('contributor');
         $subscriber = get_role('subscriber');
 
-        $wpupa_allow_upload = get_option('wpupa_allow_upload');
+        $wpupa_allow_upload = get_option('wpupa-allow-upload');
 
         if (!empty($contributor)) {
             if ($wpupa_allow_upload) {
@@ -286,8 +286,8 @@ class WPUPA_Admin {
     }
 
     function init_size() { 
-        if ( isset($_POST['wpem_upload_max_file_size_field']) ) {
-            $wpupa_max_size = (int) $_POST['wpem_upload_max_file_size_field'] * 1024 * 1024;
+        if ( isset($_POST['wpem-upload-max-file-size-field']) ) {
+            $wpupa_max_size = (int) $_POST['wpem-upload-max-file-size-field'] * 1024 * 1024;
             update_option('wpem_max_file_size', $wpupa_max_size);
             wp_safe_redirect(admin_url('upload.php?page=wpem_upload_max_file_size&max-size-updated=true'));
         }
