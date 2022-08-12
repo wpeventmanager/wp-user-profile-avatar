@@ -34,7 +34,7 @@ function Wp_username_edit() {
                     ?>
                     <tr>
                         <td><?php echo $user->ID; ?></td>
-                        <td><?php echo $user->user-login; ?></td>
+                        <td><?php echo $user->user_login; ?></td>
                         <td><?php echo implode(', ', $user_info->roles); ?></td>
                         <td><a href="<?php echo admin_url('admin.php?page=Wp_username_update&update=' . $user->ID); ?>">update</a></td>
                     </tr>
