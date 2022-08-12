@@ -68,11 +68,19 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
         define('WPUPA_PLUGIN_URL', untrailingslashit(plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__))));
 
         //Includes
-        include('includes/wp-user-profile-avatar-install.php');
+        include( 'includes/wp-user-profile-avatar-install.php' );
+        include( 'includes/wp-user-profile-avatar-user.php' );
         include( 'wp-user-profile-avatar-functions.php' );
+        include_once( 'templates/wp-username-change.php' );
+        include_once( 'disable-comments.php' );
+        include_once( 'templates/wp-author-box-social-info.php' );
+        include_once( 'templates/wp-add-new-avatar.php' );
+        include_once( 'templates/wp-avatar-social profile-picture.php' );
 
         //shortcodes
         include( 'shortcodes/wp-user-profile-avatar-shortcodes.php' );
+        include( 'shortcodes/wp-user-display.php' );
+        include( 'shortcodes/wp-author-social-info-shortcodes.php' );
 
         //external 
         include('external/external.php');
