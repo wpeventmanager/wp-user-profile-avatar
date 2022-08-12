@@ -71,7 +71,7 @@ if (!function_exists('get_wpupa_default_avatar_url')) {
 
 
         if ($wpupa_default == 'wp_user_profile_avatar' || $size == 'admin') {
-            $attachment_id = get_option('wpupa-attachment-id');
+            $attachment_id = get_option('wpupa_attachment_id');
 
             if (!empty($attachment_id)) {
                 $image_attributes = wp_get_attachment_image_src($attachment_id, $size);
@@ -130,7 +130,7 @@ if (!function_exists('get_wpupa_url')) {
 
         $wpupa_url = get_user_meta($user_id, '-wpupa-url', true);
 
-        $attachment_id = get_user_meta($user_id, '-wpupa-attachment-id', true);
+        $attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
 
         $wpupa_default = get_user_meta($user_id, '_wpupa_default', true);
 
@@ -174,7 +174,7 @@ if (!function_exists('check_wpupa_url')) {
     function check_wpupa_url($user_id = '') {
         $attachment_url = get_user_meta($user_id, '-wpupa-url', true);
 
-        $attachment_id = get_user_meta($user_id, '-wpupa-attachment-id', true);
+        $attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
 
         $wpupa_default = get_user_meta($user_id, '_wpupa_default', true);
 

@@ -49,4 +49,4 @@ Class WpUserNameChange {
 
 }
 
-$wpuser = new WpUserNameChange ();
+$wpuser = new WpUserNameChange();

@@ -193,7 +193,7 @@ class WPUPA_Shortcodes {
         $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
         $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
-        $wpupa_attachment_id = get_user_meta($user_id, '-wpupa-attachment-id', true);
+        $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
         $wpupa_url = get_user_meta($user_id, '-wpupa-url', true);
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
@@ -216,7 +216,7 @@ class WPUPA_Shortcodes {
 
         //sanitize each of the values of form data
         $form_wpupa_url = esc_url_raw($form_data['wpupa-url']);
-        $form_wpupa_attachment_id = absint($form_data['wpupa-attachment-id']);
+        $form_wpupa_attachment_id = absint($form_data['wpupa_attachment_id']);
         $user_id = absint($form_data['user_id']);
 
 
@@ -251,11 +251,11 @@ class WPUPA_Shortcodes {
 
             if (isset($user_id, $attach_id)) {
                 $result = wp_update_attachment_metadata($attach_id, $attach_data);
-                update_user_meta($user_id, '-wpupa-attachment-id', $attach_id);
+                update_user_meta($user_id, '_wpupa_attachment_id', $attach_id);
             }
         } else {
             if (isset($user_id, $form_wpupa_attachment_id))
-                update_user_meta($user_id, '-wpupa-attachment-id', $form_wpupa_attachment_id);
+                update_user_meta($user_id, '_wpupa_attachment_id', $form_wpupa_attachment_id);
         }
 
         if (isset($user_id, $form_wpupa_url))
@@ -267,7 +267,7 @@ class WPUPA_Shortcodes {
             update_user_meta($user_id, '_wpupa_default', '');
         }
 
-        $wpupa_attachment_id = get_user_meta($user_id, '-wpupa-attachment-id', true);
+        $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
         $wpupa_url = get_user_meta($user_id, '-wpupa-url', true);
      
         if (empty($wpupa_attachment_id) && empty($wpupa_url)) {
@@ -302,11 +302,11 @@ class WPUPA_Shortcodes {
 
         //sanitize each of the values of form data
         $wpupa_url = esc_url_raw($form_data['wpupa-url']);
-        $wpupa_attachment_id = absint($form_data['wpupa-attachment-id']);
+        $wpupa_attachment_id = absint($form_data['wpupa_attachment_id']);
         $user_id = absint($form_data['user_id']);
 
         if (isset($user_id)) {
-            update_user_meta($user_id, '-wpupa-attachment-id', '');
+            update_user_meta($user_id, '_wpupa_attachment_id', '');
             update_user_meta($user_id, '-wpupa-url', '');
             update_user_meta($user_id, '_wpupa_default', '');
 
@@ -340,11 +340,11 @@ class WPUPA_Shortcodes {
 
         //sanitize each of the values of form data
         $wpupa_url = esc_url_raw($form_data['wpupa-url']);
-        $wpupa_attachment_id = absint($form_data['wpupa-attachment-id']);
+        $wpupa_attachment_id = absint($form_data['wpupa_attachment_id']);
         $user_id = absint($form_data['user_id']);
 
         if (isset($user_id)) {
-            update_user_meta($user_id, '-wpupa-attachment-id', '');
+            update_user_meta($user_id, '_wpupa_attachment_id', '');
             update_user_meta($user_id, '-wpupa-url', '');
             update_user_meta($user_id, '_wpupa_default', '');
         }

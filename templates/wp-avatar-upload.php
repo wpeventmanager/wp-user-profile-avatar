@@ -19,7 +19,7 @@ if (!defined('ABSPATH'))
                     <p id="wp-user-profile-avatar-add-button-existing">
                         <button type="button" class="button" id="wp-user-profile-avatar-add" ><?php _e('Choose Image'); ?></button>
 
-                        <input type="hidden" name="wpupa-attachment-id" id="wpupa-attachment-id">
+                        <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id">
                         <input type="hidden" name="user_id" id="wp-user-id" value="<?php echo $user_id; ?>">
 
                     </p>

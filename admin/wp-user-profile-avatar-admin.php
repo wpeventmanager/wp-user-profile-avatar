@@ -92,7 +92,7 @@ class WPUPA_Admin {
         $wpupa_original = get_wpupa_url($user->ID, ['size' => 'original']);
         $wpupa_thumbnail = get_wpupa_url($user->ID, ['size' => 'thumbnail']);
 
-        $wpupa_attachment_id = get_user_meta($user->ID, '-wpupa-attachment-id', true);
+        $wpupa_attachment_id = get_user_meta($user->ID, '_wpupa_attachment_id', true);
         $wpupa_url = get_user_meta($user->ID, '-wpupa-url', true);
 
         $wpupa_file_size = get_user_meta($user->ID, 'wpupa_file_size', true);
@@ -128,8 +128,8 @@ class WPUPA_Admin {
             if (isset($_POST['wpupa-url'])) {
                 $wpupa_url = esc_url_raw($_POST['wpupa-url']);
             }
-            if (isset($_POST['wpupa-attachment-id'])) {
-                $wpupa_attachment_id = absint($_POST['wpupa-attachment-id']);
+            if (isset($_POST['wpupa_attachment_id'])) {
+                $wpupa_attachment_id = absint($_POST['wpupa_attachment_id']);
             }
 
             if (isset($_POST['wpupa_file_size'])) {
@@ -144,7 +144,7 @@ class WPUPA_Admin {
             
 
             if (isset($wpupa_url, $wpupa_attachment_id)) {
-                update_user_meta($user_id, '-wpupa-attachment-id', $wpupa_attachment_id);
+                update_user_meta($user_id, '_wpupa_attachment_id', $wpupa_attachment_id);
                 update_user_meta($user_id, '-wpupa-url', $wpupa_url);
             }
             
