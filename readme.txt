@@ -325,10 +325,25 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
+= 1.0.2 [Aug 15TH, 2022] =
+
+* Fixed - Settings of User Profile Avatar.
+* Fixed - Add shortcode User Profile Avatar button to Visual Editor.
+* Fixed - Coding errors of User Profile Avatar.
+* Fixed - Restrict access to Media Library of User Profile Avatar.
+* Fixed - Images issue of User Profile Avatar.
+* Fixed - Parse error from  of User Profile Avatar.
+* Fixed - Remove the user fields when plugin is uninstalled of User Profile Avatar.
+* Fixed - User Profile Avatar Tooltip issue.
+* Fixed - Warning message in User Profile Avtar. 
+* Fixed - Elementor User Profile Avatar upload issue
+* Improved - User Profile Avatar compatibility with bbPress.
+* Improved - UI of User Profile Avatar.
+
 = 1.1 [Aug 16TH, 2020] =
 
-* Fixed - Tweak Settings.
+* Fixed - Tweak Settings of User Profile Avatar.
 
 = 1.0 [May 23TH, 2020] =
 
-* First stable release.
+* First stable release of User Profile Avatar.
