@@ -335,7 +335,7 @@ You will need to place below code in each area of your theme where you wish to a
 * Fixed - Parse error from  of User Profile Avatar.
 * Fixed - Remove the user fields when plugin is uninstalled of User Profile Avatar.
 * Fixed - User Profile Avatar Tooltip issue.
-* Fixed - Warning message in User Profile Avtar. 
+* Fixed - Warning message in User Profile Avatar. 
 * Fixed - Elementor User Profile Avatar upload issue
 * Improved - User Profile Avatar compatibility with bbPress.
 * Improved - UI of User Profile Avatar.
