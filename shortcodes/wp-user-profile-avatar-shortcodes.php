@@ -193,7 +193,7 @@ class WPUPA_Shortcodes {
         $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
         $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
-        $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
+        $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
         $wpupa_url = get_user_meta($user_id, '-wpupa-url', true);
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
@@ -216,7 +216,7 @@ class WPUPA_Shortcodes {
 
         //sanitize each of the values of form data
         $form_wpupa_url = esc_url_raw($form_data['wpupa-url']);
-        $form_wpupa_attachment_id = absint($form_data['wpupa_attachment_id']);
+        $form_wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
 
 
@@ -251,26 +251,26 @@ class WPUPA_Shortcodes {
 
             if (isset($user_id, $attach_id)) {
                 $result = wp_update_attachment_metadata($attach_id, $attach_data);
-                update_user_meta($user_id, '_wpupa_attachment_id', $attach_id);
+                update_user_meta($user_id, '_wpupaattachmentid', $attach_id);
             }
         } else {
-            if (isset($user_id, $form_wpupa_attachment_id))
-                update_user_meta($user_id, '_wpupa_attachment_id', $form_wpupa_attachment_id);
+            if (isset($user_id, $form_wpupaattachmentid))
+                update_user_meta($user_id, '_wpupaattachmentid', $form_wpupaattachmentid);
         }
 
         if (isset($user_id, $form_wpupa_url))
             update_user_meta($user_id, '-wpupa-url', $form_wpupa_url);
 
-        if (!empty($form_wpupa_attachment_id) || $form_wpupa_url) {
+        if (!empty($form_wpupaattachmentid) || $form_wpupa_url) {
             update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
         } else {
             update_user_meta($user_id, '_wpupa_default', '');
         }
 
-        $wpupa_attachment_id = get_user_meta($user_id, '_wpupa_attachment_id', true);
+        $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
         $wpupa_url = get_user_meta($user_id, '-wpupa-url', true);
      
-        if (empty($wpupa_attachment_id) && empty($wpupa_url)) {
+        if (empty($wpupaattachmentid) && empty($wpupa_url)) {
             $wpupa_original = '';
             $wpupa_thumbnail = '';
             $message = __('Error! Select Image', 'wp-user-profile-avatar');
@@ -302,16 +302,16 @@ class WPUPA_Shortcodes {
 
         //sanitize each of the values of form data
         $wpupa_url = esc_url_raw($form_data['wpupa-url']);
-        $wpupa_attachment_id = absint($form_data['wpupa_attachment_id']);
+        $wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
 
         if (isset($user_id)) {
-            update_user_meta($user_id, '_wpupa_attachment_id', '');
+            update_user_meta($user_id, '_wpupaattachmentid', '');
             update_user_meta($user_id, '-wpupa-url', '');
             update_user_meta($user_id, '_wpupa_default', '');
 
             //delete also attachment
-            wp_delete_attachment($wpupa_attachment_id, true);
+            wp_delete_attachment($wpupaattachmentid, true);
         }
 
         $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
@@ -340,11 +340,11 @@ class WPUPA_Shortcodes {
 
         //sanitize each of the values of form data
         $wpupa_url = esc_url_raw($form_data['wpupa-url']);
-        $wpupa_attachment_id = absint($form_data['wpupa_attachment_id']);
+        $wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
 
         if (isset($user_id)) {
-            update_user_meta($user_id, '_wpupa_attachment_id', '');
+            update_user_meta($user_id, '_wpupaattachmentid', '');
             update_user_meta($user_id, '-wpupa-url', '');
             update_user_meta($user_id, '_wpupa_default', '');
         }
