@@ -41,7 +41,7 @@ var FrontendAvatar = function () {
                             attachment = file_frame.state().get('selection').first().toJSON();
                             console.log(attachment);
                             // do something with the file here
-                            jQuery('#wpupa_attachment_id').attr('value', attachment.id);
+                            jQuery('#wpupaattachmentid').attr('value', attachment.id);
                             jQuery('#wp-user-profile-avatar-preview img').attr('src', attachment.sizes['full']['url']);
                             jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', attachment.sizes['thumbnail']['url']);
                         });
@@ -86,7 +86,7 @@ var FrontendAvatar = function () {
                                     jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
 
                                     jQuery('.update-user-profile-avatar #wpupa_url').val('');
-                                    jQuery('.update-user-profile-avatar #wpupa_attachment_id').val('');
+                                    jQuery('.update-user-profile-avatar #wpupaattachmentid').val('');
                                     jQuery('#wp-user-profile-avatar-remove-button').hide();
                                 }
                             }
