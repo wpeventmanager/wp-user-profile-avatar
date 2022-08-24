@@ -92,8 +92,8 @@ class WPUPA_Admin {
         $wpupa_original = get_wpupa_url($user->ID, ['size' => 'original']);
         $wpupa_thumbnail = get_wpupa_url($user->ID, ['size' => 'thumbnail']);
 
-        $wpupaattachmentid = get_user_meta($user->ID, '_wpupaattachmentid', true);
-        $wpupa_url = get_user_meta($user->ID, '-wpupa-url', true);
+        $wpupa_attachment_id = get_user_meta($user->ID, '_wpupa_attachment_id', true);
+        $wpupa_url = get_user_meta($user->ID, '-wpupa_url', true);
 
         $wpupa_file_size = get_user_meta($user->ID, 'wpupa_file_size', true);
         $wpupa_size = get_user_meta($user->ID, 'wpupa-size', true);
@@ -125,11 +125,11 @@ class WPUPA_Admin {
     public function wpupa_save_fields($user_id) {
         if (current_user_can('edit_user', $user_id)) {
             
-            if (isset($_POST['wpupa-url'])) {
-                $wpupa_url = esc_url_raw($_POST['wpupa-url']);
+            if (isset($_POST['wpupa_url'])) {
+                $wpupa_url = esc_url_raw($_POST['wpupa_url']);
             }
-            if (isset($_POST['wpupaattachmentid'])) {
-                $wpupaattachmentid = absint($_POST['wpupaattachmentid']);
+            if (isset($_POST['wpupa_attachment_id'])) {
+                $wpupa_attachment_id = absint($_POST['wpupa_attachment_id']);
             }
 
             if (isset($_POST['wpupa_file_size'])) {
@@ -143,9 +143,9 @@ class WPUPA_Admin {
             }
             
 
-            if (isset($wpupa_url, $wpupaattachmentid)) {
-                update_user_meta($user_id, '_wpupaattachmentid', $wpupaattachmentid);
-                update_user_meta($user_id, '-wpupa-url', $wpupa_url);
+            if (isset($wpupa_url, $wpupa_attachment_id)) {
+                update_user_meta($user_id, '_wpupa_attachment_id', $wpupa_attachment_id);
+                update_user_meta($user_id, '-wpupa_url', $wpupa_url);
             }
             
             $wpupa_tinymce = !empty($_POST['wpupa-tinymce']) ? sanitize_text_field($_POST['wpupa-tinymce']) : '';
@@ -158,7 +158,7 @@ class WPUPA_Admin {
             update_option('wpupa-allow-upload', $wpupa_allow_upload);
             update_option('wpupa-disable-gravatar', $wpupa_disable_gravatar);
             
-            if (!empty($wpupaattachmentid) || !empty($wpupa_url)) {
+            if (!empty($wpupa_attachment_id) || !empty($wpupa_url)) {
                 update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
             } else {
                 update_user_meta($user_id, '_wpupa_default', '');

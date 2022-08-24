@@ -11,7 +11,7 @@ if (!defined('ABSPATH'))
             <tr>
                 <td>
                     <p>
-                        <input type="text" name="wpupa-url" id="wpupa-url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
+                        <input type="text" name="wpupa_url" id="wpupa_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
                     </p>
 
                     <p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
@@ -19,7 +19,7 @@ if (!defined('ABSPATH'))
                     <p id="wp-user-profile-avatar-add-button-existing">
                         <button type="button" class="button" id="wp-user-profile-avatar-add" ><?php _e('Choose Image'); ?></button>
 
-                        <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid">
+                        <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id">
                         <input type="hidden" name="user_id" id="wp-user-id" value="<?php echo $user_id; ?>">
 
                     </p>
@@ -28,7 +28,7 @@ if (!defined('ABSPATH'))
 
             <?php
             $class_hide = 'wp-user-profile-avatar-hide';
-            if (!empty($wpupaattachmentid) || !empty($wpupa_url)) {
+            if (!empty($wpupa_attachment_id) || !empty($wpupa_url)) {
                 $class_hide = '';
             }
             ?>

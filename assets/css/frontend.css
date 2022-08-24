@@ -22,7 +22,7 @@
     border-color: #eee;
     padding: 20px;
 }
-.update-user-profile-avatar #wpupa-url {
+.update-user-profile-avatar #wpupa_url {
     width: 100%;
     max-width: 500px;
     border-color: var(--wpem-gray-border-color);

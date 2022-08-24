@@ -7,19 +7,19 @@
         </th>
         <td>
             <p>
-                <input type="text" name="wpupa-url" id="wpupa-url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
+                <input type="text" name="wpupa_url" id="wpupa_url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
             </p>
 
             <p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
 
             <p id="wp-user-profile-avatar-add-button-existing">
                 <button type="button" class="button" id="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button>
-                <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo $wpupaattachmentid; ?>">
+                <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo $wpupa_attachment_id; ?>">
             </p>
 
             <?php
             $class_hide = 'wp-user-profile-avatar-hide';
-            if (!empty($wpupaattachmentid)) {
+            if (!empty($wpupa_attachment_id)) {
                 $class_hide = '';
             } else if (!empty($wpupa_url)) {
                 $class_hide = '';
