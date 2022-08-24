@@ -187,7 +187,7 @@ var AdminAvatar = function () {
                         jQuery('#wp-user-profile-avatar-preview img').attr('src', wp_user_profile_avatar_admin_avatar.default_avatar);
                         jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', wp_user_profile_avatar_admin_avatar.default_avatar);
                         jQuery('#wpupaattachmentid').attr('value', '');
-                        jQuery('#wpupa_url').attr('value', '');
+                        jQuery('#wpupa-url').attr('value', '');
 
                         jQuery('#wp-user-profile-avatar-remove').hide();
                     },

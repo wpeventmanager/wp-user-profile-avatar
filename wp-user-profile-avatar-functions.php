@@ -128,7 +128,7 @@ if (!function_exists('get_wpupa_url')) {
     function get_wpupa_url($user_id, $args = []) {
         $size = !empty($args['size']) ? $args['size'] : 'thumbnail';
 
-        $wpupa_url = get_user_meta($user_id, '-wpupa_url', true);
+        $wpupa_url = get_user_meta($user_id, '_wpupa-url', true);
 
         $attachment_id = get_user_meta($user_id, '_wpupaattachmentid', true);
 
@@ -172,7 +172,7 @@ if (!function_exists('check_wpupa_url')) {
      * @since 1.0
      */
     function check_wpupa_url($user_id = '') {
-        $attachment_url = get_user_meta($user_id, '-wpupa_url', true);
+        $attachment_url = get_user_meta($user_id, '_wpupa-url', true);
 
         $attachment_id = get_user_meta($user_id, '_wpupaattachmentid', true);
 

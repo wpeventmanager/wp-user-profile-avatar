@@ -85,7 +85,7 @@ var FrontendAvatar = function () {
                                     jQuery('#wp-user-profile-avatar-preview img').attr('src', responce.avatar_original);
                                     jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
 
-                                    jQuery('.update-user-profile-avatar #wpupa_url').val('');
+                                    jQuery('.update-user-profile-avatar #wpupa-url').val('');
                                     jQuery('.update-user-profile-avatar #wpupaattachmentid').val('');
                                     jQuery('#wp-user-profile-avatar-remove-button').hide();
                                 }

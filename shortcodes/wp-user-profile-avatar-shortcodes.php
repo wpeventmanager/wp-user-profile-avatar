@@ -194,7 +194,7 @@ class WPUPA_Shortcodes {
         $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
         $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
-        $wpupa_url = get_user_meta($user_id, '-wpupa_url', true);
+        $wpupa_url = get_user_meta($user_id, '_wpupa-url', true);
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
 
@@ -215,7 +215,7 @@ class WPUPA_Shortcodes {
         parse_str($_POST['form_data'], $form_data);
 
         //sanitize each of the values of form data
-        $form_wpupa_url = esc_url_raw($form_data['wpupa_url']);
+        $form_wpupa_url = esc_url_raw($form_data['wpupa-url']);
         $form_wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
 
@@ -259,7 +259,7 @@ class WPUPA_Shortcodes {
         }
 
         if (isset($user_id, $form_wpupa_url))
-            update_user_meta($user_id, '-wpupa_url', $form_wpupa_url);
+            update_user_meta($user_id, '_wpupa-url', $form_wpupa_url);
 
         if (!empty($form_wpupaattachmentid) || $form_wpupa_url) {
             update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
@@ -268,7 +268,7 @@ class WPUPA_Shortcodes {
         }
 
         $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
-        $wpupa_url = get_user_meta($user_id, '-wpupa_url', true);
+        $wpupa_url = get_user_meta($user_id, '_wpupa-url', true);
      
         if (empty($wpupaattachmentid) && empty($wpupa_url)) {
             $wpupa_original = '';
@@ -301,13 +301,13 @@ class WPUPA_Shortcodes {
         parse_str($_POST['form_data'], $form_data);
 
         //sanitize each of the values of form data
-        $wpupa_url = esc_url_raw($form_data['wpupa_url']);
+        $wpupa_url = esc_url_raw($form_data['wpupa-url']);
         $wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
 
         if (isset($user_id)) {
             update_user_meta($user_id, '_wpupaattachmentid', '');
-            update_user_meta($user_id, '-wpupa_url', '');
+            update_user_meta($user_id, '_wpupa-url', '');
             update_user_meta($user_id, '_wpupa_default', '');
 
             //delete also attachment
@@ -339,13 +339,13 @@ class WPUPA_Shortcodes {
         parse_str($_POST['form_data'], $form_data);
 
         //sanitize each of the values of form data
-        $wpupa_url = esc_url_raw($form_data['wpupa_url']);
+        $wpupa_url = esc_url_raw($form_data['wpupa-url']);
         $wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
 
         if (isset($user_id)) {
             update_user_meta($user_id, '_wpupaattachmentid', '');
-            update_user_meta($user_id, '-wpupa_url', '');
+            update_user_meta($user_id, '_wpupa-url', '');
             update_user_meta($user_id, '_wpupa_default', '');
         }
 

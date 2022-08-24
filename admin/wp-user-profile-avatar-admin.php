@@ -93,7 +93,7 @@ class WPUPA_Admin {
         $wpupa_thumbnail = get_wpupa_url($user->ID, ['size' => 'thumbnail']);
 
         $wpupaattachmentid = get_user_meta($user->ID, '_wpupaattachmentid', true);
-        $wpupa_url = get_user_meta($user->ID, '-wpupa_url', true);
+        $wpupa_url = get_user_meta($user->ID, '_wpupa-url', true);
 
         $wpupa_file_size = get_user_meta($user->ID, 'wpupa_file_size', true);
         $wpupa_size = get_user_meta($user->ID, 'wpupa-size', true);
@@ -125,8 +125,8 @@ class WPUPA_Admin {
     public function wpupa_save_fields($user_id) {
         if (current_user_can('edit_user', $user_id)) {
             
-            if (isset($_POST['wpupa_url'])) {
-                $wpupa_url = esc_url_raw($_POST['wpupa_url']);
+            if (isset($_POST['wpupa-url'])) {
+                $wpupa_url = esc_url_raw($_POST['wpupa-url']);
             }
             if (isset($_POST['wpupaattachmentid'])) {
                 $wpupaattachmentid = absint($_POST['wpupaattachmentid']);
@@ -145,7 +145,7 @@ class WPUPA_Admin {
 
             if (isset($wpupa_url, $wpupaattachmentid)) {
                 update_user_meta($user_id, '_wpupaattachmentid', $wpupaattachmentid);
-                update_user_meta($user_id, '-wpupa_url', $wpupa_url);
+                update_user_meta($user_id, '_wpupa-url', $wpupa_url);
             }
             
             $wpupa_tinymce = !empty($_POST['wpupa-tinymce']) ? sanitize_text_field($_POST['wpupa-tinymce']) : '';

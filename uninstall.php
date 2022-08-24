@@ -19,7 +19,7 @@ $users = get_users();
 foreach ($users as $user) {
     delete_user_meta($user->ID, '_wpupaattachmentid');
     delete_user_meta($user->ID, '_wpupa_default');
-    delete_user_meta($user->ID, '-wpupa_url');
+    delete_user_meta($user->ID, '_wpupa-url');
     delete_user_meta($user->ID, 'wpupa-tinymce');
     delete_user_meta($user->ID, 'wpupa_file_size');
     delete_user_meta($user->ID, 'wpupa-size');
