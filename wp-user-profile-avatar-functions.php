@@ -1,4 +1,24 @@
 <?php
+if (!function_exists('get_wpupa_rating')) {
+
+    /**
+     * get_wpupa_rating function.
+     *
+     * @access public
+     * @param 
+     * @return array
+     * @since 1.0
+     */
+    function get_wpupa_rating() {
+        return apply_filters('wp_user_avatar_rating', array(
+            'G' => __('G &#8212; Suitable for all audiences', 'wp-user-profile-avatar'),
+            'PG' => __('PG &#8212; Possibly offensive, usually for audiences 13 and above', 'wp-user-profile-avatar'),
+            'R' => __('R &#8212; Intended for adult audiences above 17', 'wp-user-profile-avatar'),
+            'X' => __('X &#8212; Even more mature than above', 'wp-user-profile-avatar')
+        ));
+    }
+
+}
 
 if (!function_exists('get_wpupa_file_size')) {
 

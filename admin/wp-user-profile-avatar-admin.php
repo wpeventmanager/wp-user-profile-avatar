@@ -24,6 +24,7 @@ class WPUPA_Admin {
         }
 
         include_once( 'templates/wp-username-change.php' );
+		add_action('admin_menu', array($this, 'admin_menu'), 12);
 
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
 
@@ -42,7 +43,20 @@ class WPUPA_Admin {
         add_action('admin_init', array($this, 'init_size'));
 
     }
+	
+	/**
+     * admin_menu function.
+     *
+     * @access public
+     * @param 
+     * @return 
+     * @since 1.0
+     */
+    public function admin_menu() {
 
+        add_submenu_page('users.php', __('Profile Avatar Settings', 'wp-user-profile-avatar'), __('Profile Avatar Settings', 'wp-user-profile-avatar'), 'manage_options', 'wp-user-profile-avatar-settings', array($this->settings_page, 'settings'));
+    }
+	
     /**
      * admin_enqueue_scripts function.
      * enqueue style and script for admin
