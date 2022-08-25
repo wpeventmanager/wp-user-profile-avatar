@@ -137,7 +137,7 @@ function wp_user_social_profile_cache_clear() {
 add_action('wp_ajax_wp_social_avatar_gplus_clear_cache', 'wp_user_social_profile_cache_clear');
 add_action('wp_ajax_nopriv_wp_social_avatar_gplus_clear_cache', 'wp_user_social_profile_cache_clear');
 
-function wp_user_fb_profile($avatar, $id_or_email, $size, $default, $alt) {
+function wp_user_fb_profile($avatar, $id_or_email, $size, $default) {
 
 
     if (is_int($id_or_email))
@@ -178,7 +178,7 @@ function wp_user_fb_profile($avatar, $id_or_email, $size, $default, $alt) {
 
 add_filter('get_avatar', 'wp_user_fb_profile', 10, 5);
 
-function wp_user_gplus_profile($avatar, $id_or_email, $size, $default, $alt) {
+function wp_user_gplus_profile($avatar, $id_or_email, $size, $default) {
 
 
     if (is_int($id_or_email))

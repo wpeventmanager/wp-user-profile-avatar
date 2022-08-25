@@ -60,7 +60,7 @@ class Add_New_User {
         return $avatar_defaults;
     }
 
-    function update_default_avatar($avatar, $id_or_email, $size, $default = '', $alt) {
+    function update_default_avatar($avatar, $id_or_email, $size, $default = '') {
 
         if (is_numeric($id_or_email)) {
             $email = get_userdata($id_or_email)->user_email;
