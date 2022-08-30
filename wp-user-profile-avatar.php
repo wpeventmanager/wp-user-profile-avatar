@@ -21,16 +21,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-if (!class_exists('WPEM_Updater')) {
-    include( 'autoupdater/wpem-updater.php' );
-}
-
 include_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 /**
  * WP_User_Profile_Avatar class.
  */
-class WP_User_Profile_Avatar extends WPEM_Updater {
+class WP_User_Profile_Avatar {
 
     /**
      * The single instance of the class.
@@ -104,8 +100,6 @@ class WP_User_Profile_Avatar extends WPEM_Updater {
         // Filters
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'wpupa_settings_link'));
 
-        // Init license updates
-        $this->init_updates(__FILE__);
     }
 
     /**
