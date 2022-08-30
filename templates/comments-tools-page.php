@@ -41,7 +41,7 @@ $types = get_post_types($typeargs, 'objects');
 if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
     check_admin_referer('delete-comments-admin');
 
-    if ($_POST['delete_mode'] == 'delete_everywhere') {
+    if ($_POST['delete_mode'] == 'delete-everywhere') {
         if ($wpdb->query("TRUNCATE $wpdb->commentmeta") != false) {
             if ($wpdb->query("TRUNCATE $wpdb->comments") != false) {
                 $wpdb->query("UPDATE $wpdb->posts SET comment_count = 0 WHERE post_author != 0");
@@ -96,10 +96,10 @@ if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
 ?>
 <form action="" method="post" id="delete-comments">
     <ul>
-        <li><label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="delete_everywhere" <?php checked(isset($_POST['delete_everywhere'])); ?> /> <strong><?php _e('Everywhere', 'disable-comments'); ?></strong>: <?php _e('Delete all comments in WordPress.', 'disable-comments'); ?></label>
+        <li><label for="delete-everywhere"><input type="radio" id="delete-everywhere" name="delete_mode" value="delete-everywhere" <?php checked(isset($_POST['delete-everywhere'])); ?> /> <strong><?php _e('Everywhere', 'disable-comments'); ?></strong>: <?php _e('Delete all comments in WordPress.', 'disable-comments'); ?></label>
             <p class="indent"><?php printf(__('%s: This function and will affect your entire site. Use it only if you want to delete comments <em>everywhere</em>.', 'disable-comments'), '<strong style="color: #900">' . __('Warning', 'disable-comments') . '</strong>'); ?></p>
         </li>
-        <?php $selected = (empty($_POST['delete_everywhere'])) ? 'checked="checked"' : ""; ?>
+        <?php $selected = (empty($_POST['delete-everywhere'])) ? 'checked="checked"' : ""; ?>
         <li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php echo $selected; ?> /> <strong><?php _e('For certain post types', 'disable-comments'); ?></strong>:</label>
             <p></p>
             <ul class="indent" id="listofdeletetypes">
@@ -129,7 +129,7 @@ if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
     jQuery(document).ready(function ($) {
         function delete_comments_uihelper() {
             var toggle_bits = $("#listofdeletetypes, #extradeletetypes");
-            if ($("#delete_everywhere").is(":checked"))
+            if ($("#delete-everywhere").is(":checked"))
                 toggle_bits.css("color", "#888").find(":input").attr("disabled", true);
             else
                 toggle_bits.css("color", "#000").find(":input").attr("disabled", false);

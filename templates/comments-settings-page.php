@@ -35,9 +35,9 @@ $types = get_post_types($typeargs, 'objects');
 
 if (isset($_POST['submit'])) {
     check_admin_referer('disable-comments-admin');
-    $options['remove_everywhere'] = ( $_POST['mode'] == 'remove_everywhere' );
+    $options['remove-everywhere'] = ( $_POST['mode'] == 'remove-everywhere' );
 
-    if ($options['remove_everywhere']) {
+    if ($options['remove-everywhere']) {
         $disabled_post_types = array_keys($types);
     } else {
         $disabled_post_types = empty($_POST['disabled_types']) ? array() : (array) $_POST['disabled_types'];
@@ -62,11 +62,11 @@ if (isset($_POST['submit'])) {
 
     <form action="" method="post" id="disable-comments">
         <ul>
-            <li><label for="remove_everywhere"><input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked(isset($options['remove_everywhere'])); ?> /> <strong><?php _e('Everywhere', 'disable-comments'); ?></strong>: <?php _e('Disable all comment-related controls and settings in WordPress.', 'disable-comments'); ?></label>
+            <li><label for="remove-everywhere"><input type="radio" id="remove-everywhere" name="mode" value="remove-everywhere" <?php checked(isset($options['remove-everywhere'])); ?> /> <strong><?php _e('Everywhere', 'disable-comments'); ?></strong>: <?php _e('Disable all comment-related controls and settings in WordPress.', 'disable-comments'); ?></label>
                 <p class="indent"><?php printf(__('%1$s: This option is global and will affect your entire site. Use it only if you want to disable comments <em>everywhere</em>. A complete description of what this option does is <a href="%2$s" target="_blank">available here</a>.', 'disable-comments'), '<strong style="color: #900">' . __('Warning', 'disable-comments') . '</strong>', 'https://wordpress.org/plugins/disable-comments/other_notes/'); ?></p>
             </li>
-			<?php $selected = (empty($_POST['delete_everywhere'])) ? 'checked="checked"' : ""; ?>
-            <li><label for="selected_types"><input type="radio" id="selected_types" name="mode" value="selected_types" <?php echo $selected; ?> /> <strong><?php _e('On certain post types', 'disable-comments'); ?></strong>:</label>
+			<?php $selected = (empty($_POST['delete-everywhere'])) ? 'checked="checked"' : ""; ?>
+            <li><label for="selected-types"><input type="radio" id="selected-types" name="mode" value="selected-types" <?php echo $selected; ?> /> <strong><?php _e('On certain post types', 'disable-comments'); ?></strong>:</label>
                 <p></p>
                 <ul class="indent" id="listoftypes">
                     <?php
@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
     jQuery(document).ready(function ($) {
         function disable_comments_uihelper() {
             var indiv_bits = $("#listoftypes, #extratypes");
-            if ($("#remove_everywhere").is(":checked"))
+            if ($("#remove-everywhere").is(":checked"))
                 indiv_bits.css("color", "#888").find(":input").attr("disabled", true);
             else
                 indiv_bits.css("color", "#000").find(":input").attr("disabled", false);

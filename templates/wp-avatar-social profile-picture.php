@@ -38,10 +38,10 @@ function wp_user_admin() {
                 <td>
                     <select id="wp-avatar-add-social-picture" name="wp-avatar-add-social-picture">
                         <option value="read" <?php selected($wp_avatar_add_social_picture, 'read', false); ?> >Subscriber</option>
-                        <option value="edit_posts" <?php selected($wp_avatar_add_social_picture, 'edit_posts', false); ?> >Contributor</option>
-                        <option value="edit_published_posts"<?php selected($wp_avatar_add_social_picture, 'edit_published_posts', false); ?> >Author</option>
-                        <option value="moderate_comments" <?php selected($wp_avatar_add_social_picture, 'moderate_comments', false); ?> >Editor</option>
-                        <option value="activate_plugins" <?php selected($wp_avatar_add_social_picture, 'activate_plugins', false); ?> >Administrator</option>
+                        <option value="edit-posts" <?php selected($wp_avatar_add_social_picture, 'edit-posts', false); ?> >Contributor</option>
+                        <option value="edit-published-posts"<?php selected($wp_avatar_add_social_picture, 'edit-published-posts', false); ?> >Author</option>
+                        <option value="moderate-comments" <?php selected($wp_avatar_add_social_picture, 'moderate-comments', false); ?> >Editor</option>
+                        <option value="activate-plugins" <?php selected($wp_avatar_add_social_picture, 'activate-plugins', false); ?> >Administrator</option>
                     </select>
                 </td>
             </tr>
