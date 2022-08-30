@@ -4,7 +4,7 @@ add_action('admin_menu', 'comments_settings_menu');
 add_action('admin_menu', 'comments_tools_menu');
 
 function comments_settings_menu() {
-    add_submenu_page('options-general.php', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', 'comments_settings_page');
+    add_submenu_page('users.php', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', 'comments_settings_page');
 }
 
 function comments_settings_page() {
@@ -12,7 +12,7 @@ function comments_settings_page() {
 }
 
 function comments_tools_menu() {
-    add_submenu_page('tools.php', 'Delete Comments', 'Delete Comments', 'manage_options', 'disable_comments_tools', 'comments_tools_page');
+    add_submenu_page('users.php', 'Delete Comments', 'Delete Comments', 'manage_options', 'disable_comments_tools', 'comments_tools_page');
 }
 
 function comments_tools_page() {
