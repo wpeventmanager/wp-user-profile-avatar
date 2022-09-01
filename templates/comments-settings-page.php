@@ -13,7 +13,6 @@ function update_options($options) {
 
 $typeargs = array('public' => true);
 $options = get_option('disable_comments_options', array());
-$options = get_option('delete_comments_options', array());
 $modified_types = array();
 $disabled_post_types = get_disabled_post_types();
 

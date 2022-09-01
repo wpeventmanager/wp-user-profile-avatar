@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 }
 function update_options($options) {
 
-    update_option('delet_comments_options', $options);
+    update_option('delete_comments_options', $options);
 }
 ?>
 <div class="wrap">
@@ -31,7 +31,7 @@ function update_options($options) {
     <?php
     //return;
 //}
-$options = get_option('delele_comments_options', array());
+$options = get_option('delete_comments_options', array());
 $typeargs = array('public' => true);
 
 $modified_types = array();
@@ -51,7 +51,6 @@ $types = get_post_types($typeargs, 'objects');
 
 if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
     check_admin_referer('delete-comments-admin');
-	
 	$options['remove_everywhere'] = ( $_POST['delete_mode'] == 'remove_everywhere' );
 
     if ($options['remove_everywhere']) {
@@ -73,15 +72,14 @@ if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
     update_options($options);
     //echo '<div id="message" class="updated"><p>' . __('Options updated. Changes to the Admin Menu and Admin Bar will not appear until you leave or reload this page.', 'disable-comments') . '</p></div>';
 
-	
-    if ($_POST['delete_mode'] == 'delete_everywhere') {
+    if ($_POST['delete_mode'] == 'delete-everywhere') {
         if ($wpdb->query("TRUNCATE $wpdb->commentmeta") != false) {
             if ($wpdb->query("TRUNCATE $wpdb->comments") != false) {
                 $wpdb->query("UPDATE $wpdb->posts SET comment_count = 0 WHERE post_author != 0");
                 $wpdb->query("OPTIMIZE TABLE $wpdb->commentmeta");
                 $wpdb->query("OPTIMIZE TABLE $wpdb->comments");
                 //echo "<p style='color:green'><strong>" . __('All comments have been deleted.', 'disable-comments') . '</strong></p>';
-				echo '<div id="message" class="updated"><p>' . __('All comments have been deleted.', 'disable-comments') . '</p></div>';
+				echo '<div id="message" class="updated"><p>' . __('All comments have been deleted123.', 'disable-comments') . '</p></div>';
             } else {
                 //echo "<p style='color:red'><strong>" . __('Internal error occured. Please try again later.', 'disable-comments') . '</strong></p>';
 				echo '<div id="message" class="updated"><p>' . __('Internal error occured. Please try again later.', 'disable-comments') . '</p></div>';
@@ -118,7 +116,7 @@ if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
             $wpdb->query("OPTIMIZE TABLE $wpdb->comments");
 
             //echo "<h4 style='color:green'><strong>" . __('Comment Deletion Complete', 'disable-comments') . '</strong></h4>';
-			//echo '<div id="message" class="updated"><p>' . __('Comment Deletion Complete', 'disable-comments') . '</p></div>';
+
         }
     }
 
@@ -139,10 +137,8 @@ if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
 		<label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="<?php echo esc_attr('remove_everywhere'); ?>" <?php checked(isset($options['remove_everywhere'])); ?> /> <strong><?php _e('Everywhere', 'disable-comments'); ?></strong>: <?php _e('Delete all comments in WordPress.', 'disable-comments'); ?></label>
             <p class="indent"><?php printf(__('%s: This function and will affect your entire site. Use it only if you want to delete comments <em>everywhere</em>.', 'disable-comments'), '<strong style="color: #900">' . __('Warning', 'disable-comments') . '</strong>'); ?></p>
         </li>
-        
-        <li>
-		<?php $selected = (empty($_POST['delete_everywhere'])) ? 'checked="checked"' : ""; ?>
-		<label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="<?php echo esc_attr('selected_delete_types'); ?>" <?php echo $selected; ?> /> <strong><?php _e('For certain post types', 'disable-comments'); ?></strong>:</label>
+        <?php $selected = (empty($_POST['delete-everywhere'])) ? 'checked="checked"' : ""; ?>
+        <li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php echo $selected; ?> /> <strong><?php _e('For certain post types', 'disable-comments'); ?></strong>:</label>
             <p></p>
             <ul class="indent" id="listofdeletetypes">
 
