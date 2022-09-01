@@ -7,7 +7,7 @@ function comments_settings_menu() {
     add_submenu_page('users.php', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', 'comments_settings_page');
 }
 
-function comments_settings_page() {
+function comments_settings_page() {  
     include dirname(__FILE__) . '/templates/comments-settings-page.php';
 }
 

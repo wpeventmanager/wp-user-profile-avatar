@@ -7,20 +7,31 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+function update_options($options) {
+
+    update_option('delet_comments_options', $options);
+}
 ?>
 <div class="wrap">
     <h1><?php _e('Delete Comments', 'disable-comments'); ?></h1>
     <?php
     global $wpdb;
     $comments_count = $wpdb->get_var("SELECT count(comment_id) from $wpdb->comments");
-    if ($comments_count <= 0) {
+	//if ($comments_count <= 0) {
         ?>
-        <p><strong><?php _e('No comments available for deletion.', 'disable-comments'); ?></strong></p>
-    </div>
+        <p><strong><?php //_e('No comments available for deletion.', 'disable-comments'); ?></strong></p>
+
     <?php
-    return;
-}
-$options = get_option('disable_comments_options', array());
+    //return;
+//}
+    //if ($comments_count <= 0) {
+        ?>
+        <p><strong><?php //_e('No comments available for deletion.', 'disable-comments'); ?></strong></p>
+
+    <?php
+    //return;
+//}
+$options = get_option('delele_comments_options', array());
 $typeargs = array('public' => true);
 
 $modified_types = array();
@@ -40,19 +51,44 @@ $types = get_post_types($typeargs, 'objects');
 
 if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
     check_admin_referer('delete-comments-admin');
+	
+	$options['remove_everywhere'] = ( $_POST['delete_mode'] == 'remove_everywhere' );
 
-    if ($_POST['delete_mode'] == 'delete-everywhere') {
+    if ($options['remove_everywhere']) {
+        $disabled_post_types = array_keys($types);
+    } else {
+        $disabled_post_types = empty($_POST['delete_types']) ? array() : (array) $_POST['delete_types'];
+    }
+
+    $disabled_post_types = array_intersect($disabled_post_types, array_keys($types));
+
+    $options['disabled_post_types'] = $disabled_post_types;
+
+    // Extra custom post types.
+    if (!empty($_POST['extra_post_types'])) {
+        $extra_post_types = array_filter(array_map('sanitize_key', explode(',', $_POST['extra_post_types'])));
+        $options['extra_post_types'] = array_diff($extra_post_types, array_keys($types)); // Make sure we don't double up builtins.
+    }
+
+    update_options($options);
+    //echo '<div id="message" class="updated"><p>' . __('Options updated. Changes to the Admin Menu and Admin Bar will not appear until you leave or reload this page.', 'disable-comments') . '</p></div>';
+
+	
+    if ($_POST['delete_mode'] == 'delete_everywhere') {
         if ($wpdb->query("TRUNCATE $wpdb->commentmeta") != false) {
             if ($wpdb->query("TRUNCATE $wpdb->comments") != false) {
                 $wpdb->query("UPDATE $wpdb->posts SET comment_count = 0 WHERE post_author != 0");
                 $wpdb->query("OPTIMIZE TABLE $wpdb->commentmeta");
                 $wpdb->query("OPTIMIZE TABLE $wpdb->comments");
-                echo "<p style='color:green'><strong>" . __('All comments have been deleted.', 'disable-comments') . '</strong></p>';
+                //echo "<p style='color:green'><strong>" . __('All comments have been deleted.', 'disable-comments') . '</strong></p>';
+				echo '<div id="message" class="updated"><p>' . __('All comments have been deleted.', 'disable-comments') . '</p></div>';
             } else {
-                echo "<p style='color:red'><strong>" . __('Internal error occured. Please try again later.', 'disable-comments') . '</strong></p>';
+                //echo "<p style='color:red'><strong>" . __('Internal error occured. Please try again later.', 'disable-comments') . '</strong></p>';
+				echo '<div id="message" class="updated"><p>' . __('Internal error occured. Please try again later.', 'disable-comments') . '</p></div>';
             }
         } else {
-            echo "<p style='color:red'><strong>" . __('Internal error occured. Please try again later.', 'disable-comments') . '</strong></p>';
+            //echo "<p style='color:red'><strong>" . __('Internal error occured. Please try again later.', 'disable-comments') . '</strong></p>';
+			echo '<div id="message" class="updated"><p>' . __('Internal error occured. Please try again later.', 'disable-comments') . '</p></div>';
         }
     } else {
         $delete_post_types = empty($_POST['delete_types']) ? array() : (array) $_POST['delete_types'];
@@ -74,33 +110,39 @@ if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
 
                 $post_type_object = get_post_type_object($delete_post_type);
                 $post_type_label = $post_type_object ? $post_type_object->labels->name : $delete_post_type;
-                echo "<p style='color:green'><strong>" . sprintf(__('All comments have been deleted for %s.', 'disable-comments'), $post_type_label) . '</strong></p>';
-            }
+                //echo "<p style='color:green'><strong>" . sprintf(__('All comments have been deleted for %s.', 'disable-comments'), $post_type_label) . '</strong></p>';
+				echo '<div id="message" class="updated"><p>' . sprintf(__('All comments have been deleted for %s.', 'disable-comments'), $post_type_label) . '</p></div>';
+			}
 
             $wpdb->query("OPTIMIZE TABLE $wpdb->commentmeta");
             $wpdb->query("OPTIMIZE TABLE $wpdb->comments");
 
-            echo "<h4 style='color:green'><strong>" . __('Comment Deletion Complete', 'disable-comments') . '</strong></h4>';
+            //echo "<h4 style='color:green'><strong>" . __('Comment Deletion Complete', 'disable-comments') . '</strong></h4>';
+			//echo '<div id="message" class="updated"><p>' . __('Comment Deletion Complete', 'disable-comments') . '</p></div>';
         }
     }
 
     $comments_count = $wpdb->get_var("SELECT count(comment_id) from $wpdb->comments");
-    if ($comments_count <= 0) {
+    //if ($comments_count <= 0) {
         ?>
-        <p><strong><?php _e('No comments available for deletion.', 'disable-comments'); ?></strong></p>
-        </div>
+        <p><strong><?php// _e('No comments available for deletion.', 'disable-comments'); ?></strong></p>
+
         <?php
-        return;
-    }
+        //return;
+    //}
 }
 ?>
 <form action="" method="post" id="delete-comments">
     <ul>
-        <li><label for="delete-everywhere"><input type="radio" id="delete-everywhere" name="delete_mode" value="delete-everywhere" <?php checked(isset($_POST['delete-everywhere'])); ?> /> <strong><?php _e('Everywhere', 'disable-comments'); ?></strong>: <?php _e('Delete all comments in WordPress.', 'disable-comments'); ?></label>
+        <li>
+
+		<label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="<?php echo esc_attr('remove_everywhere'); ?>" <?php checked(isset($options['remove_everywhere'])); ?> /> <strong><?php _e('Everywhere', 'disable-comments'); ?></strong>: <?php _e('Delete all comments in WordPress.', 'disable-comments'); ?></label>
             <p class="indent"><?php printf(__('%s: This function and will affect your entire site. Use it only if you want to delete comments <em>everywhere</em>.', 'disable-comments'), '<strong style="color: #900">' . __('Warning', 'disable-comments') . '</strong>'); ?></p>
         </li>
-        <?php $selected = (empty($_POST['delete-everywhere'])) ? 'checked="checked"' : ""; ?>
-        <li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php echo $selected; ?> /> <strong><?php _e('For certain post types', 'disable-comments'); ?></strong>:</label>
+        
+        <li>
+		<?php $selected = (empty($_POST['delete_everywhere'])) ? 'checked="checked"' : ""; ?>
+		<label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="<?php echo esc_attr('selected_delete_types'); ?>" <?php echo $selected; ?> /> <strong><?php _e('For certain post types', 'disable-comments'); ?></strong>:</label>
             <p></p>
             <ul class="indent" id="listofdeletetypes">
 
@@ -129,7 +171,7 @@ if (isset($_POST['delete']) && isset($_POST['delete_mode'])) {
     jQuery(document).ready(function ($) {
         function delete_comments_uihelper() {
             var toggle_bits = $("#listofdeletetypes, #extradeletetypes");
-            if ($("#delete-everywhere").is(":checked"))
+            if ($("#delete_everywhere").is(":checked"))
                 toggle_bits.css("color", "#888").find(":input").attr("disabled", true);
             else
                 toggle_bits.css("color", "#000").find(":input").attr("disabled", false);
