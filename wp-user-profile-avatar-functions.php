@@ -147,13 +147,13 @@ if (!function_exists('get_wpupa_url')) {
     function get_wpupa_url($user_id, $args = []) {
         $size = !empty($args['size']) ? $args['size'] : 'thumbnail';
 
-        $wpupa_url = get_user_meta($user_id, '_wpupa-url', true);
+        $wpupa_url = esc_url(get_user_meta($user_id, '_wpupa-url', true));
 
-        $attachment_id = get_user_meta($user_id, '_wpupaattachmentid', true);
+        $attachment_id = esc_attr(get_user_meta($user_id, '_wpupaattachmentid', true));
 
-        $wpupa_default = get_user_meta($user_id, '_wpupa_default', true);
+        $wpupa_default = gesc_attr(et_user_meta($user_id, '_wpupa_default', true));
 
-        $wpupa_size = get_user_meta($user_id, 'wpupa-size', true);
+        $wpupa_size = esc_attr(get_user_meta($user_id, 'wpupa-size', true));
 
         add_image_size( 'wpupavatar-default', $wpupa_size, $wpupa_size, true ); 
 
@@ -191,11 +191,11 @@ if (!function_exists('check_wpupa_url')) {
      * @since 1.0
      */
     function check_wpupa_url($user_id = '') {
-        $attachment_url = get_user_meta($user_id, '_wpupa-url', true);
+        $attachment_url = esc_url(get_user_meta($user_id, '_wpupa-url', true));
 
-        $attachment_id = get_user_meta($user_id, '_wpupaattachmentid', true);
+        $attachment_id = esc_attr(get_user_meta($user_id, '_wpupaattachmentid', true));
 
-        $wpupa_default = get_user_meta($user_id, '_wpupa_default', true);
+        $wpupa_default = esc_attr(get_user_meta($user_id, '_wpupa_default', true));
 
         if (!empty($attachment_url) || !empty($attachment_id)) {
             return true;

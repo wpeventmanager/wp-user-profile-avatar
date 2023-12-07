@@ -26,12 +26,12 @@ class WPUPA_User_Shortcodes {
         $id = get_current_user_id();
 
         $details = array(
-            'first_name' => get_the_author_meta('first_name', $id),
-            'last_name' => get_the_author_meta('last_name', $id),
-            'description' => get_the_author_meta('description', $id),
-            'email' => get_the_author_meta('email', $id),
-            'sabox_social_links' => get_the_author_meta('sabox_social_links', $id),
-            'sabox-profile-image' => get_the_author_meta('sabox-profile-image', $id),
+            'first_name' => esc_attr(get_the_author_meta('first_name', $id)),
+            'last_name' => esc_attr(get_the_author_meta('last_name', $id)),
+            'description' => wp_kses(get_the_author_meta('description', $id)),
+            'email' => esc_email(get_the_author_meta('email', $id)),
+            'sabox_social_links' => esc_url(get_the_author_meta('sabox_social_links', $id)),
+            'sabox-profile-image' => esc_url(get_the_author_meta('sabox-profile-image', $id)),
         );
 
 
