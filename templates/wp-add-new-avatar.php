@@ -26,15 +26,15 @@ class Add_New_User {
         foreach ($value as $k => $v) {
             extract($v);
             echo '<p>';
-            echo "<input type='text' name='Add_New_User[$k][name]' value='$name' size='15' />";
-            echo "<input type='text' name='Add_New_User[$k][url]' value='$url' size='35' />";
+            echo "<input type='text' name='Add_New_User[".esc_attr($k)."][name]' value='".esc_attr($name)."' size='15' />";
+            echo "<input type='text' name='Add_New_User[".esc_attr($k)."][url]' value='".esc_attr($url)."' size='35' />";
             echo '</p>';
         }
 
         $add_value = uniqid();
         echo '<p id="Add_New_User">';
-        echo "<input type='text' name='Add_New_User[$add_value][name]' value='' size='15' />";
-        echo "<input type='text' name='Add_New_User[$add_value][url]' value='' size='35' />";
+        echo "<input type='text' name='Add_New_User[".esc_attr($add_value)."][name]' value='' size='15' />";
+        echo "<input type='text' name='Add_New_User[".esc_attr($add_value)."][url]' value='' size='35' />";
         echo '</p>';
     }
 

@@ -74,7 +74,7 @@ function wp_user_add_extra_profile_picture_fields($socialprofile) {
                 <label for="facebook-profile">Facebook User ID(numeric)</label>
             </th>
             <td>
-                <input type="text" name="fb-profile" id="fb-profile" value=" <?php echo $wp_social_fb_profile; ?>" class="regular-text" />&nbsp;
+                <input type="text" name="fb-profile" id="fb-profile" value=" <?php echo esc_attr($wp_social_fb_profile); ?>" class="regular-text" />&nbsp;
                 <span><a href="http://findmyfacebookid.com/" target="_blank">Find your facebook id here</a></span>
             </td>
         <tr>
@@ -90,7 +90,7 @@ function wp_user_add_extra_profile_picture_fields($socialprofile) {
                 <label for="gplus-profile">Google+ id</label>
             </th>
             <td>
-                <input type="text" name="gplus-profile" id="gplus-profile" value=" <?php echo $wp_social_gplus_profile; ?>" class="regular-text" />
+                <input type="text" name="gplus-profile" id="gplus-profile" value=" <?php echo esc_attr($wp_social_gplus_profile); ?>" class="regular-text" />
             </td>
         </tr>
         <tr>
@@ -105,7 +105,7 @@ function wp_user_add_extra_profile_picture_fields($socialprofile) {
             <th>
                 <label for="gplus-clear-cache">Clear Google+ Cache</label></th>
             <td>
-                <input type="button" name="wp-gplus-clear" value="Clear Cache" user="<?php echo $socialprofile->ID; ?>">
+                <input type="button" name="wp-gplus-clear" value="Clear Cache" user="<?php echo esc_attr($socialprofile->ID); ?>">
                 <span id="msg"></span>
             </td>
         </tr>
@@ -118,9 +118,9 @@ add_action('edit_user_profile', 'wp_user_add_extra_profile_picture_fields');
 
 function wp_avatar_save_extra_profile_fields($user_id) {
 
-    update_user_meta($user_id, 'wp_social_fb_profile', trim($_POST['fb-profile']));
-    update_user_meta($user_id, 'wp_social_gplus_profile', trim($_POST['gplus-profile']));
-    update_user_meta($user_id, 'wp_user_social_profile', $_POST['wp-user-social-profile']);
+    update_user_meta($user_id, 'wp_social_fb_profile', esc_attr(trim($_POST['fb-profile'])));
+    update_user_meta($user_id, 'wp_social_gplus_profile', esc_attr(trim($_POST['gplus-profile'])));
+    update_user_meta($user_id, 'wp_user_social_profile', esc_attr($_POST['wp-user-social-profile']));
 }
 
 add_action('personal_options_update', 'wp_avatar_save_extra_profile_fields');
@@ -164,8 +164,8 @@ function wp_user_fb_profile($avatar, $id_or_email, $size, $default) {
     if (user_can($user_id, $wp_avatar_add_social_picture)) {
         if ('wp-facebook' == $wp_user_social_profile && !empty($wp_social_fb_profile)) {
 
-            $fb = 'https://graph.facebook.com/' . $wp_social_fb_profile . '/picture?width=' . $size . '&height=' . $size;
-            $avatar = "<img alt='facebook-profile-picture' src='{$fb}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
+            $fb = 'https://graph.facebook.com/' . $wp_social_fb_profile . '/picture?width=' . esc_attr($size) . '&height=' . esc_attr($size);
+            $avatar = "<img alt='facebook-profile-picture' src='{". esc_url($fb)."}' class='avatar avatar-{".esc_attr($size)."} photo' height='{".esc_attr($size)."}' width='{".esc_attr($size)."}' />";
 
             return $avatar;
         } else {
@@ -214,13 +214,13 @@ function wp_user_gplus_profile($avatar, $id_or_email, $size, $default) {
                         set_transient("wp_social_avatar_gplus_{$user_id}", $gplus, 48 * HOUR_IN_SECONDS);
                         $gplus = str_replace('sz=50', "sz={$size}", $gplus);
 
-                        $avatar = "<img alt='gplus-profile-picture' src='{$gplus}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
+                        $avatar = "<img alt='gplus-profile-picture' src='{". esc_url($gplus)."}' class='avatar avatar-{".esc_attr($size)."} photo' height='{".esc_attr($size)."}' width='{".esc_attr($size)."}' />";
                     }
                 }
             } else {
                 $gplus = str_replace('sz=50', "sz={$size}", $gplus);
 
-                $avatar = "<img alt='gplus-profile-picture' src='{$gplus}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
+                $avatar = "<img alt='gplus-profile-picture' src='{". esc_url($gplus)."}' class='avatar avatar-{".esc_attr($size)."} photo' height='{".esc_attr($size)."}' width='{".esc_attr($size)."}' />";
             }
             return $avatar;
         } else {

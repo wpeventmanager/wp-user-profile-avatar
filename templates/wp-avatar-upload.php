@@ -11,7 +11,7 @@ if (!defined('ABSPATH'))
             <tr>
                 <td>
                     <p>
-                        <input type="text" name="wpupa-url" id="wpupa-url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
+                        <input type="text" name="wpupa-url" id="wpupa-url" class="regular-text code" value="<?php echo esc_url($wpupa_url); ?>" placeholder="Enter Image URL">
                     </p>
 
                     <p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
@@ -20,7 +20,7 @@ if (!defined('ABSPATH'))
                         <button type="button" class="button" id="wp-user-profile-avatar-add" ><?php _e('Choose Image'); ?></button>
 
                         <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid">
-                        <input type="hidden" name="user_id" id="wp-user-id" value="<?php echo $user_id; ?>">
+                        <input type="hidden" name="user_id" id="wp-user-id" value="<?php echo esc_attr($user_id); ?>">
 
                     </p>
                 </td>
@@ -35,14 +35,14 @@ if (!defined('ABSPATH'))
             <tr id="wp-user-profile-avatar-images-existing">
                 <td>
                     <p id="wp-user-profile-avatar-preview">
-                        <img src="<?php echo $wpupa_original; ?>" alt="">
+                        <img src="<?php echo esc_url($wpupa_original); ?>" alt="">
                         <span class="description"><?php _e('Original Size', 'wp-user-profile-avatar'); ?></span>
                     </p>
                     <p id="wp-user-profile-avatar-thumbnail">
-                        <img src="<?php echo $wpupa_thumbnail; ?>" alt="">
+                        <img src="<?php echo esc_url($wpupa_thumbnail); ?>" alt="">
                         <span class="description"><?php _e('Thumbnail', 'wp-user-profile-avatar'); ?></span>
                     </p>
-                    <p id="wp-user-profile-avatar-remove-button" class="<?php echo $class_hide; ?>">
+                    <p id="wp-user-profile-avatar-remove-button" class="<?php echo esc_attr($class_hide); ?>">
                         <button type="button" class="button" id="wp-user-profile-avatar-remove"><?php _e('Remove Image', 'wp-user-profile-avatar'); ?></button>
                     </p>
                     <p id="wp-user-profile-avatar-undo-button">

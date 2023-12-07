@@ -48,7 +48,7 @@ class WPUPA_Settings {
             <table>
                 <tr valign="top">
                     <td>
-                        <form method="post" action="<?php echo admin_url('users.php') . '?page=wp-user-profile-avatar-settings'; ?>">
+                        <form method="post" action="<?php echo esc_url(admin_url('users.php')). '?page=wp-user-profile-avatar-settings'; ?>">
 
                             <table class="form-table">
 
@@ -94,7 +94,7 @@ class WPUPA_Settings {
                                             <legend class="screen-reader-text"><?php _e('Avatar Rating', 'wp-user-profile-avatar'); ?></legend>
                                             <?php foreach (get_wpupa_rating() as $name => $rating) : ?>
                                                 <?php $selected = ($wpupa_rating == $name) ? 'checked="checked"' : ""; ?>
-                                                <label><input type="radio" name="wpupa_rating" value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /> <?php echo $rating; ?></label><br />
+                                                <label><input type="radio" name="wpupa_rating" value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /> <?php echo esc_url($rating); ?></label><br />
                                             <?php endforeach; ?>
                                         </fieldset>
                                     </td>
@@ -134,19 +134,18 @@ class WPUPA_Settings {
                                             <?php _e('For users without a custom avatar of their own, you can either display a generic logo or a generated one based on their e-mail address.', 'wp-user-profile-avatar'); ?><br />
 
                                             <?php $selected = ($wpupa_default == 'wp_user_profile_avatar') ? 'checked="checked"' : ""; ?>
-                                            <label><input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> /> <div id="wp_user_profile_avatar_preview"><img src="<?php echo $wpupa_attachment_url; ?>" width="32" /></div> <?php _e('WP User Profile Avatar'); ?> </label><br />
+                                            <label><input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> /> <div id="wp_user_profile_avatar_preview"><img src="<?php echo esc_url($wpupa_attachment_url); ?>" width="32" /></div> <?php _e('WP User Profile Avatar'); ?> </label><br />
 
                                             <?php
                                             $class_hide = 'wp-user-profile-avatar-hide';
                                             if (!empty($wpupa_attachment_id)) {
                                                 $class_hide = '';
-                                            }
-                                            ?>
+                                            } ?>
                                             <p id="wp-user-profile-avatar-edit">
                                                 <button type="button" class="button" id="wp_user_profile_avatar_add" name="wp_user_profile_avatar_add"><?php _e('Choose Image'); ?></button>
-                                                <span id="wp_user_profile_avatar_remove_button" class="<?php echo $class_hide; ?>"><a href="javascript:void(0)" id="wp_user_profile_avatar_remove"><?php _e('Remove'); ?></a></span>
+                                                <span id="wp_user_profile_avatar_remove_button" class="<?php echo esc_attr($class_hide); ?>"><a href="javascript:void(0)" id="wp_user_profile_avatar_remove"><?php _e('Remove'); ?></a></span>
                                                 <span id="wp_user_profile_avatar_undo_button"><a href="javascript:void(0)" id="wp_user_profile_avatar_undo"><?php _e('Undo'); ?></a></span>
-                                                <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo $wpupa_attachment_id; ?>">
+                                                <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo esc_attr($wpupa_attachment_id); ?>">
                                             </p>
 
                                             <?php if (empty($wpupa_disable_gravatar)) : ?>
@@ -155,8 +154,8 @@ class WPUPA_Settings {
 
                                                     <?php $selected = ($wpupa_default == $name) ? 'checked="checked"' : ""; ?>
                                                     <label><input type="radio" name="wpupa_default" value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /> 
-                                                        <?php echo preg_replace("/src='(.+?)'/", "src='\$1&amp;forcedefault=1'", $avatar); ?>
-                                                        <?php echo $label; ?></label><br />
+                                                        <?php echo preg_replace("/src='(.+?)'/", "src='\$1&amp;forcedefault=1'", esc_attr($avatar)); ?>
+                                                        <?php echo esc_attr($label); ?></label><br />
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
 

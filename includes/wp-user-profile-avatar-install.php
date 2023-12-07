@@ -20,8 +20,8 @@ class WPUPA_Install {
      */
     public static function install() {
 
-        update_option('wpupa_default', 'mystery');
-        update_option('wpupa_version', WPUPA_VERSION);
+        update_option('wpupa_default', esc_attr('mystery'));
+        update_option('wpupa_version', esc_attr(WPUPA_VERSION));
     }
 
 }

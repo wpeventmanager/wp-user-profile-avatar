@@ -148,18 +148,18 @@ class WPUPA_Admin {
 
             if (isset($_POST['wpupa_file_size'])) {
                 $wpupa_file_size = esc_attr($_POST['wpupa_file_size']);
-                update_user_meta($user_id, 'wpupa_file_size', $wpupa_file_size);
+                update_user_meta($user_id, 'wpupa_file_size', sanitize_text_field($wpupa_file_size));
             }
 
             if (isset($_POST['wpupa-size'])) {
                 $wpupa_size = absint($_POST['wpupa-size']);
-                update_user_meta($user_id, 'wpupa-size', $wpupa_size);
+                update_user_meta($user_id, 'wpupa-size', sanitize_text_field($wpupa_size));
             }
             
 
             if (isset($wpupa_url, $wpupaattachmentid)) {
-                update_user_meta($user_id, '_wpupaattachmentid', $wpupaattachmentid);
-                update_user_meta($user_id, '_wpupa-url', $wpupa_url);
+                update_user_meta($user_id, '_wpupaattachmentid', sanitize_text_field($wpupaattachmentid));
+                update_user_meta($user_id, '_wpupa-url', sanitize_url($wpupa_url));
             }
             
             $wpupa_tinymce = !empty($_POST['wpupa-tinymce']) ? sanitize_text_field($_POST['wpupa-tinymce']) : '';
@@ -173,7 +173,7 @@ class WPUPA_Admin {
             update_option('wpupa-disable-gravatar', $wpupa_disable_gravatar);
             
             if (!empty($wpupaattachmentid) || !empty($wpupa_url)) {
-                update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
+                update_user_meta($user_id, '_wpupa_default', sanitize_text_field('wp_user_profile_avatar'));
             } else {
                 update_user_meta($user_id, '_wpupa_default', '');
             }
@@ -302,7 +302,7 @@ class WPUPA_Admin {
     function init_size() { 
         if ( isset($_POST['wpem-upload-max-file-size-field']) ) {
             $wpupa_max_size = (int) $_POST['wpem-upload-max-file-size-field'] * 1024 * 1024;
-            update_option('wpem_max_file_size', $wpupa_max_size);
+            update_option('wpem_max_file_size', sanitize_text_field($wpupa_max_size));
             wp_safe_redirect(admin_url('upload.php?page=wpem_upload_max_file_size&max-size-updated=true'));
         }
         add_filter('upload_size_limit', array($this, 'wpem_upload_max_increase_upload' ));

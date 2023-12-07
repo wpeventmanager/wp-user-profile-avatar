@@ -1,23 +1,22 @@
 <?php
 
 /**
-  Plugin Name: WP User Profile Avatar
-  Plugin URI: https://www.wp-eventmanager.com
-  Description: WP User Profile Avatar
-  Author: WP Event Manager
-  Author URI: https://www.wp-eventmanager.com
-  Text Domain: wp-user-profile-avatar
-  Domain Path: /languages
-  Version: 1.0.0
-  Since: 1.0.0
-  Requires WordPress Version at least: 4.1
-  Copyright: 2020 WP Event Manager
-  License: GNU General Public License v3.0
-  License URI: http://www.gnu.org/licenses/gpl-3.0.html
+* Plugin Name: WP User Profile Avatar
+* Plugin URI: https://www.wp-eventmanager.com
+* Description: WP User Profile Avatar
+* Author: WP Event Manager
+* Author URI: https://www.wp-eventmanager.com
+* Text Domain: wp-user-profile-avatar
+* Domain Path: /languages
+* Version: 1.0.0
+* Since: 1.0.0
+* Requires WordPress Version at least: 4.1
+* Copyright: 2020 WP Event Manager
+* License: GNU General Public License v3.0
+* License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * */
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
-
     exit;
 }
 
@@ -125,7 +124,6 @@ class WP_User_Profile_Avatar {
      */
     public function updater() {
         if (version_compare(WPUPA_VERSION, get_option('wpupa_version'), '>')) {
-
             WPUPA_Install::update();
             flush_rewrite_rules();
         }
@@ -189,7 +187,6 @@ class WP_User_Profile_Avatar {
         $links[] = '<a href="' . admin_url('profile.php') . '">' . __('Settings', 'wp-user-profile-avatar') . '</a>';
         return $links;
     }
-
 }
 
 /**
@@ -202,8 +199,6 @@ class WP_User_Profile_Avatar {
  */
 function WPUPA() {
     // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
-
     return WP_User_Profile_Avatar::instance();
 }
-
 $GLOBALS['wp_user_profile_avatar'] = WPUPA();

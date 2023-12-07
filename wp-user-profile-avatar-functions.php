@@ -17,7 +17,6 @@ if (!function_exists('get_wpupa_rating')) {
             'X' => __('X &#8212; Even more mature than above', 'wp-user-profile-avatar')
         ));
     }
-
 }
 
 if (!function_exists('get_wpupa_file_size')) {

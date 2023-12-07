@@ -15,14 +15,14 @@ if (!defined('ABSPATH'))
     if (!empty($details['sabox_social_links'])) {
         foreach ($details['sabox_social_links'] as $name => $link) {
             ?>
-            <p class="caption-text"><?php echo $name; ?>:<a href="<?php echo $link; ?>"><?php echo $link; ?></a></p>
+            <p class="caption-text"><?php echo esc_attr($name); ?>:<a href="<?php echo esc_url($link); ?>"><?php echo esc_attr($link); ?></a></p>
                 <?php
             }
         }
 
         if ('' != $details['sabox-profile-image']) {
             ?>
-        <img src="<?php echo $details['sabox-profile-image']; ?>" />
+        <img src="<?php echo esc_url($details['sabox-profile-image']); ?>" />
     <?php } ?>
 
 </div>

@@ -16,7 +16,7 @@
                                     <option value=""><?php _e('Select User', 'wp-user-profile-avatar'); ?>
                                         <?php
                                         foreach (get_users() as $key => $user) {
-                                            echo '<option value="' . $user->ID . '">' . $user->display_name . '</option>';
+                                            echo '<option value="' . esc_attr($user->ID ). '">' . esc_attr($user->display_name) . '</option>';
                                         }
                                         ?>
                                 </select>
@@ -29,7 +29,7 @@
                                     <option value="wpupavatar-default"><?php _e('Default', 'wp-user-profile-avatar'); ?>
                                         <?php
                                         foreach (get_wpupa_image_sizes() as $name => $label) {
-                                            echo '<option value="' . $name . '">' . $label . '</option>';
+                                            echo '<option value="' . esc_attr($name) . '">' . esc_attr($label) . '</option>';
                                         }
                                         ?>
                                 </select>
@@ -43,7 +43,7 @@
                                     <option value=""><?php _e('None', 'wp-user-profile-avatar'); ?>
                                         <?php
                                         foreach (get_wpupa_image_alignment() as $name => $label) {
-                                            echo '<option value="' . $name . '">' . $label . '</option>';
+                                            echo '<option value="' . esc_attr($name) . '">' . esc_attr($label) . '</option>';
                                         }
                                         ?>
                                 </select>
@@ -55,7 +55,7 @@
                                 <select id="wp-image-link-to" name="wp-image-link-to" class="regular-text">
                                         <?php
                                         foreach (get_wpupa_image_link_to() as $name => $label) {
-                                            echo '<option value="' . $name . '">' . $label . '</option>';
+                                            echo '<option value="' . esc_attr($name) . '">' . esc_attr($label). '</option>';
                                         }
                                         ?>
                                 </select>

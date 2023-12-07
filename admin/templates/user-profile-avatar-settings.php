@@ -7,14 +7,14 @@
         </th>
         <td>
             <p>
-                <input type="text" name="wpupa-url" id="wpupa-url" class="regular-text code" value="<?php echo $wpupa_url; ?>" placeholder="Enter Image URL">
+                <input type="text" name="wpupa-url" id="wpupa-url" class="regular-text code" value="<?php echo esc_url($wpupa_url); ?>" placeholder="Enter Image URL">
             </p>
 
             <p><?php _e('OR Upload Image', 'wp-user-profile-avatar'); ?></p>
 
             <p id="wp-user-profile-avatar-add-button-existing">
                 <button type="button" class="button" id="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button>
-                <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo $wpupaattachmentid; ?>">
+                <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo esc_attr($wpupaattachmentid); ?>">
             </p>
 
             <?php
@@ -27,14 +27,14 @@
             ?>
             <div id="wp-user-profile-avatar-images-existing">
                 <p id="wp-user-profile-avatar-preview">
-                    <img src="<?php echo $wpupa_original; ?>" alt="">
+                    <img src="<?php echo esc_url($wpupa_original); ?>" alt="">
                     <span class="description"><?php _e('Original Size', 'wp-user-profile-avatar'); ?></span>
                 </p>
                 <p id="wp-user-profile-avatar-thumbnail">
-                    <img src="<?php echo $wpupa_thumbnail; ?>" alt="">
+                    <img src="<?php echo esc_url($wpupa_thumbnail); ?>" alt="">
                     <span class="description"><?php _e('Thumbnail', 'wp-user-profile-avatar'); ?></span>
                 </p>
-                <p id="wp-user-profile-avatar-remove-button" class="<?php echo $class_hide; ?>">
+                <p id="wp-user-profile-avatar-remove-button" class="<?php echo esc_attr($class_hide); ?>">
                     <button type="button" class="button" id="wp-user-profile-avatar-remove"><?php _e('Remove Image', 'wp-user-profile-avatar'); ?></button>
                 </p>
                 <p id="wp-user-profile-avatar-undo-button">
@@ -57,12 +57,12 @@
     </tr>
 
     <tr>
-        <th scope="row"><label for="wpem-upload-max-file-size-field">WP Control File Size</label></th>
+        <th scope="row"><label for="wpem-upload-max-file-size-field"><?php _e('WP Control File Size', 'wp-user-profile-avatar'); ?></label></th>
         <td>
             <select id="wpem-upload-max-file-size-field" name="wpem-upload-max-file-size-field">
             <?php
                 foreach ( $wpupa_upload_sizes as $size_wpupa ) {
-                    echo '<option value="' . esc_attr($size_wpupa) . '" ' . ($size_wpupa == $wpupa_current_max_size ? 'selected' : '') . '>' . ( $size_wpupa . 'MB') . '</option>';
+                    echo '<option value="' . esc_attr($size_wpupa) . '" ' . ($size_wpupa == $wpupa_current_max_size ? 'selected' : '') . '>' . ( esc_attr($size_wpupa) . 'MB') . '</option>';
                 } ?>
             </select>
         </td>
