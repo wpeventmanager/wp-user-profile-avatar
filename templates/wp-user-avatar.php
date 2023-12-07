@@ -11,7 +11,7 @@ if (!defined('ABSPATH'))
         <?php if(is_array($image_url)) { ?>
             <img src="<?php echo esc_url($image_url[0]); ?>" class="size-<?php echo esc_attr($size); ?> <?php echo esc_attr($align); ?>" width="<?php echo esc_attr($image_url[1]); ?>" height="<?php echo esc_attr($image_url[2]); ?>" alt="<?php echo esc_attr($content); ?>" />
         <?php } else { ?>
-            <img src="<?php echo esc_url($image_url); ?>" class="size-<?php echo esc_attr($size); ?> <?php echo esc_attr($align;) ?>" alt="<?php echo esc_attr($content); ?>" />
+            <img src="<?php echo esc_url($image_url); ?>" class="size-<?php echo esc_attr($size); ?> <?php echo esc_attr($align); ?>" alt="<?php echo esc_attr($content); ?>" />
         <?php } ?>
     </a>
     <p class="caption-text <?php echo esc_attr($align); ?>"><?php echo esc_attr($content); ?></p>
