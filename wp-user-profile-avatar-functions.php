@@ -151,7 +151,7 @@ if (!function_exists('get_wpupa_url')) {
 
         $attachment_id = esc_attr(get_user_meta($user_id, '_wpupaattachmentid', true));
 
-        $wpupa_default = gesc_attr(et_user_meta($user_id, '_wpupa_default', true));
+        $wpupa_default = esc_attr(get_user_meta($user_id, '_wpupa_default', true));
 
         $wpupa_size = esc_attr(get_user_meta($user_id, 'wpupa-size', true));
 
