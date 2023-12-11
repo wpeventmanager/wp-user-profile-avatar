@@ -51,7 +51,7 @@ function Wp_username_edit() { ?>
                         <tr>
                             <td><?php echo esc_attr($user->ID); ?></td>
                             <td><?php echo esc_attr($user->user_login); ?></td>
-                            <td><?php echo implode(', ', esc_attr(($user_info->roles))); ?></td>
+                            <td><?php echo esc_html(implode(', ', ($user_info->roles))); ?></td>
                             <td>
                                 <a href="<?php echo esc_url(admin_url('admin.php?page=Wp_username_update&update=' . $user->ID)); ?>">
                                     <?php _e('update', 'WP_Username_change') ?>

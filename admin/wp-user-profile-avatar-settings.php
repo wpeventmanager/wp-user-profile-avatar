@@ -41,10 +41,11 @@ class WPUPA_Settings {
         $wpupa_default = get_option('wpupa_default');
         $wpupa_attachment_id = get_option('wpupa_attachment_id');
         $wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
-        $wpupa_size = get_option('wpupa_size');
-        ?>
+        $wpupa_size = get_option('wpupa_size'); ?>
         <div class="wrap">
-            <h2><?php _e('WP User Profile Avatar', 'wp-user-profile-avatar'); ?></h2>
+            <h2>
+                <?php _e('WP User Profile Avatar', 'wp-user-profile-avatar'); ?>
+            </h2>
             <table>
                 <tr valign="top">
                     <td>
@@ -94,7 +95,7 @@ class WPUPA_Settings {
                                             <legend class="screen-reader-text"><?php _e('Avatar Rating', 'wp-user-profile-avatar'); ?></legend>
                                             <?php foreach (get_wpupa_rating() as $name => $rating) : ?>
                                                 <?php $selected = ($wpupa_rating == $name) ? 'checked="checked"' : ""; ?>
-                                                <label><input type="radio" name="wpupa_rating" value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /> <?php echo esc_url($rating); ?></label><br />
+                                                <label><input type="radio" name="wpupa_rating" value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /> <?php echo esc_attr($rating); ?></label><br />
                                             <?php endforeach; ?>
                                         </fieldset>
                                     </td>
