@@ -155,7 +155,7 @@ class WPUPA_Settings {
 
                                                     <?php $selected = ($wpupa_default == $name) ? 'checked="checked"' : ""; ?>
                                                     <label><input type="radio" name="wpupa_default" value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /> 
-                                                        <?php echo preg_replace("/src='(.+?)'/", "src='\$1&amp;forcedefault=1'", esc_attr($avatar)); ?>
+                                                        <?php echo preg_replace("/src='(.+?)'/", "src='\$1&amp;forcedefault=1'", $avatar); ?>
                                                         <?php echo esc_attr($label); ?></label><br />
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
