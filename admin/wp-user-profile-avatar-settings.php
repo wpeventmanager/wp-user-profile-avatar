@@ -49,7 +49,7 @@ class WPUPA_Settings {
             <table>
                 <tr valign="top">
                     <td>
-                        <form method="post" action="<?php echo esc_url(admin_url('admin.php')). '?page=wp-user-profile-avatar-settings'; ?>">
+                        <form method="post" action="<?php echo esc_url(admin_url('admin.php')). '?page=wp-user-profile-avatar'; ?>">
 
                             <table class="form-table">
 
