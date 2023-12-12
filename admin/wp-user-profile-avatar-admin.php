@@ -168,7 +168,7 @@ class WPUPA_Admin {
         if (current_user_can('edit_user', $user_id)) {
             
             if (isset($_POST['wpupa-url'])) {
-                $wpupa_url = esc_url_raw($_POST['wpupa-url']);
+                $wpupa_url = esc_url($_POST['wpupa-url']);
             }
             if (isset($_POST['wpupaattachmentid'])) {
                 $wpupaattachmentid = absint($_POST['wpupaattachmentid']);
