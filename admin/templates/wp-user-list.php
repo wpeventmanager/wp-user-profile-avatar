@@ -77,7 +77,7 @@ function Wp_user_update() {
             $username = $user->user_login;
         }
         if (!empty($_REQUEST['submit'])) {
-            $name = sanitize_user($_POST["user-login"]);
+            $name = sanitize_user($_POST["user_login"]);
             if (empty($name)) {
                 $errorMsg = "Error : Please do not enter  empty username.";
             } elseif (username_exists($name)) {
@@ -102,7 +102,7 @@ function Wp_user_update() {
                 </tr>
                 <tr>
                     <th><label for="user-login"><?php _e('New Username', 'WP_Username_change') ?></label></th>
-                    <td><input type="text" name="user-login" class="regular-text" id="user-login" value="<?php if (!empty($_POST["user-login"])) echo esc_attr($name); ?>"/></td>
+                    <td><input type="text" name="user_login" class="regular-text" id="user_login" value="<?php if (!empty($_POST["user-login"])) echo esc_attr($name); ?>"/></td>
                 </tr>
             </table>
             <input type="submit" name="submit" id="submit" class="button button-primary" value="Update WP Username">
