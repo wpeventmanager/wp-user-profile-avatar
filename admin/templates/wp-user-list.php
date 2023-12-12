@@ -74,7 +74,7 @@ function Wp_user_update() {
         $user_info = get_userdata($id);
         $result = $wpdb->get_results($wpdb->prepare("SELECT * from $wpdb->users WHERE ID = %d", $id));
         foreach ($result as $user) {
-            $username = $user->user-login;
+            $username = $user->user_login;
         }
         if (!empty($_REQUEST['submit'])) {
             $name = sanitize_user($_POST["user-login"]);
