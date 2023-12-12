@@ -1,6 +1,6 @@
 <div class="wrap wp-user-profile-avatar-shortcode-wrap">
     <h2 class="nav-tab-wrapper">
-        <a href="#settings-user-avatar" class="nav-tab"><?php _e('User Avatar', 'wp-user-profile-avatar'); ?></a>
+        <a href="#settings-user-avatar" class="nav-tab"><?php _e('Change User', 'wp-user-profile-avatar'); ?></a>
         <a href="#settings-upload-avatar" class="nav-tab"><?php _e('Upload Avatar', 'wp-user-profile-avatar'); ?></a>		    
     </h2>
 
