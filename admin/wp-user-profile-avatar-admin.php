@@ -18,7 +18,7 @@ class WPUPA_Admin {
         include_once( 'wp-user-profile-avatar-settings.php' );
         $this->settings_page = new WPUPA_Settings();
 
-        $wpupa_tinymce = get_option('wpupa-tinymce');
+        $wpupa_tinymce = get_option('wpupa_inymce');
         if ($wpupa_tinymce) {
             add_action('init', array($this, 'wpupa_add_buttons'));
         }
@@ -139,9 +139,9 @@ class WPUPA_Admin {
 
         $wpupa_file_size = get_user_meta($user->ID, 'wpupa_file_size', true);
         $wpupa_size = get_user_meta($user->ID, 'wpupa-size', true);
-        $wpupa_tinymce = get_option('wpupa-tinymce');
-        $wpupa_allow_upload = get_option('wpupa-allow-upload');
-        $wpupa_disable_gravatar = get_option('wpupa-disable-gravatar');
+        $wpupa_tinymce = get_option('wpupa_tinymce');
+        $wpupa_allow_upload = get_option('wpupa_allow_upload');
+        $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
 
         // Custom uplaod file size
         $wpupa_max_size = get_option('wpem_max_file_size');
@@ -196,9 +196,9 @@ class WPUPA_Admin {
 
             $wpupa_disable_gravatar = !empty($_POST['wpupa-disable-gravatar']) ? sanitize_text_field($_POST['wpupa-disable-gravatar']) : '';
             
-            update_option('wpupa-tinymce', $wpupa_tinymce);
-            update_option('wpupa-allow-upload', $wpupa_allow_upload);
-            update_option('wpupa-disable-gravatar', $wpupa_disable_gravatar);
+            update_option('wpupa_tinymce', $wpupa_tinymce);
+            update_option('wpupa_allow_upload', $wpupa_allow_upload);
+            update_option('wpupa_disable_gravatar', $wpupa_disable_gravatar);
             
             if (!empty($wpupaattachmentid) || !empty($wpupa_url)) {
                 update_user_meta($user_id, '_wpupa_default', sanitize_text_field('wp_user_profile_avatar'));
@@ -293,7 +293,7 @@ class WPUPA_Admin {
         $contributor = get_role('contributor');
         $subscriber = get_role('subscriber');
 
-        $wpupa_allow_upload = get_option('wpupa-allow-upload');
+        $wpupa_allow_upload = get_option('wpupa_allow_upload');
 
         if (!empty($contributor)) {
             if ($wpupa_allow_upload) {

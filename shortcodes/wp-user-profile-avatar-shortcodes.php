@@ -160,7 +160,7 @@ class WPUPA_Shortcodes {
             return false;
         }
 
-        $wpupa_allow_upload = get_option('wpupa-allow-upload');
+        $wpupa_allow_upload = get_option('wpupa_allow_upload');
 
         $user_id = get_current_user_id();
         $user = new WP_User($user_id);
@@ -390,7 +390,7 @@ class WPUPA_Shortcodes {
      */
     public function get_user_avatar_url($url, $id_or_email, $args) {
 
-        $wpupa_disable_gravatar = get_option('wpupa-disable-gravatar');
+        $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
 
         $wpupa_show_avatars = get_option('wpupa_show_avatars');
 

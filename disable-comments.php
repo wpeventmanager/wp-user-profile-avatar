@@ -5,7 +5,7 @@ function init_filters() {
 
     $options = get_option('disable_comments_options', false);
 
-    if (is_array($options) && isset($options['remove-everywhere'])) {
+    if (is_array($options) && isset($options['remove_everywhere'])) {
 
         add_action('template_redirect', 'filter_admin_bar');
         add_action('admin_init', 'filter_admin_bar');
@@ -30,7 +30,7 @@ function init_wploaded_filters() {
     // Filters for the admin only.
     if (is_admin()) {
 
-        if (isset($options['remove-everywhere'])) {
+        if (isset($options['remove_everywhere'])) {
             add_action('admin_menu', 'filter_admin_menu');
         }
     }
@@ -38,7 +38,7 @@ function init_wploaded_filters() {
     else {
         add_action('template_redirect', 'check_comment_template');
 
-        if (isset($options['remove-everywhere'])) {
+        if (isset($options['remove_everywhere'])) {
             add_filter('feed_links_show_comments_feed', '__return_false');
         }
     }
@@ -79,7 +79,7 @@ function is_post_type_disabled($type) {
  */
 function check_comment_template() {
     //$options = get_option('disable_comments_options', array());
-    if (is_singular() && (isset($options['remove-everywhere']) || is_post_type_disabled(get_post_type()) )) {
+    if (is_singular() && (isset($options['remove_everywhere']) || is_post_type_disabled(get_post_type()) )) {
         if (!defined('DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE') || DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE == true) {
             // Kill the comments template.
             add_filter('comments_template', 'dummy_comments_template');
