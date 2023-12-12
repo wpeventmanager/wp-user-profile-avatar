@@ -14,7 +14,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 == Description ==
 
 
-WP User Profile Avatar allow you to change default WordPress avatar or User profile picture. You can use any photos uploaded into your Media Library or use custom photo url as an avatar instead of using Gravatar.
+P User Profile Avatar allows you to change the default WordPress avatar or User profile picture. You can use any photos uploaded into your Media Library or use a custom photo URL as an avatar instead of using Gravatar.
 
 
 **Plugin Features**

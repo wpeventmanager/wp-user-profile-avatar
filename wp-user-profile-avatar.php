@@ -2,7 +2,7 @@
 /**
 * Plugin Name: WP User Profile Avatar
 * Plugin URI: https://www.wp-eventmanager.com
-* Description: WP User Profile Avatar
+* Description: P User Profile Avatar allows you to change the default WordPress avatar or User profile picture. You can use any photos uploaded into your Media Library or use a custom photo URL as an avatar instead of using Gravatar.
 * Author: WP Event Manager
 * Author URI: https://www.wp-eventmanager.com
 * Text Domain: wp-user-profile-avatar
