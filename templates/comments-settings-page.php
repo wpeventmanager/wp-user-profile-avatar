@@ -76,7 +76,7 @@ if (isset($_POST['submit'])) {
                         $disabled_post_types = [];
                     }
                     foreach ($types as $k => $v) {
-                        echo "<li><label for='post-type-".esc_attr($k)."'><input type='checkbox' name='disabled_types[]' value='".esc_attr($k)."' " . checked(in_array($k, $disabled_post_types), true, false) . " id='post-type-".esc_attr($k)."'> {".esc_attr($v->labels->name)."}</label></li>";
+                        echo "<li><label for='post-type-".esc_attr($k)."'><input type='checkbox' name='disabled_types[]' value='".esc_attr($k)."' " . checked(in_array($k, $disabled_post_types), true, false) . " id='post-type-".esc_attr($k)."'> ".esc_attr($v->labels->name)."</label></li>";
                     }
                     ?>
                 </ul>
