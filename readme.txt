@@ -3,10 +3,10 @@
 Contributors: wpeventmanager,ashokdudhat,hiteshmakvana
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=55FRYATTFLA5N
 Tags: avatar, user profile, gravatar,custom profile photo, custom profile picture, profile photo, profile picture, author image, author photo
-Requires at least: 4.1
-Tested up to: 5.5
+Requires at least: 5.8
+Tested up to: 6.3.1
 Stable tag: 1.1
-Requires PHP: 5.4
+Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
