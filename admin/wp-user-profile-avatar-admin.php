@@ -41,9 +41,20 @@ class WPUPA_Admin {
         add_action('wp_ajax_nopriv_thickbox_model_view', array($this, 'thickbox_model_view'));
 
         add_action('admin_init', array($this, 'init_size'));
-
+add_action( 'admin_menu', array($this, 'add_shopp_submenu' ), 13);
     }
 	
+    
+function add_shopp_submenu(){
+    add_menu_page( __('New Menu', 'your-plugin-text-domain'), __('New Menu', 'your-plugin-text-domain'), 'read', 'ach-faq', 'your_menu_callback');
+    add_submenu_page( 'shopp-orders', __('New Menu', 'your-plugin-text-domain'), __('New Menu', 'your-plugin-text-domain'), 'read', 'ach-faq', 'your_menu_callback' );
+    remove_menu_page('ach-faq');
+}
+
+function your_menu_callback(){
+    echo "string";
+}
+
 	/**
      * admin_menu function.
      *
@@ -53,10 +64,39 @@ class WPUPA_Admin {
      * @since 1.0
      */
     public function admin_menu() {
-
-        add_submenu_page('users.php', __('Profile Avatar Settings', 'wp-user-profile-avatar'), __('Profile Avatar Settings', 'wp-user-profile-avatar'), 'manage_options', 'wp-user-profile-avatar-settings', array($this->settings_page, 'settings'));
+        add_menu_page( 
+            __('Profile Avatar Settings', 'wp-user-profile-avatar'),
+            __('WP User Profile Avtar', 'wp-user-profile-avatar'),
+            'manage_options', 
+            'wp-user-profile-avatar', 
+            array($this->settings_page, 'settings'),
+            'dashicons-admin-users' 
+        );
+        if (function_exists('add_submenu_page')) {
+            add_submenu_page('wp-user-profile-avatar', __('WP Username Change', 'WP_Username_change'), __('WP Username Change ', 'WP_Username_change'), 'manage_options', 'WP_Username_change', 'Wp_username_edit');
+            add_submenu_page(null, '', '', 'manage_options', 'Wp_username_update', 'Wp_user_update');
+            add_submenu_page('wp-user-profile-avatar', 'Avatar Social Picture', 'Avatar Social Picture', 'activate_plugins', 'avatar-social-picture', 'wp_user_admin');
+            add_submenu_page('wp-user-profile-avatar', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', array($this, 'comments_settings_page'));
+            add_submenu_page('wp-user-profile-avatar', 'Delete Comments', 'Delete Comments', 'manage_options', 'disable_comments_tools', array($this, 'comments_tools_page'));
+        }
     }
 	
+    /**
+     * This function is used to add comment setting page for sub menu
+     * @since 1.0.2
+     */
+    public function comments_settings_page() {
+        include 'templates/comments-settings-page.php';
+    }
+
+    /**
+     * This function is used to add comment tool page for sub menu
+     * @since 1.0.2
+     */
+    function comments_tools_page() {
+        include 'templates/comments-tools-page.php';
+    }
+
     /**
      * admin_enqueue_scripts function.
      * enqueue style and script for admin

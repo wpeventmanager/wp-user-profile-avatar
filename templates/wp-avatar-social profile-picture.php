@@ -23,7 +23,7 @@ function wp_avatar_users_menu() {
     add_users_page('Avatar Social Picture', 'Avatar Social Picture', 'activate_plugins', 'avatar-social-picture', 'wp_user_admin');
 }
 
-add_action('admin_menu', 'wp_avatar_users_menu');
+// add_action('admin_menu', 'wp_avatar_users_menu');
 
 function wp_user_admin() {
     $wp_avatar_add_social_picture = get_option('wp_avatar_add_social_picture', 'read')

@@ -44,7 +44,7 @@ class WPUPA_Settings {
         $wpupa_size = get_option('wpupa_size'); ?>
         <div class="wrap">
             <h2>
-                <?php _e('WP User Profile Avatar', 'wp-user-profile-avatar'); ?>
+                <?php _e('WP User Profile Avatar Settings', 'wp-user-profile-avatar'); ?>
             </h2>
             <table>
                 <tr valign="top">

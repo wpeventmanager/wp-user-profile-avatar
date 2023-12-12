@@ -15,7 +15,7 @@ Class WpUserNameChange {
     public function __construct() {
         global $wpdb;
         $this->db = $wpdb;
-        add_action('admin_menu', array($this, 'Wp_user_list'));
+        // add_action('admin_menu', array($this, 'Wp_user_list'));
         add_action('init', array($this, 'wp_file_include'));
     }
 

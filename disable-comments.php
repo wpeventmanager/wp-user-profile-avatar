@@ -1,24 +1,4 @@
 <?php
-
-add_action('admin_menu', 'comments_settings_menu');
-add_action('admin_menu', 'comments_tools_menu');
-
-function comments_settings_menu() {
-    add_submenu_page('users.php', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', 'comments_settings_page');
-}
-
-function comments_settings_page() {
-    include dirname(__FILE__) . '/templates/comments-settings-page.php';
-}
-
-function comments_tools_menu() {
-    add_submenu_page('users.php', 'Delete Comments', 'Delete Comments', 'manage_options', 'disable_comments_tools', 'comments_tools_page');
-}
-
-function comments_tools_page() {
-    include dirname(__FILE__) . '/templates/comments-tools-page.php';
-}
-
 add_action('init', 'init_filters');
 
 function init_filters() {
