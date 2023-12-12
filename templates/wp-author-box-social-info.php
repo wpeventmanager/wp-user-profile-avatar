@@ -88,7 +88,7 @@ function wp_author_social_info_box($content) {
         $author_details .= '<p class="author-bio">' . get_the_author_meta('description') . '</p>';
 
 // Display author Email link
-        $author_details .= ' <a href="mailto:' . esc_email($user_email) . '" target="_blank" rel="nofollow" title="E-mail" class="tooltip"><i class="fa fa-envelope-square fa-2x"></i> </a>';
+        $author_details .= ' <a href="mailto:' . esc_attr($user_email) . '" target="_blank" rel="nofollow" title="E-mail" class="tooltip"><i class="fa fa-envelope-square fa-2x"></i> </a>';
 
 // Display author Facebook link
         if (!empty($user_facebook)) {
@@ -151,7 +151,7 @@ function wp_author_social_info_box($content) {
         } else {
             $author_details .= '</p>';
         }
-        $content = $content . '<footer class="author-bio-section" >' . esc_attr($author_details) . '</footer>';
+        $content = $content . '<footer class="author-bio-section" >' . wp_kses_post($author_details) . '</footer>';
     }
     return $content;
 }
