@@ -89,8 +89,6 @@ class WP_User_Profile_Avatar {
 
         add_action('wp_enqueue_scripts', array($this, 'frontend_scripts'));
 
-        add_action('admin_init', array($this, 'updater'));
-
         if (is_admin()) {
             include('admin/wp-user-profile-avatar-admin.php');
         }
@@ -111,21 +109,6 @@ class WP_User_Profile_Avatar {
     public function activate() {
         //installation process after activating
         WPUPA_Install::install();
-    }
-
-    /**
-     * updater function.
-     *
-     * @access public
-     * @param 
-     * @return 
-     * @since 1.0.0
-     */
-    public function updater() {
-        if (version_compare(WPUPA_VERSION, get_option('wpupa_version'), '>')) {
-            WPUPA_Install::update();
-            flush_rewrite_rules();
-        }
     }
 
     /**
