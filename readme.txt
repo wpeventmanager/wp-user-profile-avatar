@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: avatar, user profile, gravatar,custom profile photo, custom profile picture, profile photo, profile picture, author image, author photo
 Requires at least: 5.8
 Tested up to: 6.3.1
-Stable tag: 1.0.1
+Stable tag: 1.1
 Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -325,25 +325,35 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
-= 1.0.2 [Aug 15TH, 2022] =
+= 1.1 [Dec 15th, 2023] =
 
-* Fixed - Settings of User Profile Avatar.
-* Fixed - Add shortcode User Profile Avatar button to Visual Editor.
-* Fixed - Coding errors of User Profile Avatar.
-* Fixed - Restrict access to Media Library of User Profile Avatar.
-* Fixed - Images issue of User Profile Avatar.
-* Fixed - Parse error from  of User Profile Avatar.
-* Fixed - Remove the user fields when plugin is uninstalled of User Profile Avatar.
-* Fixed - User Profile Avatar Tooltip issue.
-* Fixed - Warning message in User Profile Avatar. 
-* Fixed - Elementor User Profile Avatar upload issue
-* Improved - User Profile Avatar compatibility with bbPress.
-* Improved - UI of User Profile Avatar.
-
-= 1.1 [Aug 16TH, 2020] =
-
-* Fixed - Tweak Settings of User Profile Avatar.
+Fixed : No error message is shown while updating the username from the admin panel
+Fixed : Security issues are resolved in the profile avatar settings.
+Fixed : Security vulnerability issue in the profile avatar plugin is resolved.
+Fixed : The title of a settings option is rectified.
+Fixed : Proper user profile avatar description is added.
+Fixed : The active license option is removed from Profile Avatar.
+Fixed : User profile menu options are now available.
+Fixed : Issue related to the URL image size in the Elementor is resolved now.
+Fixed : Biographical info is removed from the venue and organizer section.
+Fixed : Profile Avatar is now visible on the event details page.
+Fixed : The warning message that appears in the backend is removed.
+Fixed : The profile avatar size issue in the Elementor is resolved.
+Fixed : The issue related to uploading an image in profile avatar in elementor has been resolved.
+Fixed : Additional tooltip display issue in the profile icon is resolved now.
+Fixed : Profile icon alignment issue is resolved.
+Fixed : Profile Avatar banner is improved in wordpress.org.
+Fixed : Fields are removed after uninstalling the plugin.
+Fixed : Username label in profile avatar is rectified.
+Fixed : Issue related to the plugin activation is resolved.
+Fixed : Images on the All user page are now properly displayed.
+Fixed : Administrator’s media library access is restricted for other users.
+Fixed : Issue related to controlling the file size is now resolved.
+Fixed : Homepage error is resolved.
+Fixed : Authorbox is now available with a Social media link.
+Fixed : The plugin is now compatible with bbpress.
+Fixed : Shortcode avatar button is added to the visual editor.
 
 = 1.0 [May 23TH, 2020] =
 
-* First stable release of User Profile Avatar.
+First stable release of User Profile Avatar.
