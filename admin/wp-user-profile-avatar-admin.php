@@ -18,7 +18,7 @@ class WPUPA_Admin {
         include_once( 'wp-user-profile-avatar-settings.php' );
         $this->settings_page = new WPUPA_Settings();
 
-        $wpupa_tinymce = get_option('wpupa_inymce');
+        $wpupa_tinymce = get_option('wpupa_tinymce');
         if ($wpupa_tinymce) {
             add_action('init', array($this, 'wpupa_add_buttons'));
         }
@@ -42,7 +42,7 @@ class WPUPA_Admin {
 
         add_action('admin_init', array($this, 'init_size'));
     }
-
+	
 	/**
      * admin_menu function.
      *
@@ -168,7 +168,7 @@ class WPUPA_Admin {
         if (current_user_can('edit_user', $user_id)) {
             
             if (isset($_POST['wpupa-url'])) {
-                $wpupa_url = esc_url($_POST['wpupa-url']);
+                 $wpupa_url = esc_url($_POST['wpupa-url']);
             }
             if (isset($_POST['wpupaattachmentid'])) {
                 $wpupaattachmentid = absint($_POST['wpupaattachmentid']);
@@ -352,4 +352,3 @@ class WPUPA_Admin {
 }
 
 new WPUPA_Admin();
-
