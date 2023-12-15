@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: avatar, user profile, gravatar,custom profile photo, custom profile picture, profile photo, profile picture, author image, author photo
 Requires at least: 5.8
 Tested up to: 6.3.1
-Stable tag: 1.1
+Stable tag: 1.0.1
 Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -325,7 +325,7 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
-= 1.1.0 [Dec 15th, 2023] =
+= 1.0.1 [Dec 15th, 2023] =
 
 Fixed : No error message is shown while updating the username from the admin panel
 Fixed : Security issues are resolved in the profile avatar settings.
