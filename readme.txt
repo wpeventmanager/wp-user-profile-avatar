@@ -325,7 +325,7 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
-= 1.1 [Dec 15th, 2023] =
+= 1.0.1 [Dec 15th, 2023] =
 
 Fixed : No error message is shown while updating the username from the admin panel
 Fixed : Security issues are resolved in the profile avatar settings.
@@ -354,6 +354,6 @@ Fixed : Authorbox is now available with a Social media link.
 Fixed : The plugin is now compatible with bbpress.
 Fixed : Shortcode avatar button is added to the visual editor.
 
-= 1.0 [May 23TH, 2020] =
+= 1.0 [May 23th, 2020] =
 
 First stable release of User Profile Avatar.
