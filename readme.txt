@@ -325,7 +325,7 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
-= 1.0.1 [Dec 15th, 2023] =
+= 1.1.0 [Dec 15th, 2023] =
 
 Fixed : No error message is shown while updating the username from the admin panel
 Fixed : Security issues are resolved in the profile avatar settings.

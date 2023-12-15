@@ -57,7 +57,7 @@ class WP_User_Profile_Avatar {
     public function __construct() {
 
         // Define constants
-        define('WPUPA_VERSION', '1.0.1');
+        define('WPUPA_VERSION', '1.1.0');
         define('WPUPA_PLUGIN_DIR', untrailingslashit(plugin_dir_path(__FILE__)));
         define('WPUPA_PLUGIN_URL', untrailingslashit(plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__))));
 
