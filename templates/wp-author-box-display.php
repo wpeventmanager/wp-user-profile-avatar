@@ -10,7 +10,7 @@ if (!defined('ABSPATH'))
 
 <div class="author-bio-section">
     <div class="author-details">
-        <div class="author-image"><?php echo get_avatar(get_the_author_meta('ID'), 90); ?></div>  
+        <div class="author-image"><?php echo wp_kses_post(get_avatar(get_the_author_meta('ID'), 90)); ?></div>  
         <div class="author-info">
             <div class="author-name"> <?php esc_attr(the_author_meta('display_name')); ?> </div>
             <div class="author-bio"><?php esc_attr(the_author_meta('description')); ?></div>

@@ -36,13 +36,12 @@ class WPUPA_Shortcodes {
         $current_user_id = get_current_user_id();
 
         extract(shortcode_atts(array(
-            'user_id' => '',
-            'size' => 'thumbnail',
-            'align' => 'alignnone',
-                        ), $atts));
+            'user_id' => esc_attr(''),
+            'size' => esc_attr('thumbnail'),
+            'align' => esc_attr('alignnone'),
+        ), $atts));
 
         ob_start();
-
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-author-box-display.php' );
 
@@ -61,8 +60,8 @@ class WPUPA_Shortcodes {
 
         $id = get_current_user_id();
 
-        $details = array(
-        );
+        $details = array();
+
         ob_start();
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-author-box-social-info.php' );
@@ -83,14 +82,13 @@ class WPUPA_Shortcodes {
         $id = get_current_user_id();
 
         $details = array(
-            'first_name' => get_the_author_meta('first_name', $id),
-            'last_name' => get_the_author_meta('last_name', $id),
-            'description' => get_the_author_meta('description', $id),
-            'email' => get_the_author_meta('email', $id),
+            'first_name' => esc_attr(get_the_author_meta('first_name', $id)),
+            'last_name' => esc_attr(get_the_author_meta('last_name', $id)),
+            'description' => wp_kses_post(get_the_author_meta('description', $id)),
+            'email' => ap_html(get_the_author_meta('email', $id)),
             'sabox_social_links' => get_the_author_meta('sabox_social_links', $id),
-            'sabox-profile-image' => get_the_author_meta('sabox-profile-image', $id),
+            'sabox-profile-image' => esc_url(get_the_author_meta('sabox-profile-image', $id)),
         );
-
 
         ob_start();
 
@@ -113,23 +111,23 @@ class WPUPA_Shortcodes {
         $current_user_id = get_current_user_id();
 
         extract(shortcode_atts(array(
-            'user_id' => '',
-            'size' => 'thumbnail',
-            'align' => 'alignnone',
-            'link' => '#',
-            'target' => '_self',
-                        ), $atts));
+            'user_id' => esc_attr(''),
+            'size' => esc_attr('thumbnail'),
+            'align' => esc_attr('alignnone'),
+            'link' => esc_url('#'),
+            'target' => esc_attr('_self'),
+        ), $atts));
 
         ob_start();
 
-        $image_url = get_wpupa_url($current_user_id, ['size' => $size]);
+        $image_url = esc_url(get_wpupa_url($current_user_id, ['size' => esc_attr($size)]));
 
         if ($link == 'image') {
             // Get image src
             $link = get_wpupa_url($current_user_id, ['size' => 'original']);
         } elseif ($link == 'attachment') {
             // Get attachment URL
-            $link = get_attachment_link(get_the_author_meta($wpdb->get_blog_prefix($blog_id) . 'user_avatar', $user_id));
+            $link = get_attachment_link(get_the_author_meta($wpdb->get_blog_prefix(esc_attr($blog_id)) . 'user_avatar', esc_attr($user_id)));
         }
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-user-avatar.php' );
@@ -160,7 +158,7 @@ class WPUPA_Shortcodes {
             return false;
         }
 
-        $wpupa_allow_upload = get_option('wpupa_allow_upload');
+        $wpupa_allow_upload = esc_attr(get_option('wpupa_allow_upload'));
 
         $user_id = get_current_user_id();
         $user = new WP_User($user_id);
@@ -190,11 +188,11 @@ class WPUPA_Shortcodes {
 
         wp_enqueue_script('wp-user-profile-avatar-frontend-avatar');
 
-        $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
-        $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+        $wpupa_original = esc_url(get_wpupa_url($user_id, ['size' => 'original']));
+        $wpupa_thumbnail = esc_url(get_wpupa_url($user_id, ['size' => 'thumbnail']));
 
-        $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
-        $wpupa_url = get_user_meta($user_id, '_wpupa-url', true);
+        $wpupaattachmentid = esc_attr(get_user_meta($user_id, '_wpupaattachmentid', true));
+        $wpupa_url = esc_url(get_user_meta($user_id, '_wpupa-url', true));
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
 

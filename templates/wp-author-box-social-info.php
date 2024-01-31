@@ -40,55 +40,55 @@ function wp_author_social_info_box($content) {
     if (is_single() && isset($post->post_author)) {
 
 // Get author's display name
-        $display_name = get_the_author_meta('first_name', $post->post_author);
+        $display_name = esc_attr(get_the_author_meta('first_name', $post->post_author));
 
 // If display name is not available then use nickname
         if (empty($display_name))
-            $display_name = get_the_author_meta('nickname', $post->post_author);
+            $display_name = esc_attr(get_the_author_meta('nickname', $post->post_author));
 
 // Get author's biographical description
-        $user_description = get_the_author_meta('user_description', $post->post_author);
+        $user_description = wp_kses_post(get_the_author_meta('user_description', $post->post_author));
 
 // Get author's email
-        $user_email = get_the_author_meta('email', $post->post_author);
+        $user_email = esc_html(get_the_author_meta('email', $post->post_author));
 
 // Get author's Facebook
-        $user_facebook = get_the_author_meta('facebook', $post->post_author);
+        $user_facebook = esc_url(get_the_author_meta('facebook', $post->post_author));
 
 // Get author's Skype
-        $user_skype = get_the_author_meta('skype', $post->post_author);
+        $user_skype = esc_url(get_the_author_meta('skype', $post->post_author));
 
 // Get author's Twitter
-        $user_twitter = get_the_author_meta('twitter', $post->post_author);
+        $user_twitter = esc_url(get_the_author_meta('twitter', $post->post_author));
 
 // Get author's LinkedIn 
-        $user_linkedin = get_the_author_meta('linkedin', $post->post_author);
+        $user_linkedin = esc_url(get_the_author_meta('linkedin', $post->post_author));
 
 // Get author's Youtube
-        $user_youtube = get_the_author_meta('youtube', $post->post_author);
+        $user_youtube = esc_url(get_the_author_meta('youtube', $post->post_author));
 
 // Get author's Google+
-        $user_googleplus = get_the_author_meta('googleplus', $post->post_author);
+        $user_googleplus = esc_url(get_the_author_meta('googleplus', $post->post_author));
 
 // Get author's Pinterest
-        $user_pinterest = get_the_author_meta('pinterest', $post->post_author);
+        $user_pinterest = esc_url(get_the_author_meta('pinterest', $post->post_author));
 
 // Get author's Instagram
-        $user_instagram = get_the_author_meta('instagram', $post->post_author);
+        $user_instagram = esc_url(get_the_author_meta('instagram', $post->post_author));
 
 // Get author's Github
-        $user_github = get_the_author_meta('github', $post->post_author);
+        $user_github = esc_url(get_the_author_meta('github', $post->post_author));
 
 
 // Get link to the author  page
-        $user_posts = get_author_posts_url(get_the_author_meta('ID', $post->post_author));
+        $user_posts = esc_url(get_author_posts_url(get_the_author_meta('ID', $post->post_author)));
         if (!empty($display_name))
             $author_details = '<p class="author-name">' . get_the_author_meta('display_name') . '</p>';
         $author_details .= '<p class="author-image">' . get_avatar(get_the_author_meta('ID'), 90) . '</p>';
         $author_details .= '<p class="author-bio">' . get_the_author_meta('description') . '</p>';
 
 // Display author Email link
-        $author_details .= ' <a href="mailto:' . esc_attr($user_email) . '" target="_blank" rel="nofollow" title="E-mail" class="tooltip"><i class="fa fa-envelope-square fa-2x"></i> </a>';
+        $author_details .= ' <a href="' . esc_url( 'mailto:' . $user_email ); . '" target="_blank" rel="nofollow" title="E-mail" class="tooltip"><i class="fa fa-envelope-square fa-2x"></i> </a>';
 
 // Display author Facebook link
         if (!empty($user_facebook)) {
