@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 }
 
 function update_options($options) {
-
     update_option('disable_comments_options', $options);
 }
 
