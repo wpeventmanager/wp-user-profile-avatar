@@ -143,9 +143,9 @@ class WPUPA_Settings {
                                                 $class_hide = '';
                                             } ?>
                                             <p id="wp-user-profile-avatar-edit">
-                                                <button type="button" class="button" id="wp_user_profile_avatar_add" name="wp_user_profile_avatar_add"><?php _e('Choose Image'); ?></button>
-                                                <span id="wp_user_profile_avatar_remove_button" class="<?php echo esc_attr($class_hide); ?>"><a href="javascript:void(0)" id="wp_user_profile_avatar_remove"><?php _e('Remove'); ?></a></span>
-                                                <span id="wp_user_profile_avatar_undo_button"><a href="javascript:void(0)" id="wp_user_profile_avatar_undo"><?php _e('Undo'); ?></a></span>
+                                                <button type="button" class="button" id="wp-user-profile-avatar-add" name="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button>
+                                                <span id="wp-user-profile-avatar-remove-button" class="<?php echo esc_attr($class_hide); ?>"><a href="javascript:void(0)" id="wp-user-profile-avatar-remove"><?php _e('Remove'); ?></a></span>
+                                                <span id="wp-user-profile-avatar-undo-button"><a href="javascript:void(0)" id="wp-user-profile-avatar-undo"><?php _e('Undo'); ?></a></span>
                                                 <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo esc_attr($wpupa_attachment_id); ?>">
                                             </p>
 
