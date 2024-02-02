@@ -151,7 +151,10 @@ function wp_author_social_info_box($content) {
         } else {
             $author_details .= '</p>';
         }
-        $content = $content . '<footer class="author-bio-section" >' . wp_kses_post($author_details) . '</footer>';
+        $wpupa_hide_post_option = get_option('wpupa_hide_post_option');
+        if($wpupa_hide_post_option){
+            $content = $content . '<footer class="author-bio-section" >' . wp_kses_post($author_details) . '</footer>';
+        }
     }
     return $content;
 }

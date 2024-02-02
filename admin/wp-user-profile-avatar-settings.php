@@ -43,6 +43,7 @@ class WPUPA_Settings {
         $wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
         $wpupa_size = get_option('wpupa_size');
         $avatar_size = get_option('avatar_size');
+        $wpupa_hide_post_option = get_option('wpupa_hide_post_option');
         ?>
         <div class="wrap">
             <h2>
@@ -141,6 +142,17 @@ class WPUPA_Settings {
                                 </tr>
 
                                 <tr valign="top">
+                                    <th scope="row"><?php _e('Avatar Image', 'wp-user-profile-avatar'); ?></th>
+                                    <td>
+                                        <fieldset>
+                                            <label for="wpupa_hide_post_option">
+                                                <input name="wpupa_hide_post_option" type="checkbox" id="wpupa_hide_post_option" value="1"<?php echo checked($wpupa_hide_post_option, 1, 0); ?> > <?php _e('Turn on the author-bioinfo box', 'wp-user-profile-avatar'); ?>
+                                            </label>
+                                        </fieldset>
+                                    </td>
+                                </tr>
+
+                                <tr valign="top">
                                     <th scope="row"><?php _e('Default Avatar', 'wp-user-profile-avatar'); ?></th>
                                     <td class="defaultavatarpicker">
                                         <fieldset>
@@ -232,6 +244,8 @@ class WPUPA_Settings {
             $wpupa_size = !empty($_POST['wpupa_size']) ? sanitize_text_field($_POST['wpupa_size']) : '';
 
             $avatar_size = !empty($_POST['avatar_size']) ? sanitize_text_field($_POST['avatar_size']) : '';
+
+            $wpupa_hide_post_option = !empty($_POST['wpupa_hide_post_option']) ? sanitize_text_field($_POST['wpupa_hide_post_option']) : '';
             
 
             if ($wpupa_show_avatars == '') {
@@ -255,6 +269,7 @@ class WPUPA_Settings {
             update_option('wpupaattachmentid', $wpupa_attachment_id);
             update_option('wpupa_size', $wpupa_size);
             update_option('avatar_size', $avatar_size);
+            update_option('wpupa_hide_post_option', $wpupa_hide_post_option);
         }
     }
 
