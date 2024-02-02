@@ -41,7 +41,9 @@ class WPUPA_Settings {
         $wpupa_default = get_option('wpupa_default');
         $wpupa_attachment_id = get_option('wpupaattachmentid');
         $wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
-        $wpupa_size = get_option('wpupa_size'); ?>
+        $wpupa_size = get_option('wpupa_size');
+        $avatar_size = get_option('avatar_size');
+        ?>
         <div class="wrap">
             <h2>
                 <?php _e('WP User Profile Avatar Settings', 'wp-user-profile-avatar'); ?>
@@ -123,8 +125,19 @@ class WPUPA_Settings {
                                     }
                                     ?>
                                     <td>
-                                        <input type="number" name="wpupa_size" id="wpupa_size" value="<?php echo esc_attr($wpupa_size); ?>" />
+                                        <select id="avatar_size" name="avatar_size">
+                                            <?php foreach (get_wpupa_image_sizes() as $name => $avarat_key) { 
+        
+                                                ?>
+                                                <?php $avatar_size_selected = ($avatar_size == $name) ? 'selected="selected"' : "";
+                                                ?>
+                                                <option value="<?php echo esc_attr($name); ?>" <?php echo $avatar_size_selected; ?> /><?php echo esc_attr($avarat_key); ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </td>
+                                    <!--<td>
+                                        <input type="number" name="wpupa_size" id="wpupa_size" value="<?php //echo esc_attr($wpupa_size); ?>" />
+                                    </td>-->
                                 </tr>
 
                                 <tr valign="top">
@@ -218,6 +231,9 @@ class WPUPA_Settings {
 
             $wpupa_size = !empty($_POST['wpupa_size']) ? sanitize_text_field($_POST['wpupa_size']) : '';
 
+            $avatar_size = !empty($_POST['avatar_size']) ? sanitize_text_field($_POST['avatar_size']) : '';
+            
+
             if ($wpupa_show_avatars == '') {
                 $wpupa_tinymce = '';
                 $wpupa_allow_upload = '';
@@ -238,6 +254,7 @@ class WPUPA_Settings {
             update_option('wpupa_default', $wpupa_default);
             update_option('wpupaattachmentid', $wpupa_attachment_id);
             update_option('wpupa_size', $wpupa_size);
+            update_option('avatar_size', $avatar_size);
         }
     }
 
