@@ -39,7 +39,7 @@ class WPUPA_Settings {
         $wpupa_rating = get_option('wpupa_rating');
         $wpupa_file_size = get_option('wpupa_file_size');
         $wpupa_default = get_option('wpupa_default');
-        $wpupa_attachment_id = get_option('wpupa_attachment_id');
+        $wpupa_attachment_id = get_option('wpupaattachmentid');
         $wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
         $wpupa_size = get_option('wpupa_size'); ?>
         <div class="wrap">
@@ -146,7 +146,7 @@ class WPUPA_Settings {
                                                 <button type="button" class="button" id="wp-user-profile-avatar-add" name="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button>
                                                 <span id="wp-user-profile-avatar-remove-button" class="<?php echo esc_attr($class_hide); ?>"><a href="javascript:void(0)" id="wp-user-profile-avatar-remove"><?php _e('Remove'); ?></a></span>
                                                 <span id="wp-user-profile-avatar-undo-button"><a href="javascript:void(0)" id="wp-user-profile-avatar-undo"><?php _e('Undo'); ?></a></span>
-                                                <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo esc_attr($wpupa_attachment_id); ?>">
+                                                <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo esc_attr($wpupa_attachment_id); ?>">
                                             </p>
 
                                             <?php if (empty($wpupa_disable_gravatar)) : ?>
@@ -214,7 +214,7 @@ class WPUPA_Settings {
 
             $wpupa_default = !empty($_POST['wpupa_default']) ? sanitize_text_field($_POST['wpupa_default']) : '';
 
-            $wpupa_attachment_id = !empty($_POST['wpupa_attachment_id']) ? sanitize_text_field($_POST['wpupa_attachment_id']) : '';
+            $wpupa_attachment_id = !empty($_POST['wpupaattachmentid']) ? sanitize_text_field($_POST['wpupaattachmentid']) : '';
 
             $wpupa_size = !empty($_POST['wpupa_size']) ? sanitize_text_field($_POST['wpupa_size']) : '';
 
@@ -236,7 +236,7 @@ class WPUPA_Settings {
             update_option('wpupa_rating', $wpupa_rating);
             update_option('wpupa_file_size', $wpupa_file_size);
             update_option('wpupa_default', $wpupa_default);
-            update_option('wpupa_attachment_id', $wpupa_attachment_id);
+            update_option('wpupaattachmentid', $wpupa_attachment_id);
             update_option('wpupa_size', $wpupa_size);
         }
     }
