@@ -119,10 +119,7 @@ class WPUPA_Shortcodes {
         ), $atts));
 
         ob_start();
-        //$avatar_size = get_option('avatar_size');
-       // if($avatar_size){
             $image_url = esc_url(get_wpupa_url($current_user_id, ['size' => esc_attr($size)]));
-        //}
         if ($link == 'image') {
             // Get image src
             $link = get_wpupa_url($current_user_id, ['size' => 'original']);
