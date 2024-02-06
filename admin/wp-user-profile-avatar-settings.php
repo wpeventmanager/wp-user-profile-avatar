@@ -118,35 +118,12 @@ class WPUPA_Settings {
                                     </td>
                                 </tr>
 
-                                <tr>
-                                    <th><label for="wpupa_size"><?php _e("Avatar Size"); ?></label></th>
-                                    <?php
-                                    if ($wpupa_size == '') {
-                                        $wpupa_size = get_avatar_data(get_current_user_id())['size'];
-                                    }
-                                    ?>
-                                    <td>
-                                        <select id="avatar_size" name="avatar_size">
-                                            <?php foreach (get_wpupa_image_sizes() as $name => $avarat_key) { 
-        
-                                                ?>
-                                                <?php $avatar_size_selected = ($avatar_size == $name) ? 'selected="selected"' : "";
-                                                ?>
-                                                <option value="<?php echo esc_attr($name); ?>" <?php echo $avatar_size_selected; ?> /><?php echo esc_attr($avarat_key); ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </td>
-                                    <!--<td>
-                                        <input type="number" name="wpupa_size" id="wpupa_size" value="<?php //echo esc_attr($wpupa_size); ?>" />
-                                    </td>-->
-                                </tr>
-
                                 <tr valign="top">
-                                    <th scope="row"><?php _e('Avatar Image', 'wp-user-profile-avatar'); ?></th>
+                                    <th scope="row"><?php _e('Hide Bio Info Box Avatar', 'wp-user-profile-avatar'); ?></th>
                                     <td>
                                         <fieldset>
                                             <label for="wpupa_hide_post_option">
-                                                <input name="wpupa_hide_post_option" type="checkbox" id="wpupa_hide_post_option" value="1"<?php echo checked($wpupa_hide_post_option, 1, 0); ?> > <?php _e('Turn on the author-bioinfo box', 'wp-user-profile-avatar'); ?>
+                                                <input name="wpupa_hide_post_option" type="checkbox" id="wpupa_hide_post_option" value="1"<?php echo checked($wpupa_hide_post_option, 1, 0); ?> > <?php _e('Turn off the author bio info box', 'wp-user-profile-avatar'); ?>
                                             </label>
                                         </fieldset>
                                     </td>
