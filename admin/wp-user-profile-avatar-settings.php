@@ -117,7 +117,24 @@ class WPUPA_Settings {
                                         </select>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th scope="row">
+                                        <label for="wpupa_file_size">Avatar Size</label>
+                                    </th>
+                                    <td>
+                                        <select id="avatar_size" name="avatar_size">
+                                            <option value=""><?php echo _e('Select Avatar Size', 'wp-user-profile-avatar'); ?></option>
+                                            <?php foreach (get_wpupa_image_sizes() as $name => $avarat_key) { 
 
+                                                ?>
+                                                <?php $avatar_size_selected = ($avatar_size == $name) ? 'selected="selected"' : "";
+                                                ?>
+                                                <option value="<?php echo esc_attr($name); ?>" <?php echo $avatar_size_selected; ?> /><?php echo esc_attr($avarat_key); ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <p class="description"><?php _e('If select avatar size here then it will not work with user profile avatar shortcodes size parameters. [user_profile_avatar size="original"]'); ?></p>
+                                    </td>
+                                </tr>
                                 <tr valign="top">
                                     <th scope="row"><?php _e('Hide Bio Info Box Avatar', 'wp-user-profile-avatar'); ?></th>
                                     <td>
