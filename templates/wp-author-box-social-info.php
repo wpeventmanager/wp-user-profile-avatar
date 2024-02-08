@@ -83,9 +83,13 @@ function wp_author_social_info_box($content) {
 // Get link to the author  page
         $user_posts = esc_url(get_author_posts_url(get_the_author_meta('ID', $post->post_author)));
         if (!empty($display_name))
-            $author_details = '<p class="author-name">' . get_the_author_meta('display_name') . '</p>';
+            $author_details = '<div class="author-flex">';
         $author_details .= '<p class="author-image">' . get_avatar(get_the_author_meta('ID'), 90) . '</p>';
+        $author_details .= '<div class="author-right-content">';
+        $author_details .= '<div class="author-name"><strong>' . get_the_author_meta('display_name') . '</strong></div>';
         $author_details .= '<p class="author-bio">' . get_the_author_meta('description') . '</p>';
+        $author_details .= '</div> </div>';
+        $author_details .= '<div class="author-social">';
 
 // Display author Email link
         $author_details .= ' <a href="' . esc_url( 'mailto:' . $user_email ) . '" target="_blank" rel="nofollow" title="E-mail" class="tooltip"><i class="fa fa-envelope-square fa-2x"></i> </a>';
@@ -151,6 +155,9 @@ function wp_author_social_info_box($content) {
         } else {
             $author_details .= '</p>';
         }
+
+        $author_details .= '</div>';
+
         $wpupa_hide_post_option = get_option('wpupa_hide_post_option');
         if($wpupa_hide_post_option == ''){
             $content = $content . '<footer class="author-bio-section" >' . wp_kses_post($author_details) . '</footer>';
