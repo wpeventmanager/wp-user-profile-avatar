@@ -84,7 +84,7 @@ function wp_author_social_info_box($content) {
         $user_posts = esc_url(get_author_posts_url(get_the_author_meta('ID', $post->post_author)));
         if (!empty($display_name))
             $author_details = '<div class="author-flex">';
-        $author_details .= '<p class="author-image">' . get_avatar(get_the_author_meta('ID'), 90) . '</p>';
+        $author_details .= '<div class="author-image">' . get_avatar(get_the_author_meta('ID'), 90) . '</div>';
         $author_details .= '<div class="author-right-content">';
         $author_details .= '<div class="author-name"><strong>' . get_the_author_meta('display_name') . '</strong></div>';
         $author_details .= '<p class="author-bio">' . get_the_author_meta('description') . '</p>';
@@ -98,62 +98,62 @@ function wp_author_social_info_box($content) {
         if (!empty($user_facebook)) {
             $author_details .= ' <a href="' . esc_url($user_facebook) . '" target="_blank" rel="nofollow" title="Facebook" class="tooltip"><i class="fa fa-facebook-official fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+           
         }
 
 // Display author Skype link
         if (!empty($user_skype)) {
             $author_details .= ' <a href="' . esc_url($user_skype) . '" target="_blank" rel="nofollow" title="Username paaljoachim Skype" class="tooltip"><i class="fa fa-skype fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+           
         }
 
 // Display author Twitter link
         if (!empty($user_twitter)) {
             $author_details .= ' <a href="' . esc_url($user_twitter) . '" target="_blank" rel="nofollow" title="Twitter" class="tooltip"><i class="fa fa-twitter-square fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+            
         }
 
 // Display author LinkedIn link
         if (!empty($user_linkedin)) {
             $author_details .= ' <a href="' . esc_url($user_linkedin) . '" target="_blank" rel="nofollow" title="LinkedIn" class="tooltip"><i class="fa fa-linkedin-square fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+           
         }
 
 // Display author Youtube link
         if (!empty($user_youtube)) {
             $author_details .= ' <a href="' . esc_url($user_youtube) . '" target="_blank" rel="nofollow" title="Youtube" class="tooltip"><i class="fa fa-youtube-square fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+            
         }
 
 // Display author Google + link
         if (!empty($user_googleplus)) {
             $author_details .= ' <a href="' . esc_url($user_googleplus) . '" target="_blank" rel="nofollow" title="Google+" class="tooltip"><i class="fa fa-google-plus-square fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+           
         }
 
 // Display author Pinterest link
         if (!empty($user_pinterest)) {
             $author_details .= ' <a href="' . esc_url($user_pinterest) . '" target="_blank" rel="nofollow" title="Pinterest" class="tooltip"><i class="fa fa-pinterest-square fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+            
         }
 // Display author instagram link
         if (!empty($user_instagram)) {
             $author_details .= ' <a href="' . esc_url($user_instagram ). '" target="_blank" rel="nofollow" title="instagram" class="tooltip"><i class="fa fa-instagram fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+            
         }
 
 // Display author Github link
         if (!empty($user_github)) {
             $author_details .= ' <a href="' . esc_url($user_github ). '" target="_blank" rel="nofollow" title="Github" class="tooltip"><i class="fa fa-github-square fa-2x"></i> </a>';
         } else {
-            $author_details .= '</p>';
+            
         }
 
         $author_details .= '</div>';
