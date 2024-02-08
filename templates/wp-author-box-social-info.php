@@ -85,11 +85,11 @@ function wp_author_social_info_box($content) {
         if (!empty($display_name))
             $author_details = '<div class="author-flex">';
         $author_details .= '<div class="author-image">' . get_avatar(get_the_author_meta('ID'), 90) . '</div>';
-        $author_details .= '<div class="author-right-content">';
+        $author_details .= '<div class="author-info">';
         $author_details .= '<div class="author-name"><strong>' . get_the_author_meta('display_name') . '</strong></div>';
         $author_details .= '<p class="author-bio">' . get_the_author_meta('description') . '</p>';
         $author_details .= '</div> </div>';
-        $author_details .= '<div class="author-social">';
+        $author_details .= '<div class="authorbox-social-icons">';
 
 // Display author Email link
         $author_details .= ' <a href="' . esc_url( 'mailto:' . $user_email ) . '" target="_blank" rel="nofollow" title="E-mail" class="tooltip"><i class="fa fa-envelope-square fa-2x"></i> </a>';
