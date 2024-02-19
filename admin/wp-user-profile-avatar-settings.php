@@ -132,7 +132,7 @@ class WPUPA_Settings {
                                                 <option value="<?php echo esc_attr($name); ?>" <?php echo $avatar_size_selected; ?> /><?php echo esc_attr($avarat_key); ?></option>
                                             <?php } ?>
                                         </select>
-                                        <p class="description"><?php _e('If select avatar size here then it will not work with user profile avatar shortcodes size parameters. [user_profile_avatar size="original"]'); ?></p>
+                                        <p class="description"><?php _e('Selecting avatar size here will not work with user profile avatar shortcode size parameters. [user_profile_avatar size="original"]'); ?></p>
                                     </td>
                                 </tr>
                                 <tr valign="top">
