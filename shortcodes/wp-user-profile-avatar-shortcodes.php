@@ -413,20 +413,22 @@ class WPUPA_Shortcodes {
         }
 
         // First checking custom avatar.
-        if (check_wpupa_url($user_id)) {
-            $url = get_wpupa_url($user_id, ['size' => 'thumbnail']);
-        } else if ($wpupa_disable_gravatar) {
-            $url = get_wpupa_default_avatar_url(['size' => 'thumbnail']);
-        } else {
-            $has_valid_url = check_wpupa_gravatar($id_or_email);
-            if (!$has_valid_url) {
+        if(get_current_user_id() == $user_id || is_admin()){
+            if (check_wpupa_url($user_id)) {
+                $url = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+            } else if ($wpupa_disable_gravatar) {
                 $url = get_wpupa_default_avatar_url(['size' => 'thumbnail']);
             } else {
-                if ($wpupa_default != 'wp_user_profile_avatar' && !empty($user_id)) {
-                    $url = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+                $has_valid_url = check_wpupa_gravatar($id_or_email);
+                if (!$has_valid_url) {
+                    $url = get_wpupa_default_avatar_url(['size' => 'thumbnail']);
+                } else {
+                    if ($wpupa_default != 'wp_user_profile_avatar' && !empty($user_id)) {
+                        $url = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+                    }
                 }
             }
-        }
+        }    
 
         return $url;
     }
