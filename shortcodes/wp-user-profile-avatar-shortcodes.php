@@ -110,6 +110,8 @@ class WPUPA_Shortcodes {
 
         $current_user_id = get_current_user_id();
 
+        $admin_avatar_size = get_option( 'avatar_size' );
+
         extract(shortcode_atts(array(
             'user_id' => esc_attr(''),
             'size' => esc_attr('thumbnail'),
@@ -117,6 +119,10 @@ class WPUPA_Shortcodes {
             'link' => esc_url('#'),
             'target' => esc_attr('_self'),
         ), $atts));
+
+        if($admin_avatar_size){
+            $size = $admin_avatar_size;
+        }
 
         ob_start();
             $image_url = esc_url(get_wpupa_url($current_user_id, ['size' => esc_attr($size)]));
