@@ -71,6 +71,32 @@ if (!function_exists('get_wpupa_default_avatar')) {
 
 }
 
+if (!function_exists('get_wpupa_selected_avatar_url')) {
+
+    /**
+     * get_wpupa_selected_avatar_url function used to retrive avatr image based on avatar.
+     *
+     * @access public
+     * @param string
+     * @return string
+     * @since 1.0.2
+     */
+    function get_wpupa_selected_avatar_url($name) {
+        $avatar_urls = apply_filters('wp_user_default_avatar_urls', array(
+            'mystery' => 'http://2.gravatar.com/avatar/?s=32&d=mystery&r=g&forcedefault=1',
+            'blank' => 'http://2.gravatar.com/avatar/?s=32&d=blank&r=g&forcedefault=1',
+            'gravatar_default' => 'http://2.gravatar.com/avatar/?s=32&r=g&forcedefault=1',
+            'identicon' => 'http://2.gravatar.com/avatar/?s=32&d=identicon&r=g&forcedefault=1',
+            'wavatar' => 'http://2.gravatar.com/avatar/?s=32&d=wavatar&r=g&forcedefault=1',
+            'monsterid' => 'http://2.gravatar.com/avatar/?s=32&d=monsterid&r=g&forcedefault=1',
+            'retro' => 'http://2.gravatar.com/avatar/?s=32&d=retro&r=g&forcedefault=1',
+        ));
+
+        return $avatar_urls[$name];
+    }
+
+}
+
 if (!function_exists('get_wpupa_default_avatar_url')) {
 
     /**
