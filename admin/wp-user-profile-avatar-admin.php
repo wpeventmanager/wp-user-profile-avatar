@@ -134,7 +134,7 @@ class WPUPA_Admin {
         $wpupa_original = get_wpupa_url($user->ID, ['size' => 'original']);
         $wpupa_thumbnail = get_wpupa_url($user->ID, ['size' => 'thumbnail']);
 
-        $wpupaattachmentid = get_user_meta($user->ID, '_wpupaattachmentid', true);
+        $wpupaattachmentid = get_user_meta($user->ID, '_wpupa_attachment_id', true);
         $wpupa_url = get_user_meta($user->ID, '_wpupa-url', true);
 
         $wpupa_file_size = get_user_meta($user->ID, 'wpupa_file_size', true);
@@ -186,7 +186,7 @@ class WPUPA_Admin {
             
 
             if (isset($wpupa_url, $wpupaattachmentid)) {
-                update_user_meta($user_id, '_wpupaattachmentid', sanitize_text_field($wpupaattachmentid));
+                update_user_meta($user_id, '_wpupa_attachment_id', sanitize_text_field($wpupaattachmentid));
                 update_user_meta($user_id, '_wpupa-url', sanitize_url($wpupa_url));
             }
             

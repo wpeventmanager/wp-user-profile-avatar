@@ -39,7 +39,7 @@ class WPUPA_Settings {
         $wpupa_rating = get_option('wpupa_rating');
         $wpupa_file_size = get_option('wpupa_file_size');
         $wpupa_default = get_option('wpupa_default');
-        $wpupa_attachment_id = get_option('wpupaattachmentid');
+        $wpupa_attachment_id = get_option('wpupa_attachment_id');
         $wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
         $wpupa_size = get_option('wpupa_size');
         $avatar_size = get_option('avatar_size');
@@ -270,7 +270,7 @@ class WPUPA_Settings {
             update_option('wpupa_rating', $wpupa_rating);
             update_option('wpupa_file_size', $wpupa_file_size);
             update_option('wpupa_default', $wpupa_default);
-            update_option('wpupaattachmentid', $wpupa_attachment_id);
+            update_option('wpupa_attachment_id', $wpupa_attachment_id);
             update_option('wpupa_size', $wpupa_size);
             update_option('avatar_size', $avatar_size);
             update_option('wpupa_hide_post_option', $wpupa_hide_post_option);
