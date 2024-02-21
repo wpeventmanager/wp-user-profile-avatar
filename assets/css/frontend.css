@@ -137,7 +137,7 @@
 }
 .author-bio-section .author-flex {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 100px auto;
     align-items: center;
     margin-bottom: 10px;
 }
