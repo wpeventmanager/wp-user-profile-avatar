@@ -79,12 +79,15 @@ function wp_author_social_info_box($content) {
 // Get author's Github
         $user_github = esc_url(get_the_author_meta('github', $post->post_author));
 
+        //get user meta
+        $user_meta = get_user_meta(get_the_author_meta('ID'));
+
 
 // Get link to the author  page
         $user_posts = esc_url(get_author_posts_url(get_the_author_meta('ID', $post->post_author)));
         if (!empty($display_name))
             $author_details = '<div class="author-flex">';
-        $author_details .= '<div class="author-image">' . get_avatar(get_the_author_meta('ID'), 90) . '</div>';
+        $author_details .= '<div class="author-image">' . wp_get_attachment_image($user_meta['_wpupa_attachment_id'][0],array('90', '90')) . '</div>';
         $author_details .= '<div class="author-info">';
         $author_details .= '<div class="author-name"><strong>' . get_the_author_meta('display_name') . '</strong></div>';
         $author_details .= '<p class="author-bio">' . get_the_author_meta('description') . '</p>';
