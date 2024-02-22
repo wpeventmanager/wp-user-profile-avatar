@@ -153,8 +153,7 @@ class WPUPA_Shortcodes {
 
         ob_start();
 
-        if (!is_user_logged_in()) {
-            ?>
+        if (!is_user_logged_in()) { ?>
             <h5><strong style="color:red;"><?php echo __('ERROR: ', 'wp-user-profile-avatar'); ?></strong> 
                 <?php printf('You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', wp_login_url()); ?> 
             </h5>
@@ -220,72 +219,77 @@ class WPUPA_Shortcodes {
         $form_wpupa_url = esc_url_raw($form_data['wpupa-url']);
         $form_wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
+        $current_user_id = get_current_user_id();
 
+        if($current_user_id == $user_id) :
+            $file = $_FILES['user-avatar'];
 
-        $file = $_FILES['user-avatar'];
+            if (isset($file) && !empty($file)) {
 
-        if (isset($file) && !empty($file)) {
+                $post_id = 0;
 
-            $post_id = 0;
+                //sanitize each of the values of file data
+                $file_name = sanitize_file_name($file['name']);
+                $file_type = sanitize_text_field($file['type']);
+                $file_tmp_name = sanitize_text_field($file['tmp_name']);
+                $file_size = absint($file['size']);
 
-            //sanitize each of the values of file data
-            $file_name = sanitize_file_name($file['name']);
-            $file_type = sanitize_text_field($file['type']);
-            $file_tmp_name = sanitize_text_field($file['tmp_name']);
-            $file_size = absint($file['size']);
+                // Upload file
+                $overrides = array('test_form' => false);
+                $uploaded_file = $this->handle_upload($file, $overrides);
 
-            // Upload file
-            $overrides = array('test_form' => false);
-            $uploaded_file = $this->handle_upload($file, $overrides);
+                $attachment = array(
+                    'post_title' => $file_name,
+                    'post_content' => '',
+                    'post_type' => 'attachment',
+                    'post_parent' => null, // populated after inserting post
+                    'post_mime_type' => $file_type,
+                    'guid' => $uploaded_file['url']
+                );
 
-            $attachment = array(
-                'post_title' => $file_name,
-                'post_content' => '',
-                'post_type' => 'attachment',
-                'post_parent' => null, // populated after inserting post
-                'post_mime_type' => $file_type,
-                'guid' => $uploaded_file['url']
-            );
+                $attachment['post_parent'] = $post_id;
+                $attach_id = wp_insert_attachment($attachment, $uploaded_file['file'], $post_id);
+                $attach_data = wp_generate_attachment_metadata($attach_id, $uploaded_file['file']);
 
-            $attachment['post_parent'] = $post_id;
-            $attach_id = wp_insert_attachment($attachment, $uploaded_file['file'], $post_id);
-            $attach_data = wp_generate_attachment_metadata($attach_id, $uploaded_file['file']);
-
-            if (isset($user_id, $attach_id)) {
-                $result = wp_update_attachment_metadata($attach_id, $attach_data);
-                update_user_meta($user_id, '_wpupaattachmentid', $attach_id);
+                if (isset($user_id, $attach_id)) {
+                    $result = wp_update_attachment_metadata($attach_id, $attach_data);
+                    update_user_meta($user_id, '_wpupaattachmentid', $attach_id);
+                }
+            } else {
+                if (isset($user_id, $form_wpupaattachmentid))
+                    update_user_meta($user_id, '_wpupaattachmentid', $form_wpupaattachmentid);
             }
-        } else {
-            if (isset($user_id, $form_wpupaattachmentid))
-                update_user_meta($user_id, '_wpupaattachmentid', $form_wpupaattachmentid);
-        }
 
-        if (isset($user_id, $form_wpupa_url))
-            update_user_meta($user_id, '_wpupa-url', $form_wpupa_url);
+            if (isset($user_id, $form_wpupa_url))
+                update_user_meta($user_id, '_wpupa-url', $form_wpupa_url);
 
-        if (!empty($form_wpupaattachmentid) || $form_wpupa_url) {
-            update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
-        } else {
-            update_user_meta($user_id, '_wpupa_default', '');
-        }
+            if (!empty($form_wpupaattachmentid) || $form_wpupa_url) {
+                update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
+            } else {
+                update_user_meta($user_id, '_wpupa_default', '');
+            }
 
-        $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
-        $wpupa_url = get_user_meta($user_id, '_wpupa-url', true);
-     
-        if (empty($wpupaattachmentid) && empty($wpupa_url)) {
-            $wpupa_original = '';
-            $wpupa_thumbnail = '';
-            $message = __('Error! Select Image', 'wp-user-profile-avatar');
-            $class = 'wp-user-profile-avatar-error';
-        } else {
-            $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
-            $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
-            $message = __('Successfully Updated Avatar', 'wp-user-profile-avatar');
-            $class = 'wp-user-profile-avatar-success';
-        }
+            $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
+            $wpupa_url = get_user_meta($user_id, '_wpupa-url', true);
+        
+            if (empty($wpupaattachmentid) && empty($wpupa_url)) {
+                $wpupa_original = '';
+                $wpupa_thumbnail = '';
+                $message = __('Error! Select Image', 'wp-user-profile-avatar');
+                $class = 'wp-user-profile-avatar-error';
+            } else {
+                $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
+                $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+                $message = __('Successfully Updated Avatar', 'wp-user-profile-avatar');
+                $class = 'wp-user-profile-avatar-success';
+            }   
 
-        echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
-
+            echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
+        else :
+            $message = __('Permission Denied', 'wp-user-profile-avatar');
+            $class = 'wp-user-profile-avatar-errors';
+            echo json_encode(['message' => $message, 'class' => $class]);
+        endif;
         wp_die();
     }
 
@@ -306,24 +310,30 @@ class WPUPA_Shortcodes {
         $wpupa_url = esc_url_raw($form_data['wpupa-url']);
         $wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
+        $current_user_id = get_current_user_id();
 
-        if (isset($user_id)) {
-            update_user_meta($user_id, '_wpupaattachmentid', '');
-            update_user_meta($user_id, '_wpupa-url', '');
-            update_user_meta($user_id, '_wpupa_default', '');
+        if($current_user_id == $user_id) :
+            if (isset($user_id)) {
+                update_user_meta($user_id, '_wpupaattachmentid', '');
+                update_user_meta($user_id, '_wpupa-url', '');
+                update_user_meta($user_id, '_wpupa_default', '');
 
-            //delete also attachment
-            wp_delete_attachment($wpupaattachmentid, true);
-        }
+                //delete also attachment
+                wp_delete_attachment($wpupaattachmentid, true);
+            }
 
-        $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
-        $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+            $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
+            $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
-        $message = __('Successfully Removed Avatar', 'wp-user-profile-avatar');
-        $class = 'wp-user-profile-avatar-success';
-        
-        echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
-
+            $message = __('Successfully Removed Avatar', 'wp-user-profile-avatar');
+            $class = 'wp-user-profile-avatar-success';
+            
+            echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
+        else :
+            $message = __('Permission Denied', 'wp-user-profile-avatar');
+            $class = 'wp-user-profile-avatar-errors';
+            echo json_encode(['message' => $message, 'class' => $class]);
+        endif;
         wp_die();
     }
 
@@ -344,23 +354,27 @@ class WPUPA_Shortcodes {
         $wpupa_url = esc_url_raw($form_data['wpupa-url']);
         $wpupaattachmentid = absint($form_data['wpupaattachmentid']);
         $user_id = absint($form_data['user_id']);
+        $current_user_id = get_current_user_id();
 
-        if (isset($user_id)) {
-            update_user_meta($user_id, '_wpupaattachmentid', '');
-            update_user_meta($user_id, '_wpupa-url', '');
-            update_user_meta($user_id, '_wpupa_default', '');
-        }
+        if($current_user_id == $user_id) :
+            if (isset($user_id)) {
+                update_user_meta($user_id, '_wpupaattachmentid', '');
+                update_user_meta($user_id, '_wpupa-url', '');
+                update_user_meta($user_id, '_wpupa_default', '');
+            }
 
-        
+            $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
+            $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
 
-        $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
-        $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
+            $message = __('Successfully Undo Avatar', 'wp-user-profile-avatar');
+            $class = 'wp-user-profile-avatar-success';
 
-        $message = __('Successfully Undo Avatar', 'wp-user-profile-avatar');
-        $class = 'wp-user-profile-avatar-success';
-
-        echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
-
+            echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
+        else :
+            $message = __('Permission Denied', 'wp-user-profile-avatar');
+            $class = 'wp-user-profile-avatar-errors';
+            echo json_encode(['message' => $message, 'class' => $class]);
+        endif;
         wp_die();
     }
 
@@ -434,11 +448,9 @@ class WPUPA_Shortcodes {
                     }
                 }
             }
-        }    
 
         return $url;
     }
 
 }
-
 new WPUPA_Shortcodes();
