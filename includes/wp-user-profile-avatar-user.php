@@ -26,11 +26,11 @@ class WPUPA_User {
      * @since 1.0
      */
     public function get_user_avatar_url($url, $id_or_email, $args) {
-        $wpupa_disable_gravatar = get_option('wpupa_disable_gravatar');
+        $wpupa_disable_gravatar = esc_attr(get_option('wpupa_disable_gravatar'));
 
-        $wpupa_show_avatars = get_option('wpupa_show_avatars');
+        $wpupa_show_avatars = esc_attr(get_option('wpupa_show_avatars'));
 
-        $wpupa_default = get_option('wpupa_default');
+        $wpupa_default = esc_attr(get_option('wpupa_default'));
 
         if (!$wpupa_show_avatars) {
             return false;
@@ -68,7 +68,7 @@ class WPUPA_User {
             }
         }
 
-        return $url;
+        return esc_url($url);
     }
 
 }

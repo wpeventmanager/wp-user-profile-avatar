@@ -25,8 +25,8 @@ class WPUPA_authorbox_socialinfo_Shortcodes {
 
         $id = get_current_user_id();
 
-        $details = array(
-        );
+        $details = array();
+        
         ob_start();
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-author-box-social-info.php' );

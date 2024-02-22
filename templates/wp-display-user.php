@@ -22,7 +22,7 @@ if (!defined('ABSPATH'))
 
         if ('' != $details['sabox-profile-image']) {
             ?>
-        <img src="<?php echo esc_url($details['sabox-profile-image']); ?>" />
+        <img src="<?php echo $details['sabox-profile-image']; ?>" />
     <?php } ?>
 
 </div>

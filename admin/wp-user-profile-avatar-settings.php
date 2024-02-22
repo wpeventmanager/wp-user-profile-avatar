@@ -41,7 +41,10 @@ class WPUPA_Settings {
         $wpupa_default = get_option('wpupa_default');
         $wpupa_attachment_id = get_option('wpupa_attachment_id');
         $wpupa_attachment_url = get_wpupa_default_avatar_url(['size' => 'admin']);
-        $wpupa_size = get_option('wpupa_size'); ?>
+        $wpupa_size = get_option('wpupa_size');
+        $avatar_size = get_option('avatar_size');
+        $wpupa_hide_post_option = get_option('wpupa_hide_post_option');
+        ?>
         <div class="wrap">
             <h2>
                 <?php _e('WP User Profile Avatar Settings', 'wp-user-profile-avatar'); ?>
@@ -114,16 +117,32 @@ class WPUPA_Settings {
                                         </select>
                                     </td>
                                 </tr>
-
                                 <tr>
-                                    <th><label for="wpupa_size"><?php _e("Avatar Size"); ?></label></th>
-                                    <?php
-                                    if ($wpupa_size == '') {
-                                        $wpupa_size = get_avatar_data(get_current_user_id())['size'];
-                                    }
-                                    ?>
+                                    <th scope="row">
+                                        <label for="wpupa_file_size">Avatar Size</label>
+                                    </th>
                                     <td>
-                                        <input type="number" name="wpupa_size" id="wpupa_size" value="<?php echo esc_attr($wpupa_size); ?>" />
+                                        <select id="avatar_size" name="avatar_size">
+                                            <option value=""><?php echo _e('Select Avatar Size', 'wp-user-profile-avatar'); ?></option>
+                                            <?php foreach (get_wpupa_image_sizes() as $name => $avarat_key) { 
+
+                                                ?>
+                                                <?php $avatar_size_selected = ($avatar_size == $name) ? 'selected="selected"' : "";
+                                                ?>
+                                                <option value="<?php echo esc_attr($name); ?>" <?php echo $avatar_size_selected; ?> /><?php echo esc_attr($avarat_key); ?></option>
+                                            <?php } ?>
+                                        </select>
+                                        <p class="description"><?php _e('Selecting avatar size here will not work with user profile avatar shortcode size parameters. [user_profile_avatar size="original"]'); ?></p>
+                                    </td>
+                                </tr>
+                                <tr valign="top">
+                                    <th scope="row"><?php _e('Hide Bio Info Box Avatar', 'wp-user-profile-avatar'); ?></th>
+                                    <td>
+                                        <fieldset>
+                                            <label for="wpupa_hide_post_option">
+                                                <input name="wpupa_hide_post_option" type="checkbox" id="wpupa_hide_post_option" value="1"<?php echo checked($wpupa_hide_post_option, 1, 0); ?> > <?php _e('Turn off the author bio info box', 'wp-user-profile-avatar'); ?>
+                                            </label>
+                                        </fieldset>
                                     </td>
                                 </tr>
 
@@ -135,7 +154,14 @@ class WPUPA_Settings {
                                             <?php _e('For users without a custom avatar of their own, you can either display a generic logo or a generated one based on their e-mail address.', 'wp-user-profile-avatar'); ?><br />
 
                                             <?php $selected = ($wpupa_default == 'wp_user_profile_avatar') ? 'checked="checked"' : ""; ?>
-                                            <label><input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> /> <div id="wp_user_profile_avatar_preview"><img src="<?php echo esc_url($wpupa_attachment_url); ?>" width="32" /></div> <?php _e('WP User Profile Avatar'); ?> </label><br />
+                                            <label>
+                                                <input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> />
+                                                <div id="wp_user_profile_avatar_preview">
+                                                    <img src="<?php echo esc_url($wpupa_attachment_url); ?>" width="32" />
+                                                </div> 
+                                                <?php _e('WP User Profile Avatar'); ?> 
+                                            </label>
+                                            <br />
 
                                             <?php
                                             $class_hide = 'wp-user-profile-avatar-hide';
@@ -143,22 +169,25 @@ class WPUPA_Settings {
                                                 $class_hide = '';
                                             } ?>
                                             <p id="wp-user-profile-avatar-edit">
-                                                <button type="button" class="button" id="wp_user_profile_avatar_add" name="wp_user_profile_avatar_add"><?php _e('Choose Image'); ?></button>
-                                                <span id="wp_user_profile_avatar_remove_button" class="<?php echo esc_attr($class_hide); ?>"><a href="javascript:void(0)" id="wp_user_profile_avatar_remove"><?php _e('Remove'); ?></a></span>
-                                                <span id="wp_user_profile_avatar_undo_button"><a href="javascript:void(0)" id="wp_user_profile_avatar_undo"><?php _e('Undo'); ?></a></span>
-                                                <input type="hidden" name="wpupa_attachment_id" id="wpupa_attachment_id" value="<?php echo esc_attr($wpupa_attachment_id); ?>">
+                                                <button type="button" class="button" id="wp-user-profile-avatar-add" name="wp-user-profile-avatar-add"><?php _e('Choose Image'); ?></button>
+                                                <span id="wp-user-profile-avatar-remove-button" class="<?php echo esc_attr($class_hide); ?>"><a href="javascript:void(0)" id="wp-user-profile-avatar-remove"><?php _e('Remove'); ?></a></span>
+                                                <span id="wp-user-profile-avatar-undo-button"><a href="javascript:void(0)" id="wp-user-profile-avatar-undo"><?php _e('Undo'); ?></a></span>
+                                                <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo esc_attr($wpupa_attachment_id); ?>">
                                             </p>
 
-                                            <?php if (empty($wpupa_disable_gravatar)) : ?>
-                                                <?php foreach (get_wpupa_default_avatar() as $name => $label) : ?>
-                                                    <?php $avatar = get_avatar('unknown@gravatar.com', 32, $name); ?>
-
-                                                    <?php $selected = ($wpupa_default == $name) ? 'checked="checked"' : ""; ?>
+                                            <?php if (empty($wpupa_disable_gravatar)) : 
+                                                foreach (get_wpupa_default_avatar() as $name => $label) :
+                                                    $avatar = get_avatar('', 32, $name); 
+                                                    $avatar_url = get_wpupa_selected_avatar_url($name);
+                                                       
+                                                    $selected = ($wpupa_default == $name) ? 'checked="checked"' : ""; ?>
                                                     <label><input type="radio" name="wpupa_default" value="<?php echo esc_attr($name); ?>" <?php echo $selected; ?> /> 
-                                                        <?php echo preg_replace("/src='(.+?)'/", "src='\$1&amp;forcedefault=1'", $avatar); ?>
-                                                        <?php echo esc_attr($label); ?></label><br />
-                                                <?php endforeach; ?>
-                                            <?php endif; ?>
+                                                        <img alt='' src='<?php echo $avatar_url;?>' srcset='<?php echo $avatar_url;?>' class='avatar avatar-32 photo avatar-default' height='32' width='32' loading='lazy' decoding='async'/>
+ 
+                                                        <?php echo esc_attr($label); ?>
+                                                    </label><br />
+                                                <?php endforeach; 
+                                            endif; ?>
 
                                         </fieldset>
                                     </td>
@@ -214,9 +243,14 @@ class WPUPA_Settings {
 
             $wpupa_default = !empty($_POST['wpupa_default']) ? sanitize_text_field($_POST['wpupa_default']) : '';
 
-            $wpupa_attachment_id = !empty($_POST['wpupa_attachment_id']) ? sanitize_text_field($_POST['wpupa_attachment_id']) : '';
+            $wpupa_attachment_id = !empty($_POST['wpupaattachmentid']) ? sanitize_text_field($_POST['wpupaattachmentid']) : '';
 
             $wpupa_size = !empty($_POST['wpupa_size']) ? sanitize_text_field($_POST['wpupa_size']) : '';
+
+            $avatar_size = !empty($_POST['avatar_size']) ? sanitize_text_field($_POST['avatar_size']) : '';
+
+            $wpupa_hide_post_option = !empty($_POST['wpupa_hide_post_option']) ? sanitize_text_field($_POST['wpupa_hide_post_option']) : '';
+            
 
             if ($wpupa_show_avatars == '') {
                 $wpupa_tinymce = '';
@@ -238,6 +272,8 @@ class WPUPA_Settings {
             update_option('wpupa_default', $wpupa_default);
             update_option('wpupa_attachment_id', $wpupa_attachment_id);
             update_option('wpupa_size', $wpupa_size);
+            update_option('avatar_size', $avatar_size);
+            update_option('wpupa_hide_post_option', $wpupa_hide_post_option);
         }
     }
 

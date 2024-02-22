@@ -43,53 +43,5 @@
             </div>
         </td>
     </tr>
-
-    <tr>
-        <th><label for="wpupa-size"><?php _e("Avatar Size"); ?></label></th>
-        <?php
-        if ($wpupa_size == '' || $wpupa_size == 0) {
-            $wpupa_size = get_avatar_data(get_current_user_id())['size'];
-        }
-        ?>
-        <td>
-            <input type="number" name="wpupa-size" id="wpupa-size" value="<?php echo esc_attr($wpupa_size); ?>" />
-        </td>
-    </tr>
-
-    <tr>
-        <th scope="row"><label for="wpem-upload-max-file-size-field"><?php _e('WP Control File Size', 'wp-user-profile-avatar'); ?></label></th>
-        <td>
-            <select id="wpem-upload-max-file-size-field" name="wpem-upload-max-file-size-field">
-            <?php
-                foreach ( $wpupa_upload_sizes as $size_wpupa ) {
-                    echo '<option value="' . esc_attr($size_wpupa) . '" ' . ($size_wpupa == $wpupa_current_max_size ? 'selected' : '') . '>' . ( esc_attr($size_wpupa) . 'MB') . '</option>';
-                } ?>
-            </select>
-        </td>
-    </tr>
-
-    <tr valign="top">
-        <th scope="row"><?php _e('Settings', 'wp-user-profile-avatar'); ?></th>
-        <td>
-            <fieldset>
-                <label for="wpupa-tinymce">
-                    <input name="wpupa-tinymce" type="checkbox" id="wpupa-tinymce" value="1" <?php echo checked($wpupa_tinymce, 1, true); ?> > <?php _e('Add shortcode avatar button to Visual Editor', 'wp-user-profile-avatar'); ?>
-                </label>
-            </fieldset>
-
-            <fieldset>
-                <label for="wpupa-allow-upload">
-                    <input name="wpupa-allow-upload" type="checkbox" id="wpupa-allow-upload" value="1" <?php echo checked($wpupa_allow_upload, 1, false); ?> > <?php _e('Allow Contributors &amp; Subscribers to upload avatars', 'wp-user-profile-avatar'); ?>
-                </label>
-            </fieldset>
-
-            <fieldset>
-                <label for="wpupa-disable-gravatar">
-                    <input name="wpupa-disable-gravatar" type="checkbox" id="wpupa-disable-gravatar" value="1" <?php echo checked($wpupa_disable_gravatar, 1, false); ?> > <?php _e('Disable all default gravatar and set own custom default avatar.', 'wp-user-profile-avatar'); ?>
-                </label>
-            </fieldset>
-        </td>
-    </tr>
-    
 </table>
 

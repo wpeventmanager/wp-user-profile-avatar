@@ -7,7 +7,7 @@
 * Author URI: https://www.wp-eventmanager.com
 * Text Domain: wp-user-profile-avatar
 * Domain Path: /languages
-* Version: 1.0.1
+* Version: 1.0.2
 * Since: 1.0.0
 * Requires WordPress Version at least: 5.8
 * Copyright: 2020 WP Event Manager
@@ -63,7 +63,7 @@ class WP_User_Profile_Avatar {
 
         //Includes
         include( 'includes/wp-user-profile-avatar-install.php' );
-        include( 'includes/wp-user-profile-avatar-user.php' );
+        //include( 'includes/wp-user-profile-avatar-user.php' );
         include( 'wp-user-profile-avatar-functions.php' );
         include_once( 'admin/templates/wp-username-change.php' );
         include_once( 'disable-comments.php' );
