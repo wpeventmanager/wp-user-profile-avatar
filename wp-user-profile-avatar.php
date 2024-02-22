@@ -7,7 +7,7 @@
 * Author URI: https://www.wp-eventmanager.com
 * Text Domain: wp-user-profile-avatar
 * Domain Path: /languages
-* Version: 1.0.1
+* Version: 1.0.2
 * Since: 1.0.0
 * Requires WordPress Version at least: 5.8
 * Copyright: 2020 WP Event Manager

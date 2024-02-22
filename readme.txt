@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: avatar, user profile, gravatar,custom profile photo, custom profile picture, profile photo, profile picture, author image, author photo
 Requires at least: 5.8
 Tested up to: 6.3.1
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 5.6
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -324,6 +324,21 @@ You will need to place below code in each area of your theme where you wish to a
 
 
 == Changelog ==
+
+= 1.0.2 [Feb 22nd, 2023] =
+
+Fixed: User section text is now displayed properly.
+Fixed: The Mystery Man image is now set at the user section.
+Fixed: The text related to the biographical info in Elementor is now displayed at the correct place.
+Fixed: All the options are set for the default user profile avatar.
+Fixed: Now p tags are created with social media options.
+Fixed: Space is added to the author box.
+Fixed: The “choose” button in the default avatar section is now working properly.
+Fixed: The user avatar size reduction option is now working.
+Fixed: The security issue is now resolved.
+Fixed: The profile image display related issue is now resolved.
+Fixed: Now custom default profile avatar can be set after disabling the default gravatar.
+Added: The option to hide the Bio Info Author Box is added.
 
 = 1.0.1 [Dec 15th, 2023] =
 
