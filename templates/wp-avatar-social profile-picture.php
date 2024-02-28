@@ -120,9 +120,9 @@ function wp_avatar_save_extra_profile_fields($user_id) {
     $current_user_id = get_current_user_id();
 
     if($current_user_id == $user_id) :
-        update_user_meta($user_id, 'wp_social_fb_profile', esc_attr(trim($_POST['fb-profile'])));
-        update_user_meta($user_id, 'wp_social_gplus_profile', esc_attr(trim($_POST['gplus-profile'])));
-        update_user_meta($user_id, 'wp_user_social_profile', esc_attr($_POST['wp-user-social-profile']));
+        update_user_meta($user_id, 'wp_social_fb_profile', esc_attr(trim(isset($_POST['fb-profile']))));
+        update_user_meta($user_id, 'wp_social_gplus_profile', esc_attr(trim(isset($_POST['gplus-profile']))));
+        update_user_meta($user_id, 'wp_user_social_profile', esc_attr(isset($_POST['wp-user-social-profile'])));
     endif;
 }
 

@@ -448,6 +448,7 @@ class WPUPA_Shortcodes {
                     }
                 }
             }
+        }    
 
         return $url;
     }
