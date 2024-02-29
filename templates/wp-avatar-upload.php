@@ -35,11 +35,11 @@ if (!defined('ABSPATH'))
             <tr id="wp-user-profile-avatar-images-existing">
                 <td>
                     <p id="wp-user-profile-avatar-preview">
-                        <img src="<?php echo esc_url($wpupa_original); ?>" alt="">
+                        <img src="<?php echo ($wpupa_url) ? esc_url( $wpupa_url ) : esc_url($wpupa_original); ?>" alt="">
                         <span class="description"><?php _e('Original Size', 'wp-user-profile-avatar'); ?></span>
                     </p>
                     <p id="wp-user-profile-avatar-thumbnail">
-                        <img src="<?php echo esc_url($wpupa_thumbnail); ?>" alt="">
+                        <img src="<?php echo ($wpupa_url) ? esc_url( $wpupa_url ) : esc_url($wpupa_thumbnail); ?>" alt="">
                         <span class="description"><?php _e('Thumbnail', 'wp-user-profile-avatar'); ?></span>
                     </p>
                     <p id="wp-user-profile-avatar-remove-button" class="<?php echo esc_attr($class_hide); ?>">

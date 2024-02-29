@@ -187,7 +187,7 @@ class WPUPA_Admin {
 
             if (isset($wpupa_url, $wpupaattachmentid)) {
                 update_user_meta($user_id, '_wpupa_attachment_id', sanitize_text_field($wpupaattachmentid));
-                update_user_meta($user_id, '_wpupa-url', sanitize_url($wpupa_url));
+                update_user_meta($user_id, '_wpupa_url', sanitize_url($wpupa_url));
             }
             
             $wpupa_tinymce = !empty($_POST['wpupa-tinymce']) ? sanitize_text_field($_POST['wpupa-tinymce']) : '';

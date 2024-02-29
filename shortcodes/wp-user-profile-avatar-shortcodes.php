@@ -261,7 +261,7 @@ class WPUPA_Shortcodes {
             }
 
             if (isset($user_id, $form_wpupa_url))
-                update_user_meta($user_id, '_wpupa-url', $form_wpupa_url);
+                update_user_meta($user_id, '_wpupa_url', $form_wpupa_url);
 
             if (!empty($form_wpupaattachmentid) || $form_wpupa_url) {
                 update_user_meta($user_id, '_wpupa_default', 'wp_user_profile_avatar');
@@ -270,7 +270,7 @@ class WPUPA_Shortcodes {
             }
 
             $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
-            $wpupa_url = get_user_meta($user_id, '_wpupa-url', true);
+            $wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
         
             if (empty($wpupaattachmentid) && empty($wpupa_url)) {
                 $wpupa_original = '';
