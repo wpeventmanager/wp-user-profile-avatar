@@ -135,7 +135,7 @@ class WPUPA_Admin {
         $wpupa_thumbnail = get_wpupa_url($user->ID, ['size' => 'thumbnail']);
 
         $wpupaattachmentid = get_user_meta($user->ID, '_wpupa_attachment_id', true);
-        $wpupa_url = get_user_meta($user->ID, '_wpupa-url', true);
+        $wpupa_url = get_user_meta($user->ID, '_wpupa_url', true);
 
         $wpupa_file_size = get_user_meta($user->ID, 'wpupa_file_size', true);
         $wpupa_size = get_user_meta($user->ID, 'wpupa-size', true);

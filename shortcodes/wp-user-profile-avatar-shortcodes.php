@@ -195,7 +195,7 @@ class WPUPA_Shortcodes {
         $wpupa_thumbnail = esc_url(get_wpupa_url($user_id, ['size' => 'thumbnail']));
 
         $wpupaattachmentid = esc_attr(get_user_meta($user_id, '_wpupaattachmentid', true));
-        $wpupa_url = esc_url(get_user_meta($user_id, '_wpupa-url', true));
+        $wpupa_url = esc_url(get_user_meta($user_id, '_wpupa_url', true));
 
         include_once (WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php' );
 
@@ -253,11 +253,11 @@ class WPUPA_Shortcodes {
 
                 if (isset($user_id, $attach_id)) {
                     $result = wp_update_attachment_metadata($attach_id, $attach_data);
-                    update_user_meta($user_id, '_wpupaattachmentid', $attach_id);
+                    update_user_meta($user_id, '_wpupa_attachment_id', $attach_id);
                 }
             } else {
                 if (isset($user_id, $form_wpupaattachmentid))
-                    update_user_meta($user_id, '_wpupaattachmentid', $form_wpupaattachmentid);
+                    update_user_meta($user_id, '_wpupa_attachment_id', $form_wpupaattachmentid);
             }
 
             if (isset($user_id, $form_wpupa_url))
