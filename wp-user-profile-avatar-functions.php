@@ -218,7 +218,7 @@ if (!function_exists('check_wpupa_url')) {
      * @since 1.0
      */
     function check_wpupa_url($user_id = '') {
-        $attachment_url = esc_url(get_user_meta($user_id, '_wpupa-url', true));
+        $attachment_url = esc_url(get_user_meta($user_id, '_wpupa_url', true));
 
         $attachment_id = esc_attr(get_user_meta($user_id, '_wpupa_attachment_id', true));
 

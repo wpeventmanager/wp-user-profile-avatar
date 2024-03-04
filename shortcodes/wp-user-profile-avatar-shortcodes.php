@@ -315,7 +315,7 @@ class WPUPA_Shortcodes {
         if($current_user_id == $user_id) :
             if (isset($user_id)) {
                 update_user_meta($user_id, '_wpupaattachmentid', '');
-                update_user_meta($user_id, '_wpupa-url', '');
+                update_user_meta($user_id, '_wpupa_url', '');
                 update_user_meta($user_id, '_wpupa_default', '');
 
                 //delete also attachment
@@ -359,7 +359,7 @@ class WPUPA_Shortcodes {
         if($current_user_id == $user_id) :
             if (isset($user_id)) {
                 update_user_meta($user_id, '_wpupaattachmentid', '');
-                update_user_meta($user_id, '_wpupa-url', '');
+                update_user_meta($user_id, '_wpupa_url', '');
                 update_user_meta($user_id, '_wpupa_default', '');
             }
 
