@@ -90,8 +90,10 @@ function wp_author_social_info_box($content) {
                 $user_image = '<img src="'.get_the_author_meta('_wpupa_url') .'" />';
         }elseif($user_meta['_wpupa_attachment_id'][0] != 0){
                 $user_image = wp_get_attachment_image($user_meta['_wpupa_attachment_id'][0],array('90', '90'));    
-        }else{
+        }elseif($user_option_id){
                 $user_image = wp_get_attachment_image($user_option_id,array('90', '90'));       
+        }else{
+                $user_image = '<img src="'.WPUPA_PLUGIN_URL . '/assets/images/wp-user-thumbnail.png" />';
         }
 
 
