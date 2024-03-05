@@ -80,14 +80,18 @@ function wp_author_social_info_box($content) {
         $user_github = esc_url(get_the_author_meta('github', $post->post_author));
 
         //get avatar
-        $user_avatar = get_user_meta(get_the_author_meta('ID'));
+        $user_meta = get_user_meta(get_the_author_meta('ID'));
         //get url link of avatar
         $user_link_avatar = get_the_author_meta('_wpupa_url');
 
+        $user_option_id = get_option('wpupa_attachment_id');
+
         if($user_link_avatar){
                 $user_image = '<img src="'.get_the_author_meta('_wpupa_url') .'" />';
+        }elseif($user_meta['_wpupa_attachment_id'][0] != 0){
+                $user_image = wp_get_attachment_image($user_meta['_wpupa_attachment_id'][0],array('90', '90'));    
         }else{
-                $user_image = wp_get_attachment_image($user_avatar['_wpupa_attachment_id'][0],array('90', '90')); 
+                $user_image = wp_get_attachment_image($user_option_id,array('90', '90'));       
         }
 
 
