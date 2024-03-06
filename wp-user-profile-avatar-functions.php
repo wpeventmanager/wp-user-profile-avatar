@@ -83,13 +83,13 @@ if (!function_exists('get_wpupa_selected_avatar_url')) {
      */
     function get_wpupa_selected_avatar_url($name) {
         $avatar_urls = apply_filters('wp_user_default_avatar_urls', array(
-            'mystery' => 'http://2.gravatar.com/avatar/?s=32&d=mystery&r=g&forcedefault=1',
-            'blank' => 'http://2.gravatar.com/avatar/?s=32&d=blank&r=g&forcedefault=1',
-            'gravatar_default' => 'http://2.gravatar.com/avatar/?s=32&r=g&forcedefault=1',
-            'identicon' => 'http://2.gravatar.com/avatar/?s=32&d=identicon&r=g&forcedefault=1',
-            'wavatar' => 'http://2.gravatar.com/avatar/?s=32&d=wavatar&r=g&forcedefault=1',
-            'monsterid' => 'http://2.gravatar.com/avatar/?s=32&d=monsterid&r=g&forcedefault=1',
-            'retro' => 'http://2.gravatar.com/avatar/?s=32&d=retro&r=g&forcedefault=1',
+            'mystery' => 'https://2.gravatar.com/avatar/?s=32&d=mystery&r=g&forcedefault=1',
+            'blank' => 'https://2.gravatar.com/avatar/?s=32&d=blank&r=g&forcedefault=1',
+            'gravatar_default' => 'https://2.gravatar.com/avatar/?s=32&r=g&forcedefault=1',
+            'identicon' => 'https://2.gravatar.com/avatar/?s=32&d=identicon&r=g&forcedefault=1',
+            'wavatar' => 'https://2.gravatar.com/avatar/?s=32&d=wavatar&r=g&forcedefault=1',
+            'monsterid' => 'https://2.gravatar.com/avatar/?s=32&d=monsterid&r=g&forcedefault=1',
+            'retro' => 'https://2.gravatar.com/avatar/?s=32&d=retro&r=g&forcedefault=1',
         ));
 
         return $avatar_urls[$name];
