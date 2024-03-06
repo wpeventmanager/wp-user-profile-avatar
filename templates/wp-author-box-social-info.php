@@ -86,14 +86,25 @@ function wp_author_social_info_box($content) {
 
         $user_option_id = get_option('wpupa_attachment_id');
 
+        $user_avatar = get_option('wpupa_default');
+
+        if($user_avatar == 'gravatar_default'){
+             $user_avatar = '&';   
+        }elseif($user_avatar != 'wp_user_profile_avatar'){
+             $user_avatar = "&d=$user_avatar&";
+        }
+
+
         if($user_link_avatar){
                 $user_image = '<img src="'.get_the_author_meta('_wpupa_url') .'" />';
         }elseif($user_meta['_wpupa_attachment_id'][0] != 0){
                 $user_image = wp_get_attachment_image($user_meta['_wpupa_attachment_id'][0],array('90', '90'));    
         }elseif($user_option_id){
                 $user_image = wp_get_attachment_image($user_option_id,array('90', '90'));       
-        }else{
+        }elseif($user_avatar == 'wp_user_profile_avatar'){
                 $user_image = '<img src="'.WPUPA_PLUGIN_URL . '/assets/images/wp-user-thumbnail.png" />';
+        }else{
+                $user_image = '<img src="http://2.gravatar.com/avatar/?s=32'. $user_avatar .'r=g&forcedefault=1" />';  
         }
 
 
