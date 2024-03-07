@@ -222,7 +222,7 @@ class WPUPA_Shortcodes {
         $current_user_id = get_current_user_id();
 
         if($current_user_id == $user_id) :
-            $file = $_FILES['user-avatar'];
+            $file = isset($_FILES['user-avatar']);
 
             if (isset($file) && !empty($file)) {
 
@@ -269,7 +269,7 @@ class WPUPA_Shortcodes {
                 update_user_meta($user_id, '_wpupa_default', '');
             }
 
-            $wpupaattachmentid = get_user_meta($user_id, '_wpupaattachmentid', true);
+            /*$wpupaattachmentid = get_user_meta($user_id, '_wpupa_attachment_id', true);
             $wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
         
             if (empty($wpupaattachmentid) && empty($wpupa_url)) {
@@ -277,12 +277,12 @@ class WPUPA_Shortcodes {
                 $wpupa_thumbnail = '';
                 $message = __('Error! Select Image', 'wp-user-profile-avatar');
                 $class = 'wp-user-profile-avatar-error';
-            } else {
+            } else {*/
                 $wpupa_original = get_wpupa_url($user_id, ['size' => 'original']);
                 $wpupa_thumbnail = get_wpupa_url($user_id, ['size' => 'thumbnail']);
                 $message = __('Successfully Updated Avatar', 'wp-user-profile-avatar');
                 $class = 'wp-user-profile-avatar-success';
-            }   
+            /*}*/   
 
             echo json_encode(['avatar_original' => $wpupa_original, 'avatar_thumbnail' => $wpupa_thumbnail, 'message' => $message, 'class' => $class]);
         else :

@@ -78,7 +78,7 @@ var FrontendAvatar = function () {
                             success: function (responce)
                             {
                                 jQuery('#upload-avatar-responce').addClass(responce.class);
-                                jQuery('#upload-avatar-responce').html(responce.message);
+                                //jQuery('#upload-avatar-responce').html(responce.message);
 
                                 if (responce.class == 'wp-user-profile-avatar-success')
                                 {
@@ -177,8 +177,10 @@ var FrontendAvatar = function () {
                                     jQuery('#wp-user-profile-avatar-preview img').attr('src', responce.avatar_original);
                                     jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
                                     jQuery('#update-user-profile-avatar').trigger('reset');
-                                    jQuery('#wp-user-profile-avatar-undo-button').show();
+                                    //jQuery('#wp-user-profile-avatar-undo-button').show();
                                 }
+
+                                location.reload();
                             }
                         });
 
