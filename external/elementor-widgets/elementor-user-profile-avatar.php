@@ -111,7 +111,7 @@ class Elementor_WPUPA extends Widget_Base {
                 [
                     'label' => __('User Name', 'wp-user-profile-avatar'),
                     'type' => Controls_Manager::SELECT,
-                    'default' => '',
+                    'default' => '1',
                     'options' => $users_list
                 ]
         );
