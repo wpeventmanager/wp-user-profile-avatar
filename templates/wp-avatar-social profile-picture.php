@@ -4,7 +4,7 @@
  *
  * @package Author Social Profile Picture page.
  */
-if (!defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
@@ -13,23 +13,24 @@ if (!defined('ABSPATH')) {
 function wp_avatar_social_profile_picture() {
     global $pagenow;
 
-    if ('profile.php' == $pagenow || 'user-edit.php' == $pagenow)
-        wp_register_script('wp-avatar-social-profile-picture', WPUPA_PLUGIN_URL . '/assets/js/wp-avatar.js', array('jquery'), WPUPA_VERSION, true);
+    if ( 'profile.php' == $pagenow || 'user-edit.php' == $pagenow ) {
+        wp_register_script( 'wp-avatar-social-profile-picture', WPUPA_PLUGIN_URL . '/assets/js/wp-avatar.js', array( 'jquery' ), WPUPA_VERSION, true );
+    }
 }
 
-add_action('wp_enqueue_scripts', 'wp_avatar_social_profile_picture');
+add_action( 'wp_enqueue_scripts', 'wp_avatar_social_profile_picture' );
 
 function wp_avatar_users_menu() {
-    add_users_page('Avatar Social Picture', 'Avatar Social Picture', 'activate_plugins', 'avatar-social-picture', 'wp_user_admin');
+    add_users_page( 'Avatar Social Picture', 'Avatar Social Picture', 'activate_plugins', 'avatar-social-picture', 'wp_user_admin' );
 }
 
 // add_action('admin_menu', 'wp_avatar_users_menu');
 
 function wp_user_admin() {
-    $wp_avatar_add_social_picture = get_option('wp_avatar_add_social_picture', 'read')
+    $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture', 'read' )
     ?>
     <form id="wp-avatar-settings" method="post" action="">
-        <h3><?php _e('WP Avatar User Role Settings', 'wp-user-profile-avatar'); ?></h3>
+        <h3><?php esc_html_e( 'WP Avatar User Role Settings', 'wp-user-profile-avatar' ); ?></h3>
         <table class="form-table">
             <tr>
                 <th>
@@ -37,11 +38,11 @@ function wp_user_admin() {
                 </th>
                 <td>
                     <select id="wp-avatar-add-social-picture" name="wp-avatar-add-social-picture">
-                        <option value="read" <?php selected($wp_avatar_add_social_picture, 'read', false); ?> >Subscriber</option>
-                        <option value="edit-posts" <?php selected($wp_avatar_add_social_picture, 'edit-posts', false); ?> >Contributor</option>
-                        <option value="edit-published-posts"<?php selected($wp_avatar_add_social_picture, 'edit-published-posts', false); ?> >Author</option>
-                        <option value="moderate-comments" <?php selected($wp_avatar_add_social_picture, 'moderate-comments', false); ?> >Editor</option>
-                        <option value="activate-plugins" <?php selected($wp_avatar_add_social_picture, 'activate-plugins', false); ?> >Administrator</option>
+                        <option value="read" <?php selected( $wp_avatar_add_social_picture, 'read', false ); ?> >Subscriber</option>
+                        <option value="edit-posts" <?php selected( $wp_avatar_add_social_picture, 'edit-posts', false ); ?> >Contributor</option>
+                        <option value="edit-published-posts"<?php selected( $wp_avatar_add_social_picture, 'edit-published-posts', false ); ?> >Author</option>
+                        <option value="moderate-comments" <?php selected( $wp_avatar_add_social_picture, 'moderate-comments', false ); ?> >Editor</option>
+                        <option value="activate-plugins" <?php selected( $wp_avatar_add_social_picture, 'activate-plugins', false ); ?> >Administrator</option>
                     </select>
                 </td>
             </tr>
@@ -54,27 +55,29 @@ function wp_user_admin() {
 }
 
 // Saving the WP Avatar social profile settings details.
-if (isset($_POST['wp-avatar-add-social-picture']))
-    update_option('wp_avatar_add_social_picture', $_POST['wp-avatar-add-social-picture']);
+if ( isset( $_POST['wp-avatar-add-social-picture'] ) ) {
+    update_option( 'wp_avatar_add_social_picture', $_POST['wp-avatar-add-social-picture'] );
+}
 
-function wp_user_add_extra_profile_picture_fields($socialprofile) {
-    $wp_avatar_add_social_picture = get_option('wp_avatar_add_social_picture', 'read');
+function wp_user_add_extra_profile_picture_fields( $socialprofile ) {
+    $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture', 'read' );
 
-    if (!current_user_can($wp_avatar_add_social_picture))
+    if ( ! current_user_can( $wp_avatar_add_social_picture ) ) {
         return;
-    $wp_user_social_profile = get_user_meta($socialprofile->ID, 'wp_user_social_profile', true);
-    $wp_social_fb_profile = get_user_meta($socialprofile->ID, 'wp_social_fb_profile', true);
-    $wp_social_gplus_profile = get_user_meta($socialprofile->ID, 'wp_social_gplus_profile', true);
+    }
+    $wp_user_social_profile  = get_user_meta( $socialprofile->ID, 'wp_user_social_profile', true );
+    $wp_social_fb_profile    = get_user_meta( $socialprofile->ID, 'wp_social_fb_profile', true );
+    $wp_social_gplus_profile = get_user_meta( $socialprofile->ID, 'wp_social_gplus_profile', true );
     ?>
 
-    <h3><?php _e('WP Avatar User Role Settings', 'wp-user-profile-avatar'); ?></h3>
+    <h3><?php esc_html_e( 'WP Avatar User Role Settings', 'wp-user-profile-avatar' ); ?></h3>
     <table class="form-table">
         <tr>
             <th>
                 <label for="facebook-profile">Facebook User ID(numeric)</label>
             </th>
             <td>
-                <input type="text" name="fb-profile" id="fb-profile" value=" <?php echo esc_attr($wp_social_fb_profile); ?>" class="regular-text" />&nbsp;
+                <input type="text" name="fb-profile" id="fb-profile" value=" <?php echo esc_attr( $wp_social_fb_profile ); ?>" class="regular-text" />&nbsp;
                 <span><a href="http://findmyfacebookid.com/" target="_blank">Find your facebook id here</a></span>
             </td>
         <tr>
@@ -82,7 +85,7 @@ function wp_user_add_extra_profile_picture_fields($socialprofile) {
                 <label for="use-fb-profile">Use Facebook Profile as Avatar</label>
             </th>
             <td>
-                <input type="checkbox" name="wp-user-social-profile" value="wp-facebook" <?php checked($wp_user_social_profile, 'wp-facebook', false) ?> >
+                <input type="checkbox" name="wp-user-social-profile" value="wp-facebook" <?php checked( $wp_user_social_profile, 'wp-facebook', false ); ?> >
             </td>
         </tr>
         <tr>
@@ -90,7 +93,7 @@ function wp_user_add_extra_profile_picture_fields($socialprofile) {
                 <label for="gplus-profile">Google+ id</label>
             </th>
             <td>
-                <input type="text" name="gplus-profile" id="gplus-profile" value=" <?php echo esc_attr($wp_social_gplus_profile); ?>" class="regular-text" />
+                <input type="text" name="gplus-profile" id="gplus-profile" value=" <?php echo esc_attr( $wp_social_gplus_profile ); ?>" class="regular-text" />
             </td>
         </tr>
         <tr>
@@ -98,14 +101,14 @@ function wp_user_add_extra_profile_picture_fields($socialprofile) {
                 <label for="use-gplus-profile">Use Google+ Profile as Avatar</label>
             </th>
             <td>
-                <input type="checkbox" name="wp-user-social-profile" value="wp-gplus" <?php checked($wp_user_social_profile, 'wp-gplus', false) ?> >
+                <input type="checkbox" name="wp-user-social-profile" value="wp-gplus" <?php checked( $wp_user_social_profile, 'wp-gplus', false ); ?> >
             </td>
         </tr>
         <tr>
             <th>
                 <label for="gplus-clear-cache">Clear Google+ Cache</label></th>
             <td>
-                <input type="button" name="wp-gplus-clear" value="Clear Cache" user="<?php echo esc_attr($socialprofile->ID); ?>">
+                <input type="button" name="wp-gplus-clear" value="Clear Cache" user="<?php echo esc_attr( $socialprofile->ID ); ?>">
                 <span id="msg"></span>
             </td>
         </tr>
@@ -113,62 +116,64 @@ function wp_user_add_extra_profile_picture_fields($socialprofile) {
     <?php
 }
 
-add_action('show_user_profile', 'wp_user_add_extra_profile_picture_fields');
-add_action('edit_user_profile', 'wp_user_add_extra_profile_picture_fields');
+add_action( 'show_user_profile', 'wp_user_add_extra_profile_picture_fields' );
+add_action( 'edit_user_profile', 'wp_user_add_extra_profile_picture_fields' );
 
-function wp_avatar_save_extra_profile_fields($user_id) {
+function wp_avatar_save_extra_profile_fields( $user_id ) {
     $current_user_id = get_current_user_id();
 
-    if($current_user_id == $user_id) :
-        update_user_meta($user_id, 'wp_social_fb_profile', esc_attr(trim(isset($_POST['fb-profile']))));
-        update_user_meta($user_id, 'wp_social_gplus_profile', esc_attr(trim(isset($_POST['gplus-profile']))));
-        update_user_meta($user_id, 'wp_user_social_profile', esc_attr(isset($_POST['wp-user-social-profile'])));
+    if ( $current_user_id == $user_id ) :
+        update_user_meta( $user_id, 'wp_social_fb_profile', esc_attr( trim( isset( $_POST['fb-profile'] ) ) ) );
+        update_user_meta( $user_id, 'wp_social_gplus_profile', esc_attr( trim( isset( $_POST['gplus-profile'] ) ) ) );
+        update_user_meta( $user_id, 'wp_user_social_profile', esc_attr( isset( $_POST['wp-user-social-profile'] ) ) );
     endif;
 }
 
-add_action('personal_options_update', 'wp_avatar_save_extra_profile_fields');
-add_action('edit_user_profile_update', 'wp_avatar_save_extra_profile_fields');
+add_action( 'personal_options_update', 'wp_avatar_save_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'wp_avatar_save_extra_profile_fields' );
 
 function wp_user_social_profile_cache_clear() {
-    $user_id = sanitize_text_field($_POST['user_id']);
-    $delete_transient = delete_transient("wp_social_avatar_gplus_{$user_id}");
+    $user_id          = sanitize_text_field( $_POST['user_id'] );
+    $delete_transient = delete_transient( "wp_social_avatar_gplus_{$user_id}" );
 
     echo $delete_transient;
     die();
 }
 
-add_action('wp_ajax_wp_social_avatar_gplus_clear_cache', 'wp_user_social_profile_cache_clear');
-add_action('wp_ajax_nopriv_wp_social_avatar_gplus_clear_cache', 'wp_user_social_profile_cache_clear');
+add_action( 'wp_ajax_wp_social_avatar_gplus_clear_cache', 'wp_user_social_profile_cache_clear' );
+add_action( 'wp_ajax_nopriv_wp_social_avatar_gplus_clear_cache', 'wp_user_social_profile_cache_clear' );
 
-function wp_user_fb_profile($avatar, $id_or_email, $size, $default) {
+function wp_user_fb_profile( $avatar, $id_or_email, $size, $default ) {
 
-
-    if (is_int($id_or_email))
+    if ( is_int( $id_or_email ) ) {
         $user_id = $id_or_email;
+    }
 
-    if (is_object($id_or_email))
+    if ( is_object( $id_or_email ) ) {
         $user_id = $id_or_email->user_id;
+    }
 
-    if (!is_numeric($id_or_email)) {
+    if ( ! is_numeric( $id_or_email ) ) {
         return $avatar;
     }
-    if (is_string($id_or_email)) {
-        $user = get_user_by('email', $id_or_email);
-        if ($user)
+    if ( is_string( $id_or_email ) ) {
+        $user = get_user_by( 'email', $id_or_email );
+        if ( $user ) {
             $user_id = $user->ID;
-        else
+        } else {
             $user_id = $id_or_email;
+        }
     }
 
-    $wp_user_social_profile = get_user_meta($user_id, 'wp_user_social_profile', true);
-    $wp_social_fb_profile = get_user_meta($user_id, 'wp_social_fb_profile', true);
-    $wp_avatar_add_social_picture = get_option('wp_avatar_add_social_picture', 'read');
+    $wp_user_social_profile       = get_user_meta( $user_id, 'wp_user_social_profile', true );
+    $wp_social_fb_profile         = get_user_meta( $user_id, 'wp_social_fb_profile', true );
+    $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture', 'read' );
 
-    if (user_can($user_id, $wp_avatar_add_social_picture)) {
-        if ('wp-facebook' == $wp_user_social_profile && !empty($wp_social_fb_profile)) {
+    if ( user_can( $user_id, $wp_avatar_add_social_picture ) ) {
+        if ( 'wp-facebook' == $wp_user_social_profile && ! empty( $wp_social_fb_profile ) ) {
 
-            $fb = 'https://graph.facebook.com/' . $wp_social_fb_profile . '/picture?width=' . esc_attr($size) . '&height=' . esc_attr($size);
-            $avatar = "<img alt='facebook-profile-picture' src='{". esc_url($fb)."}' class='avatar avatar-{".esc_attr($size)."} photo' height='{".esc_attr($size)."}' width='{".esc_attr($size)."}' />";
+            $fb     = 'https://graph.facebook.com/' . $wp_social_fb_profile . '/picture?width=' . esc_attr( $size ) . '&height=' . esc_attr( $size );
+            $avatar = "<img alt='facebook-profile-picture' src='{" . esc_url( $fb ) . "}' class='avatar avatar-{" . esc_attr( $size ) . "} photo' height='{" . esc_attr( $size ) . "}' width='{" . esc_attr( $size ) . "}' />";
 
             return $avatar;
         } else {
@@ -179,51 +184,53 @@ function wp_user_fb_profile($avatar, $id_or_email, $size, $default) {
     }
 }
 
-add_filter('get_avatar', 'wp_user_fb_profile', 10, 5);
+add_filter( 'get_avatar', 'wp_user_fb_profile', 10, 5 );
 
-function wp_user_gplus_profile($avatar, $id_or_email, $size, $default) {
+function wp_user_gplus_profile( $avatar, $id_or_email, $size, $default ) {
 
-
-    if (is_int($id_or_email))
+    if ( is_int( $id_or_email ) ) {
         $user_id = $id_or_email;
+    }
 
-    if (is_object($id_or_email))
+    if ( is_object( $id_or_email ) ) {
         $user_id = $id_or_email->user_id;
+    }
 
-    if (!is_numeric($id_or_email)) {
+    if ( ! is_numeric( $id_or_email ) ) {
         return $avatar;
     }
-    if (is_string($id_or_email)) {
-        $user = get_user_by('email', $id_or_email);
-        if ($user)
+    if ( is_string( $id_or_email ) ) {
+        $user = get_user_by( 'email', $id_or_email );
+        if ( $user ) {
             $user_id = $user->ID;
-        else
+        } else {
             $user_id = $id_or_email;
+        }
     }
 
-    $wp_user_social_profile = get_user_meta($user_id, 'wp_user_social_profile', true);
-    $wp_social_gplus_profile = get_user_meta($user_id, 'wp_social_gplus_profile', true);
-    $wp_avatar_add_social_picture = get_option('wp_avatar_add_social_picture', 'read');
+    $wp_user_social_profile       = get_user_meta( $user_id, 'wp_user_social_profile', true );
+    $wp_social_gplus_profile      = get_user_meta( $user_id, 'wp_social_gplus_profile', true );
+    $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture', 'read' );
 
-    if (user_can($user_id, $wp_avatar_add_social_picture)) {
-        if ('wp-gplus' == $wp_user_social_profile && !empty($wp_social_gplus_profile)) {
-            if (false === ( $gplus = get_transient("wp_social_avatar_gplus_{$user_id}") )) {
-                $url = 'https://www.googleapis.com/plus/v1/people/' . $wp_social_gplus_profile . '?fields=image&key=AIzaSyBrLkua-XeZh637G1T1J8DoNHK3Oqw81ao';
-                $results = wp_remote_get($url, array('timeout' => -1));
-                if (!is_wp_error($results)) {
-                    if (200 == $results['response']['code']) {
-                        $gplusdetails = json_decode($results['body']);
-                        $gplus = $gplusdetails->image->url;
-                        set_transient("wp_social_avatar_gplus_{$user_id}", $gplus, 48 * HOUR_IN_SECONDS);
-                        $gplus = str_replace('sz=50', "sz={$size}", $gplus);
+    if ( user_can( $user_id, $wp_avatar_add_social_picture ) ) {
+        if ( 'wp-gplus' == $wp_user_social_profile && ! empty( $wp_social_gplus_profile ) ) {
+            if ( false === ( $gplus = get_transient( "wp_social_avatar_gplus_{$user_id}" ) ) ) {
+                $url     = 'https://www.googleapis.com/plus/v1/people/' . $wp_social_gplus_profile . '?fields=image&key=AIzaSyBrLkua-XeZh637G1T1J8DoNHK3Oqw81ao';
+                $results = wp_remote_get( $url, array( 'timeout' => -1 ) );
+                if ( ! is_wp_error( $results ) ) {
+                    if ( 200 == $results['response']['code'] ) {
+                        $gplusdetails = json_decode( $results['body'] );
+                        $gplus        = $gplusdetails->image->url;
+                        set_transient( "wp_social_avatar_gplus_{$user_id}", $gplus, 48 * HOUR_IN_SECONDS );
+                        $gplus = str_replace( 'sz=50', "sz={$size}", $gplus );
 
-                        $avatar = "<img alt='gplus-profile-picture' src='{". esc_url($gplus)."}' class='avatar avatar-{".esc_attr($size)."} photo' height='{".esc_attr($size)."}' width='{".esc_attr($size)."}' />";
+                        $avatar = "<img alt='gplus-profile-picture' src='{" . esc_url( $gplus ) . "}' class='avatar avatar-{" . esc_attr( $size ) . "} photo' height='{" . esc_attr( $size ) . "}' width='{" . esc_attr( $size ) . "}' />";
                     }
                 }
             } else {
-                $gplus = str_replace('sz=50', "sz={$size}", $gplus);
+                $gplus = str_replace( 'sz=50', "sz={$size}", $gplus );
 
-                $avatar = "<img alt='gplus-profile-picture' src='{". esc_url($gplus)."}' class='avatar avatar-{".esc_attr($size)."} photo' height='{".esc_attr($size)."}' width='{".esc_attr($size)."}' />";
+                $avatar = "<img alt='gplus-profile-picture' src='{" . esc_url( $gplus ) . "}' class='avatar avatar-{" . esc_attr( $size ) . "} photo' height='{" . esc_attr( $size ) . "}' width='{" . esc_attr( $size ) . "}' />";
             }
             return $avatar;
         } else {
@@ -234,4 +241,4 @@ function wp_user_gplus_profile($avatar, $id_or_email, $size, $default) {
     }
 }
 
-add_filter('get_avatar', 'wp_user_gplus_profile', 10, 5);
+add_filter( 'get_avatar', 'wp_user_gplus_profile', 10, 5 );
