@@ -325,7 +325,7 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
-= 1.0.3 [Mar 28nd, 2024] =
+= 1.0.3 [Mar 28th, 2024] =
 
 Fixed: The security issue of the plugin has been resolved.
 Fixed: The issue of displaying a corrupted author image at the backend has been resolved.
