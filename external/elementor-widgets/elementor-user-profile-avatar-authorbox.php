@@ -5,14 +5,14 @@ namespace WPUserProfileAvatar\Widgets;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 
-if (!defined('ABSPATH'))
+if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
+}
 
 /**
  * Elementor Meeting Detail
  *
  * Elementor widget for meeting detail
- *
  */
 class Elementor_WPUPA_Authorbox extends Widget_Base {
 
@@ -35,10 +35,10 @@ class Elementor_WPUPA_Authorbox extends Widget_Base {
      * @return string Widget title.
      */
     public function get_title() {
-        return __('WP User Profile Avatar Authorbox', 'wp-user-profile-avatar');
+        return __( 'WP User Profile Avatar Authorbox', 'wp-user-profile-avatar' );
     }
 
-    /** 	
+    /**
      * Get widget icon.
      *
      * Retrieve shortcode widget icon.
@@ -61,7 +61,7 @@ class Elementor_WPUPA_Authorbox extends Widget_Base {
      * @return array Widget keywords.
      */
     public function get_keywords() {
-        return ['wp-user-profile-avatar-authorbox', 'code'];
+        return array( 'wp-user-profile-avatar-authorbox', 'code' );
     }
 
     /**
@@ -77,7 +77,7 @@ class Elementor_WPUPA_Authorbox extends Widget_Base {
      * @return array Widget categories.
      */
     public function get_categories() {
-        return ['wp-user-profile-avatar-categories'];
+        return array( 'wp-user-profile-avatar-categories' );
     }
 
     /**
@@ -89,10 +89,10 @@ class Elementor_WPUPA_Authorbox extends Widget_Base {
      */
     protected function _register_controls() {
         $this->start_controls_section(
-                'section_shortcode',
-                [
-                    'label' => __('Wp User Profile Avatar Authorbox', 'wp-user-profile-avatar'),
-                ]
+            'section_shortcode',
+            array(
+                'label' => __( 'Wp User Profile Avatar Authorbox', 'wp-user-profile-avatar' ),
+            )
         );
 
         $this->end_controls_section();
@@ -109,8 +109,8 @@ class Elementor_WPUPA_Authorbox extends Widget_Base {
         $settings = $this->get_settings_for_display();
 
         echo '<div class="elementor-user-profile-avatar-authorbox">';
-        echo do_shortcode('[authorbox_social_info]');
-        echo do_shortcode('[authorbox_social_link]');
+        echo do_shortcode( '[authorbox_social_info]' );
+        echo do_shortcode( '[authorbox_social_link]' );
         echo '</div>';
     }
 
