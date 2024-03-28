@@ -100,7 +100,7 @@ function Wp_user_update() {
             }
             ?>
         </div>
-        <form method="post" id="user-udate" action="<?php echo isset( $_SERVER['REQUEST_URI'] ); ?>">
+        <form method="post" id="user-udate" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>">
             <table class="form-table">
                 <tr>
                     <th><label for="olduser-login"><?php esc_html_e( 'Old Username', 'WP_Username_change' ); ?></label></th>
