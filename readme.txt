@@ -325,6 +325,15 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
+= 1.0.3 [Mar 28nd, 2024] =
+
+Fixed: The security issue of the plugin has been resolved.
+Fixed: The issue of displaying a corrupted author image at the backend has been resolved.
+Fixed: The remove image button is now visible.
+Fixed: The issue related to displaying the profile image on the event, organizer, and venue pages is now resolved.
+Fixed: The image URL avatar is now set.
+Fixed: The user dropdown box now displays the default text.
+
 = 1.0.2 [Feb 22nd, 2023] =
 
 Fixed: User section text is now displayed properly.
