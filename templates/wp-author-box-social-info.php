@@ -26,7 +26,7 @@ function add_user_social_contact_info( $user_contact ) {
 add_filter( 'user_contactmethods', 'add_user_social_contact_info' );
 
 function wp_fontawesome_styles() {
-        wp_register_style( 'fontawesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', '', '4.4.0', 'all' );
+        wp_register_style( 'fontawesome', WPUPA_PLUGIN_URL . '/assets/lib/fontawesome/all.css', '', '4.4.0', 'all' );
         wp_enqueue_style( 'fontawesome' );
 }
 
