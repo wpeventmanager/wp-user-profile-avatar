@@ -48,6 +48,7 @@ function wp_user_admin() {
             </tr>
         </table>
         <p class="submit">
+            <?php wp_nonce_field( 'submit','wp-user-profile-avatar-social' ); ?>
             <input type="submit" class="button button-primary" id="submit" value="Save Changes">
         </p>
     </form>
@@ -56,6 +57,9 @@ function wp_user_admin() {
 
 // Saving the WP Avatar social profile settings details.
 if ( isset( $_POST['wp-avatar-add-social-picture'] ) ) {
+    if(!empty('wp-user-profile-avatar-social') || ! wp_verify_nonce( 'wp-user-profile-avatar-social', 'submit' ) ){
+        return;
+    }
     update_option( 'wp_avatar_add_social_picture', $_POST['wp-avatar-add-social-picture'] );
 }
 
@@ -120,9 +124,12 @@ add_action( 'show_user_profile', 'wp_user_add_extra_profile_picture_fields' );
 add_action( 'edit_user_profile', 'wp_user_add_extra_profile_picture_fields' );
 
 function wp_avatar_save_extra_profile_fields( $user_id ) {
-    $current_user_id = get_current_user_id();
+    $current_user_id = get_current_user_id();    
 
     if ( $current_user_id == $user_id ) :
+        if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'update-user_' . $user_id ) ) {
+            return;
+        }
         update_user_meta( $user_id, 'wp_social_fb_profile', trim( sanitize_text_field( $_POST['fb-profile'] ) ) );
         update_user_meta( $user_id, 'wp_social_gplus_profile', trim( sanitize_text_field( $_POST['gplus-profile'] ) ) );
         update_user_meta( $user_id, 'wp_user_social_profile', sanitize_text_field( $_POST['wp-user-social-profile'] ) );

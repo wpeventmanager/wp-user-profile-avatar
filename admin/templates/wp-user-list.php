@@ -57,7 +57,7 @@ function Wp_username_edit() { ?>
                             <td><?php echo esc_attr( $user->user_login ); ?></td>
                             <td><?php echo esc_html( implode( ', ', ( $user_info->roles ) ) ); ?></td>
                             <td>
-                                <a href="<?php echo esc_url( admin_url( 'admin.php?page=Wp_username_update&update=' . $user->ID ) ); ?>">
+                                <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin.php?page=Wp_username_update&update=' . $user->ID ) ) ); ?>">
                                     <?php esc_html_e( 'update', 'wp-user-profile-avatar' ); ?>
                                 </a>
                             </td>
@@ -72,6 +72,9 @@ function Wp_username_edit() { ?>
 
 function Wp_user_update() {
     if ( isset( $_REQUEST['update'] ) ) {
+        if(!current_user_can('manage_options' ) || wp_verify_nonce( 'update','_wpnonce' ) ){
+            return;
+        }
         $wpuser = new WpUserNameChange();
         global $wpdb;
         $id        = trim( $_REQUEST['update'] );

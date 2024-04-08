@@ -1,4 +1,4 @@
-<?phppa_
+<?php
 /**
  * Tools page.
  *
@@ -13,7 +13,7 @@ function wpupa_update_options( $options ) {
 }
 ?>
 <div class="wrap">
-    <h1><?php esc_html_e( 'Delete Comments', 'disable-comments' ); ?></h1>
+    <h1><?php esc_html_e( 'Delete Comments', 'wp-user-profile-avatar' ); ?></h1>
     <?php
     global $wpdb;
     $comments_count = $wpdb->get_var( "SELECT count(comment_id) from $wpdb->comments" );
