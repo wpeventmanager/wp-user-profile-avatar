@@ -1,3 +1,7 @@
+<?php
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+?>
+
 <div class="wrap wp-user-profile-avatar-shortcode-wrap">
     <h2 class="nav-tab-wrapper">
         <a href="#settings-user-avatar" class="nav-tab"><?php esc_html_e( 'Change User', 'wp-user-profile-avatar' ); ?></a>

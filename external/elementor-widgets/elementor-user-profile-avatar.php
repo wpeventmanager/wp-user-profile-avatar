@@ -91,7 +91,7 @@ class Elementor_WPUPA extends Widget_Base {
         $this->start_controls_section(
             'section_shortcode',
             array(
-                'label' => __( 'Wp User Profile Avatar', 'wp-user-profile-avatar' ),
+                'label' => esc_html__( 'Wp User Profile Avatar', 'wp-user-profile-avatar' ),
             )
         );
 
@@ -109,7 +109,7 @@ class Elementor_WPUPA extends Widget_Base {
         $this->add_control(
             'user_id',
             array(
-                'label'   => __( 'User Name', 'wp-user-profile-avatar' ),
+                'label'   => esc_html__( 'User Name', 'wp-user-profile-avatar' ),
                 'type'    => Controls_Manager::SELECT,
                 'default' => '1',
                 'options' => $users_list,
@@ -119,7 +119,7 @@ class Elementor_WPUPA extends Widget_Base {
         $this->add_control(
             'size',
             array(
-                'label'   => __( 'Avatar Size', 'wp-user-profile-avatar' ),
+                'label'   => esc_html__( 'Avatar Size', 'wp-user-profile-avatar' ),
                 'type'    => Controls_Manager::SELECT,
                 'default' => 'thumbnail',
                 'options' => get_wpupa_image_sizes(),
@@ -129,7 +129,7 @@ class Elementor_WPUPA extends Widget_Base {
         $this->add_control(
             'align',
             array(
-                'label'   => __( 'Avatar Alignment', 'wp-user-profile-avatar' ),
+                'label'   => esc_html__( 'Avatar Alignment', 'wp-user-profile-avatar' ),
                 'type'    => Controls_Manager::SELECT,
                 'default' => 'aligncenter',
                 'options' => get_wpupa_image_alignment(),
@@ -139,7 +139,7 @@ class Elementor_WPUPA extends Widget_Base {
         $this->add_control(
             'link',
             array(
-                'label'   => __( 'Avatar Link To', 'wp-user-profile-avatar' ),
+                'label'   => esc_html__( 'Avatar Link To', 'wp-user-profile-avatar' ),
                 'type'    => Controls_Manager::SELECT,
                 'default' => 'none',
                 'options' => get_wpupa_image_link_to(),
@@ -149,10 +149,10 @@ class Elementor_WPUPA extends Widget_Base {
         $this->add_control(
             'target',
             array(
-                'label'        => __( 'Open link in a new window', 'wp-user-profile-avatar' ),
+                'label'        => esc_html__( 'Open link in a new window', 'wp-user-profile-avatar' ),
                 'type'         => Controls_Manager::SWITCHER,
-                'label_on'     => __( 'Show', 'wp-user-profile-avatar' ),
-                'label_off'    => __( 'Hide', 'wp-user-profile-avatar' ),
+                'label_on'     => esc_html__( 'Show', 'wp-user-profile-avatar' ),
+                'label_off'    => esc_html__( 'Hide', 'wp-user-profile-avatar' ),
                 'return_value' => 'yes',
                 'default'      => 'yes',
             )
@@ -161,9 +161,9 @@ class Elementor_WPUPA extends Widget_Base {
         $this->add_control(
             'content',
             array(
-                'label'   => __( 'Caption', 'wp-user-profile-avatar' ),
+                'label'   => esc_html__( 'Caption', 'wp-user-profile-avatar' ),
                 'type'    => Controls_Manager::TEXT,
-                'default' => __( '', 'wp-user-profile-avatar' ),
+                'default' => '',
             )
         );
 

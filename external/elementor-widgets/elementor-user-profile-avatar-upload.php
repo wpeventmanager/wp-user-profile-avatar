@@ -91,7 +91,7 @@ class Elementor_WPUPA_Upload extends Widget_Base {
         $this->start_controls_section(
             'section_shortcode',
             array(
-                'label' => __( 'Wp User Profile Avatar Upload', 'wp-user-profile-avatar' ),
+                'label' => esc_html__( 'Wp User Profile Avatar Upload', 'wp-user-profile-avatar' ),
             )
         );
 

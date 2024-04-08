@@ -1,3 +1,8 @@
+<?php 
+
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+?>
 <h3><?php esc_html_e( 'WP User Profile Avatar', 'wp-user-profile-avatar' ); ?></h3>
 
 <table class="form-table">
@@ -13,7 +18,7 @@
             <p><?php esc_html_e( 'OR Upload Image', 'wp-user-profile-avatar' ); ?></p>
 
             <p id="wp-user-profile-avatar-add-button-existing">
-                <button type="button" class="button" id="wp-user-profile-avatar-add"><?php esc_html_e( 'Choose Image' ); ?></button>
+                <button type="button" class="button" id="wp-user-profile-avatar-add"><?php esc_html_e( 'Choose Image', 'wp-user-profile-avatar' ); ?></button>
                 <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo esc_attr( $wpupaattachmentid ); ?>">
             </p>
 

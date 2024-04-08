@@ -1,4 +1,7 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 add_action( 'init', 'init_filters' );
 
 function init_filters() {
@@ -54,14 +57,14 @@ function filter_admin_menu() {
     global $pagenow;
 
     if ( $pagenow == 'comment.php' || $pagenow == 'edit-comments.php' ) {
-        wp_die( esc_attr__( 'Comments are closed.', 'disable-comments' ), '', array( 'response' => 403 ) );
+        wp_die( esc_attr__( 'Comments are closed.', 'wp-user-profile-avatar' ), '', array( 'response' => 403 ) );
     }
 
     remove_menu_page( 'edit-comments.php' );
 
     if ( ! discussion_settings_allowed() ) {
         if ( $pagenow == 'options-discussion.php' ) {
-            wp_die( esc_attr__( 'Comments are closed.', 'disable-comments' ), '', array( 'response' => 403 ) );
+            wp_die( esc_attr__( 'Comments are closed.', 'wp-user-profile-avatar' ), '', array( 'response' => 403 ) );
         }
 
         remove_submenu_page( 'options-general.php', 'options-discussion.php' );

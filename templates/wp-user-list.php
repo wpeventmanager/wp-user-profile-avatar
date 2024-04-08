@@ -11,7 +11,7 @@ use \WpUserNameChange\WpUserNameChange;
 function Wp_username_edit() {
     ?>
     <div class="wrap userupdater">
-        <p><h1><?php esc_html_e( 'Wp Users List', 'WP_Username_change' ); ?></h1></p>
+        <p><h1><?php esc_html_e( 'Wp Users List', 'wp-user-profile-avatar' ); ?></h1></p>
     <?php
     $wpuser  = new WpUserNameChange();
     $records = $wpuser->wpuser_select();
@@ -21,10 +21,10 @@ function Wp_username_edit() {
         <table class="wp-list-table widefat fixed striped users"  cellpadding="3" cellspacing="3" width="100%">
             <thead>
                 <tr>
-                    <th><strong><?php esc_html_e( 'User ID', 'WP_Username_change' ); ?></strong></th>
-                    <th><strong><?php esc_html_e( 'User Name', 'WP_Username_change' ); ?></strong></th>
-                    <th><strong><?php esc_html_e( 'Role', 'WP_Username_change' ); ?></strong></th>
-                    <th><strong><?php esc_html_e( 'Update', 'WP_Username_change' ); ?></strong></th>
+                    <th><strong><?php esc_html_e( 'User ID', 'wp-user-profile-avatar' ); ?></strong></th>
+                    <th><strong><?php esc_html_e( 'User Name', 'wp-user-profile-avatar' ); ?></strong></th>
+                    <th><strong><?php esc_html_e( 'Role', 'wp-user-profile-avatar' ); ?></strong></th>
+                    <th><strong><?php esc_html_e( 'Update', 'wp-user-profile-avatar' ); ?></strong></th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +52,7 @@ function Wp_user_update() {
     if ( isset( $_REQUEST['update'] ) ) {
         $wpuser = new WpUserNameChange();
         global $wpdb;
-        $id        = trim( $_REQUEST['update'] );
+        $id        = trim( sanitize_text_field( $_REQUEST['update'] ) );
         $user_info = get_userdata( $id );
         $result    = $wpdb->get_results( $wpdb->prepare( "SELECT * from $wpdb->users WHERE ID = %d", $id ) );
         foreach ( $result as $user ) {
@@ -81,11 +81,11 @@ function Wp_user_update() {
         <form method="post" id="user_udate" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>">
             <table class="form-table">
                 <tr>
-                    <th><label for="olduser_login"><?php esc_html_e( 'Old Username', 'WP_Username_change' ); ?></label></th>
+                    <th><label for="olduser_login"><?php esc_html_e( 'Old Username', 'wp-user-profile-avatar' ); ?></label></th>
                     <td><strong><?php echo esc_attr( $username ); ?></strong></td>
                 </tr>
                 <tr>
-                    <th><label for="user_login"><?php esc_html_e( 'New Username', 'WP_Username_change' ); ?></label></th>
+                    <th><label for="user_login"><?php esc_html_e( 'New Username', 'wp-user-profile-avatar' ); ?></label></th>
                     <td><input type="text" name="user_login" class="regular-text" id="user_login" value="
                     <?php
                     if ( ! empty( $_POST['user_login'] ) ) {

@@ -1,4 +1,4 @@
-<?php
+<?phppa_
 /**
  * Tools page.
  *
@@ -7,7 +7,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-function update_options( $options ) {
+function wpupa_update_options( $options ) {
 
     update_option( 'delete_comments_options', $options );
 }
@@ -56,7 +56,7 @@ function update_options( $options ) {
         if ( $options['remove_everywhere'] ) {
             $disabled_post_types = array_keys( $types );
         } else {
-            $disabled_post_types = empty( $_POST['delete_types'] ) ? array() : (array) wp_unslash( $_POST['delete_types'] );
+            $disabled_post_types = empty( sanitize_text_field( $_POST['delete_types'] ) ) ? array() : (array) wp_unslash( sanitize_text_field($_POST['delete_types'] ) );
         }
 
         $disabled_post_types = array_intersect( $disabled_post_types, array_keys( $types ) );
@@ -69,7 +69,7 @@ function update_options( $options ) {
             $options['extra_post_types'] = array_diff( $extra_post_types, array_keys( $types ) ); // Make sure we don't double up builtins.
         }
 
-        update_options( $options );
+        wpupa_update_options( $options );
         // echo '<div id="message" class="updated"><p>' . __('Options updated. Changes to the Admin Menu and Admin Bar will not appear until you leave or reload this page.', 'disable-comments') . '</p></div>';
 
         if ( $_POST['delete_mode'] == 'delete-everywhere' ) {
@@ -79,14 +79,14 @@ function update_options( $options ) {
                     $wpdb->query( "OPTIMIZE TABLE $wpdb->commentmeta" );
                     $wpdb->query( "OPTIMIZE TABLE $wpdb->comments" );
                     // echo "<p style='color:green'><strong>" . __('All comments have been deleted.', 'disable-comments') . '</strong></p>';
-                    echo '<div id="message" class="updated"><p>' . esc_html__( 'All comments have been deleted123.', 'disable-comments' ) . '</p></div>';
+                    echo '<div id="message" class="updated"><p>' . esc_html__( 'All comments have been deleted123.', 'wp-user-profile-avatar' ) . '</p></div>';
                 } else {
                     // echo "<p style='color:red'><strong>" . __('Internal error occured. Please try again later.', 'disable-comments') . '</strong></p>';
-                    echo '<div id="message" class="updated"><p>' . esc_html__( 'Internal error occured. Please try again later.', 'disable-comments' ) . '</p></div>';
+                    echo '<div id="message" class="updated"><p>' . esc_html__( 'Internal error occured. Please try again later.', 'wp-user-profile-avatar' ) . '</p></div>';
                 }
             } else {
                 // echo "<p style='color:red'><strong>" . __('Internal error occured. Please try again later.', 'disable-comments') . '</strong></p>';
-                echo '<div id="message" class="updated"><p>' . esc_html__( 'Internal error occured. Please try again later.', 'disable-comments' ) . '</p></div>';
+                echo '<div id="message" class="updated"><p>' . esc_html__( 'Internal error occured. Please try again later.', 'wp-user-profile-avatar' ) . '</p></div>';
             }
         } else {
             $delete_post_types = empty( $_POST['delete_types'] ) ? array() : (array) wp_unslash( $_POST['delete_types'] );
@@ -102,14 +102,14 @@ function update_options( $options ) {
             if ( ! empty( $delete_post_types ) ) {
                 // Loop through post_types and remove comments/meta and set posts comment_count to 0.
                 foreach ( $delete_post_types as $delete_post_type ) {
-                    $wpdb->query( "DELETE cmeta FROM $wpdb->commentmeta cmeta INNER JOIN $wpdb->comments comments ON cmeta.comment_id=comments.comment_ID INNER JOIN $wpdb->posts posts ON comments.comment_post_ID=posts.ID WHERE posts.post_type = '$delete_post_type'" );
-                    $wpdb->query( "DELETE comments FROM $wpdb->comments comments INNER JOIN $wpdb->posts posts ON comments.comment_post_ID=posts.ID WHERE posts.post_type = '$delete_post_type'" );
-                    $wpdb->query( "UPDATE $wpdb->posts SET comment_count = 0 WHERE post_author != 0 AND post_type = '$delete_post_type'" );
+                    $wpdb->query( $wpdb->prepare( "DELETE cmeta FROM $wpdb->commentmeta cmeta INNER JOIN $wpdb->comments comments ON cmeta.comment_id=comments.comment_ID INNER JOIN $wpdb->posts posts ON comments.comment_post_ID=posts.ID WHERE posts.post_type = %s" , $delete_post_type ));
+                    $wpdb->query( $wpdb->prepare( "DELETE comments FROM $wpdb->comments comments INNER JOIN $wpdb->posts posts ON comments.comment_post_ID=posts.ID WHERE posts.post_type = %s", $delete_post_type ) );
+                    $wpdb->query( $wpdb->prepare( "UPDATE $wpdb->posts SET comment_count = 0 WHERE post_author != 0 AND post_type = %s", $delete_post_type ) );
 
                     $post_type_object = get_post_type_object( $delete_post_type );
                     $post_type_label  = $post_type_object ? $post_type_object->labels->name : $delete_post_type;
                     // echo "<p style='color:green'><strong>" . sprintf(__('All comments have been deleted for %s.', 'disable-comments'), $post_type_label) . '</strong></p>';
-                    echo '<div id="message" class="updated"><p>' . sprintf( esc_html__( 'All comments have been deleted for %s.', 'disable-comments' ), $post_type_label ) . '</p></div>';
+                    echo '<div id="message" class="updated"><p>' . sprintf( esc_html__( 'All comments have been deleted for %s.', 'wp-user-profile-avatar' ), $post_type_label ) . '</p></div>';
                 }
 
                 $wpdb->query( "OPTIMIZE TABLE $wpdb->commentmeta" );
@@ -134,11 +134,11 @@ function update_options( $options ) {
     <ul>
         <li>
 
-        <label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="<?php echo esc_attr( 'remove_everywhere' ); ?>" <?php checked( isset( $options['remove_everywhere'] ) ); ?> /> <strong><?php esc_html_e( 'Everywhere', 'disable-comments' ); ?></strong>: <?php esc_html_e( 'Delete all comments in WordPress.', 'disable-comments' ); ?></label>
-            <p class="indent"><?php printf( esc_html__( '%s: This function and will affect your entire site. Use it only if you want to delete comments <em>everywhere</em>.', 'disable-comments' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'disable-comments' ) . '</strong>' ); ?></p>
+        <label for="delete_everywhere"><input type="radio" id="delete_everywhere" name="delete_mode" value="<?php echo esc_attr( 'remove_everywhere' ); ?>" <?php checked( isset( $options['remove_everywhere'] ) ); ?> /> <strong><?php esc_html_e( 'Everywhere', 'wp-user-profile-avatar' ); ?></strong>: <?php esc_html_e( 'Delete all comments in WordPress.', 'wp-user-profile-avatar' ); ?></label>
+            <p class="indent"><?php printf( esc_html__( '%s: This function and will affect your entire site. Use it only if you want to delete comments <em>everywhere</em>.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>' ); ?></p>
         </li>
         <?php $selected = ( empty( $_POST['delete-everywhere'] ) ) ? 'checked="checked"' : ''; ?>
-        <li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php echo esc_attr( $selected ); ?> /> <strong><?php esc_html_e( 'For certain post types', 'disable-comments' ); ?></strong>:</label>
+        <li><label for="selected_delete_types"><input type="radio" id="selected_delete_types" name="delete_mode" value="selected_delete_types" <?php echo esc_attr( $selected ); ?> /> <strong><?php esc_html_e( 'For certain post types', 'wp-user-profile-avatar' ); ?></strong>:</label>
             <p></p>
             <ul class="indent" id="listofdeletetypes">
 
@@ -154,13 +154,13 @@ function update_options( $options ) {
                 ?>
             </ul>
 
-            <p class="indent"><?php printf( esc_html__( '%s: Deleting comments will remove existing comment entries in the database and cannot be reverted without a database backup.', 'disable-comments' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'disable-comments' ) . '</strong>' ); ?></p>
+            <p class="indent"><?php printf( esc_html__( '%s: Deleting comments will remove existing comment entries in the database and cannot be reverted without a database backup.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>' ); ?></p>
         </li>
     </ul>
 
     <?php wp_nonce_field( 'delete-comments-admin' ); ?>
-    <h4><?php esc_html_e( 'Total Comments:', 'disable-comments' ); ?> <?php echo $comments_count; ?></h4>
-    <p class="submit"><input class="button-primary" type="submit" name="delete" value="<?php esc_html_e( 'Delete Comments', 'disable-comments' ); ?>"></p>
+    <h4><?php esc_html_e( 'Total Comments:', 'wp-user-profile-avatar' ); ?> <?php echo $comments_count; ?></h4>
+    <p class="submit"><input class="button-primary" type="submit" name="delete" value="<?php esc_html_e( 'Delete Comments', 'wp-user-profile-avatar' ); ?>"></p>
 </form>
 </div>
 <script>

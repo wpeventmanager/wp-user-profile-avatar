@@ -61,7 +61,7 @@ class WPUPA_Admin {
             'dashicons-admin-users'
         );
         if ( function_exists( 'add_submenu_page' ) ) {
-            add_submenu_page( 'wp-user-profile-avatar', __( 'WP Username Change', 'WP_Username_change' ), __( 'WP Username Change ', 'WP_Username_change' ), 'manage_options', 'WP_Username_change', 'Wp_username_edit' );
+            add_submenu_page( 'wp-user-profile-avatar', __( 'WP Username Change', 'wp-user-profile-avatar' ), __( 'WP Username Change ', 'wp-user-profile-avatar' ), 'manage_options', 'WP_Username_change', 'Wp_username_edit' );
             add_submenu_page( null, '', '', 'manage_options', 'Wp_username_update', 'Wp_user_update' );
             add_submenu_page( 'wp-user-profile-avatar', 'WP Avatar User Role Settings', 'WP Avatar User Role Settings', 'activate_plugins', 'avatar-social-picture', 'wp_user_admin' );
             add_submenu_page( 'wp-user-profile-avatar', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', array( $this, 'comments_settings_page' ) );
@@ -173,16 +173,20 @@ class WPUPA_Admin {
     public function wpupa_save_fields( $user_id ) {
         if ( current_user_can( 'edit_user', $user_id ) ) {
 
+            if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'update-user_' . $user_id ) ) {
+                return;
+            }
+
             if ( isset( $_POST['wpupa-url'] ) ) {
-                 $wpupa_url = esc_url( $_POST['wpupa-url'] );
+                 $wpupa_url = sanitize_text_field( $_POST['wpupa-url'] );
             }
             if ( isset( $_POST['wpupaattachmentid'] ) ) {
                 $wpupaattachmentid = absint( $_POST['wpupaattachmentid'] );
             }
 
             if ( isset( $_POST['wpupa_file_size'] ) ) {
-                $wpupa_file_size = esc_attr( $_POST['wpupa_file_size'] );
-                update_user_meta( $user_id, 'wpupa_file_size', sanitize_text_field( $wpupa_file_size ) );
+                $wpupa_file_size = sanitize_text_field( $_POST['wpupa_file_size'] );
+                update_user_meta( $user_id, 'wpupa_file_size', $wpupa_file_size );
             }
 
             if ( isset( $_POST['wpupa-size'] ) ) {
@@ -334,6 +338,7 @@ class WPUPA_Admin {
 
     public function init_size() {
         if ( isset( $_POST['wpem-upload-max-file-size-field'] ) ) {
+            
             $wpupa_max_size = (int) $_POST['wpem-upload-max-file-size-field'] * 1024 * 1024;
             update_option( 'wpem_max_file_size', sanitize_text_field( $wpupa_max_size ) );
             wp_safe_redirect( admin_url( 'upload.php?page=wpem_upload_max_file_size&max-size-updated=true' ) );

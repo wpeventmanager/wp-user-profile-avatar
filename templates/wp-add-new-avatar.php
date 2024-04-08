@@ -17,7 +17,7 @@ class Add_New_User {
 
     public function admin_init() {
         register_setting( 'discussion', 'Add_New_User', array( $this, 'validate' ) );
-        add_settings_field( 'Add_New_User', __( 'Add New Default Avatar', 'anda' ), array( $this, 'field_html' ), 'discussion', 'avatars', $args = array() );
+        add_settings_field( 'Add_New_User', __( 'Add New Default Avatar', 'wp-user-profile-avatar' ), array( $this, 'field_html' ), 'discussion', 'avatars', $args = array() );
     }
 
     public function field_html() {

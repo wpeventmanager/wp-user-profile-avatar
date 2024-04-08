@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-function update_options( $options ) {
+function wpupa_update_options( $options ) {
     update_option( 'disable_comments_options', $options );
 }
 
@@ -40,7 +40,7 @@ if ( isset( $_POST['submit'] ) ) {
     if ( $options['remove_everywhere'] ) {
         $disabled_post_types = array_keys( $types );
     } else {
-        $disabled_post_types = empty( $_POST['disabled_types'] ) ? array() : (array) wp_unslash( $_POST['disabled_types'] );
+        $disabled_post_types = empty( $_POST['disabled_types'] ) ? array() : (array) wp_unslash( sanitize_text_field( $_POST['disabled_types'] ) );
     }
 
     $disabled_post_types = array_intersect( $disabled_post_types, array_keys( $types ) );
@@ -53,20 +53,20 @@ if ( isset( $_POST['submit'] ) ) {
         $options['extra_post_types'] = array_diff( $extra_post_types, array_keys( $types ) ); // Make sure we don't double up builtins.
     }
 
-    update_options( $options );
-    echo '<div id="message" class="updated"><p>' . esc_html__( 'Options updated. Changes to the Admin Menu and Admin Bar will not appear until you leave or reload this page.', 'disable-comments' ) . '</p></div>';
+    wpupa_update_options( $options );
+    echo '<div id="message" class="updated"><p>' . esc_html__( 'Options updated. Changes to the Admin Menu and Admin Bar will not appear until you leave or reload this page.', 'wp-user-profile-avatar' ) . '</p></div>';
 }
 ?>
 <div class="wrap">
-    <h1><?php _ex( 'Disable Comments', 'settings page title', 'disable-comments' ); ?></h1>
+    <h1><?php _ex( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
 
     <form action="" method="post" id="disable-comments">
         <ul>
-            <li><label for="remove_everywhere"><input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked( isset( $options['remove_everywhere'] ) ); ?> /> <strong><?php _e( 'Everywhere', 'disable-comments' ); ?></strong>: <?php _e( 'Disable all comment-related controls and settings in WordPress.', 'disable-comments' ); ?></label>
-                <p class="indent"><?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to disable comments <em>everywhere</em>. A complete description of what this option does is <a href="%2$s" target="_blank">available here</a>.', 'disable-comments' ), '<strong style="color: #900">' . __( 'Warning', 'disable-comments' ) . '</strong>', 'https://wordpress.org/plugins/disable-comments/other_notes/' ); ?></p>
+            <li><label for="remove_everywhere"><input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked( isset( $options['remove_everywhere'] ) ); ?> /> <strong><?php _e( 'Everywhere', 'wp-user-profile-avatar' ); ?></strong>: <?php esc_html_e( 'Disable all comment-related controls and settings in WordPress.', 'wp-user-profile-avatar' ); ?></label>
+                <p class="indent"><?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to disable comments <em>everywhere</em>. A complete description of what this option does is <a href="%2$s" target="_blank">available here</a>.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>', 'https://wordpress.org/plugins/disable-comments/other_notes/' ); ?></p>
             </li>
             <?php $selected = ( empty( $_POST['delete-everywhere'] ) ) ? 'checked="checked"' : ''; ?>
-            <li><label for="selected-types"><input type="radio" id="selected-types" name="mode" value="selected-types" <?php echo esc_attr( $selected ); ?> /> <strong><?php esc_html_e( 'On certain post types', 'disable-comments' ); ?></strong>:</label>
+            <li><label for="selected-types"><input type="radio" id="selected-types" name="mode" value="selected-types" <?php echo esc_attr( $selected ); ?> /> <strong><?php esc_html_e( 'On certain post types', 'wp-user-profile-avatar' ); ?></strong>:</label>
                 <p></p>
                 <ul class="indent" id="listoftypes">
                     <?php
@@ -81,12 +81,12 @@ if ( isset( $_POST['submit'] ) ) {
                     ?>
                 </ul>
 
-                <p class="indent"><?php esc_html_e( 'Disabling comments will also disable trackbacks and pingbacks. All comment-related fields will also be hidden from the edit/quick-edit screens of the affected posts. These settings cannot be overridden for individual posts.', 'disable-comments' ); ?></p>
+                <p class="indent"><?php esc_html_e( 'Disabling comments will also disable trackbacks and pingbacks. All comment-related fields will also be hidden from the edit/quick-edit screens of the affected posts. These settings cannot be overridden for individual posts.', 'wp-user-profile-avatar' ); ?></p>
             </li>
         </ul>
 
         <?php wp_nonce_field( 'disable-comments-admin' ); ?>
-        <p class="submit"><input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'disable-comments' ); ?>"></p>
+        <p class="submit"><input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>"></p>
     </form>
 </div>
 <script>
