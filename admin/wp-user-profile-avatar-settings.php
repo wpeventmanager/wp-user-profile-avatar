@@ -98,7 +98,7 @@ class WPUPA_Settings {
                                             <legend class="screen-reader-text"><?php esc_html_e( 'Avatar Rating', 'wp-user-profile-avatar' ); ?></legend>
                                             <?php foreach ( get_wpupa_rating() as $name => $rating ) : ?>
                                                 <?php $selected = ( $wpupa_rating == $name ) ? 'checked="checked"' : ''; ?>
-                                                <label><input type="radio" name="wpupa_rating" value="<?php echo esc_attr( $name ); ?>" <?php echo $selected; ?> /> <?php echo esc_attr( $rating ); ?></label><br />
+                                                <label><input type="radio" name="wpupa_rating" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> <?php echo esc_attr( $rating ); ?></label><br />
                                             <?php endforeach; ?>
                                         </fieldset>
                                     </td>
@@ -112,7 +112,7 @@ class WPUPA_Settings {
                                         <select id="wpupa_file_size" name="wpupa_file_size">
                                             <?php foreach ( get_wpupa_file_size() as $name => $size ) { ?>
                                                 <?php $selected = ( $wpupa_file_size == $name ) ? 'selected="selected"' : ''; ?>
-                                                <option value="<?php echo esc_attr( $name ); ?>" <?php echo $selected; ?> /><?php echo esc_attr( $name == 1024 ? '1GB' : $size ); ?></option>
+                                                <option value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /><?php echo esc_attr( $name == 1024 ? '1GB' : $size ); ?></option>
                                             <?php } ?>
                                         </select>
                                     </td>
@@ -157,7 +157,7 @@ class WPUPA_Settings {
 
                                             <?php $selected = ( $wpupa_default == 'wp_user_profile_avatar' ) ? 'checked="checked"' : ''; ?>
                                             <label>
-                                                <input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo $selected; ?> />
+                                                <input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo esc_attr( $selected ); ?> />
                                                 <div id="wp_user_profile_avatar_preview">
                                                     <img src="<?php echo esc_url( $wpupa_attachment_url ); ?>" width="32" />
                                                 </div> 
@@ -186,8 +186,8 @@ class WPUPA_Settings {
 
                                                     $selected = ( $wpupa_default == $name ) ? 'checked="checked"' : '';
                                                     ?>
-                                                    <label><input type="radio" name="wpupa_default" value="<?php echo esc_attr( $name ); ?>" <?php echo $selected; ?> /> 
-                                                        <img alt='' src='<?php echo $avatar_url; ?>' srcset='<?php echo $avatar_url; ?>' class='avatar avatar-32 photo avatar-default' height='32' width='32' loading='lazy' decoding='async'/>
+                                                    <label><input type="radio" name="wpupa_default" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> 
+                                                        <img alt='' src='<?php echo esc_attr( $avatar_url ); ?>' srcset='<?php echo esc_attr( $avatar_url ); ?>' class='avatar avatar-32 photo avatar-default' height='32' width='32' loading='lazy' decoding='async'/>
  
                                                         <?php echo esc_attr( $label ); ?>
                                                     </label><br />
