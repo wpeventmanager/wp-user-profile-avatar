@@ -96,7 +96,7 @@ function wp_author_social_info_box( $content ) {
 
                 if ( $user_link_avatar ) {
                                 $user_image = '<img src="' . esc_url( get_the_author_meta( '_wpupa_url' ) ) . '" />';
-                } elseif ( isset( $user_meta['_wpupa_attachment_id'][0] ) != 0 ) {
+                } elseif ( isset( $user_meta['_wpupa_attachment_id'][0] ) && $user_meta['_wpupa_attachment_id'][0] != 0 ) {
                                 $user_image = wp_get_attachment_image( $user_meta['_wpupa_attachment_id'][0], array( '90', '90' ) );
                 } elseif ( $user_option_id ) {
                                 $user_image = wp_get_attachment_image( $user_option_id, array( '90', '90' ) );
