@@ -231,7 +231,7 @@ class WPUPA_Settings {
      * @since 1.0
      */
     public function edit_handler() {
-        if ( ! empty( $_POST['wp_user_profile_avatar_settings'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash ( $_POST['_wpnonce'], 'user_profile_avatar_settings' ) ) ) ) {
+        if ( ! empty( $_POST['wp_user_profile_avatar_settings'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash ( $_POST['_wpnonce'] ) ), 'user_profile_avatar_settings' ) ) {
             $user_id = get_current_user_id();
 
             $wpupa_show_avatars = ! empty( $_POST['wpupa_show_avatars'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_show_avatars'] ) ) : '';
