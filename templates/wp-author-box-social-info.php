@@ -11,15 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 
 function add_user_social_contact_info( $user_contact ) {
-        $user_contact['facebook']   = __( 'Facebook URL' );
-        $user_contact['skype']      = __( 'Skype' );
-        $user_contact['twitter']    = __( 'Twitter' );
-        $user_contact['youtube']    = __( 'Youtube Channel' );
-        $user_contact['linkedin']   = __( 'LinkedIn' );
-        $user_contact['googleplus'] = __( 'Google +' );
-        $user_contact['pinterest']  = __( 'Pinterest' );
-        $user_contact['instagram']  = __( 'Instagram' );
-        $user_contact['github']     = __( 'Github profile' );
+        $user_contact['facebook']   = esc_html__( 'Facebook URL','wp-user-profile-avatar' );
+        $user_contact['skype']      = esc_html__( 'Skype','wp-user-profile-avatar' );
+        $user_contact['twitter']    = esc_html__( 'Twitter','wp-user-profile-avatar' );
+        $user_contact['youtube']    = esc_html__( 'Youtube Channel','wp-user-profile-avatar' );
+        $user_contact['linkedin']   = esc_html__( 'LinkedIn','wp-user-profile-avatar' );
+        $user_contact['googleplus'] = esc_html__( 'Google +','wp-user-profile-avatar' );
+        $user_contact['pinterest']  = esc_html__( 'Pinterest','wp-user-profile-avatar' );
+        $user_contact['instagram']  = esc_html__( 'Instagram','wp-user-profile-avatar' );
+        $user_contact['github']     = esc_html__( 'Github profile','wp-user-profile-avatar' );
         return $user_contact;
 }
 

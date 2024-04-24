@@ -35,7 +35,7 @@ function Wp_username_edit() {
                     <tr>
                         <td><?php echo esc_attr( $user->ID ); ?></td>
                         <td><?php echo esc_attr( $user->user_login ); ?></td>
-                        <td><?php echo implode( ', ', $user_info->roles ); ?></td>
+                        <td><?php echo implode( ', ', esc_attr( $user_info->roles ) ); ?></td>
                         <td><a href="<?php echo esc_url( admin_url( 'admin.php?page=Wp_username_update&update=' . $user->ID ) ); ?>">update</a></td>
                     </tr>
                 <?php } ?>
@@ -71,14 +71,14 @@ function Wp_user_update() {
         }
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e( 'Update WP Username', 'WP_Username_change' ); ?></h1>
+            <h1><?php esc_html_e( 'Update WP Username', 'wp-user-profile-avatar' ); ?></h1>
             <?php
             if ( isset( $errorMsg ) ) {
                 echo "<div class='error'><p><strong>" . esc_attr( $errorMsg ) . '</strong></p></div>';
             }
             ?>
         </div>
-        <form method="post" id="user_udate" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>">
+        <form method="post" id="user_udate" action="<?php echo esc_url( sanitize_url( $_SERVER['REQUEST_URI'] ) ); ?>">
             <table class="form-table">
                 <tr>
                     <th><label for="olduser_login"><?php esc_html_e( 'Old Username', 'wp-user-profile-avatar' ); ?></label></th>

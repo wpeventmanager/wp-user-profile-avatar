@@ -77,7 +77,7 @@ function Wp_user_update() {
         }
         $wpuser = new WpUserNameChange();
         global $wpdb;
-        $id        = trim( $_REQUEST['update'] );
+        $id        = trim( sanitize_text_field( $_REQUEST['update'] ) );
         $user_info = get_userdata( $id );
         $result    = $wpdb->get_results( $wpdb->prepare( "SELECT * from $wpdb->users WHERE ID = %d", $id ) );
         foreach ( $result as $user ) {
@@ -103,7 +103,7 @@ function Wp_user_update() {
             }
             ?>
         </div>
-        <form method="post" id="user-udate" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>">
+        <form method="post" id="user-udate" action="<?php echo esc_url( sanitize_url( $_SERVER['REQUEST_URI'] ) ); ?>">
             <table class="form-table">
                 <tr>
                     <th><label for="olduser-login"><?php esc_html_e( 'Old Username', 'wp-user-profile-avatar' ); ?></label></th>

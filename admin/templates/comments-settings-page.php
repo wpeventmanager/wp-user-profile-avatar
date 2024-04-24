@@ -49,7 +49,7 @@ if ( isset( $_POST['submit'] ) ) {
 
     // Extra custom post types.
     if ( ! empty( $_POST['extra_post_types'] ) ) {
-        $extra_post_types            = array_filter( array_map( 'sanitize_key', explode( ',', $_POST['extra_post_types'] ) ) );
+        $extra_post_types            = array_filter( array_map( 'sanitize_key', explode( ',', sanitize_text_field( $_POST['extra_post_types'] ) ) ) );
         $options['extra_post_types'] = array_diff( $extra_post_types, array_keys( $types ) ); // Make sure we don't double up builtins.
     }
 
@@ -58,11 +58,11 @@ if ( isset( $_POST['submit'] ) ) {
 }
 ?>
 <div class="wrap">
-    <h1><?php _ex( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
+    <h1><?php echo esc_html_x( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
 
     <form action="" method="post" id="disable-comments">
         <ul>
-            <li><label for="remove_everywhere"><input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked( isset( $options['remove_everywhere'] ) ); ?> /> <strong><?php _e( 'Everywhere', 'wp-user-profile-avatar' ); ?></strong>: <?php esc_html_e( 'Disable all comment-related controls and settings in WordPress.', 'wp-user-profile-avatar' ); ?></label>
+            <li><label for="remove_everywhere"><input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked( isset( $options['remove_everywhere'] ) ); ?> /> <strong><?php esc_html_e( 'Everywhere', 'wp-user-profile-avatar' ); ?></strong>: <?php esc_html_e( 'Disable all comment-related controls and settings in WordPress.', 'wp-user-profile-avatar' ); ?></label>
                 <p class="indent"><?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to disable comments <em>everywhere</em>. A complete description of what this option does is <a href="%2$s" target="_blank">available here</a>.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>', 'https://wordpress.org/plugins/disable-comments/other_notes/' ); ?></p>
             </li>
             <?php $selected = ( empty( $_POST['delete-everywhere'] ) ) ? 'checked="checked"' : ''; ?>

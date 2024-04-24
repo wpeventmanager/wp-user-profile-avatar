@@ -60,7 +60,7 @@ if ( isset( $_POST['wp-avatar-add-social-picture'] ) ) {
     if(!empty('wp-user-profile-avatar-social') || ! wp_verify_nonce( 'wp-user-profile-avatar-social', 'submit' ) ){
         return;
     }
-    update_option( 'wp_avatar_add_social_picture', $_POST['wp-avatar-add-social-picture'] );
+    update_option( 'wp_avatar_add_social_picture', sanitize_text_field( $_POST['wp-avatar-add-social-picture'] ) );
 }
 
 function wp_user_add_extra_profile_picture_fields( $socialprofile ) {
@@ -127,7 +127,7 @@ function wp_avatar_save_extra_profile_fields( $user_id ) {
     $current_user_id = get_current_user_id();    
 
     if ( $current_user_id == $user_id ) :
-        if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'update-user_' . $user_id ) ) {
+        if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash ($_POST['_wpnonce'] ) ), 'update-user_' . $user_id ) ) {
             return;
         }
         update_user_meta( $user_id, 'wp_social_fb_profile', trim( sanitize_text_field( $_POST['fb-profile'] ) ) );
@@ -143,7 +143,7 @@ function wp_user_social_profile_cache_clear() {
     $user_id          = sanitize_text_field( $_POST['user_id'] );
     $delete_transient = delete_transient( "wp_social_avatar_gplus_{$user_id}" );
 
-    echo $delete_transient;
+    echo esc_attr( $delete_transient );
     die();
 }
 

@@ -161,7 +161,7 @@ class WPUPA_Settings {
                                                 <div id="wp_user_profile_avatar_preview">
                                                     <img src="<?php echo esc_url( $wpupa_attachment_url ); ?>" width="32" />
                                                 </div> 
-                                                <?php esc_html_e( 'WP User Profile Avatar' ); ?> 
+                                                <?php esc_html_e( 'WP User Profile Avatar', 'wp-user-profile-avatar' ); ?> 
                                             </label>
                                             <br />
 

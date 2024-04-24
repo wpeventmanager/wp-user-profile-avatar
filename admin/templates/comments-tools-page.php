@@ -89,12 +89,12 @@ function wpupa_update_options( $options ) {
                 echo '<div id="message" class="updated"><p>' . esc_html__( 'Internal error occured. Please try again later.', 'wp-user-profile-avatar' ) . '</p></div>';
             }
         } else {
-            $delete_post_types = empty( $_POST['delete_types'] ) ? array() : (array) wp_unslash( $_POST['delete_types'] );
+            $delete_post_types = empty( $_POST['delete_types'] ) ? array() : wp_unslash( sanitize_text_field( $_POST['delete_types'] ) );
             $delete_post_types = array_intersect( $delete_post_types, array_keys( $types ) );
 
             // Extra custom post types.
             if ( ! empty( $_POST['delete_extra_post_types'] ) ) {
-                $delete_extra_post_types = array_filter( array_map( 'sanitize_key', explode( ',', $_POST['delete_extra_post_types'] ) ) );
+                $delete_extra_post_types = array_filter( array_map( 'sanitize_key', explode( ',', sanitize_text_field( $_POST['delete_extra_post_types']) ) ) );
                 $delete_extra_post_types = array_diff( $delete_extra_post_types, array_keys( $types ) );    // Make sure we don't double up builtins.
                 $delete_post_types       = array_merge( $delete_post_types, $delete_extra_post_types );
             }
@@ -109,7 +109,7 @@ function wpupa_update_options( $options ) {
                     $post_type_object = get_post_type_object( $delete_post_type );
                     $post_type_label  = $post_type_object ? $post_type_object->labels->name : $delete_post_type;
                     // echo "<p style='color:green'><strong>" . sprintf(__('All comments have been deleted for %s.', 'disable-comments'), $post_type_label) . '</strong></p>';
-                    echo '<div id="message" class="updated"><p>' . sprintf( esc_html__( 'All comments have been deleted for %s.', 'wp-user-profile-avatar' ), $post_type_label ) . '</p></div>';
+                    echo '<div id="message" class="updated"><p>' . sprintf( esc_html__( 'All comments have been deleted for %s.', 'wp-user-profile-avatar' ), esc_attr( $post_type_label ) ) . '</p></div>';
                 }
 
                 $wpdb->query( "OPTIMIZE TABLE $wpdb->commentmeta" );
@@ -159,7 +159,7 @@ function wpupa_update_options( $options ) {
     </ul>
 
     <?php wp_nonce_field( 'delete-comments-admin' ); ?>
-    <h4><?php esc_html_e( 'Total Comments:', 'wp-user-profile-avatar' ); ?> <?php echo $comments_count; ?></h4>
+    <h4><?php esc_html_e( 'Total Comments:', 'wp-user-profile-avatar' ); ?> <?php echo esc_attr( $comments_count ); ?></h4>
     <p class="submit"><input class="button-primary" type="submit" name="delete" value="<?php esc_html_e( 'Delete Comments', 'wp-user-profile-avatar' ); ?>"></p>
 </form>
 </div>

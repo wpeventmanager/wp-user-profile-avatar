@@ -173,7 +173,7 @@ class WPUPA_Admin {
     public function wpupa_save_fields( $user_id ) {
         if ( current_user_can( 'edit_user', $user_id ) ) {
 
-            if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( $_POST['_wpnonce'], 'update-user_' . $user_id ) ) {
+            if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash ($_POST['_wpnonce'] ) ), 'update-user_' . $user_id ) ) {
                 return;
             }
 

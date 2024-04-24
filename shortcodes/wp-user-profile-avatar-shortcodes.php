@@ -1,5 +1,7 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 class WPUPA_Shortcodes {
 
     /**
@@ -169,7 +171,7 @@ class WPUPA_Shortcodes {
 
         if ( ! is_user_logged_in() ) { ?>
             <h5><strong style="color:red;"><?php esc_html_e( 'ERROR: ', 'wp-user-profile-avatar' ); ?></strong> 
-                <?php printf( 'You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', wp_login_url() ); ?> 
+                <?php printf( 'You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', esc_url( wp_login_url() ) ); ?> 
             </h5>
             <?php
             return false;
@@ -185,7 +187,7 @@ class WPUPA_Shortcodes {
             if ( empty( $wpupa_allow_upload ) ) {
                 ?>
                 <h5><strong style="color:red;"><?php esc_html_e( 'ERROR: ', 'wp-user-profile-avatar' ); ?></strong> 
-                    <?php printf( 'You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', wp_login_url() ); ?> 
+                    <?php printf( 'You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', esc_url( wp_login_url() ) ); ?> 
                 </h5>
                 <?php
                 return false;
@@ -196,7 +198,7 @@ class WPUPA_Shortcodes {
             if ( empty( $wpupa_allow_upload ) ) {
                 ?>
                 <h5><strong style="color:red;"><?php esc_html_e( 'ERROR: ', 'wp-user-profile-avatar' ); ?></strong> 
-                    <?php printf( 'You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', wp_login_url() ); ?> 
+                    <?php printf( 'You do not have enough priviledge to access this page. Please <a href="%s"><b>login</b></a> to continue.', esc_url( wp_login_url() ) ); ?> 
                 </h5>
                 <?php
                 return false;
@@ -227,7 +229,7 @@ class WPUPA_Shortcodes {
     public function update_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-        parse_str( $_POST['form_data'], $form_data );
+        parse_str( sanitize_text_field( $_POST['form_data'] ), $form_data );
 
         // sanitize each of the values of form data
         $form_wpupa_url         = esc_url_raw( $form_data['wpupa-url'] );
@@ -301,18 +303,18 @@ class WPUPA_Shortcodes {
                 $class           = 'wp-user-profile-avatar-success';
             /*}*/
 
-            echo json_encode(
+            echo wp_json_encode(
                 array(
                     'avatar_original'  => $wpupa_original,
                     'avatar_thumbnail' => $wpupa_thumbnail,
-                    'message'          => $message,
-                    'class'            => $class,
+                    'message'          => esc_attr( $message ),
+                    'class'            => esc_attr( $class ),
                 )
             );
         else :
             $message = __( 'Permission Denied', 'wp-user-profile-avatar' );
             $class   = 'wp-user-profile-avatar-errors';
-            echo json_encode(
+            echo wp_json_encode(
                 array(
                     'message' => $message,
                     'class'   => $class,
@@ -333,7 +335,7 @@ class WPUPA_Shortcodes {
     public function remove_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-        parse_str( $_POST['form_data'], $form_data );
+        parse_str( sanitize_text_field($_POST['form_data']), $form_data );
 
         // sanitize each of the values of form data
         $wpupa_url         = esc_url_raw( $form_data['wpupa-url'] );
@@ -357,21 +359,21 @@ class WPUPA_Shortcodes {
             $message = __( 'Successfully Removed Avatar', 'wp-user-profile-avatar' );
             $class   = 'wp-user-profile-avatar-success';
 
-            echo json_encode(
+            echo wp_json_encode(
                 array(
                     'avatar_original'  => $wpupa_original,
                     'avatar_thumbnail' => $wpupa_thumbnail,
-                    'message'          => $message,
-                    'class'            => $class,
+                    'message'          => esc_attr( $message ),
+                    'class'            => esc_attr( $class ),
                 )
             );
         else :
             $message = __( 'Permission Denied', 'wp-user-profile-avatar' );
             $class   = 'wp-user-profile-avatar-errors';
-            echo json_encode(
+            echo wp_json_encode(
                 array(
-                    'message' => $message,
-                    'class'   => $class,
+                    'message' => esc_attr( $message ),
+                    'class'   => esc_attr( $class ),
                 )
             );
         endif;
@@ -389,7 +391,7 @@ class WPUPA_Shortcodes {
     public function undo_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-        parse_str( $_POST['form_data'], $form_data );
+        parse_str( sanitize_text_field($_POST['form_data']), $form_data );
 
         // sanitize each of the values of form data
         $wpupa_url         = esc_url_raw( $form_data['wpupa-url'] );
@@ -410,21 +412,21 @@ class WPUPA_Shortcodes {
             $message = __( 'Successfully Undo Avatar', 'wp-user-profile-avatar' );
             $class   = 'wp-user-profile-avatar-success';
 
-            echo json_encode(
+            echo wp_json_encode(
                 array(
                     'avatar_original'  => $wpupa_original,
                     'avatar_thumbnail' => $wpupa_thumbnail,
-                    'message'          => $message,
-                    'class'            => $class,
+                    'message'          => esc_attr( $message ),
+                    'class'            => esc_attr( $class ),
                 )
             );
         else :
             $message = __( 'Permission Denied', 'wp-user-profile-avatar' );
             $class   = 'wp-user-profile-avatar-errors';
-            echo json_encode(
+            echo wp_json_encode(
                 array(
-                    'message' => $message,
-                    'class'   => $class,
+                    'message' => esc_attr( $message ),
+                    'class'   => esc_attr( $class ),
                 )
             );
         endif;
