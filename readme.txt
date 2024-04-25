@@ -321,7 +321,9 @@ You will need to place below code in each area of your theme where you wish to a
 
 11. After removing uploaded avatar, show message successfully removed avatar.
 
-
+== Credits ==
+1.WP Event Manager wants to give credit to GoogleAPIs as we are using GoogleAPIs to support users using their Google+ profile links on our plugin.
+2.  WP Event Manager wants to give credit to Gravatar as we are using [Gravatar](https://gravatar.com/) to support users using their Gravatar profile links on our plugin. Privacy policy page of [Gravatar](http://automattic.com/privacy/).
 
 == Changelog ==
 
