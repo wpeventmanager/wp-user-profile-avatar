@@ -229,10 +229,10 @@ class WPUPA_Shortcodes {
     public function update_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-        parse_str( sanitize_text_field( $_POST['form_data'] ), $form_data );
+        parse_str(  $_POST['form_data'] ), $form_data );
 
         // sanitize each of the values of form data
-        $form_wpupa_url         = esc_url_raw( $form_data['wpupa-url'] );
+        $form_wpupa_url         = sanitize_url( $form_data['wpupa-url'] );
         $form_wpupaattachmentid = absint( $form_data['wpupaattachmentid'] );
         $user_id                = absint( $form_data['user_id'] );
         $current_user_id        = get_current_user_id();
