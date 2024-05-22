@@ -21,7 +21,7 @@ class WPUPA_Shortcodes {
 
         add_action( 'wp_ajax_undo_user_avatar', array( $this, 'undo_user_avatar' ) );
 
-        add_filter( 'get_avatar_url', array( $this, 'get_user_avatar_url' ), 10, 3 );
+        add_filter( 'get_avatar_url', array( $this, 'wpupa_get_user_avatar_url' ), 10, 3 );
     }
 
     /**
@@ -137,10 +137,10 @@ class WPUPA_Shortcodes {
         }
 
         ob_start();
-            $image_url = esc_url( get_wpupa_url( $current_user_id, array( 'size' => esc_attr( $size ) ) ) );
+            $image_url = esc_url( wpupa_get_url( $current_user_id, array( 'size' => esc_attr( $size ) ) ) );
         if ( $link == 'image' ) {
             // Get image src
-            $link = get_wpupa_url( $current_user_id, array( 'size' => 'original' ) );
+            $link = wpupa_get_url( $current_user_id, array( 'size' => 'original' ) );
         } elseif ( $link == 'attachment' ) {
             // Get attachment URL
             $link = get_attachment_link( get_the_author_meta( $wpdb->get_blog_prefix( esc_attr( $blog_id ) ) . 'user_avatar', esc_attr( $user_id ) ) );
@@ -207,8 +207,8 @@ class WPUPA_Shortcodes {
 
         wp_enqueue_script( 'wp-user-profile-avatar-frontend-avatar' );
 
-        $wpupa_original  = esc_url( get_wpupa_url( $user_id, array( 'size' => 'original' ) ) );
-        $wpupa_thumbnail = esc_url( get_wpupa_url( $user_id, array( 'size' => 'thumbnail' ) ) );
+        $wpupa_original  = esc_url( wpupa_get_url( $user_id, array( 'size' => 'original' ) ) );
+        $wpupa_thumbnail = esc_url( wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) ) );
 
         $wpupaattachmentid = esc_attr( get_user_meta( $user_id, '_wpupaattachmentid', true ) );
         $wpupa_url         = esc_url( get_user_meta( $user_id, '_wpupa_url', true ) );
@@ -297,8 +297,8 @@ class WPUPA_Shortcodes {
                 $message = __('Error! Select Image', 'wp-user-profile-avatar');
                 $class = 'wp-user-profile-avatar-error';
             } else {*/
-                $wpupa_original  = get_wpupa_url( $user_id, array( 'size' => 'original' ) );
-                $wpupa_thumbnail = get_wpupa_url( $user_id, array( 'size' => 'thumbnail' ) );
+                $wpupa_original  = wpupa_get_url( $user_id, array( 'size' => 'original' ) );
+                $wpupa_thumbnail = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
                 $message         = __( 'Successfully Updated Avatar', 'wp-user-profile-avatar' );
                 $class           = 'wp-user-profile-avatar-success';
             /*}*/
@@ -353,8 +353,8 @@ class WPUPA_Shortcodes {
                 wp_delete_attachment( $wpupaattachmentid, true );
             }
 
-            $wpupa_original  = get_wpupa_url( $user_id, array( 'size' => 'original' ) );
-            $wpupa_thumbnail = get_wpupa_url( $user_id, array( 'size' => 'thumbnail' ) );
+            $wpupa_original  = wpupa_get_url( $user_id, array( 'size' => 'original' ) );
+            $wpupa_thumbnail = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
 
             $message = __( 'Successfully Removed Avatar', 'wp-user-profile-avatar' );
             $class   = 'wp-user-profile-avatar-success';
@@ -406,8 +406,8 @@ class WPUPA_Shortcodes {
                 update_user_meta( $user_id, '_wpupa_default', '' );
             }
 
-            $wpupa_original  = get_wpupa_url( $user_id, array( 'size' => 'original' ) );
-            $wpupa_thumbnail = get_wpupa_url( $user_id, array( 'size' => 'thumbnail' ) );
+            $wpupa_original  = wpupa_get_url( $user_id, array( 'size' => 'original' ) );
+            $wpupa_thumbnail = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
 
             $message = __( 'Successfully Undo Avatar', 'wp-user-profile-avatar' );
             $class   = 'wp-user-profile-avatar-success';
@@ -452,14 +452,14 @@ class WPUPA_Shortcodes {
     }
 
     /**
-     * get_user_avatar_url function.
+     * wpupa_get_user_avatar_url function.
      *
      * @access public
      * @param $url, $id_or_email, $args
      * @return
      * @since 1.0
      */
-    public function get_user_avatar_url( $url, $id_or_email, $args ) {
+    public function wpupa_get_user_avatar_url( $url, $id_or_email, $args ) {
 
         $wpupa_disable_gravatar = get_option( 'wpupa_disable_gravatar' );
 
@@ -490,16 +490,16 @@ class WPUPA_Shortcodes {
         // First checking custom avatar.
         if ( get_current_user_id() == $user_id || is_admin() ) {
             if ( check_wpupa_url( $user_id ) ) {
-                $url = get_wpupa_url( $user_id, array( 'size' => 'thumbnail' ) );
+                $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
             } elseif ( $wpupa_disable_gravatar ) {
-                $url = get_wpupa_default_avatar_url( array( 'size' => 'thumbnail' ) );
+                $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
             } else {
                 $has_valid_url = check_wpupa_gravatar( $id_or_email );
                 if ( ! $has_valid_url ) {
-                    $url = get_wpupa_default_avatar_url( array( 'size' => 'thumbnail' ) );
+                    $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
                 } else {
                     if ( $wpupa_default != 'wp_user_profile_avatar' && ! empty( $user_id ) ) {
-                        $url = get_wpupa_url( $user_id, array( 'size' => 'thumbnail' ) );
+                        $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
                     }
                 }
             }

@@ -61,9 +61,9 @@ class WPUPA_Admin {
             'dashicons-admin-users'
         );
         if ( function_exists( 'add_submenu_page' ) ) {
-            add_submenu_page( 'wp-user-profile-avatar', __( 'WP Username Change', 'wp-user-profile-avatar' ), __( 'WP Username Change ', 'wp-user-profile-avatar' ), 'manage_options', 'WP_Username_change', 'Wp_username_edit' );
-            add_submenu_page( null, '', '', 'manage_options', 'Wp_username_update', 'Wp_user_update' );
-            add_submenu_page( 'wp-user-profile-avatar', 'WP Avatar User Role Settings', 'WP Avatar User Role Settings', 'activate_plugins', 'avatar-social-picture', 'wp_user_admin' );
+            add_submenu_page( 'wp-user-profile-avatar', __( 'WP Username Change', 'wp-user-profile-avatar' ), __( 'WP Username Change ', 'wp-user-profile-avatar' ), 'manage_options', 'wpupa_username_change', 'wpupa_username_edit' );
+            add_submenu_page( null, '', '', 'manage_options', 'wpupa_username_update', 'wpupa_user_update' );
+            add_submenu_page( 'wp-user-profile-avatar', 'WP Avatar User Role Settings', 'WP Avatar User Role Settings', 'activate_plugins', 'avatar-social-picture', 'wpupa_user_admin' );
             add_submenu_page( 'wp-user-profile-avatar', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', array( $this, 'comments_settings_page' ) );
             add_submenu_page( 'wp-user-profile-avatar', 'Delete Comments', 'Delete Comments', 'manage_options', 'disable_comments_tools', array( $this, 'comments_tools_page' ) );
         }
@@ -137,8 +137,8 @@ class WPUPA_Admin {
 
         $user_id = get_current_user_id();
 
-        $wpupa_original  = get_wpupa_url( $user->ID, array( 'size' => 'original' ) );
-        $wpupa_thumbnail = get_wpupa_url( $user->ID, array( 'size' => 'thumbnail' ) );
+        $wpupa_original  = wpupa_get_url( $user->ID, array( 'size' => 'original' ) );
+        $wpupa_thumbnail = wpupa_get_url( $user->ID, array( 'size' => 'thumbnail' ) );
 
         $wpupaattachmentid = get_user_meta( $user->ID, '_wpupa_attachment_id', true );
         $wpupa_url         = get_user_meta( $user->ID, '_wpupa_url', true );

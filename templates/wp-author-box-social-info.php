@@ -25,14 +25,14 @@ function add_user_social_contact_info( $user_contact ) {
 
 add_filter( 'user_contactmethods', 'add_user_social_contact_info' );
 
-function wp_fontawesome_styles() {
+function wpupa_fontawesome_styles() {
         wp_register_style( 'fontawesome', WPUPA_PLUGIN_URL . '/assets/lib/fontawesome/all.css', '', '4.4.0', 'all' );
         wp_enqueue_style( 'fontawesome' );
 }
 
-add_action( 'wp_enqueue_scripts', 'wp_fontawesome_styles' );
+add_action( 'wp_enqueue_scripts', 'wpupa_fontawesome_styles' );
 
-function wp_author_social_info_box( $content ) {
+function wpupa_author_social_info_box( $content ) {
 
         global $post;
 
@@ -193,5 +193,5 @@ function wp_author_social_info_box( $content ) {
         return $content;
 }
 
-add_action( 'the_content', 'wp_author_social_info_box' );
+add_action( 'the_content', 'wpupa_author_social_info_box' );
 remove_filter( 'pre_user_description', 'wp_filter_kses' );

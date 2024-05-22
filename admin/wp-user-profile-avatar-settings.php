@@ -40,7 +40,7 @@ class WPUPA_Settings {
         $wpupa_file_size        = get_option( 'wpupa_file_size' );
         $wpupa_default          = get_option( 'wpupa_default' );
         $wpupa_attachment_id    = get_option( 'wpupa_attachment_id' );
-        $wpupa_attachment_url   = get_wpupa_default_avatar_url( array( 'size' => 'admin' ) );
+        $wpupa_attachment_url   = wpupa_get_default_avatar_url( array( 'size' => 'admin' ) );
         $wpupa_size             = get_option( 'wpupa_size' );
         $avatar_size            = get_option( 'avatar_size' );
         $wpupa_hide_post_option = get_option( 'wpupa_hide_post_option' );
@@ -96,7 +96,7 @@ class WPUPA_Settings {
                                     <td>
                                         <fieldset>
                                             <legend class="screen-reader-text"><?php esc_html_e( 'Avatar Rating', 'wp-user-profile-avatar' ); ?></legend>
-                                            <?php foreach ( get_wpupa_rating() as $name => $rating ) : ?>
+                                            <?php foreach ( wpupa_get_rating() as $name => $rating ) : ?>
                                                 <?php $selected = ( $wpupa_rating == $name ) ? 'checked="checked"' : ''; ?>
                                                 <label><input type="radio" name="wpupa_rating" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> <?php echo esc_attr( $rating ); ?></label><br />
                                             <?php endforeach; ?>
@@ -110,7 +110,7 @@ class WPUPA_Settings {
                                     </th>
                                     <td>
                                         <select id="wpupa_file_size" name="wpupa_file_size">
-                                            <?php foreach ( get_wpupa_file_size() as $name => $size ) { ?>
+                                            <?php foreach ( wpupa_get_file_size() as $name => $size ) { ?>
                                                 <?php $selected = ( $wpupa_file_size == $name ) ? 'selected="selected"' : ''; ?>
                                                 <option value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /><?php echo esc_attr( $name == 1024 ? '1GB' : $size ); ?></option>
                                             <?php } ?>
@@ -125,7 +125,7 @@ class WPUPA_Settings {
                                         <select id="avatar_size" name="avatar_size">
                                             <option value=""><?php echo esc_html_e( 'Select Avatar Size', 'wp-user-profile-avatar' ); ?></option>
                                             <?php
-                                            foreach ( get_wpupa_image_sizes() as $name => $avarat_key ) {
+                                            foreach ( wpupa_get_image_sizes() as $name => $avarat_key ) {
 
                                                 ?>
                                                 <?php
@@ -180,9 +180,9 @@ class WPUPA_Settings {
 
                                             <?php
                                             if ( empty( $wpupa_disable_gravatar ) ) :
-                                                foreach ( get_wpupa_default_avatar() as $name => $label ) :
+                                                foreach ( wpupa_get_default_avatar() as $name => $label ) :
                                                     $avatar     = get_avatar( '', 32, $name );
-                                                    $avatar_url = get_wpupa_selected_avatar_url( $name );
+                                                    $avatar_url = wpupa_get_selected_avatar_url( $name );
 
                                                     $selected = ( $wpupa_default == $name ) ? 'checked="checked"' : '';
                                                     ?>

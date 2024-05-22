@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <?php
 
-function wp_avatar_social_profile_picture() {
+function wpupa_avatar_social_profile_picture() {
     global $pagenow;
 
     if ( 'profile.php' == $pagenow || 'user-edit.php' == $pagenow ) {
@@ -18,15 +18,15 @@ function wp_avatar_social_profile_picture() {
     }
 }
 
-add_action( 'wp_enqueue_scripts', 'wp_avatar_social_profile_picture' );
+add_action( 'wp_enqueue_scripts', 'wpupa_avatar_social_profile_picture' );
 
-function wp_avatar_users_menu() {
-    add_users_page( 'Avatar Social Picture', 'Avatar Social Picture', 'activate_plugins', 'avatar-social-picture', 'wp_user_admin' );
+function wpupa_avatar_users_menu() {
+    add_users_page( 'Avatar Social Picture', 'Avatar Social Picture', 'activate_plugins', 'avatar-social-picture', 'wpupa_user_admin' );
 }
 
-// add_action('admin_menu', 'wp_avatar_users_menu');
+// add_action('admin_menu', 'wpupa_avatar_users_menu');
 
-function wp_user_admin() {
+function wpupa_user_admin() {
     $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture', 'read' )
     ?>
     <form id="wp-avatar-settings" method="post" action="">
@@ -63,7 +63,7 @@ if ( isset( $_POST['wp-avatar-add-social-picture'] ) ) {
     update_option( 'wp_avatar_add_social_picture', sanitize_text_field( $_POST['wp-avatar-add-social-picture'] ) );
 }
 
-function wp_user_add_extra_profile_picture_fields( $socialprofile ) {
+function wpupa_user_add_extra_profile_picture_fields( $socialprofile ) {
     $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture', 'read' );
 
     if ( ! current_user_can( $wp_avatar_add_social_picture ) ) {
@@ -120,10 +120,10 @@ function wp_user_add_extra_profile_picture_fields( $socialprofile ) {
     <?php
 }
 
-add_action( 'show_user_profile', 'wp_user_add_extra_profile_picture_fields' );
-add_action( 'edit_user_profile', 'wp_user_add_extra_profile_picture_fields' );
+add_action( 'show_user_profile', 'wpupa_user_add_extra_profile_picture_fields' );
+add_action( 'edit_user_profile', 'wpupa_user_add_extra_profile_picture_fields' );
 
-function wp_avatar_save_extra_profile_fields( $user_id ) {
+function wpupa_avatar_save_extra_profile_fields( $user_id ) {
     $current_user_id = get_current_user_id();    
 
     if ( $current_user_id == $user_id ) :
@@ -136,10 +136,10 @@ function wp_avatar_save_extra_profile_fields( $user_id ) {
     endif;
 }
 
-add_action( 'personal_options_update', 'wp_avatar_save_extra_profile_fields' );
-add_action( 'edit_user_profile_update', 'wp_avatar_save_extra_profile_fields' );
+add_action( 'personal_options_update', 'wpupa_avatar_save_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'wpupa_avatar_save_extra_profile_fields' );
 
-function wp_user_social_profile_cache_clear() {
+function wpupa_user_social_profile_cache_clear() {
     $user_id          = sanitize_text_field( $_POST['user_id'] );
     $delete_transient = delete_transient( "wp_social_avatar_gplus_{$user_id}" );
 
@@ -147,10 +147,10 @@ function wp_user_social_profile_cache_clear() {
     die();
 }
 
-add_action( 'wp_ajax_wp_social_avatar_gplus_clear_cache', 'wp_user_social_profile_cache_clear' );
-add_action( 'wp_ajax_nopriv_wp_social_avatar_gplus_clear_cache', 'wp_user_social_profile_cache_clear' );
+add_action( 'wp_ajax_wp_social_avatar_gplus_clear_cache', 'wpupa_user_social_profile_cache_clear' );
+add_action( 'wp_ajax_nopriv_wp_social_avatar_gplus_clear_cache', 'wpupa_user_social_profile_cache_clear' );
 
-function wp_user_fb_profile( $avatar, $id_or_email, $size, $default ) {
+function wpupa_user_fb_profile( $avatar, $id_or_email, $size, $default ) {
 
     if ( is_int( $id_or_email ) ) {
         $user_id = $id_or_email;
@@ -191,9 +191,9 @@ function wp_user_fb_profile( $avatar, $id_or_email, $size, $default ) {
     }
 }
 
-add_filter( 'get_avatar', 'wp_user_fb_profile', 10, 5 );
+add_filter( 'get_avatar', 'wpupa_user_fb_profile', 10, 5 );
 
-function wp_user_gplus_profile( $avatar, $id_or_email, $size, $default ) {
+function wpupa_user_gplus_profile( $avatar, $id_or_email, $size, $default ) {
 
     if ( is_int( $id_or_email ) ) {
         $user_id = $id_or_email;
@@ -248,4 +248,4 @@ function wp_user_gplus_profile( $avatar, $id_or_email, $size, $default ) {
     }
 }
 
-add_filter( 'get_avatar', 'wp_user_gplus_profile', 10, 5 );
+add_filter( 'get_avatar', 'wpupa_user_gplus_profile', 10, 5 );

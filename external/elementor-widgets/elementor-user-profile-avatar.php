@@ -122,7 +122,7 @@ class Elementor_WPUPA extends Widget_Base {
                 'label'   => esc_html__( 'Avatar Size', 'wp-user-profile-avatar' ),
                 'type'    => Controls_Manager::SELECT,
                 'default' => 'thumbnail',
-                'options' => get_wpupa_image_sizes(),
+                'options' => wpupa_get_image_sizes(),
             )
         );
 
@@ -132,7 +132,7 @@ class Elementor_WPUPA extends Widget_Base {
                 'label'   => esc_html__( 'Avatar Alignment', 'wp-user-profile-avatar' ),
                 'type'    => Controls_Manager::SELECT,
                 'default' => 'aligncenter',
-                'options' => get_wpupa_image_alignment(),
+                'options' => wpupa_get_image_alignment(),
             )
         );
 
@@ -142,7 +142,7 @@ class Elementor_WPUPA extends Widget_Base {
                 'label'   => esc_html__( 'Avatar Link To', 'wp-user-profile-avatar' ),
                 'type'    => Controls_Manager::SELECT,
                 'default' => 'none',
-                'options' => get_wpupa_image_link_to(),
+                'options' => wpupa_get_image_link_to(),
             )
         );
 

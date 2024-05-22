@@ -32,7 +32,7 @@
                                 <select id="wp-image-size" name="wp-image-size" class="regular-text">
                                     <option value="wpupavatar-default"><?php esc_html_e( 'Default', 'wp-user-profile-avatar' ); ?>
                                         <?php
-                                        foreach ( get_wpupa_image_sizes() as $name => $label ) {
+                                        foreach ( wpupa_get_image_sizes() as $name => $label ) {
                                             echo '<option value="' . esc_attr( $name ) . '">' . esc_attr( $label ) . '</option>';
                                         }
                                         ?>
@@ -46,7 +46,7 @@
                                 <select id="wp-image-alignment" name="wp-image-alignment" class="regular-text">
                                     <option value=""><?php esc_html_e( 'None', 'wp-user-profile-avatar' ); ?>
                                         <?php
-                                        foreach ( get_wpupa_image_alignment() as $name => $label ) {
+                                        foreach ( wpupa_get_image_alignment() as $name => $label ) {
                                             echo '<option value="' . esc_attr( $name ) . '">' . esc_attr( $label ) . '</option>';
                                         }
                                         ?>
@@ -58,7 +58,7 @@
                             <td>
                                 <select id="wp-image-link-to" name="wp-image-link-to" class="regular-text">
                                         <?php
-                                        foreach ( get_wpupa_image_link_to() as $name => $label ) {
+                                        foreach ( wpupa_get_image_link_to() as $name => $label ) {
                                             echo '<option value="' . esc_attr( $name ) . '">' . esc_attr( $label ) . '</option>';
                                         }
                                         ?>

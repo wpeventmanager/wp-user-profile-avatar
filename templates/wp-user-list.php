@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use \WpUserNameChange\WpUserNameChange;
 
-function Wp_username_edit() {
+function wpupa_username_edit() {
     ?>
     <div class="wrap userupdater">
         <p><h1><?php esc_html_e( 'Wp Users List', 'wp-user-profile-avatar' ); ?></h1></p>
@@ -36,7 +36,7 @@ function Wp_username_edit() {
                         <td><?php echo esc_attr( $user->ID ); ?></td>
                         <td><?php echo esc_attr( $user->user_login ); ?></td>
                         <td><?php echo implode( ', ', esc_attr( $user_info->roles ) ); ?></td>
-                        <td><a href="<?php echo esc_url( admin_url( 'admin.php?page=Wp_username_update&update=' . $user->ID ) ); ?>">update</a></td>
+                        <td><a href="<?php echo esc_url( admin_url( 'admin.php?page=wpupa_username_update&update=' . $user->ID ) ); ?>">update</a></td>
                     </tr>
                 <?php } ?>
             </tbody>
@@ -48,7 +48,7 @@ function Wp_username_edit() {
     <?php
 }
 
-function Wp_user_update() {
+function wpupa_user_update() {
     if ( isset( $_REQUEST['update'] ) ) {
         $wpuser = new WpUserNameChange();
         global $wpdb;
@@ -100,7 +100,7 @@ function Wp_user_update() {
     } else {
         ?>
         <script>
-            window.location = '<?php echo esc_url( admin_url( 'admin.php?page=WP_Username_change' ) ); ?>'
+            window.location = '<?php echo esc_url( admin_url( 'admin.php?page=wpupa_username_change' ) ); ?>'
         </script>
         <?php
     }

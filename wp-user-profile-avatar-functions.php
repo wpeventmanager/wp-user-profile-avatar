@@ -1,15 +1,15 @@
 <?php
-if ( ! function_exists( 'get_wpupa_rating' ) ) {
+if ( ! function_exists( 'wpupa_get_rating' ) ) {
 
     /**
-     * get_wpupa_rating function.
+     * wpupa_get_rating function.
      *
      * @access public
      * @param
      * @return array
      * @since 1.0
      */
-    function get_wpupa_rating() {
+    function wpupa_get_rating() {
         return apply_filters(
             'wp_user_avatar_rating',
             array(
@@ -22,17 +22,17 @@ if ( ! function_exists( 'get_wpupa_rating' ) ) {
     }
 }
 
-if ( ! function_exists( 'get_wpupa_file_size' ) ) {
+if ( ! function_exists( 'wpupa_get_file_size' ) ) {
 
     /**
-     * get_wpupa_file_size function.
+     * wpupa_get_file_size function.
      *
      * @access public
      * @param
      * @return array
      * @since 1.0
      */
-    function get_wpupa_file_size() {
+    function wpupa_get_file_size() {
         return apply_filters(
             'wp_user_avatar_file_size',
             array(
@@ -52,17 +52,17 @@ if ( ! function_exists( 'get_wpupa_file_size' ) ) {
     }
 }
 
-if ( ! function_exists( 'get_wpupa_default_avatar' ) ) {
+if ( ! function_exists( 'wpupa_get_default_avatar' ) ) {
 
     /**
-     * get_wpupa_default_avatar function.
+     * wpupa_get_default_avatar function.
      *
      * @access public
      * @param
      * @return array
      * @since 1.0
      */
-    function get_wpupa_default_avatar() {
+    function wpupa_get_default_avatar() {
         return apply_filters(
             'wp_user_default_avatar',
             array(
@@ -78,17 +78,17 @@ if ( ! function_exists( 'get_wpupa_default_avatar' ) ) {
     }
 }
 
-if ( ! function_exists( 'get_wpupa_selected_avatar_url' ) ) {
+if ( ! function_exists( 'wpupa_get_selected_avatar_url' ) ) {
 
     /**
-     * get_wpupa_selected_avatar_url function used to retrive avatr image based on avatar.
+     * wpupa_get_selected_avatar_url function used to retrive avatr image based on avatar.
      *
      * @access public
      * @param string
      * @return string
      * @since 1.0.2
      */
-    function get_wpupa_selected_avatar_url( $name ) {
+    function wpupa_get_selected_avatar_url( $name ) {
         $avatar_urls = apply_filters(
             'wp_user_default_avatar_urls',
             array(
@@ -106,17 +106,17 @@ if ( ! function_exists( 'get_wpupa_selected_avatar_url' ) ) {
     }
 }
 
-if ( ! function_exists( 'get_wpupa_default_avatar_url' ) ) {
+if ( ! function_exists( 'wpupa_get_default_avatar_url' ) ) {
 
     /**
-     * get_wpupa_default_avatar_url function.
+     * wpupa_get_default_avatar_url function.
      *
      * @access public
      * @param $args
      * @return string
      * @since 1.0
      */
-    function get_wpupa_default_avatar_url( $args = array() ) {
+    function wpupa_get_default_avatar_url( $args = array() ) {
 
         $size          = ! empty( $args['size'] ) ? $args['size'] : 'thumbnail';
         $user_id       = ! empty( $args['user_id'] ) ? $args['user_id'] : '';
@@ -169,17 +169,17 @@ if ( ! function_exists( 'get_wpupa_default_avatar_url' ) ) {
     }
 }
 
-if ( ! function_exists( 'get_wpupa_url' ) ) {
+if ( ! function_exists( 'wpupa_get_url' ) ) {
 
     /**
-     * get_wpupa_url function.
+     * wpupa_get_url function.
      *
      * @access public
      * @param $user_id, $args
      * @return string
      * @since 1.0
      */
-    function get_wpupa_url( $user_id, $args = array() ) {
+    function wpupa_get_url( $user_id, $args = array() ) {
         $size = ! empty( $args['size'] ) ? $args['size'] : 'thumbnail';
 
         $wpupa_url = esc_url( get_user_meta( $user_id, '_wpupa_url', true ) );
@@ -205,7 +205,7 @@ if ( ! function_exists( 'get_wpupa_url' ) ) {
                     return $image_attributes[0];
                 }
             } else {
-                return get_wpupa_default_avatar_url(
+                return wpupa_get_default_avatar_url(
                     array(
                         'user_id' => $user_id,
                         'size'    => $size,
@@ -213,7 +213,7 @@ if ( ! function_exists( 'get_wpupa_url' ) ) {
                 );
             }
         } else {
-            return get_wpupa_default_avatar_url(
+            return wpupa_get_default_avatar_url(
                 array(
                     'user_id' => $user_id,
                     'size'    => $size,
@@ -341,17 +341,17 @@ if ( ! function_exists( 'check_wpupa_gravatar' ) ) {
     }
 }
 
-if ( ! function_exists( 'get_wpupa_image_size' ) ) {
+if ( ! function_exists( 'wpupa_get_image_sizes' ) ) {
 
     /**
-     * get_wpupa_image_size function.
+     * wpupa_get_image_sizes function.
      *
      * @access public
      * @param
      * @return array
      * @since 1.0
      */
-    function get_wpupa_image_sizes() {
+    function wpupa_get_image_sizes() {
         return apply_filters(
             'wp_image_sizes',
             array(
@@ -364,17 +364,17 @@ if ( ! function_exists( 'get_wpupa_image_size' ) ) {
     }
 }
 
-if ( ! function_exists( 'get_wpupa_image_alignment' ) ) {
+if ( ! function_exists( 'wpupa_get_image_alignment' ) ) {
 
     /**
-     * get_wpupa_image_alignment function.
+     * wpupa_get_image_alignment function.
      *
      * @access public
      * @param
      * @return array
      * @since 1.0
      */
-    function get_wpupa_image_alignment() {
+    function wpupa_get_image_alignment() {
         return apply_filters(
             'wp-image-alignment',
             array(
@@ -386,17 +386,17 @@ if ( ! function_exists( 'get_wpupa_image_alignment' ) ) {
     }
 }
 
-if ( ! function_exists( 'get_wpupa_image_link_to' ) ) {
+if ( ! function_exists( 'wpupa_get_image_link_to' ) ) {
 
     /**
-     * get_wpupa_image_link_to function.
+     * wpupa_get_image_link_to function.
      *
      * @access public
      * @param
      * @return array
      * @since 1.0
      */
-    function get_wpupa_image_link_to() {
+    function wpupa_get_image_link_to() {
         return apply_filters(
             'wp-image-link-to',
             array(

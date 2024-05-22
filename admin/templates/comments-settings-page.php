@@ -14,7 +14,7 @@ function wpupa_update_options( $options ) {
 $typeargs            = array( 'public' => true );
 $options             = get_option( 'disable_comments_options', array() );
 $modified_types      = array();
-$disabled_post_types = get_disabled_post_types();
+$disabled_post_types = wpupa_get_disabled_post_types();
 
 if ( ! empty( $disabled_post_types ) ) {
     foreach ( $disabled_post_types as $type ) {

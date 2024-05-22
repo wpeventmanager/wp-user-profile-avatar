@@ -19,7 +19,7 @@ function init_filters() {
 function init_wploaded_filters() {
     $options             = get_option( 'disable_comments_options', array() );
     $modified_types      = array();
-    $disabled_post_types = get_disabled_post_types();
+    $disabled_post_types = wpupa_get_disabled_post_types();
     if ( ! empty( $disabled_post_types ) ) {
         foreach ( $disabled_post_types as $type ) {
             if ( post_type_supports( $type, 'comments' ) ) {
@@ -72,7 +72,7 @@ function filter_admin_menu() {
 }
 
 function is_post_type_disabled( $type ) {
-    return in_array( $type, get_disabled_post_types() );
+    return in_array( $type, wpupa_get_disabled_post_types() );
 }
 
 /**
@@ -112,7 +112,7 @@ function filter_admin_bar() {
 /**
  * Get an array of disabled post type.
  */
-function get_disabled_post_types() {
+function wpupa_get_disabled_post_types() {
     $options = get_option( 'disable_comments_options', false );
     $types   = isset( $options['disabled_post_types'] ) ? $options['disabled_post_types'] : '';
     // Not all extra_post_types might be registered on this particular site.

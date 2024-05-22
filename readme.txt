@@ -87,7 +87,7 @@ To retrieve the user avatar/photo on the front-end use one of the following appr
 ?>`
 
 
-*2. Using the function get_wpupa_url.*
+*2. Using the function wpupa_get_url.*
 
 You will need to place below code in each area of your theme where you wish to add and retrieve your theme’s custom avatar image. 
 
@@ -106,8 +106,8 @@ You will need to place below code in each area of your theme where you wish to a
     $imgURL='';
 
     // Get the image URL using the author ID and image size params
-    if (function_exists('get_wpupa_url'))  
-        $imgURL = get_wpupa_url($authorID, ['size' => $size]);
+    if (function_exists('wpupa_get_url'))  
+        $imgURL = wpupa_get_url($authorID, ['size' => $size]);
 
     // display image on the page
     echo '<img src="'. $imgURL .'" alt="'. $authorname .'">';
@@ -127,8 +127,8 @@ You will need to place below code in each area of your theme where you wish to a
     $imgURL='';
 
     // Get the image URL using the author ID and image size params
-    if (function_exists('get_wpupa_url'))  
-        $imgURL = get_wpupa_url($user->id, ['size' => $size]);
+    if (function_exists('wpupa_get_url'))  
+        $imgURL = wpupa_get_url($user->id, ['size' => $size]);
 
     // display image on the page
     echo '<img src="'. $imgURL .'" alt="'. $user->display_name .'">';
@@ -246,7 +246,7 @@ You can show user profile avatar two ways.
 
 
 
-*2. Using the function get_wpupa_url.*
+*2. Using the function wpupa_get_url.*
 
 You will need to place below code in each area of your theme where you wish to add and retrieve your theme’s custom avatar image. 
 
@@ -263,8 +263,8 @@ You will need to place below code in each area of your theme where you wish to a
     $imgURL='';
 
     // Get the image URL using the author ID and image size params
-    if (function_exists('get_wpupa_url'))  
-        $imgURL = get_wpupa_url($authorID, ['size' => $size]);
+    if (function_exists('wpupa_get_url'))  
+        $imgURL = wpupa_get_url($authorID, ['size' => $size]);
 
     // display image on the page
     echo '<img src="'. $imgURL .'" alt="'. $authorname .'">';
@@ -280,8 +280,8 @@ You will need to place below code in each area of your theme where you wish to a
     $imgURL='';
 
     // Get the image URL using the author ID and image size params
-    if (function_exists('get_wpupa_url'))  
-        $imgURL = get_wpupa_url($user->id, ['size' => $size]);
+    if (function_exists('wpupa_get_url'))  
+        $imgURL = wpupa_get_url($user->id, ['size' => $size]);
 
     // display image on the page
     echo '<img src="'. $imgURL .'" alt="'. $user->display_name .'">';
