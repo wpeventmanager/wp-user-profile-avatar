@@ -4,9 +4,9 @@ Contributors: wpeventmanager,ashokdudhat,hiteshmakvana
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=55FRYATTFLA5N
 Tags: avatar, user profile, gravatar,custom profile photo, custom profile picture, profile photo, profile picture, author image, author photo
 Requires at least: 5.8
-Tested up to: 6.5.2
+Tested up to: 6.5.4
 Stable tag: 1.0.3
-Requires PHP: 5.6
+Requires PHP: 8.0.2
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -327,7 +327,7 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
-= 1.0.3 [Mar 28th, 2024] =
+= 1.0.3 [June 11th, 2024] =
 
 Fixed: The security issue of the plugin has been resolved.
 Fixed: The issue of displaying a corrupted author image at the backend has been resolved.
