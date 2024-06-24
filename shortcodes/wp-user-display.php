@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
  * Class to define user details by using shortcode
  */
-
+#[AllowDynamicProperties]
 class WPUPA_User_Shortcodes {
 
     /**

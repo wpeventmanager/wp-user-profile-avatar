@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $Add_New_User = new Add_New_User();
 
+#[AllowDynamicProperties]
 class Add_New_User {
 
     public function admin_init() {

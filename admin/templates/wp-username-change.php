@@ -10,7 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+#[AllowDynamicProperties]
 class WpUserNameChange {
+    
+    public $db;
 
     public function __construct() {
         global $wpdb;

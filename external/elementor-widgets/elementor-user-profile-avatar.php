@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Elementor widget for meeting detail
  */
+#[AllowDynamicProperties]
 class Elementor_WPUPA extends Widget_Base {
 
     /**

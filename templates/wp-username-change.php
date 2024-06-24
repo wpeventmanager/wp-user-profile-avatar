@@ -9,7 +9,7 @@ namespace WpUserNameChange;
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-
+#[AllowDynamicProperties]
 class WpUserNameChange {
 
     public function __construct() {

@@ -24,6 +24,7 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
 /**
  * WP_User_Profile_Avatar class.
  */
+#[AllowDynamicProperties]
 class WP_User_Profile_Avatar {
 
     /**

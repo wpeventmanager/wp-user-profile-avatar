@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WPUPA_Admin class.
  */
+#[AllowDynamicProperties]
 class WPUPA_Admin {
 
     /**

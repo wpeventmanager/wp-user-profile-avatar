@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WPUPA_Install class.
  */
+#[AllowDynamicProperties]
 class WPUPA_Install {
 
     /**
