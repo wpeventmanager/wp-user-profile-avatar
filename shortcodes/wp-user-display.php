@@ -23,7 +23,16 @@ class WPUPA_User_Shortcodes {
      * @return
      * @since 1.0
      */
-    public function user_display() {
+    public function user_display( $atts ) {
+
+        $atts = shortcode_atts(
+			array(
+				'avatar_size' => '', 
+				'avatar_align' => 'left', 
+			),
+			$atts,
+			'user_display'
+		);
 
         $id = get_current_user_id();
 
@@ -34,6 +43,8 @@ class WPUPA_User_Shortcodes {
             'email'               => esc_html( get_the_author_meta( 'email', $id ) ),
             'sabox_social_links'  => get_the_author_meta( 'sabox_social_links', $id ),
             'sabox-profile-image' => esc_url( get_the_author_meta( 'sabox-profile-image', $id ) ),
+            'avatar_size'         => $atts['avatar_size'],
+			'avatar_align'        => esc_attr( $atts['avatar_align'] ),
         );
 
         ob_start();
