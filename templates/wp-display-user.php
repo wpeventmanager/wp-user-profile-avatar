@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 
-<div class="author-details">
+<div class="author-details" style="text-align: <?php echo esc_attr( $details['avatar_align'] ); ?>;">
     <p class="caption-text"><?php echo isset( $details['first_name'] ) ? esc_attr( $details['first_name'] ) : ''; ?></p>
     <p class="caption-text"><?php echo isset( $details['last_name'] ) ? esc_attr( $details['last_name'] ) : ''; ?></p>
     <p class="caption-text"><?php echo isset( $details['description'] ) ? esc_attr( $details['description'] ) : ''; ?></p>
@@ -21,9 +21,17 @@ if ( ! defined( 'ABSPATH' ) ) {
         }
     }
 
-    if ( '' != esc_attr( $details['sabox-profile-image'] ) ) {
+    $attachment = get_user_meta(get_current_user_id(),'_wpupa_attachment_id',true);
+	$image_source = wp_get_attachment_image_src($attachment);
+		
+    if($details['avatar_size'] != ''){
+        $size = $details['avatar_size'];
+        $image_source[1] = $size;
+    }	
+
+    //if ( '' != esc_attr( $details['sabox-profile-image'] ) ) {
         ?>
-        <img src="<?php echo esc_attr( $details['sabox-profile-image'] ); ?>" />
-    <?php } ?>
+        <img src="<?php echo $image_source[0]; ?>" width="<?php echo $image_source[1]; ?>" />
+    <?php //} ?>
 
 </div>
