@@ -27,6 +27,8 @@ class WPUPA_User_Shortcodes {
 
         $atts = shortcode_atts(
 			array(
+                'id' => '',
+                'email' => '',
 				'avatar_size' => '', 
 				'avatar_align' => 'left', 
 			),
@@ -34,7 +36,32 @@ class WPUPA_User_Shortcodes {
 			'user_display'
 		);
 
-        $id = get_current_user_id();
+        // Ensure either 'id' or 'email' is provided
+        if ( empty( $atts['id'] ) && empty( $atts['email'] ) ) {
+            return 'Error: Please provide either a user ID or email.';
+        }
+
+        // Determine user ID
+        if ( ! empty( $atts['id'] ) ) {
+            $id = intval( $atts['id'] );
+        } elseif ( ! empty( $atts['email'] ) ) {
+            $user = get_user_by( 'email', $atts['email'] );
+            $id = $user ? $user->ID : 0;
+        }
+
+        // If no user found, return an error message
+        if ( $id == 0 ) {
+            return 'Error: User not found.';
+        }
+
+        // Fetch user profile image
+        $attachment = get_user_meta( $id, '_wpupa_attachment_id', true );
+        $image_source = wp_get_attachment_image_src( $attachment );
+ 
+        if ( $details['avatar_size'] != '' && $image_source ) {
+            $size = $details['avatar_size'];
+            $image_source[1] = $size;
+        }
 
         $details = array(
             'first_name'          => esc_attr( get_the_author_meta( 'first_name', $id ) ),
