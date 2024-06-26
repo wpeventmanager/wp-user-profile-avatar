@@ -21,17 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
         }
     }
 
-    $attachment = get_user_meta(get_current_user_id(),'_wpupa_attachment_id',true);
-	$image_source = wp_get_attachment_image_src($attachment);
-		
-    if($details['avatar_size'] != ''){
-        $size = $details['avatar_size'];
-        $image_source[1] = $size;
-    }	
-
-    //if ( '' != esc_attr( $details['sabox-profile-image'] ) ) {
+    if ( isset( $image_source ) && $image_source ) {
         ?>
-        <img src="<?php echo $image_source[0]; ?>" width="<?php echo $image_source[1]; ?>" />
-    <?php //} ?>
+        <img src="<?php echo esc_url( $image_source[0] ); ?>" width="<?php echo esc_attr( $image_source[1] ); ?>" />
+        <?php
+    }
+    ?>
 
 </div>
