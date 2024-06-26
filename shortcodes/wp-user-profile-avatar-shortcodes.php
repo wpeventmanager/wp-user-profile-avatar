@@ -14,6 +14,7 @@ class WPUPA_Shortcodes {
         add_shortcode( 'user_display', array( $this, 'user_display' ) );
         add_shortcode( 'user_profile_avatar', array( $this, 'user_profile_avatar' ) );
         add_shortcode( 'user_profile_avatar_upload', array( $this, 'user_profile_avatar_upload' ) );
+        add_shortcode( 'all_user_avatars', array( $this, 'all_user_avatars' ) );
 
         add_action( 'wp_ajax_update_user_avatar', array( $this, 'update_user_avatar' ) );
 
@@ -103,6 +104,187 @@ class WPUPA_Shortcodes {
 
         return ob_get_clean();
     }
+
+    /**
+     * all_user_avatars function
+     *
+     * @access public
+     * @param $atts
+     * @return
+     *
+     */
+	public function all_user_avatars( $atts ) {
+		$atts = shortcode_atts( array(
+			'roles'				=> '',
+			'avatar_size'		=> 100,
+			'border_radius' 	=> 0,
+			'align' 			=> '',
+			'limit' 			=> '',
+			'max_bio_length'	=> -1,
+			'min_post_count'	=> 0,
+			'page_size' 		=> 10,
+			'order' 			=> 'ID',
+			'sort_direction'	=> 'asc',
+			'render_as_list'	=> 'false',
+			'hiddenusers' 		=> '',
+			'link_to_authorpage'=> '',
+			'user_link' 		=> '',
+			'show_name' 		=> '',
+			'show_biography' 	=> '',
+			'show_postcount' 	=> '',
+			'blogs' 			=> '', 
+		), $atts, 'all_user_avatars');
+		
+		$roles = !empty( $atts['roles'] ) ? array_map( 'trim', explode( ',', $atts['roles'] ) ) : array();
+
+		$hidden_users = !empty( $atts['hiddenusers'] ) ? array_map( 'trim', explode( ',', $atts['hiddenusers'] ) ) : array();
+
+		$order = !empty( $atts['order'] ) ? esc_attr( $atts['order'] ) : 'ID';
+		$sort_direction = in_array( strtolower( $atts['sort_direction'] ), array( 'desc', 'descending' ) ) ? 'DESC' : 'ASC';
+
+		$paged = max( 1, get_query_var( 'paged', 1 ) );
+		$offset = ( $paged - 1 ) * $atts['page_size'];
+
+		$user_avatars = array();
+
+		// Check if blogs attribute is specified for WPMU mode
+		if ( !empty( $atts['blogs'] ) && is_multisite() ) {
+			$blog_ids = array_map( 'trim', explode( ',', $atts['blogs'] ) );
+
+			foreach ( $blog_ids as $blog_id ) {
+				
+				switch_to_blog( $blog_id );
+
+				$args = array(
+					'role__in'		=> $roles,
+					'exclude' 		=> $hidden_users,
+					'fields' 		=> array( 'ID', 'display_name', 'description' ),
+					'number' 		=> $atts['limit'], 
+					'orderby' 		=> $order,
+					'order'			=> $sort_direction,
+					'count_total'	=> false,
+				);
+
+				$user_query = new WP_User_Query( $args );
+				$users = $user_query->get_results();
+				
+				if ( !empty( $atts['min_post_count'] ) ) {
+					$min_post_count = ( int ) $atts['min_post_count'];
+					if ( $min_post_count > 0 ) {
+						$users = array_filter( $users, function( $user ) use ( $min_post_count ) {
+							return count_user_posts( $user->ID ) >= $min_post_count;
+						});
+					}
+				}
+
+				foreach ( $users as $user ) {
+					$avatar_url = get_avatar_url( $user->ID, array( 'size' => $atts['avatar_size'] ) );
+					$user_data = array( 
+						'display_name' 	=> esc_html( $user->display_name ),
+						'avatar_url' 	=> esc_url( $avatar_url ),
+						'ID' 			=> $user->ID,
+					);
+
+					if ( !empty( $atts['show_name'] ) && $atts['show_name'] === 'true' ) {
+						$user_data['show_name'] = true;
+					}
+
+					if ( !empty( $atts['show_biography'] ) && $atts['show_biography'] === 'true' ) {
+						if ( $atts['max_bio_length'] > 0 ) {
+							
+							$user_data['biography'] = substr(get_the_author_meta( 'description', $user->ID ), 0, $atts['max_bio_length']);
+						} else {
+							$user_data['biography'] = get_the_author_meta( 'description', $user->ID );
+						}
+					}
+
+					if ( !empty($atts['show_postcount'] ) && $atts['show_postcount'] === 'true' ) {
+						$user_data['post_count'] = count_user_posts( $user->ID );
+					}
+
+					if ( !empty($atts['user_link'] ) ) {
+						$user_data['user_link'] = sanitize_key($atts['user_link']);
+					}
+					if ( ! empty( $atts['align'] ) ) {
+						$this->userlist->align = esc_attr( $atts['align'] );
+					}
+					
+					$user_avatars[] = $user_data;
+				}
+
+				// Restore the original blog context
+				restore_current_blog();
+			}
+		} else {
+			// No specific blogs provided
+			$args = array(
+				'role__in'	=> $roles,
+				'exclude'	=> $hidden_users,
+				'fields' 	=> array( 'ID', 'display_name', 'description' ),
+				'number' 	=> $atts['limit'], 
+				'orderby' 	=> $order,
+				'order' 	=> $sort_direction,
+				'count_total'=> false,
+			);
+
+			$user_query = new WP_User_Query( $args );
+			$users = $user_query->get_results();
+
+			
+			if ( !empty( $atts['min_post_count'] ) ) {
+				$min_post_count = ( int ) $atts['min_post_count'];
+				if ( $min_post_count > 0 ) {
+					$users = array_filter( $users, function( $user ) use ( $min_post_count ) {
+						return count_user_posts( $user->ID ) >= $min_post_count;
+					} );
+				}
+			}
+
+			$total_users = count( $users );
+			$total_pages = ceil( $total_users / $atts['page_size'] );
+			$users = array_slice( $users, $offset, $atts['page_size'] );
+
+			foreach ( $users as $user ) {
+				$avatar_url = get_avatar_url( $user->ID, array( 'size' => $atts['avatar_size'] ) );
+				$user_data = array(
+					'display_name'	=> esc_html( $user->display_name ),
+					'avatar_url'	=> esc_url( $avatar_url ),
+					'ID' 			=> $user->ID,
+				);
+
+				if ( !empty( $atts['show_name'] ) && $atts['show_name'] === 'true' ) {
+					$user_data['show_name'] = true;
+				}
+
+				if ( !empty( $atts['show_biography'] ) && $atts['show_biography'] === 'true' ) {
+					if ( $atts['max_bio_length'] > 0 ) {
+						
+						$user_data['biography'] = substr(get_the_author_meta( 'description', $user->ID ), 0, $atts['max_bio_length']);
+					} else {
+						$user_data['biography'] = get_the_author_meta( 'description', $user->ID );
+					}
+				}
+
+				if ( !empty($atts['show_postcount'] ) && $atts['show_postcount'] === 'true' ) {
+					$user_data['post_count'] = count_user_posts( $user->ID );
+				}
+
+				if ( !empty( $atts['user_link'] ) ) {
+					$user_data['user_link'] = sanitize_key( $atts['user_link'] );
+				}
+				
+				$user_avatars[] = $user_data;
+			}
+		}
+
+		ob_start();
+
+		include_once WPUPA_PLUGIN_DIR . '/templates/wp-display-user-avatar-list.php';
+
+		return ob_get_clean();
+	}
+
+
 
     /**
      * user_profile_avatar function.
