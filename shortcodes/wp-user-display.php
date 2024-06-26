@@ -30,7 +30,7 @@ class WPUPA_User_Shortcodes {
                 'id' => '',
                 'email' => '',
 				'avatar_size' => '', 
-				'avatar_align' => 'left', 
+				'avatar_align' => 'center', 
 			),
 			$atts,
 			'user_display'
