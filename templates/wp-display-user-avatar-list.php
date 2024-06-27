@@ -24,8 +24,8 @@ if ( !defined( 'ABSPATH' ) ) {
                         <a href="<?php echo get_author_posts_url( $user['ID'] ); ?>">
                     <?php } ?>
 
-                    <?php if ( !empty( $user['show_name'] ) && $user['show_name'] ) { ?>
-                        <span class="user-name"><?php echo esc_html( $user['display_name'] ); ?></span>
+                    <?php if ( !empty( $user['show_name'] ) && $user['show_name'] ) { $author_page_url = get_author_posts_url( $user['ID'] );?>
+                        <a href="<?php echo $author_page_url;?>" ><span class="user-name"><?php echo esc_html( $user['display_name'] ); ?></span></a>
                     <?php } ?>
 
                     <?php if ( !empty( $atts['link_to_authorpage'] ) && $atts['link_to_authorpage'] === 'true' ) { ?>
@@ -35,7 +35,7 @@ if ( !defined( 'ABSPATH' ) ) {
                     <?php if ( !empty( $user['post_count'] ) ) { ?>
                         <span class="user-postcount">( <?php echo $user['post_count']; ?> )</span><br>
                     <?php }else{?>
-						<span class="user-postcount">( 0 )</span><br>
+						<span class="user-postcount">(0)</span><br>
 					<?php } 
 
                      if ( !empty( $user['biography'] ) ) { ?>
@@ -46,10 +46,6 @@ if ( !defined( 'ABSPATH' ) ) {
                         switch ( $user['user_link'] ) {
                             case 'website':
                                 echo '<p class="user-link"><a href="User website URL">Visit Website</a></p>';
-                                break;
-                            case 'authorpage':
-                                $author_page_url = get_author_posts_url( $user['ID'] );
-                                echo '<p class="user-link"><a href="' . $author_page_url . '">View Profile</a></p>';
                                 break;
                             default:
                                 break;
@@ -62,7 +58,7 @@ if ( !defined( 'ABSPATH' ) ) {
         <p>No avatars available</p>
     <?php } ?>
 
-     <div class="pagination" style="text-align: center;">
+    <div class="pagination" style="text-align: center;">
         <?php
         echo paginate_links(array(
             'base' => get_pagenum_link(1) . '%_%',
