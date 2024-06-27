@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <?php
 
-function add_user_social_contact_info( $user_contact ) {
+function wpupa_add_user_social_contact_info( $user_contact ) {
         $user_contact['facebook']   = esc_html__( 'Facebook URL','wp-user-profile-avatar' );
         $user_contact['skype']      = esc_html__( 'Skype','wp-user-profile-avatar' );
         $user_contact['twitter']    = esc_html__( 'Twitter','wp-user-profile-avatar' );
@@ -23,7 +23,7 @@ function add_user_social_contact_info( $user_contact ) {
         return $user_contact;
 }
 
-add_filter( 'user_contactmethods', 'add_user_social_contact_info' );
+add_filter( 'user_contactmethods', 'wpupa_add_user_social_contact_info' );
 
 function wpupa_fontawesome_styles() {
         wp_register_style( 'fontawesome', WPUPA_PLUGIN_URL . '/assets/lib/fontawesome/all.css', '', '4.4.0', 'all' );

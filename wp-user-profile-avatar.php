@@ -45,7 +45,7 @@ class WP_User_Profile_Avatar {
      * @see WP_User_Profile_Avatar()
      * @return self Main instance.
      */
-    public static function instance() {
+    public static function wpupa_instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
@@ -86,9 +86,9 @@ class WP_User_Profile_Avatar {
         register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'activate' ) );
 
         // Actions
-        add_action( 'after_setup_theme', array( $this, 'load_plugin_textdomain' ) );
+        add_action( 'after_setup_theme', array( $this, 'wpupa_load_plugin_textdomain' ) );
 
-        add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'wpupa_frontend_scripts' ) );
 
         if ( is_admin() ) {
             include 'admin/wp-user-profile-avatar-admin.php';
@@ -113,14 +113,14 @@ class WP_User_Profile_Avatar {
     }
 
     /**
-     * load_plugin_textdomain function.
+     * wpupa_load_plugin_textdomain function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0.0
      */
-    public function load_plugin_textdomain() {
+    public function wpupa_load_plugin_textdomain() {
 
         $domain = 'wp-user-profile-avatar';
 
@@ -128,18 +128,18 @@ class WP_User_Profile_Avatar {
 
         load_textdomain( $domain, WP_LANG_DIR . '/wp-user-profile-avatar/' . $domain . '-' . $locale . '.mo' );
 
-        load_plugin_textdomain( $domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+        wpupa_load_plugin_textdomain( $domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
     }
 
     /**
-     * frontend_scripts function.
+     * wpupa_frontend_scripts function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function frontend_scripts() {
+    public function wpupa_frontend_scripts() {
 
         wp_enqueue_media();
 
@@ -185,6 +185,6 @@ class WP_User_Profile_Avatar {
  */
 function WPUPA() {
     // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
-    return WP_User_Profile_Avatar::instance();
+    return WP_User_Profile_Avatar::wpupa_instance();
 }
 $GLOBALS['wp_user_profile_avatar'] = WPUPA();

@@ -88,7 +88,7 @@ class Elementor_WPUPA_Authorbox extends Widget_Base {
      *
      * @access protected
      */
-    protected function _register_controls() {
+    protected function wpupa_register_controls() {
         $this->start_controls_section(
             'section_shortcode',
             array(

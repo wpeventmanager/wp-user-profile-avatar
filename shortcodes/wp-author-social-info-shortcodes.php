@@ -12,17 +12,17 @@ class WPUPA_authorbox_socialinfo_Shortcodes {
      * Constructor
      */
     public function __construct() {
-        add_shortcode( 'authorbox_social_link', array( $this, 'authorbox_social_link' ) );
+        add_shortcode( 'authorbox_social_link', array( $this, 'wpupa_authorbox_social_link' ) );
     }
 
     /**
-     * authorbox_social_link function
+     * wpupa_authorbox_social_link function
      *
      * @access public
      * @return
      * @since 1.0
      */
-    public function authorbox_social_link() {
+    public function wpupa_authorbox_social_link() {
 
         $id = get_current_user_id();
 

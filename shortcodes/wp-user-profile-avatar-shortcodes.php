@@ -9,12 +9,12 @@ class WPUPA_Shortcodes {
      */
     public function __construct() {
 
-        add_shortcode( 'authorbox_social_info', array( $this, 'authorbox_social_info' ) );
-        add_shortcode( 'authorbox_social_link', array( $this, 'authorbox_social_link' ) );
+        add_shortcode( 'authorbox_social_info', array( $this, 'wpupa_authorbox_social_info' ) );
+        add_shortcode( 'authorbox_social_link', array( $this, 'wpupa_authorbox_social_link' ) );
         add_shortcode( 'user_display', array( $this, 'user_display' ) );
-        add_shortcode( 'user_profile_avatar', array( $this, 'user_profile_avatar' ) );
-        add_shortcode( 'user_profile_avatar_upload', array( $this, 'user_profile_avatar_upload' ) );
-        add_shortcode( 'all_user_avatars', array( $this, 'all_user_avatars' ) );
+        add_shortcode( 'user_profile_avatar', array( $this, 'wpupa_user_profile_avatar' ) );
+        add_shortcode( 'user_profile_avatar_upload', array( $this, 'wpupa_user_profile_avatar_upload' ) );
+        add_shortcode( 'all_user_avatars', array( $this, 'wpupa_all_user_avatars' ) );
 
         add_action( 'wp_ajax_update_user_avatar', array( $this, 'update_user_avatar' ) );
 
@@ -33,7 +33,7 @@ class WPUPA_Shortcodes {
      * @return
      * @since 1.0
      */
-    public function authorbox_social_info( $atts = array(), $content = null ) {
+    public function wpupa_authorbox_social_info( $atts = array(), $content = null ) {
         global $blog_id, $post, $wpdb;
 
         $current_user_id = get_current_user_id();
@@ -57,14 +57,14 @@ class WPUPA_Shortcodes {
     }
 
     /**
-     * authorbox_social_link function
+     * wpupa_authorbox_social_link function
      *
      * @access public
      * @param $atts
      * @return
      * @since 1.0
      */
-    public function authorbox_social_link() {
+    public function wpupa_authorbox_social_link() {
 
         $id = get_current_user_id();
 
@@ -106,14 +106,14 @@ class WPUPA_Shortcodes {
     }
 
     /**
-     * all_user_avatars function
+     * wpupa_all_user_avatars function
      *
      * @access public
      * @param $atts
      * @return
      *
      */
-	public function all_user_avatars( $atts ) {
+	public function wpupa_all_user_avatars( $atts ) {
 		$atts = shortcode_atts( array(
 			'roles'				=> '',
 			'avatar_size'		=> 100,
@@ -178,7 +178,14 @@ class WPUPA_Shortcodes {
 				}
 
 				foreach ( $users as $user ) {
-					$avatar_url = get_avatar_url( $user->ID, array( 'size' => $atts['avatar_size'] ) );
+					$attachment = get_user_meta( $user->ID , '_wpupa_attachment_id', true );
+                    $image_source = wp_get_attachment_image_src( $attachment );
+                    
+                    if( $image_source != ''){
+                        $avatar_url = $image_source[0];
+                    }else{
+                        $avatar_url = get_avatar_url( $user->ID, array( 'size' => $atts['avatar_size'] ) );
+                    }
 					$user_data = array( 
 						'display_name' 	=> esc_html( $user->display_name ),
 						'avatar_url' 	=> esc_url( $avatar_url ),
@@ -245,7 +252,14 @@ class WPUPA_Shortcodes {
 			$users = array_slice( $users, $offset, $atts['page_size'] );
 
 			foreach ( $users as $user ) {
-				$avatar_url = get_avatar_url( $user->ID, array( 'size' => $atts['avatar_size'] ) );
+				$attachment = get_user_meta( $user->ID , '_wpupa_attachment_id', true );
+				$image_source = wp_get_attachment_image_src( $attachment );
+				
+				if( $image_source != ''){
+					$avatar_url = $image_source[0];
+				}else{
+					$avatar_url = get_avatar_url( $user->ID, array( 'size' => $atts['avatar_size'] ) );
+				}
 				$user_data = array(
 					'display_name'	=> esc_html( $user->display_name ),
 					'avatar_url'	=> esc_url( $avatar_url ),
@@ -287,14 +301,14 @@ class WPUPA_Shortcodes {
 
 
     /**
-     * user_profile_avatar function.
+     * wpupa_user_profile_avatar function.
      *
      * @access public
      * @param $atts, $content
      * @return
      * @since 1.0
      */
-    public function user_profile_avatar( $atts = array(), $content = null ) {
+    public function wpupa_user_profile_avatar( $atts = array(), $content = null ) {
         global $blog_id, $post, $wpdb;
 
         $current_user_id = get_current_user_id();
@@ -334,14 +348,14 @@ class WPUPA_Shortcodes {
     }
 
     /**
-     * user_profile_avatar_upload function.
+     * wpupa_user_profile_avatar_upload function.
      *
      * @access public
      * @param $atts, $content
      * @return
      * @since 1.0
      */
-    public function user_profile_avatar_upload( $atts = array(), $content = null ) {
+    public function wpupa_user_profile_avatar_upload( $atts = array(), $content = null ) {
         extract(
             shortcode_atts(
                 array(),
@@ -671,12 +685,12 @@ class WPUPA_Shortcodes {
 
         // First checking custom avatar.
         if ( get_current_user_id() == $user_id || is_admin() ) {
-            if ( check_wpupa_url( $user_id ) ) {
+            if ( wpupa_check_wpupa_url( $user_id ) ) {
                 $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
             } elseif ( $wpupa_disable_gravatar ) {
                 $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
             } else {
-                $has_valid_url = check_wpupa_gravatar( $id_or_email );
+                $has_valid_url = wpupa_check_wpupa_gravatar( $id_or_email );
                 if ( ! $has_valid_url ) {
                     $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
                 } else {

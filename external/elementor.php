@@ -29,7 +29,7 @@ class Plugin {
      *
      * @return Plugin An instance of the class.
      */
-    public static function instance() {
+    public static function wpupa_instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
@@ -56,7 +56,7 @@ class Plugin {
      * @param $elementsManager
      */
     public function register_categories( $elementsManager ) {
-        $elementsManager = \Elementor\Plugin::instance()->elements_manager;
+        $elementsManager = \Elementor\Plugin::wpupa_instance()->elements_manager;
 
         $elementsManager->add_category(
             'wp-user-profile-avatar-categories',
@@ -93,12 +93,12 @@ class Plugin {
         $this->include_widgets_files();
 
         // Register Widgets.
-        \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Elementor_WPUPA() );
-        \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Elementor_WPUPA_Upload() );
-        \Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Elementor_WPUPA_Authorbox() );
+        \Elementor\Plugin::wpupa_instance()->widgets_manager->register_widget_type( new Widgets\Elementor_WPUPA() );
+        \Elementor\Plugin::wpupa_instance()->widgets_manager->register_widget_type( new Widgets\Elementor_WPUPA_Upload() );
+        \Elementor\Plugin::wpupa_instance()->widgets_manager->register_widget_type( new Widgets\Elementor_WPUPA_Authorbox() );
     }
 
 }
 
 // Instantiate Plugin Class
-Plugin::instance();
+Plugin::wpupa_instance();

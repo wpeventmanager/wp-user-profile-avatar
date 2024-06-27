@@ -54,12 +54,12 @@ class WPUPA_User {
         }
 
         // First checking custom avatar.
-        if ( check_wpupa_url( $user_id ) ) {
+        if ( wpupa_check_wpupa_url( $user_id ) ) {
             $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
         } elseif ( $wpupa_disable_gravatar ) {
             $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
         } else {
-            $has_valid_url = check_wpupa_gravatar( $id_or_email );
+            $has_valid_url = wpupa_check_wpupa_gravatar( $id_or_email );
             if ( ! $has_valid_url ) {
                 $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
             } else {
