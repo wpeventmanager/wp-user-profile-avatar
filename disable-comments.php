@@ -2,21 +2,21 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-add_action( 'init', 'wpupa_init_filters' );
+add_action( 'init', 'init_filters' );
 
-function wpupa_init_filters() {
+function init_filters() {
 
     $options = get_option( 'disable_comments_options', false );
 
     if ( is_array( $options ) && isset( $options['remove_everywhere'] ) ) {
 
-        add_action( 'template_redirect', 'wpupa_filter_admin_bar' );
-        add_action( 'admin_init', 'wpupa_filter_admin_bar' );
+        add_action( 'template_redirect', 'filter_admin_bar' );
+        add_action( 'admin_init', 'filter_admin_bar' );
     }
-    add_action( 'wp_loaded', 'wpupa_init_wploaded_filters' );
+    add_action( 'wp_loaded', 'init_wploaded_filters' );
 }
 
-function wpupa_init_wploaded_filters() {
+function init_wploaded_filters() {
     $options             = get_option( 'disable_comments_options', array() );
     $modified_types      = array();
     $disabled_post_types = wpupa_get_disabled_post_types();
@@ -34,12 +34,12 @@ function wpupa_init_wploaded_filters() {
     if ( is_admin() ) {
 
         if ( isset( $options['remove_everywhere'] ) ) {
-            add_action( 'admin_menu', 'wpupa_filter_admin_menu' );
+            add_action( 'admin_menu', 'filter_admin_menu' );
         }
     }
     // Filters for front end only.
     else {
-        add_action( 'template_redirect', 'wpupa_check_comment_template' );
+        add_action( 'template_redirect', 'check_comment_template' );
 
         if ( isset( $options['remove_everywhere'] ) ) {
             add_filter( 'feed_links_show_comments_feed', '__return_false' );
@@ -47,13 +47,13 @@ function wpupa_init_wploaded_filters() {
     }
 }
 
-function wpupa_discussion_settings_allowed() {
+function discussion_settings_allowed() {
     if ( defined( 'DISABLE_COMMENTS_ALLOW_DISCUSSION_SETTINGS' ) && DISABLE_COMMENTS_ALLOW_DISCUSSION_SETTINGS == true ) {
         return true;
     }
 }
 
-function wpupa_filter_admin_menu() {
+function filter_admin_menu() {
     global $pagenow;
 
     if ( $pagenow == 'comment.php' || $pagenow == 'edit-comments.php' ) {
@@ -62,7 +62,7 @@ function wpupa_filter_admin_menu() {
 
     remove_menu_page( 'edit-comments.php' );
 
-    if ( ! wpupa_discussion_settings_allowed() ) {
+    if ( ! discussion_settings_allowed() ) {
         if ( $pagenow == 'options-discussion.php' ) {
             wp_die( esc_attr__( 'Comments are closed.', 'wp-user-profile-avatar' ), '', array( 'response' => 403 ) );
         }
@@ -71,7 +71,7 @@ function wpupa_filter_admin_menu() {
     }
 }
 
-function wpupa_is_post_type_disabled( $type ) {
+function is_post_type_disabled( $type ) {
     return in_array( $type, wpupa_get_disabled_post_types() );
 }
 
@@ -80,26 +80,26 @@ function wpupa_is_post_type_disabled( $type ) {
  * To prevent this, define DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE
  * and set it to True
  */
-function wpupa_check_comment_template() {
+function check_comment_template() {
     // $options = get_option('disable_comments_options', array());
-    if ( is_singular() && ( isset( $options['remove_everywhere'] ) || wpupa_is_post_type_disabled( get_post_type() ) ) ) {
+    if ( is_singular() && ( isset( $options['remove_everywhere'] ) || is_post_type_disabled( get_post_type() ) ) ) {
         if ( ! defined( 'DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE' ) || DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE == true ) {
             // Kill the comments template.
-            add_filter( 'comments_template', 'wpupa_dummy_comments_template' );
+            add_filter( 'comments_template', 'dummy_comments_template' );
         }
         // Remove comment-reply script for themes that include it indiscriminately.
         wp_deregister_script( 'comment-reply' );
     }
 }
 
-function wpupa_dummy_comments_template() {
+function dummy_comments_template() {
     return dirname( __FILE__ ) . '/templates/comments-template.php';
 }
 
 /**
  * Remove comment links from the admin bar.
  */
-function wpupa_filter_admin_bar() {
+function filter_admin_bar() {
     if ( is_admin_bar_showing() ) {
         // Remove comments links from admin bar.
         remove_action( 'admin_bar_menu', 'wp_admin_bar_comments_menu', 60 );

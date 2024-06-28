@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
     <?php
     /**
-     * wpupa_authorbox_social_link function
+     * authorbox_social_link function
      *
      * @access public
      * @param $atts

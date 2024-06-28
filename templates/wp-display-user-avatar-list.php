@@ -10,11 +10,11 @@ if ( !defined( 'ABSPATH' ) ) {
 
 <div class="user-avatar-list" style="text-align: <?php echo esc_attr($atts['align'] ); ?>;">
     <?php if ( !empty( $user_avatars ) ) {
-       /* foreach ( $user_avatars as $blog_id => $users ) { 
+        foreach ( $user_avatars as $blog_id => $users ) { 
             if ( $blog_id > 0 ) { ?>
                 <h2><?php echo esc_html( $users[0]['blog_name'] ); ?></h2>
-            <?php }*/
-            foreach ( $user_avatars as $user ) { ?>
+            <?php }
+            foreach ( $users as $user ) { ?>
                 <div class="user-avatar" style="display: inline-block; margin: 10px;text-align:center;">
                     <?php if ( !empty( $user['avatar_url'] ) ) { ?>
                         <img src="<?php echo esc_url( $user['avatar_url'] ); ?>" alt="<?php echo esc_attr( $user['display_name'] ); ?>" style="border-radius: <?php echo esc_attr( $atts['border_radius'] ); ?>px; width: <?php echo esc_attr( $atts['avatar_size'] ); ?>px; height: <?php echo esc_attr( $atts['avatar_size'] ); ?>px;"/><br>
@@ -53,7 +53,7 @@ if ( !defined( 'ABSPATH' ) ) {
                     } ?>
                 </div>
             <?php }
-       // }
+        }
     } else { ?>
         <p>No avatars available</p>
     <?php } ?>

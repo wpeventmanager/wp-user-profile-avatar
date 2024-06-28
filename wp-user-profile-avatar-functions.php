@@ -224,17 +224,17 @@ if ( ! function_exists( 'wpupa_get_url' ) ) {
     }
 }
 
-if ( ! function_exists( 'wpupa_check_wpupa_url' ) ) {
+if ( ! function_exists( 'check_wpupa_url' ) ) {
 
     /**
-     * wpupa_check_wpupa_url function.
+     * check_wpupa_url function.
      *
      * @access public
      * @param $user_id
      * @return boolean
      * @since 1.0
      */
-    function wpupa_check_wpupa_url( $user_id = '' ) {
+    function check_wpupa_url( $user_id = '' ) {
         $attachment_url = esc_url( get_user_meta( $user_id, '_wpupa_url', true ) );
 
         $attachment_id = esc_attr( get_user_meta( $user_id, '_wpupa_attachment_id', true ) );
@@ -249,17 +249,17 @@ if ( ! function_exists( 'wpupa_check_wpupa_url' ) ) {
     }
 }
 
-if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
+if ( ! function_exists( 'check_wpupa_gravatar' ) ) {
 
     /**
-     * wpupa_check_wpupa_gravatar function.
+     * check_wpupa_gravatar function.
      *
      * @access public
      * @param $id_or_email, $check_gravatar, $user, $email
      * @return boolean
      * @since 1.0
      */
-    function wpupa_check_wpupa_gravatar( $id_or_email = '', $check_gravatar = 0, $user = '', $email = '' ) {
+    function check_wpupa_gravatar( $id_or_email = '', $check_gravatar = 0, $user = '', $email = '' ) {
         $wp_user_hash_gravatar = get_option( 'wp_user_hash_gravatar' );
 
         $wpupa_default = get_option( 'wpupa_default' );

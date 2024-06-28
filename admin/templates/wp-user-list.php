@@ -72,7 +72,7 @@ function wpupa_username_edit() { ?>
 
 function wpupa_user_update() {
     if ( isset( $_REQUEST['update'] ) ) {
-        if(!current_user_can( 'manage_options' ) || wp_verify_nonce( 'update','_wpnonce' ) ){
+        if(!current_user_can('manage_options' ) || wp_verify_nonce( 'update','_wpnonce' ) ){
             return;
         }
         $wpuser = new WpUserNameChange();

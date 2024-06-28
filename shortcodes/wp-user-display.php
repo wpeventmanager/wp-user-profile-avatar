@@ -12,18 +12,18 @@ class WPUPA_User_Shortcodes {
      * Constructor
      */
     public function __construct() {
-        add_shortcode( 'user_display', array( $this, 'wpupa_user_display' ) );
+        add_shortcode( 'user_display', array( $this, 'user_display' ) );
     }
 
     /**
-     * wpupa_user_display function
+     * user_display function
      *
      * @access public
      * @param $atts
      * @return
      * @since 1.0
      */
-    public function wpupa_user_display( $atts ) {
+    public function user_display( $atts ) {
 
         $atts = shortcode_atts(
 			array(
@@ -70,7 +70,7 @@ class WPUPA_User_Shortcodes {
             'email'               => esc_html( get_the_author_meta( 'email', $id ) ),
             'sabox_social_links'  => get_the_author_meta( 'sabox_social_links', $id ),
             'sabox-profile-image' => esc_url( get_the_author_meta( 'sabox-profile-image', $id ) ),
-            'avatar_size'         => esc_attr( $atts['avatar_size'] ),
+            'avatar_size'         => $atts['avatar_size'],
 			'avatar_align'        => esc_attr( $atts['avatar_align'] ),
         );
 
