@@ -12,18 +12,18 @@ class WPUPA_User_Shortcodes {
      * Constructor
      */
     public function __construct() {
-        add_shortcode( 'user_display', array( $this, 'user_display' ) );
+        add_shortcode( 'user_display', array( $this, 'wpupa_user_display' ) );
     }
 
     /**
-     * user_display function
+     * wpupa_user_display function
      *
      * @access public
      * @param $atts
      * @return
      * @since 1.0
      */
-    public function user_display( $atts ) {
+    public function wpupa_user_display( $atts ) {
 
         $atts = shortcode_atts(
 			array(

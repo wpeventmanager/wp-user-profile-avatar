@@ -14,7 +14,7 @@ class WPUPA_Settings {
      * Constructor - get the plugin hooked in and ready
      */
     public function __construct() {
-        add_action( 'wp_loaded', array( $this, 'edit_handler' ) );
+        add_action( 'wp_loaded', array( $this, 'wpupa_edit_handler' ) );
     }
 
     /**
@@ -224,14 +224,14 @@ class WPUPA_Settings {
     }
 
     /**
-     * edit_handler function.
+     * wpupa_edit_handler function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function edit_handler() {
+    public function wpupa_edit_handler() {
         if ( ! empty( $_POST['wp_user_profile_avatar_settings'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash ( $_POST['_wpnonce'] ) ), 'user_profile_avatar_settings' ) ) {
             $user_id = get_current_user_id();
 

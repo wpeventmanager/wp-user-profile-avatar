@@ -4,14 +4,14 @@
  * user name change function Page
  */
 
-namespace WpUserNameChange;
+namespace WPUPA_WpUserNameChange; 
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 #[AllowDynamicProperties]
-class WpUserNameChange {
+class WPUPA_WpUserNameChange {
     
     public $db;
 
@@ -55,4 +55,4 @@ class WpUserNameChange {
 
 }
 
-$wpuser = new WpUserNameChange();
+$wpuser = new WPUPA_WpUserNameChange();

@@ -11,17 +11,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <?php
 
-$Add_New_User = new Add_New_User();
+$Add_New_User = new WPUPA_Add_New_User();
 
 #[AllowDynamicProperties]
-class Add_New_User {
+class WPUPA_Add_New_User {
 
-    public function admin_init() {
-        register_setting( 'discussion', 'Add_New_User', array( $this, 'validate' ) );
-        add_settings_field( 'Add_New_User', __( 'Add New Default Avatar', 'wp-user-profile-avatar' ), array( $this, 'field_html' ), 'discussion', 'avatars', $args = array() );
+    public function wpupa_admin_init() {
+        register_setting( 'discussion', 'Add_New_User', array( $this, 'wpupa_validate' ) );
+        add_settings_field( 'Add_New_User', __( 'Add New Default Avatar', 'wp-user-profile-avatar' ), array( $this, 'wpupa_field_html' ), 'discussion', 'avatars', $args = array() );
     }
 
-    public function field_html() {
+    public function wpupa_field_html() {
         $value = get_option(
             'Add_New_User',
             array(
@@ -47,7 +47,7 @@ class Add_New_User {
         echo '</p>';
     }
 
-    function validate( $input ) {
+    function wpupa_validate( $input ) {
         foreach ( $input as $k => $v ) {
             $input[ $k ]['name'] = esc_attr( $v['name'] );
             $input[ $k ]['url']  = esc_url( $v['url'] );
@@ -58,7 +58,7 @@ class Add_New_User {
         return $input;
     }
 
-    function avatar_defaults( $avatar_defaults ) {
+    function wpupa_avatar_defaults( $avatar_defaults ) {
         $opts = get_option( 'Add_New_User', false );
         if ( $opts ) {
             foreach ( $opts as $k => $v ) {
@@ -69,7 +69,7 @@ class Add_New_User {
         return $avatar_defaults;
     }
 
-    public function update_default_avatar( $avatar, $id_or_email, $size, $default = '' ) {
+    public function wpupa_update_default_avatar( $avatar, $id_or_email, $size, $default = '' ) {
 
         if ( is_numeric( $id_or_email ) ) {
             $email   = get_userdata( $id_or_email )->user_email;
@@ -85,7 +85,7 @@ class Add_New_User {
             $local_avatars = get_user_meta( $user_id, 'local_avatar', true );
         }
         if ( ! empty( $local_avatars ) && ( isset( $GLOBALS['hook_suffix'] ) && $GLOBALS['hook_suffix'] != 'options-discussion.php' ) ) {
-            remove_filter( 'update_default_avatar', array( $this, 'update_default_avatar' ), 88, 5 );
+            remove_filter( 'update_default_avatar', array( $this, 'wpupa_update_default_avatar' ), 88, 5 );
             return $avatar;
         }
         $avatar = str_replace( '%size%', $size, $avatar );
@@ -94,9 +94,9 @@ class Add_New_User {
     }
 
     public function __construct() {
-        add_filter( 'admin_init', array( $this, 'admin_init' ) );
-        add_filter( 'avatar_defaults', array( $this, 'avatar_defaults' ) );
-        add_filter( 'update_default_avatar', array( $this, 'update_default_avatar' ), 10, 5 );
+        add_filter( 'admin_init', array( $this, 'wpupa_admin_init' ) );
+        add_filter( 'avatar_defaults', array( $this, 'wpupa_avatar_defaults' ) );
+        add_filter( 'update_default_avatar', array( $this, 'wpupa_update_default_avatar' ), 10, 5 );
     }
 
 }

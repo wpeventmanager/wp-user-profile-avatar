@@ -25,9 +25,9 @@ class WPUPA_Admin {
         }
 
         include_once 'templates/wp-username-change.php';
-        add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
+        add_action( 'admin_menu', array( $this, 'wpupa_admin_menu' ), 12 );
 
-        add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'wpupa_admin_enqueue_scripts' ) );
 
         add_action( 'show_user_profile', array( $this, 'wpupa_add_fields' ) );
         add_action( 'edit_user_profile', array( $this, 'wpupa_add_fields' ) );
@@ -35,24 +35,24 @@ class WPUPA_Admin {
         add_action( 'personal_options_update', array( $this, 'wpupa_save_fields' ) );
         add_action( 'edit_user_profile_update', array( $this, 'wpupa_save_fields' ) );
 
-        add_action( 'admin_init', array( $this, 'allow_contributor_subscriber_uploads' ) );
+        add_action( 'admin_init', array( $this, 'wpupa_allow_contributor_subscriber_uploads' ) );
 
-        add_action( 'init', array( $this, 'thickbox_model_init' ) );
+        add_action( 'init', array( $this, 'wpupa_thickbox_model_init' ) );
         add_action( 'wp_ajax_thickbox_model_view', array( $this, 'thickbox_model_view' ) );
         add_action( 'wp_ajax_nopriv_thickbox_model_view', array( $this, 'thickbox_model_view' ) );
 
-        add_action( 'admin_init', array( $this, 'init_size' ) );
+        add_action( 'admin_init', array( $this, 'wpupa_init_size' ) );
     }
 
     /**
-     * admin_menu function.
+     * wpupa_admin_menu function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function admin_menu() {
+    public function wpupa_admin_menu() {
         add_menu_page(
             __( 'Profile Avatar Settings', 'wp-user-profile-avatar' ),
             __( 'WP User Profile Avtar', 'wp-user-profile-avatar' ),
@@ -89,7 +89,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * admin_enqueue_scripts function.
+     * wpupa_admin_enqueue_scripts function.
      * enqueue style and script for admin
      *
      * @access public
@@ -97,7 +97,7 @@ class WPUPA_Admin {
      * @return
      * @since 1.0.0
      */
-    public function admin_enqueue_scripts() {
+    public function wpupa_admin_enqueue_scripts() {
         global $pagenow;
 
         wp_register_style( 'wp-user-profile-avatar-backend', WPUPA_PLUGIN_URL . '/assets/css/backend.min.css' );
@@ -266,14 +266,14 @@ class WPUPA_Admin {
     }
 
     /**
-     * thickbox_model_init function.
+     * wpupa_thickbox_model_init function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function thickbox_model_init() {
+    public function wpupa_thickbox_model_init() {
         add_thickbox();
     }
 
@@ -300,7 +300,7 @@ class WPUPA_Admin {
      * @return
      * @since 1.0
      */
-    public function allow_contributor_subscriber_uploads() {
+    public function wpupa_allow_contributor_subscriber_uploads() {
         $contributor = get_role( 'contributor' );
         $subscriber  = get_role( 'subscriber' );
 
@@ -337,7 +337,7 @@ class WPUPA_Admin {
         return $wpupa_closest;
     }
 
-    public function init_size() {
+    public function wpupa_init_size() {
         if ( isset( $_POST['wpem-upload-max-file-size-field'] ) ) {
             
             $wpupa_max_size = (int) $_POST['wpem-upload-max-file-size-field'] * 1024 * 1024;

@@ -22,10 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 /**
- * WP_User_Profile_Avatar class.
+ * WPUPA_User_Profile_Avatar class.
  */
 #[AllowDynamicProperties]
-class WP_User_Profile_Avatar {
+class WPUPA_User_Profile_Avatar {
 
     /**
      * The single instance of the class.
@@ -83,12 +83,12 @@ class WP_User_Profile_Avatar {
         include_once 'templates/wp-author-box-social-info.php';
 
         // Activation / deactivation - works with symlinks
-        register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'activate' ) );
+        register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'wpupa_activate' ) );
 
         // Actions
-        add_action( 'after_setup_theme', array( $this, 'load_plugin_textdomain' ) );
+        add_action( 'after_setup_theme', array( $this, 'wpupa_load_plugin_textdomain' ) );
 
-        add_action( 'wp_enqueue_scripts', array( $this, 'frontend_scripts' ) );
+        add_action( 'wp_enqueue_scripts', array( $this, 'wpupa_frontend_scripts' ) );
 
         if ( is_admin() ) {
             include 'admin/wp-user-profile-avatar-admin.php';
@@ -100,27 +100,27 @@ class WP_User_Profile_Avatar {
     }
 
     /**
-     * activate function.
+     * wpupa_activate function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0.0
      */
-    public function activate() {
+    public function wpupa_activate() {
         // installation process after activating
         WPUPA_Install::install();
     }
 
     /**
-     * load_plugin_textdomain function.
+     * wpupa_load_plugin_textdomain function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0.0
      */
-    public function load_plugin_textdomain() {
+    public function wpupa_load_plugin_textdomain() {
 
         $domain = 'wp-user-profile-avatar';
 
@@ -132,14 +132,14 @@ class WP_User_Profile_Avatar {
     }
 
     /**
-     * frontend_scripts function.
+     * wpupa_frontend_scripts function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function frontend_scripts() {
+    public function wpupa_frontend_scripts() {
 
         wp_enqueue_media();
 
@@ -185,6 +185,6 @@ class WP_User_Profile_Avatar {
  */
 function WPUPA() {
     // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
-    return WP_User_Profile_Avatar::instance();
+    return WPUPA_User_Profile_Avatar::instance();
 }
 $GLOBALS['wp_user_profile_avatar'] = WPUPA();
