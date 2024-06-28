@@ -54,7 +54,16 @@ class WPUPA_User_Shortcodes {
             return 'Error: User not found.';
         }
 
-        $details = array( 
+        // Fetch user profile image
+        $attachment = get_user_meta( $id, '_wpupa_attachment_id', true );
+        $image_source = wp_get_attachment_image_src( $attachment );
+ 
+        if ( $details['avatar_size'] != '' && $image_source ) {
+            $size = $details['avatar_size'];
+            $image_source[1] = $size;
+        }
+
+        $details = array(
             'first_name'          => esc_attr( get_the_author_meta( 'first_name', $id ) ),
             'last_name'           => esc_attr( get_the_author_meta( 'last_name', $id ) ),
             'description'         => wp_kses_post( get_the_author_meta( 'description', $id ) ),

@@ -22,10 +22,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 /**
- * WPUPA_User_Profile_Avatar class.
+ * WP_User_Profile_Avatar class.
  */
 #[AllowDynamicProperties]
-class WPUPA_User_Profile_Avatar {
+class WP_User_Profile_Avatar {
 
     /**
      * The single instance of the class.
@@ -109,7 +109,7 @@ class WPUPA_User_Profile_Avatar {
      */
     public function activate() {
         // installation process after activating
-        WPUPA_Install::wpupa_install();
+        WPUPA_Install::install();
     }
 
     /**
@@ -185,6 +185,6 @@ class WPUPA_User_Profile_Avatar {
  */
 function WPUPA() {
     // phpcs:ignore WordPress.NamingConventions.ValidFunctionName
-    return WPUPA_User_Profile_Avatar::wpupa_instance();
+    return WP_User_Profile_Avatar::wpupa_instance();
 }
 $GLOBALS['wp_user_profile_avatar'] = WPUPA();

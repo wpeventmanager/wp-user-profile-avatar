@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-use \WPUPA_WpUserNameChange\WPUPA_WpUserNameChange;
+use \WpUserNameChange\WpUserNameChange;
 
 function wpupa_username_edit() { ?>
     <div class="wrap userupdater">
@@ -17,7 +17,7 @@ function wpupa_username_edit() { ?>
             </h1>
         </p>
         <?php
-        $wpuser  = new WPUPA_WpUserNameChange();
+        $wpuser  = new WpUserNameChange();
         $records = $wpuser->wpuser_select();
 
         if ( $records ) {
@@ -75,7 +75,7 @@ function wpupa_user_update() {
         if(!current_user_can( 'manage_options' ) || wp_verify_nonce( 'update','_wpnonce' ) ){
             return;
         }
-        $wpuser = new WPUPA_WpUserNameChange();
+        $wpuser = new WpUserNameChange();
         global $wpdb;
         $id        = trim( sanitize_text_field( $_REQUEST['update'] ) );
         $user_info = get_userdata( $id );

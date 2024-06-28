@@ -25,7 +25,7 @@ class WPUPA_Admin {
         }
 
         include_once 'templates/wp-username-change.php';
-        add_action( 'admin_menu', array( $this, 'wpupa_admin_menu' ), 12 );
+        add_action( 'admin_menu', array( $this, 'admin_menu' ), 12 );
 
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
@@ -37,22 +37,22 @@ class WPUPA_Admin {
 
         add_action( 'admin_init', array( $this, 'allow_contributor_subscriber_uploads' ) );
 
-        add_action( 'init', array( $this, 'wpupa_thickbox_model_init' ) );
+        add_action( 'init', array( $this, 'thickbox_model_init' ) );
         add_action( 'wp_ajax_thickbox_model_view', array( $this, 'thickbox_model_view' ) );
         add_action( 'wp_ajax_nopriv_thickbox_model_view', array( $this, 'thickbox_model_view' ) );
 
-        add_action( 'admin_init', array( $this, 'wpupa_init_size' ) );
+        add_action( 'admin_init', array( $this, 'init_size' ) );
     }
 
     /**
-     * wpupa_admin_menu function.
+     * admin_menu function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function wpupa_admin_menu() {
+    public function admin_menu() {
         add_menu_page(
             __( 'Profile Avatar Settings', 'wp-user-profile-avatar' ),
             __( 'WP User Profile Avtar', 'wp-user-profile-avatar' ),
@@ -266,14 +266,14 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_thickbox_model_init function.
+     * thickbox_model_init function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function wpupa_thickbox_model_init() {
+    public function thickbox_model_init() {
         add_thickbox();
     }
 
@@ -337,7 +337,7 @@ class WPUPA_Admin {
         return $wpupa_closest;
     }
 
-    public function wpupa_init_size() {
+    public function init_size() {
         if ( isset( $_POST['wpem-upload-max-file-size-field'] ) ) {
             
             $wpupa_max_size = (int) $_POST['wpem-upload-max-file-size-field'] * 1024 * 1024;
