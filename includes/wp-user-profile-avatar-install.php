@@ -19,7 +19,7 @@ class WPUPA_Install {
      * @return
      * @since 1.0
      */
-    public static function install() {
+    public static function wpupa_install() {
 
         update_option( 'wpupa_default', esc_attr( 'mystery' ) );
         update_option( 'wpupa_version', esc_attr( WPUPA_VERSION ) );

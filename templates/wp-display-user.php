@@ -27,6 +27,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     if ( $details['avatar_size'] != '' && $image_source ) {
         $size = esc_attr( $details['avatar_size'] );
         $image_source[1] = esc_attr( $size );
+    }else{
+        $size = get_option( 'avatar_size' );
+        $image_source[1] = esc_attr($size);
     }
 
     if ( isset( $image_source ) && $image_source ) {

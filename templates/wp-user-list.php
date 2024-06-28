@@ -6,14 +6,14 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-use \WpUserNameChange\WpUserNameChange;
+use \WPUPA_WpUserNameChange\WPUPA_WpUserNameChange;
 
 function wpupa_username_edit() {
     ?>
     <div class="wrap userupdater">
         <p><h1><?php esc_html_e( 'Wp Users List', 'wp-user-profile-avatar' ); ?></h1></p>
     <?php
-    $wpuser  = new WpUserNameChange();
+    $wpuser  = new WPUPA_WpUserNameChange();
     $records = $wpuser->wpuser_select();
 
     if ( $records ) {
@@ -50,7 +50,7 @@ function wpupa_username_edit() {
 
 function wpupa_user_update() {
     if ( isset( $_REQUEST['update'] ) ) {
-        $wpuser = new WpUserNameChange();
+        $wpuser = new WPUPA_WpUserNameChange();
         global $wpdb;
         $id        = trim( sanitize_text_field( $_REQUEST['update'] ) );
         $user_info = get_userdata( $id );

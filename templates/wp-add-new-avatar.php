@@ -17,11 +17,11 @@ $Add_New_User = new WPUPA_Add_New_User();
 class WPUPA_Add_New_User {
 
     public function wpupa_admin_init() {
-        register_setting( 'discussion', 'Add_New_User', array( $this, 'validate' ) );
-        add_settings_field( 'Add_New_User', __( 'Add New Default Avatar', 'wp-user-profile-avatar' ), array( $this, 'field_html' ), 'discussion', 'avatars', $args = array() );
+        register_setting( 'discussion', 'Add_New_User', array( $this, 'wpupa_validate' ) );
+        add_settings_field( 'Add_New_User', __( 'Add New Default Avatar', 'wp-user-profile-avatar' ), array( $this, 'wpupa_field_html' ), 'discussion', 'avatars', $args = array() );
     }
 
-    public function field_html() {
+    public function wpupa_field_html() {
         $value = get_option(
             'Add_New_User',
             array(
@@ -47,7 +47,7 @@ class WPUPA_Add_New_User {
         echo '</p>';
     }
 
-    function validate( $input ) {
+    function wpupa_validate( $input ) {
         foreach ( $input as $k => $v ) {
             $input[ $k ]['name'] = esc_attr( $v['name'] );
             $input[ $k ]['url']  = esc_url( $v['url'] );
