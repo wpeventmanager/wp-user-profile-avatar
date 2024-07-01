@@ -16,6 +16,7 @@ class WPUPA_User {
      */
     public function __construct() {
         add_filter( 'get_avatar_url', array( $this, 'wpupa_get_user_avatar_url' ), 10, 3 );
+        add_filter('get_avatar', array( $this, 'wpupa_integrate_user_avatar_to_bbpress_profile' ), 10, 5);
     }
 
     /**
@@ -72,6 +73,34 @@ class WPUPA_User {
         return esc_url( $url );
     }
 
+    
+public function wpupa_integrate_user_avatar_to_bbpress_profile($avatar, $id_or_email, $size, $default, $alt) {
+	
+    // Get the user ID
+    if (is_numeric($id_or_email)) {
+        $user_id = (int) $id_or_email;
+    } elseif (is_object($id_or_email)) {
+        $user_id = $id_or_email->user_id;
+    } else {
+        $user = get_user_by('email', $id_or_email);
+        $user_id = $user ? $user->ID : 0;
+    }
+
+    // Get the user avatar profile picture URL
+	
+	$attachment_id = esc_attr( get_user_meta( $user_id, '_wpupa_attachment_id', true ) );
+	$image_source = wp_get_attachment_image_src( $attachment_id );
+	
+	
+    if ($image_source) {
+        $avatar = "<img alt='{$alt}' src='{$image_source[0]}' class='avatar avatar-{$size} photo' height='{$image_source[2]}' width='{$image_source[1]}' />";
+    }
+
+    return $avatar;
 }
+
+
+}
+
 
 new WPUPA_User();
