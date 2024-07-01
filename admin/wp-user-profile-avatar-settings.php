@@ -41,7 +41,8 @@ class WPUPA_Settings {
         $wpupa_file_size        = get_option( 'wpupa_file_size' );
         $wpupa_default          = get_option( 'wpupa_default' );
         $wpupa_attachment_id    = get_option( 'wpupa_attachment_id' );
-        $wpupa_attachment_url   = wpupa_get_default_avatar_url( array( 'size' => 'admin' ) );
+       // $wpupa_attachment_url   = wpupa_get_default_avatar_url( array( 'size' => 'admin' ) );
+        $wpupa_attachment_url   = get_option( 'wpupa_attachment_url');
         $wpupa_size             = get_option( 'wpupa_size' );
         $avatar_size            = get_option( 'avatar_size' );
         $wpupa_hide_post_option = get_option( 'wpupa_hide_post_option' );
@@ -249,7 +250,15 @@ class WPUPA_Settings {
 
             $wpupa_default = ! empty( $_POST['wpupa_default'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_default'] ) ) : '';
 
-            $wpupa_attachment_id = ! empty( $_POST['wpupaattachmentid'] ) ? sanitize_text_field( $_POST['wpupaattachmentid'] ) : '';
+           // $wpupa_attachment_id = ! empty( $_POST['wpupaattachmentid'] ) ? sanitize_text_field( $_POST['wpupaattachmentid'] ) : '';
+
+           if ( ! empty( $_POST['wpupaattachmentid'] ) ) {
+                $wpupa_attachment_id = sanitize_text_field( $_POST['wpupaattachmentid'] );
+                $wpupa_attachment_url = esc_url( wp_get_attachment_url( $wpupa_attachment_id ) );
+            } else {
+                $wpupa_attachment_id = '';
+                $wpupa_attachment_url = esc_url( WPUPA_PLUGIN_URL . '/assets/images/wp-user-thumbnail.png' );
+            }
 
             $wpupa_size = ! empty( $_POST['wpupa_size'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_size'] ) ) : '';
 
@@ -276,6 +285,7 @@ class WPUPA_Settings {
             update_option( 'wpupa_file_size', $wpupa_file_size );
             update_option( 'wpupa_default', $wpupa_default );
             update_option( 'wpupa_attachment_id', $wpupa_attachment_id );
+            update_option( 'wpupa_attachment_url', $wpupa_attachment_url); 
             update_option( 'wpupa_size', $wpupa_size );
             update_option( 'avatar_size', $avatar_size );
             update_option( 'wpupa_hide_post_option', $wpupa_hide_post_option );
