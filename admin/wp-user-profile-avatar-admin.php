@@ -206,9 +206,9 @@ class WPUPA_Admin {
 
             $wpupa_disable_gravatar = ! empty( $_POST['wpupa-disable-gravatar'] ) ? sanitize_text_field( $_POST['wpupa-disable-gravatar'] ) : '';
 
-            update_option( 'wpupa_tinymce', $wpupa_tinymce );
-            update_option( 'wpupa_allow_upload', $wpupa_allow_upload );
-            update_option( 'wpupa_disable_gravatar', $wpupa_disable_gravatar );
+            // update_option( 'wpupa_tinymce', $wpupa_tinymce );
+            //update_option( 'wpupa_allow_upload', $wpupa_allow_upload );
+            //update_option( 'wpupa_disable_gravatar', $wpupa_disable_gravatar );
 
             if ( ! empty( $wpupaattachmentid ) || ! empty( $wpupa_url ) ) {
                 update_user_meta( $user_id, '_wpupa_default', sanitize_text_field( 'wp_user_profile_avatar' ) );
