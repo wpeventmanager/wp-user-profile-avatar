@@ -55,7 +55,7 @@ class WPUPA_Admin {
     public function wpupa_admin_menu() {
         add_menu_page(
             __( 'Profile Avatar Settings', 'wp-user-profile-avatar' ),
-            __( 'WP User Profile Avtar', 'wp-user-profile-avatar' ),
+            __( 'WP User Profile Avatar', 'wp-user-profile-avatar' ),
             'manage_options',
             'wp-user-profile-avatar',
             array( $this->settings_page, 'settings' ),
