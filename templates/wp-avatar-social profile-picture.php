@@ -27,7 +27,7 @@ function wpupa_avatar_users_menu() {
 // add_action('admin_menu', 'wpupa_avatar_users_menu');
 
 function wpupa_user_admin() {
-    $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture', 'read' )
+    $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture' )
     ?>
     <form id="wp-avatar-settings" method="post" action="">
         <h3><?php esc_html_e( 'WP Avatar User Role Settings', 'wp-user-profile-avatar' ); ?></h3>
@@ -38,11 +38,11 @@ function wpupa_user_admin() {
                 </th>
                 <td>
                     <select id="wp-avatar-add-social-picture" name="wp-avatar-add-social-picture">
-                        <option value="read" <?php selected( $wp_avatar_add_social_picture, 'read', false ); ?> >Subscriber</option>
-                        <option value="edit-posts" <?php selected( $wp_avatar_add_social_picture, 'edit-posts', false ); ?> >Contributor</option>
-                        <option value="edit-published-posts"<?php selected( $wp_avatar_add_social_picture, 'edit-published-posts', false ); ?> >Author</option>
-                        <option value="moderate-comments" <?php selected( $wp_avatar_add_social_picture, 'moderate-comments', false ); ?> >Editor</option>
-                        <option value="activate-plugins" <?php selected( $wp_avatar_add_social_picture, 'activate-plugins', false ); ?> >Administrator</option>
+                        <option value="read" <?php selected( $wp_avatar_add_social_picture, 'read', true ); ?> >Subscriber</option>
+                        <option value="edit-posts" <?php selected( $wp_avatar_add_social_picture, 'edit-posts', true ); ?> >Contributor</option>
+                        <option value="edit-published-posts"<?php selected( $wp_avatar_add_social_picture, 'edit-published-posts', true ); ?> >Author</option>
+                        <option value="moderate-comments" <?php selected( $wp_avatar_add_social_picture, 'moderate-comments', true ); ?> >Editor</option>
+                        <option value="activate-plugins" <?php selected( $wp_avatar_add_social_picture, 'activate-plugins', true ); ?> >Administrator</option>
                     </select>
                 </td>
             </tr>
@@ -56,10 +56,10 @@ function wpupa_user_admin() {
 }
 
 // Saving the WP Avatar social profile settings details.
-if ( isset( $_POST['wp-avatar-add-social-picture'] ) ) {
-    if(!empty('wp-user-profile-avatar-social') || ! wp_verify_nonce( 'wp-user-profile-avatar-social', 'submit' ) ){
+if ( isset( $_POST['wp-avatar-add-social-picture'] ) && !empty( $_POST['wp-avatar-add-social-picture'] )) {
+    /*if(!empty('wp-user-profile-avatar-social') || ! wp_verify_nonce( 'wp-user-profile-avatar-social', 'submit' ) ){
         return;
-    }
+    }*/
     update_option( 'wp_avatar_add_social_picture', sanitize_text_field( $_POST['wp-avatar-add-social-picture'] ) );
 }
 
