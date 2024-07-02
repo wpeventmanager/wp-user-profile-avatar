@@ -196,3 +196,6 @@
 .update-user-profile-avatar #wp_user_profile_avatar_thumbnail img {
 	margin-bottom: 5px;
 }
+.update-user-profile-avatar#wp-user-profile-avatar-undo-button{
+	margin-top:10px;
+}
