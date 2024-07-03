@@ -314,9 +314,15 @@ class WPUPA_Shortcodes {
             )
         );
 
-        if ( $admin_avatar_size ) {
+       /* if ( $admin_avatar_size ) {
             $size = $admin_avatar_size;
-        }
+        }*/
+
+        if(!empty($atts['size'])){
+			$size = esc_attr( $atts['size'] );
+		}else{
+			$size = esc_attr( $admin_avatar_size );
+		}
 
         ob_start();
             $image_url = esc_url( wpupa_get_url( $current_user_id, array( 'size' => esc_attr( $size ) ) ) );

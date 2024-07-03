@@ -199,3 +199,12 @@
 .update-user-profile-avatar#wp-user-profile-avatar-undo-button{
 	margin-top:10px;
 }
+.size-large{
+	width:1024px;
+}
+.size-medium{
+	width:300px;
+}
+.size-thumbnail{
+	width:150px;
+}
