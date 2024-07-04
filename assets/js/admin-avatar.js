@@ -4,22 +4,22 @@ var AdminAvatar = function () {
 
         init: function ()
         {
-            jQuery('#wp-user-profile-avatar-add').on('click', AdminAvatar.actions.chooseAvatar);
-            jQuery('#wp-user-profile-avatar-remove').on('click', AdminAvatar.actions.removeAvatar);
-            jQuery('#wp-user-profile-avatar-undo').on('click', AdminAvatar.actions.undoAvatar);
+            jQuery( '#wp-user-profile-avatar-add' ).off( "click" ).on( 'click', AdminAvatar.actions.chooseAvatar );
+            jQuery( '#wp-user-profile-avatar-remove' ).off( "click" ).on( 'click', AdminAvatar.actions.removeAvatar );
+            jQuery( '#wp-user-profile-avatar-undo' ).off( "click" ).on( 'click', AdminAvatar.actions.undoAvatar );
 
-            jQuery('body').on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .nav-tab-wrapper a', AdminAvatar.actions.showShortcodeAvatarTab);
+            jQuery( 'body' ).off("click", "#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .nav-tab-wrapper a" ).on( 'click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .nav-tab-wrapper a', AdminAvatar.actions.showShortcodeAvatarTab );
 
-            jQuery('body').on('change', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-link-to', AdminAvatar.actions.imageLinkTo);
+            jQuery( 'body' ).off( "change", "#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-link-to" ).on( 'change', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-link-to', AdminAvatar.actions.imageLinkTo );
 
-            jQuery('body').on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #user-avatar-form-btn', AdminAvatar.actions.addUserAvatarShortcode);
+            jQuery( 'body' ).off( "click", "#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #user-avatar-form-btn" ).on( 'click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #user-avatar-form-btn', AdminAvatar.actions.addUserAvatarShortcode );
 
-            jQuery('body').on('click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-upload-avatar #upload-avatar-form-btn', AdminAvatar.actions.addUploadAvatarShortcode);
+            jQuery( 'body' ).off( "click", "#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-upload-avatar #upload-avatar-form-btn" ).on( 'click', '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-upload-avatar #upload-avatar-form-btn', AdminAvatar.actions.addUploadAvatarShortcode );
 
-            if (typeof (tinymce) != "undefined")
+            if ( typeof ( tinymce ) != "undefined" )
             {
-                tinymce.PluginManager.add('wp_user_profile_avatar_shortcodes', function (editor, url) {
-                    editor.addButton('wp_user_profile_avatar_shortcodes', {
+                tinymce.PluginManager.add( 'wp_user_profile_avatar_shortcodes', function ( editor, url ) {
+                    editor.addButton( 'wp_user_profile_avatar_shortcodes', {
                         title: wp_user_profile_avatar_admin_avatar.icon_title,
                         classes: 'thickbox',
                         image: wp_user_profile_avatar_admin_avatar.default_avatar,
@@ -30,10 +30,10 @@ var AdminAvatar = function () {
                     });
                 });
 
-                setTimeout(function () {
-                    jQuery('.mce-thickbox button').remove();
-                    jQuery('.mce-thickbox').html('<a href="' + wp_user_profile_avatar_admin_avatar.thinkbox_ajax_url + '" class="thickbox mce-toolbar" title="' + wp_user_profile_avatar_admin_avatar.thinkbox_title + '"><img class="mce-ico" src="' + wp_user_profile_avatar_admin_avatar.default_avatar + '"></a>');
-                }, 1500);
+                setTimeout( function () {
+                    jQuery( '.mce-thickbox button' ).remove();
+                    jQuery( '.mce-thickbox' ).html( '<a href="' + wp_user_profile_avatar_admin_avatar.thinkbox_ajax_url + '" class="thickbox mce-toolbar" title="' + wp_user_profile_avatar_admin_avatar.thinkbox_title + '"><img class="mce-ico" src="' + wp_user_profile_avatar_admin_avatar.default_avatar + '"></a>' );
+                }, 1500 );
             }
 
         },
@@ -48,13 +48,13 @@ var AdminAvatar = function () {
                      * @return 
                      * @since 1.0
                      */
-                    showShortcodeAvatarTab: function (event)
+                    showShortcodeAvatarTab: function ( event )
                     {
-                        jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .admin-setting-left .settings-panel').hide();
+                        jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .admin-setting-left .settings-panel' ).hide();
 
                         var id = jQuery(event.target).attr('href');
 
-                        jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .admin-setting-left ' + id).show();
+                        jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap .admin-setting-left ' + id ).show();
                     },
 
                     /**
@@ -65,16 +65,16 @@ var AdminAvatar = function () {
                      * @return 
                      * @since 1.0
                      */
-                    imageLinkTo: function (event)
+                    imageLinkTo: function ( event )
                     {
-                        var link_to = jQuery(event.target).val();
+                        var link_to = jQuery( event.target ).val();
 
-                        if (link_to == 'custom')
+                        if ( link_to == 'custom' )
                         {
-                            jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-custom-link-to').attr('type', 'text');
+                            jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-custom-link-to' ).attr( 'type', 'text' );
                         } else
                         {
-                            jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-custom-link-to').attr('type', 'hidden');
+                            jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-custom-link-to' ).attr( 'type', 'hidden' );
                         }
                     },
 
@@ -86,43 +86,43 @@ var AdminAvatar = function () {
                      * @return 
                      * @since 1.0
                      */
-                    addUserAvatarShortcode: function (event)
+                    addUserAvatarShortcode: function ( event )
                     {
-                        var user_id = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-user-id').val();
+                        var user_id = jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-user-id' ).val();
 
-                        var size = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-size').val();
+                        var size = jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-size' ).val();
 
-                        var align = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-alignment').val();
+                        var align = jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-alignment' ).val();
 
-                        var link = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-link-to').val();
+                        var link = jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-link-to' ).val();
 
-                        var custom_link = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-custom-link-to').val();
+                        var custom_link = jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-custom-link-to' ).val();
 
                         var target = '';
-                        if (jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-open-new-window').prop("checked") == true)
+                        if (jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-open-new-window' ).prop( "checked" ) == true )
                         {
-                            target = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-open-new-window').val();
+                            target = jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-open-new-window' ).val();
                         }
 
-                        var caption = jQuery('body').find('#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-caption').val();
+                        var caption = jQuery( 'body' ).find( '#TB_window #TB_ajaxContent .wp-user-profile-avatar-shortcode-wrap #settings-user-avatar #wp-image-caption').val();
 
-                        var user_tag = (user_id != "") ? ' user_id="' + user_id + '"' : "";
+                        var user_tag = ( user_id != "" ) ? ' user_id="' + user_id + '"' : "";
 
-                        var size_tag = (size != "") ? ' size="' + size + '"' : "";
+                        var size_tag = ( size != "" ) ? ' size="' + size + '"' : "";
 
-                        var align_tag = (align != "") ? ' align="' + align + '"' : "";
+                        var align_tag = ( align != "" ) ? ' align="' + align + '"' : "";
 
-                        var link_tag = (link != "" && link != 'custom' && custom_link == "") ? ' link="' + link + '"' : "";
-                        link_tag = (custom_link != "") ? ' link="' + custom_link + '"' : link_tag;
+                        var link_tag = ( link != "" && link != 'custom' && custom_link == "" ) ? ' link="' + link + '"' : "";
+                        link_tag = ( custom_link != "" ) ? ' link="' + custom_link + '"' : link_tag;
 
-                        var target_tag = (target != "") ? ' target="' + target + '"' : "";
+                        var target_tag = ( target != "" ) ? ' target="' + target + '"' : "";
 
                         var shortcode = "<p>[user_profile_avatar" + user_tag + size_tag + align_tag + link_tag + target_tag + "] " + caption + " [/user_profile_avatar]</p>";
 
-                        tinymce.activeEditor.insertContent(shortcode);
+                        tinymce.activeEditor.insertContent( shortcode );
                         //editor.insertContent('[wdm_shortcode]');
 
-                        jQuery('body').find('#TB_window #TB_title #TB_closeAjaxWindow #TB_closeWindowButton').trigger("click");
+                        jQuery( 'body' ).find( '#TB_window #TB_title #TB_closeAjaxWindow #TB_closeWindowButton' ).trigger( "click" );
                     },
 
                     /**
@@ -133,14 +133,14 @@ var AdminAvatar = function () {
                      * @return 
                      * @since 1.0
                      */
-                    addUploadAvatarShortcode: function (event)
+                    addUploadAvatarShortcode: function ( event )
                     {
                         var shortcode = "<p>[user_profile_avatar_upload]</p>";
 
-                        tinymce.activeEditor.insertContent(shortcode);
+                        tinymce.activeEditor.insertContent( shortcode );
                         //editor.insertContent('[wdm_shortcode]');
 
-                        jQuery('body').find('#TB_window #TB_title #TB_closeAjaxWindow #TB_closeWindowButton').trigger("click");
+                        jQuery( 'body' ).find( '#TB_window #TB_title #TB_closeAjaxWindow #TB_closeWindowButton' ).trigger("click");
                     },
 
                     /**
@@ -151,7 +151,7 @@ var AdminAvatar = function () {
                      * @return 
                      * @since 1.0
                      */
-                    chooseAvatar: function (event)
+                    chooseAvatar: function ( event )
                     {
                         var upload = wp.media({
                             library: {
@@ -160,16 +160,16 @@ var AdminAvatar = function () {
                             title: wp_user_profile_avatar_admin_avatar.media_box_title, /*Title for Media Box*/
                             multiple: false /*For limiting multiple image*/
                         })
-                                .on('select', function ()
+                                .on( 'select', function ()
                                 {
-                                    var select = upload.state().get('selection');
+                                    var select = upload.state().get( 'selection' );
                                     var attach = select.first().toJSON();
 
-                                    jQuery('#wp-user-profile-avatar-preview img').attr('src', attach.url);
-                                    jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', attach.url);
-                                    jQuery('#wpupaattachmentid').attr('value', attach.id);
-                                    jQuery('#wp_user_profile_avatar_radio').trigger('click');
-                                    jQuery('#wp-user-profile-avatar-undo-button').show();
+                                    jQuery( '#wp-user-profile-avatar-preview img' ).attr( 'src', attach.url );
+                                    jQuery( '#wp-user-profile-avatar-thumbnail img' ).attr( 'src', attach.url );
+                                    jQuery( '#wpupaattachmentid' ).attr( 'value', attach.id );
+                                    jQuery( '#wp_user_profile_avatar_radio' ).trigger( 'click' );
+                                    jQuery( '#wp-user-profile-avatar-undo-button' ).show();
                                 })
                                 .open();
                     },
@@ -182,14 +182,14 @@ var AdminAvatar = function () {
                      * @return 
                      * @since 1.0
                      */
-                    removeAvatar: function (event)
+                    removeAvatar: function ( event )
                     {
-                        jQuery('#wp-user-profile-avatar-preview img').attr('src', wp_user_profile_avatar_admin_avatar.default_avatar);
-                        jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', wp_user_profile_avatar_admin_avatar.default_avatar);
-                        jQuery('#wpupaattachmentid').attr('value', '');
-                        jQuery('#wpupa-url').attr('value', '');
+                        jQuery( '#wp-user-profile-avatar-preview img' ).attr( 'src', wp_user_profile_avatar_admin_avatar.default_avatar );
+                        jQuery( '#wp-user-profile-avatar-thumbnail img' ).attr( 'src', wp_user_profile_avatar_admin_avatar.default_avatar );
+                        jQuery( '#wpupaattachmentid' ).attr( 'value', '' );
+                        jQuery( '#wpupa-url' ).attr( 'value', '' );
 
-                        jQuery('#wp-user-profile-avatar-remove').hide();
+                        jQuery( '#wp-user-profile-avatar-remove' ).hide();
                     },
 
                     /**
@@ -200,13 +200,13 @@ var AdminAvatar = function () {
                      * @return 
                      * @since 1.0
                      */
-                    undoAvatar: function (event)
+                    undoAvatar: function ( event )
                     {
-                        jQuery('#wp-user-profile-avatar-preview img').attr('src', wp_user_profile_avatar_admin_avatar.default_avatar);
-                        jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', wp_user_profile_avatar_admin_avatar.default_avatar);
-                        jQuery('#wpupaattachmentid').attr('value', '');
+                        jQuery( '#wp-user-profile-avatar-preview img' ).attr( 'src', wp_user_profile_avatar_admin_avatar.default_avatar );
+                        jQuery( '#wp-user-profile-avatar-thumbnail img' ).attr( 'src', wp_user_profile_avatar_admin_avatar.default_avatar );
+                        jQuery( '#wpupaattachmentid' ).attr( 'value', '' );
 
-                        jQuery('#wp-user-profile-avatar-undo-button').hide();
+                        jQuery( '#wp-user-profile-avatar-undo-button' ).hide();
                     },
 
                 } /* end of action */
@@ -217,7 +217,7 @@ var AdminAvatar = function () {
 
 AdminAvatar = AdminAvatar();
 
-jQuery(document).ready(function ($)
+jQuery( document ).ready( function ($)
 {
     AdminAvatar.init();
 });
