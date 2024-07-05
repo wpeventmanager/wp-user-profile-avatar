@@ -44,6 +44,7 @@ var FrontendAvatar = function () {
                             jQuery('#wpupaattachmentid').attr('value', attachment.id);
                             jQuery('#wp-user-profile-avatar-preview img').attr('src', attachment.sizes['full']['url']);
                             jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', attachment.sizes['thumbnail']['url']);
+                            jQuery( '#wp-user-profile-avatar-undo-button' ).show();
                         });
                         file_frame.open();
                     },
@@ -178,6 +179,7 @@ var FrontendAvatar = function () {
                                     jQuery('#wp-user-profile-avatar-thumbnail img').attr('src', responce.avatar_thumbnail);
                                     jQuery('#update-user-profile-avatar').trigger('reset');
                                     //jQuery('#wp-user-profile-avatar-undo-button').show();
+                                    jQuery('#wp-user-profile-avatar-remove-button').show(); 
                                 }
 
                                 location.reload();
