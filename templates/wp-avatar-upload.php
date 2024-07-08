@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <p id="wp-user-profile-avatar-add-button-existing">
                         <button type="button" class="button" id="wp-user-profile-avatar-add" ><?php esc_html_e( 'Choose Image', 'wp-user-profile-avatar' ); ?></button>
 
-                        <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid">
+                        <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo esc_attr( $wpupaattachmentid ); ?>">
                         <input type="hidden" name="user_id" id="wp-user-id" value="<?php echo esc_attr( $user_id ); ?>">
 
                     </p>

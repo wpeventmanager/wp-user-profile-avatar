@@ -497,6 +497,7 @@ class WPUPA_Shortcodes {
                     'avatar_thumbnail' => $wpupa_thumbnail,
                     'message'          => esc_attr( $message ),
                     'class'            => esc_attr( $class ),
+                    'form_wpupaattachmentid' => esc_attr( $form_wpupaattachmentid ),
                 )
             );
         else :
