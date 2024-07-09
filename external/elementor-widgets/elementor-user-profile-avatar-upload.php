@@ -88,7 +88,7 @@ class Elementor_WPUPA_Upload extends Widget_Base {
      *
      * @access protected
      */
-    protected function wpupa_register_controls() {
+    protected function _register_controls() {
         $this->start_controls_section(
             'section_shortcode',
             array(

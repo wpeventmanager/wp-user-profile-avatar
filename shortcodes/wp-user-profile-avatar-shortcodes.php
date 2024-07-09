@@ -314,24 +314,27 @@ class WPUPA_Shortcodes {
             )
         );
 
-       /* if ( $admin_avatar_size ) {
-            $size = $admin_avatar_size;
-        }*/
+        $user_id = !empty( $user_id ) ? esc_attr( $user_id ) : $current_user_id;
+        $size = !empty( $atts['size'] ) ? sanitize_text_field( $atts['size'] ) : sanitize_text_field( $admin_avatar_size );
+        $align = sanitize_text_field( $atts['align'] );
+        $link = esc_url( $atts['link'] );
+        $target = sanitize_text_field( $atts['target'] );
 
-        if(!empty($atts['size'])){
+        if( !empty( $atts['size'] ) ){
 			$size = esc_attr( $atts['size'] );
 		}else{
 			$size = esc_attr( $admin_avatar_size );
 		}
 
         ob_start();
-            $image_url = esc_url( wpupa_get_url( $current_user_id, array( 'size' => esc_attr( $size ) ) ) );
+            
+        $image_url = esc_url( wpupa_get_url( $user_id, array( 'size' => esc_attr( $size ) ) ) );
         if ( $link == 'image' ) {
             // Get image src
-            $link = wpupa_get_url( $current_user_id, array( 'size' => 'original' ) );
+            $link = esc_url( wpupa_get_url( $user_id, array( 'size' => 'original' ) ) );
         } elseif ( $link == 'attachment' ) {
             // Get attachment URL
-            $link = get_attachment_link( get_the_author_meta( $wpdb->get_blog_prefix( esc_attr( $blog_id ) ) . 'user_avatar', esc_attr( $user_id ) ) );
+            $link = esc_url( get_attachment_link( get_the_author_meta( $wpdb->get_blog_prefix( esc_attr( $blog_id ) ) . 'user_avatar', esc_attr( $user_id ) ) ) );
         }
 
         include_once WPUPA_PLUGIN_DIR . '/templates/wp-user-avatar.php';
