@@ -8,9 +8,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WPUPA_Admin class.
  */
-#[AllowDynamicProperties]
 class WPUPA_Admin {
 
+    public $settings_page;
+    
     /**
      * Constructor - get the plugin hooked in and ready
      */

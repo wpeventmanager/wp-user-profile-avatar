@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Elementor widget for meeting detail
  */
-#[AllowDynamicProperties]
 class Elementor_WPUPA_Authorbox extends Widget_Base {
 
     /**

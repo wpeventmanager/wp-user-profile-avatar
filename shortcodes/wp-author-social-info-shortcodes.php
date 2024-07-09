@@ -5,7 +5,6 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
  * Class to define author box social info by using shortcode
  */
-#[AllowDynamicProperties]
 class WPUPA_authorbox_socialinfo_Shortcodes {
 
     /**

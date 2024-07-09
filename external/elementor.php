@@ -7,7 +7,6 @@ namespace WPUserProfileAvatar;
  *
  * Main Plugin class
  */
-#[AllowDynamicProperties]
 class Plugin {
 
     /**

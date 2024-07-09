@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $Add_New_User = new WPUPA_Add_New_User();
 
-#[AllowDynamicProperties]
 class WPUPA_Add_New_User {
 
     public function wpupa_admin_init() {

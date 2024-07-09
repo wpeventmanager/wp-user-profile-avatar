@@ -1,7 +1,6 @@
 <?php
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-#[AllowDynamicProperties]
 class WPUPA_Shortcodes {
 
     /**

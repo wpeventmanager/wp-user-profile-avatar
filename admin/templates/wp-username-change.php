@@ -10,7 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-#[AllowDynamicProperties]
 class WPUPA_WpUserNameChange {
     
     public $db;

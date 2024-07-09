@@ -9,9 +9,9 @@ namespace WPUPA_WpUserNameChange;
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-#[AllowDynamicProperties]
-class WPUPA_WpUserNameChange {
 
+class WPUPA_WpUserNameChange {
+    public $db;
     public function __construct() {
         global $wpdb;
         $this->db = $wpdb;
