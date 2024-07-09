@@ -307,7 +307,7 @@ class WPUPA_Shortcodes {
                     'user_id' => esc_attr( '' ),
                     'size'    => esc_attr( 'thumbnail' ),
                     'align'   => esc_attr( 'alignnone' ),
-                    'link'    => esc_url( '#' ),
+                    'link'    => esc_attr( '#' ),
                     'target'  => esc_attr( '_self' ),
                 ),
                 $atts
@@ -317,7 +317,7 @@ class WPUPA_Shortcodes {
         $user_id = !empty( $user_id ) ? esc_attr( $user_id ) : $current_user_id;
         $size = !empty( $atts['size'] ) ? sanitize_text_field( $atts['size'] ) : sanitize_text_field( $admin_avatar_size );
         $align = sanitize_text_field( $atts['align'] );
-        $link = esc_url( $atts['link'] );
+        $link = sanitize_text_field( $atts['link'] );
         $target = sanitize_text_field( $atts['target'] );
 
         if( !empty( $atts['size'] ) ){
@@ -335,7 +335,11 @@ class WPUPA_Shortcodes {
         } elseif ( $link == 'attachment' ) {
             // Get attachment URL
             $link = esc_url( get_attachment_link( get_the_author_meta( $wpdb->get_blog_prefix( esc_attr( $blog_id ) ) . 'user_avatar', esc_attr( $user_id ) ) ) );
-        }
+        } elseif ( $link == 'custom' ){
+            $link = esc_url( $atts['link'] );
+       } elseif ( $link == 'none' ){
+           $link = '#';
+       }
 
         include_once WPUPA_PLUGIN_DIR . '/templates/wp-user-avatar.php';
 

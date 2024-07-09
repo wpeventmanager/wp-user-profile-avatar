@@ -148,6 +148,18 @@ class Elementor_WPUPA extends Widget_Base {
         );
 
         $this->add_control(
+            'custom_link',
+            array(
+                'label'   => esc_html__( 'Custom URL', 'wp-user-profile-avatar' ),
+                'type'    => Controls_Manager::TEXT,
+                'default' => '',
+				'condition' => array(
+                    'link' => 'custom',
+                ),
+            )
+        );
+
+        $this->add_control(
             'target',
             array(
                 'label'        => esc_html__( 'Open link in a new window', 'wp-user-profile-avatar' ),
@@ -186,7 +198,9 @@ class Elementor_WPUPA extends Widget_Base {
         } else {
             $target = '_self';
         }
-
+        if ( $settings['link'] == 'custom' ){
+			$settings['link'] = $settings['custom_link'];
+		}
         echo '<div class="elementor-user-profile-avatar-widget">';
         echo do_shortcode( '[user_profile_avatar user_id="' . $settings['user_id'] . '" size="' . $settings['size'] . '" align="' . $settings['align'] . '" link="' . $settings['link'] . '" target="' . $target . '"]' . $settings['content'] . '[/user_profile_avatar]' );
         echo '</div>';
