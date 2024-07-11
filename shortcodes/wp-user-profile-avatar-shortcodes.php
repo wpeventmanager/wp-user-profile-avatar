@@ -308,6 +308,7 @@ class WPUPA_Shortcodes {
                     'align'   => esc_attr( 'alignnone' ),
                     'link'    => esc_attr( '#' ),
                     'target'  => esc_attr( '_self' ),
+                    'url'     => esc_attr( '' ),
                 ),
                 $atts
             )
@@ -318,11 +319,16 @@ class WPUPA_Shortcodes {
         $align = sanitize_text_field( $atts['align'] );
         $link = sanitize_text_field( $atts['link'] );
         $target = sanitize_text_field( $atts['target'] );
+        $url = !empty($atts['url']) ? sanitize_text_field($atts['url']) : '';
 
         if( !empty( $atts['size'] ) ){
 			$size = esc_attr( $atts['size'] );
 		}else{
 			$size = esc_attr( $admin_avatar_size );
+		}
+
+        if ($link === 'custom' && empty($url)) {
+			return 'Error: You must provide a URL when using the link = "custom" option.';
 		}
 
         ob_start();
@@ -335,7 +341,7 @@ class WPUPA_Shortcodes {
             // Get attachment URL
             $link = esc_url( get_attachment_link( get_the_author_meta( $wpdb->get_blog_prefix( esc_attr( $blog_id ) ) . 'user_avatar', esc_attr( $user_id ) ) ) );
         } elseif ( $link == 'custom' ){
-            $link = esc_url( $atts['link'] );
+            $link = $url;
        } elseif ( $link == 'none' ){
            $link = '#';
        }
