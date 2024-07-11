@@ -328,7 +328,7 @@ class WPUPA_Shortcodes {
 		}
 
         if ($link === 'custom' && empty($url)) {
-			return 'Error: You must provide a URL when using the link = "custom" option.';
+			return '<div class="error-message" style="color:red;">Error: You must provide a URL when using the "custom" link option. Please include the "url" attribute in your shortcode.</div>';
 		}
 
         ob_start();
