@@ -41,7 +41,8 @@ class WPUPA_Settings {
         $wpupa_default          = get_option( 'wpupa_default' );
         $wpupa_attachment_id    = get_option( 'wpupa_attachment_id' );
        // $wpupa_attachment_url   = wpupa_get_default_avatar_url( array( 'size' => 'admin' ) );
-        $wpupa_attachment_url   = get_option( 'wpupa_attachment_url');
+       // $wpupa_attachment_url   = get_option( 'wpupa_attachment_url');
+        $wpupa_attachment_url = get_option('wpupa_attachment_url') ?: wpupa_get_default_avatar_url(array('size' => 'admin'));
         $wpupa_size             = get_option( 'wpupa_size' );
         $avatar_size            = get_option( 'avatar_size' );
         $wpupa_hide_post_option = get_option( 'wpupa_hide_post_option' );
