@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </tr>
 
             <?php
-            // $class_hide = 'wp-user-profile-avatar-hide';
+             $class_hide = 'wp-user-profile-avatar-hide';
             if ( ! empty( $wpupaattachmentid ) || ! empty( $wpupa_url ) ) {
                 $class_hide = '';
             }
@@ -43,7 +43,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <img src="<?php echo ( $wpupa_url ) ? esc_url( $wpupa_url ) : esc_url( $wpupa_thumbnail ); ?>" alt="">
                         <span class="description"><?php esc_html_e( 'Thumbnail', 'wp-user-profile-avatar' ); ?></span>
                     </p>
-                    <p id="wp-user-profile-avatar-remove-button" class="<?php // echo esc_attr($class_hide); ?>">
+                    <p id="wp-user-profile-avatar-remove-button" class="<?php  echo esc_attr($class_hide); ?>">
                         <button type="button" class="button" id="wp-user-profile-avatar-remove"><?php esc_html_e( 'Remove Image', 'wp-user-profile-avatar' ); ?></button>
                     </p>
                     <p id="wp-user-profile-avatar-undo-button">

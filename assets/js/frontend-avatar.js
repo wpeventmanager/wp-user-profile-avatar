@@ -211,12 +211,14 @@ var FrontendAvatar = function () {
                                     jQuery('#update-user-profile-avatar').trigger('reset');
                                     jQuery('#wpupaattachmentid').val(response.form_wpupaattachmentid);
 
-                                    if (response.form_wpupaattachmentid == 0) {
+                                    if (response.form_wpupaattachmentid == '0') {
                                         jQuery('#wp-user-profile-avatar-remove-button').hide();
+										 jQuery( '#wp-user-profile-avatar-preview img' ).attr( 'src', wp_user_profile_avatar_frontend_avatar.default_avatar );
+										jQuery( '#wp-user-profile-avatar-thumbnail img' ).attr( 'src', wp_user_profile_avatar_frontend_avatar.default_avatar );
+										
                                     } else {
                                         jQuery('#wp-user-profile-avatar-remove-button').show();
                                     }
-                                    
                                 }
 
                                 location.reload();

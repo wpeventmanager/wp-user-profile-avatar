@@ -404,7 +404,7 @@ class WPUPA_Shortcodes {
         $wpupa_original  = esc_url( wpupa_get_url( $user_id, array( 'size' => 'original' ) ) );
         $wpupa_thumbnail = esc_url( wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) ) );
 
-        $wpupaattachmentid = esc_attr( get_user_meta( $user_id, '_wpupaattachmentid', true ) );
+        $wpupaattachmentid = esc_attr( get_user_meta( $user_id, '_wpupa_attachment_id', true ) );
         $wpupa_url         = esc_url( get_user_meta( $user_id, '_wpupa_url', true ) );
 
         include_once WPUPA_PLUGIN_DIR . '/templates/wp-avatar-upload.php';
