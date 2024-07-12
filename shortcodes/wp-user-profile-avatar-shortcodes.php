@@ -316,10 +316,10 @@ class WPUPA_Shortcodes {
 
         $user_id = !empty( $user_id ) ? esc_attr( $user_id ) : $current_user_id;
         $size = !empty( $atts['size'] ) ? sanitize_text_field( $atts['size'] ) : sanitize_text_field( $admin_avatar_size );
-        $align = sanitize_text_field( $atts['align'] );
-        $link = sanitize_text_field( $atts['link'] );
-        $target = sanitize_text_field( $atts['target'] );
-        $url = !empty($atts['url']) ? sanitize_text_field($atts['url']) : '';
+        $align = !empty($atts['align']) ? sanitize_text_field($atts['align']) : 'alignnone';
+        $link = !empty($atts['link']) ? sanitize_text_field($atts['link']) : '#';
+        $target = !empty($atts['target']) ? sanitize_text_field($atts['target']) : '_self';
+		$url = !empty($atts['url']) ? sanitize_text_field($atts['url']) : '';
 
         if( !empty( $atts['size'] ) ){
 			$size = esc_attr( $atts['size'] );
