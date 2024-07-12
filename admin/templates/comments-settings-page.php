@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-function wpupa_update_options( $options ) {
+/*function wpupa_update_options( $options ) {
     update_option( 'disable_comments_options', $options );
 }
 
@@ -107,3 +107,70 @@ if ( isset( $_POST['submit'] ) ) {
         disable_comments_uihelper();
     });
 </script>
+*/
+
+<div class="wrap">
+    <h1><?php echo esc_html_x( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
+    <?php
+		if ( isset( $_POST['submit'] ) && isset( $_POST['disable_comments_nonce_field'] ) && wp_verify_nonce( $_POST['disable_comments_nonce_field'], 'disable_comments_nonce' ) ) {
+			// Save the mode option
+			$mode = sanitize_text_field( $_POST['mode'] );
+			update_option( 'disable_comments_mode', $mode );
+			
+			// Save the disabled post types
+			if ( $mode === 'selected-types' && isset( $_POST['disabled_post_types'] ) && is_array( $_POST['disabled_post_types'] ) ) {
+				$disabled_post_types = array_map( 'sanitize_text_field', $_POST['disabled_post_types'] );
+			} else {
+				$disabled_post_types = array();
+			}
+			update_option( 'disabled_post_types', $disabled_post_types );
+			
+			
+			
+		
+		}
+		?>
+    <form action="" method="post" id="disable-comments">
+        <ul>
+            <li>
+                <label for="remove_everywhere">
+                    <input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked( get_option('disable_comments_mode'), 'remove_everywhere' ); ?> />
+                    <strong><?php esc_html_e( 'Everywhere', 'wp-user-profile-avatar' ); ?></strong>:
+                    <?php esc_html_e( 'Disable all comment-related controls and settings in WordPress.', 'wp-user-profile-avatar' ); ?>
+                </label>
+                <p class="indent">
+                    <?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to disable comments <em>everywhere</em>. A complete description of what this option does is <a href="%2$s" target="_blank">available here</a>.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>', 'https://wordpress.org/plugins/disable-comments/other_notes/' ); ?>
+                </p>
+            </li>
+            <li>
+                <label for="selected-types">
+                    <input type="radio" id="selected-types" name="mode" value="selected-types" <?php checked( get_option('disable_comments_mode'), 'selected-types' ); ?> />
+                    <strong><?php esc_html_e( 'On certain post types', 'wp-user-profile-avatar' ); ?></strong>:
+                </label>
+                <p class="indent"><?php esc_html_e( 'Disabling comments will also disable trackbacks and pingbacks. All comment-related fields will also be hidden from the edit/quick-edit screens of the affected posts. These settings cannot be overridden for individual posts.', 'wp-user-profile-avatar' ); ?></p>
+                
+                <ul class="indent" id="listoftypes">
+                    <?php
+                    $post_types = get_post_types( array( 'public' => true ), 'objects' );
+                    $disabled_post_types = get_option( 'disabled_post_types', array() );
+                    foreach ( $post_types as $post_type ) {
+                        ?>
+                        <li>
+                            <label for="post-type-<?php echo esc_attr( $post_type->name ); ?>">
+                                <input type="checkbox" name="disabled_post_types[]" value="<?php echo esc_attr( $post_type->name ); ?>" <?php checked( in_array( $post_type->name, $disabled_post_types ) ); ?> id="post-type-<?php echo esc_attr( $post_type->name ); ?>">
+                                <?php echo esc_html( $post_type->labels->name ); ?>
+                            </label>
+                        </li>
+                        <?php
+                    }
+                    ?>
+                </ul>
+            </li>
+        </ul>
+        <?php wp_nonce_field( 'disable_comments_nonce', 'disable_comments_nonce_field' ); ?>
+        <p class="submit"><input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>"></p>
+    </form>
+</div>
+
+
+
