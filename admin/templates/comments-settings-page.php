@@ -113,12 +113,12 @@ if ( isset( $_POST['submit'] ) ) {
     <h1><?php echo esc_html_x( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
     <?php
 		if ( isset( $_POST['submit'] ) && isset( $_POST['disable_comments_nonce_field'] ) && wp_verify_nonce( $_POST['disable_comments_nonce_field'], 'disable_comments_nonce' ) ) {
-			// Save the mode option
+			
 			$mode = sanitize_text_field( $_POST['mode'] );
 			update_option( 'disable_comments_mode', $mode );
 			
-			// Save the disabled post types
-			if ( $mode === 'selected-types' && isset( $_POST['disabled_post_types'] ) && is_array( $_POST['disabled_post_types'] ) ) {
+			
+			if ( 'selected-types' === $mode && isset( $_POST['disabled_post_types'] ) && is_array( $_POST['disabled_post_types'] ) ) {
 				$disabled_post_types = array_map( 'sanitize_text_field', $_POST['disabled_post_types'] );
 			} else {
 				$disabled_post_types = array();

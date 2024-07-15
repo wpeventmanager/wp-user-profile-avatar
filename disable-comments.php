@@ -6,7 +6,7 @@ add_action( 'init', 'wpupa_init_filters' );
 
 function wpupa_init_filters() {
 
-    $options = get_option( 'disable_comments_options', false );
+    $options = get_option( 'disable_comments_mode', false );
 
     if ( is_array( $options ) && isset( $options['remove_everywhere'] ) ) {
 
@@ -17,13 +17,14 @@ function wpupa_init_filters() {
 }
 
 function wpupa_init_wploaded_filters() {
-    $options             = get_option( 'disable_comments_options', array() );
-    $modified_types      = array();
-    $disabled_post_types = wpupa_get_disabled_post_types();
+    
+    $mode = get_option( 'disable_comments_mode', '' );
+    $disabled_post_types = get_option( 'disabled_post_types', array() );
+
     if ( ! empty( $disabled_post_types ) ) {
         foreach ( $disabled_post_types as $type ) {
             if ( post_type_supports( $type, 'comments' ) ) {
-                $modified_types[] = $type;
+               
                 remove_post_type_support( $type, 'comments' );
                 remove_post_type_support( $type, 'trackbacks' );
             }
@@ -33,7 +34,7 @@ function wpupa_init_wploaded_filters() {
     // Filters for the admin only.
     if ( is_admin() ) {
 
-        if ( isset( $options['remove_everywhere'] ) ) {
+        if ( 'remove_everywhere' === $mode ) {
             add_action( 'admin_menu', 'wpupa_filter_admin_menu' );
         }
     }
@@ -41,7 +42,7 @@ function wpupa_init_wploaded_filters() {
     else {
         add_action( 'template_redirect', 'wpupa_check_comment_template' );
 
-        if ( isset( $options['remove_everywhere'] ) ) {
+        if ( 'remove_everywhere' === $mode ) {
             add_filter( 'feed_links_show_comments_feed', '__return_false' );
         }
     }
@@ -72,7 +73,8 @@ function wpupa_filter_admin_menu() {
 }
 
 function wpupa_is_post_type_disabled( $type ) {
-    return in_array( $type, wpupa_get_disabled_post_types() );
+    $disabled_post_types = get_option( 'disabled_post_types', array() );
+    return in_array( $type, $disabled_post_types );
 }
 
 /**
@@ -81,10 +83,10 @@ function wpupa_is_post_type_disabled( $type ) {
  * and set it to True
  */
 function wpupa_check_comment_template() {
-    // $options = get_option('disable_comments_options', array());
-    if ( is_singular() && ( isset( $options['remove_everywhere'] ) || wpupa_is_post_type_disabled( get_post_type() ) ) ) {
+    $mode = get_option( 'disable_comments_mode', '' );
+    if ( is_singular() && (  'remove_everywhere' === $mode || wpupa_is_post_type_disabled( get_post_type() ) ) ) {
         if ( ! defined( 'DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE' ) || DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE == true ) {
-            // Kill the comments template.
+           
             add_filter( 'comments_template', 'wpupa_dummy_comments_template' );
         }
         // Remove comment-reply script for themes that include it indiscriminately.
@@ -112,7 +114,7 @@ function wpupa_filter_admin_bar() {
 /**
  * Get an array of disabled post type.
  */
-function wpupa_get_disabled_post_types() {
+/*function wpupa_get_disabled_post_types() {
     $options = get_option( 'disable_comments_options', false );
     $types   = isset( $options['disabled_post_types'] ) ? $options['disabled_post_types'] : '';
     // Not all extra_post_types might be registered on this particular site.
@@ -127,6 +129,6 @@ function wpupa_get_disabled_post_types() {
         $types = array();
     }
     return $types;
-}
+}*/
 
 

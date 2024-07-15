@@ -43,6 +43,7 @@ class WPUPA_Admin {
         add_action( 'wp_ajax_nopriv_thickbox_model_view', array( $this, 'thickbox_model_view' ) );
 
         add_action( 'admin_init', array( $this, 'wpupa_init_size' ) );
+        add_action( 'admin_init', array( $this, 'wpem_enable_event_comments' ) );
     }
 
     /**
@@ -347,6 +348,30 @@ class WPUPA_Admin {
         }
         add_filter( 'upload_size_limit', array( $this, 'wpem_upload_max_increase_upload' ) );
     }
+     /**
+     * wpem_enable_event_comments function.
+     *
+     * @access public
+     * @param
+     * @return
+     */
+    public function wpem_enable_event_comments() {
+		
+         // Add support for comments to 'event_listing' post type
+		$post_type = 'event_listing';
+		$post_type_object = get_post_type_object($post_type);
+
+		if ( $post_type_object ) {
+			$post_type_object->supports[] = 'comments';
+		}
+
+        // Add support for comments to 'event_organizer' post type
+		$event_organizer_post_type = 'event_organizer';
+		$event_organizer_post_type_object = get_post_type_object($event_organizer_post_type);
+		if ($event_organizer_post_type_object) {
+			$event_organizer_post_type_object->supports[] = 'comments';
+		}
+	}
 
     /**
      * Increase max_file_size
