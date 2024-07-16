@@ -40,9 +40,7 @@ class WPUPA_Settings {
         $wpupa_file_size        = get_option( 'wpupa_file_size' );
         $wpupa_default          = get_option( 'wpupa_default' );
         $wpupa_attachment_id    = get_option( 'wpupa_attachment_id' );
-       // $wpupa_attachment_url   = wpupa_get_default_avatar_url( array( 'size' => 'admin' ) );
-       // $wpupa_attachment_url   = get_option( 'wpupa_attachment_url');
-        $wpupa_attachment_url = get_option('wpupa_attachment_url') ?: wpupa_get_default_avatar_url(array('size' => 'admin'));
+        $wpupa_attachment_url = get_option('wpupa_attachment_url') ? get_option('wpupa_attachment_url') : wpupa_get_default_avatar_url(array('size' => 'admin'));
         $wpupa_size             = get_option( 'wpupa_size' );
         $avatar_size            = get_option( 'avatar_size' );
         $wpupa_hide_post_option = get_option( 'wpupa_hide_post_option' );
@@ -55,9 +53,7 @@ class WPUPA_Settings {
                 <tr valign="top">
                     <td>
                         <form method="post" action="<?php echo esc_url( admin_url( 'admin.php' ) ) . '?page=wp-user-profile-avatar'; ?>">
-
                             <table class="form-table">
-
                                 <tr valign="top">
                                     <th scope="row"><?php esc_html_e( 'Avatar Visibility', 'wp-user-profile-avatar' ); ?></th>
                                     <td>
@@ -69,7 +65,6 @@ class WPUPA_Settings {
                                         </fieldset>
                                     </td>
                                 </tr>
-
                                 <tr valign="top">
                                     <th scope="row"><?php esc_html_e( 'Settings', 'wp-user-profile-avatar' ); ?></th>
                                     <td>
@@ -92,7 +87,6 @@ class WPUPA_Settings {
                                         </fieldset>
                                     </td>
                                 </tr>
-
                                 <tr valign="top">
                                     <th scope="row"><?php esc_html_e( 'Avatar Rating', 'wp-user-profile-avatar' ); ?></th>
                                     <td>
@@ -105,7 +99,6 @@ class WPUPA_Settings {
                                         </fieldset>
                                     </td>
                                 </tr>
-
                                 <tr>
                                     <th scope="row">
                                         <label for="wpupa_file_size">Avatar Max File Size</label>
@@ -149,7 +142,6 @@ class WPUPA_Settings {
                                         </fieldset>
                                     </td>
                                 </tr>
-
                                 <tr valign="top">
                                     <th scope="row"><?php esc_html_e( 'Default Avatar', 'wp-user-profile-avatar' ); ?></th>
                                     <td class="defaultavatarpicker">
@@ -185,7 +177,6 @@ class WPUPA_Settings {
                                                 foreach ( wpupa_get_default_avatar() as $name => $label ) :
                                                     $avatar     = get_avatar( '', 32, $name );
                                                     $avatar_url = wpupa_get_selected_avatar_url( $name );
-
                                                     $selected = ( $wpupa_default == $name ) ? 'checked="checked"' : '';
                                                     ?>
                                                     <label><input type="radio" name="wpupa_default" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> 
@@ -200,9 +191,7 @@ class WPUPA_Settings {
 
                                         </fieldset>
                                     </td>
-
                                 </tr>
-
                                 <tr>
                                     <td>
                                         <input type="submit" class="button button-primary" name="wp_user_profile_avatar_settings" value="<?php esc_attr_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>" />
@@ -212,15 +201,12 @@ class WPUPA_Settings {
                                         <?php wp_nonce_field( 'user_profile_avatar_settings' ); ?>
                                     </td>
                                 </tr>
-
                             </table>
-
                         </form>
                     </td>
                 </tr>
             </table>
         </div>  
-
         <?php
     }
 
@@ -249,8 +235,6 @@ class WPUPA_Settings {
             $wpupa_file_size = ! empty( $_POST['wpupa_file_size'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_file_size'] ) ) : '';
 
             $wpupa_default = ! empty( $_POST['wpupa_default'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_default'] ) ) : '';
-
-           // $wpupa_attachment_id = ! empty( $_POST['wpupaattachmentid'] ) ? sanitize_text_field( $_POST['wpupaattachmentid'] ) : '';
 
            if ( ! empty( $_POST['wpupaattachmentid'] ) ) {
                 $wpupa_attachment_id = sanitize_text_field( $_POST['wpupaattachmentid'] );
@@ -291,7 +275,6 @@ class WPUPA_Settings {
             update_option( 'wpupa_hide_post_option', $wpupa_hide_post_option );
         }
     }
-
 }
 
 new WPUPA_Settings();

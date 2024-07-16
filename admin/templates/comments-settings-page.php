@@ -7,107 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-/*function wpupa_update_options( $options ) {
-    update_option( 'disable_comments_options', $options );
-}
-
-$typeargs            = array( 'public' => true );
-$options             = get_option( 'disable_comments_options', array() );
-$modified_types      = array();
-$disabled_post_types = wpupa_get_disabled_post_types();
-
-if ( ! empty( $disabled_post_types ) ) {
-    foreach ( $disabled_post_types as $type ) {
-        // we need to know what native support was for later.
-        if ( post_type_supports( $type, 'comments' ) ) {
-            $modified_types[] = $type;
-            remove_post_type_support( $type, 'comments' );
-            remove_post_type_support( $type, 'trackbacks' );
-        }
-    }
-}
-$types = get_post_types( $typeargs, 'objects' );
-// foreach ( array_keys( $types ) as $type ) {
-// if ( ! in_array( $type, $modified_types ) && ! post_type_supports( $type, 'comments' ) ) {   // the type doesn't support comments anyway.
-// //       unset( $types[ $type ] );
-// }
-// }
-
-if ( isset( $_POST['submit'] ) ) {
-    check_admin_referer( 'disable-comments-admin' );
-    $options['remove_everywhere'] = ( isset( $_POST['mode'] ) == 'remove_everywhere' );
-
-    if ( $options['remove_everywhere'] ) {
-        $disabled_post_types = array_keys( $types );
-    } else {
-        $disabled_post_types = empty( $_POST['disabled_types'] ) ? array() : (array) wp_unslash( sanitize_text_field( $_POST['disabled_types'] ) );
-    }
-
-    $disabled_post_types = array_intersect( $disabled_post_types, array_keys( $types ) );
-
-    $options['disabled_post_types'] = $disabled_post_types;
-
-    // Extra custom post types.
-    if ( ! empty( $_POST['extra_post_types'] ) ) {
-        $extra_post_types            = array_filter( array_map( 'sanitize_key', explode( ',', sanitize_text_field( $_POST['extra_post_types'] ) ) ) );
-        $options['extra_post_types'] = array_diff( $extra_post_types, array_keys( $types ) ); // Make sure we don't double up builtins.
-    }
-
-    wpupa_update_options( $options );
-    echo '<div id="message" class="updated"><p>' . esc_html__( 'Options updated. Changes to the Admin Menu and Admin Bar will not appear until you leave or reload this page.', 'wp-user-profile-avatar' ) . '</p></div>';
-}
-?>
-<div class="wrap">
-    <h1><?php echo esc_html_x( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
-
-    <form action="" method="post" id="disable-comments">
-        <ul>
-            <li><label for="remove_everywhere"><input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked( isset( $options['remove_everywhere'] ) ); ?> /> <strong><?php esc_html_e( 'Everywhere', 'wp-user-profile-avatar' ); ?></strong>: <?php esc_html_e( 'Disable all comment-related controls and settings in WordPress.', 'wp-user-profile-avatar' ); ?></label>
-                <p class="indent"><?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to disable comments <em>everywhere</em>. A complete description of what this option does is <a href="%2$s" target="_blank">available here</a>.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>', 'https://wordpress.org/plugins/disable-comments/other_notes/' ); ?></p>
-            </li>
-            <?php $selected = ( empty( $_POST['delete-everywhere'] ) ) ? 'checked="checked"' : ''; ?>
-            <li><label for="selected-types"><input type="radio" id="selected-types" name="mode" value="selected-types" <?php echo esc_attr( $selected ); ?> /> <strong><?php esc_html_e( 'On certain post types', 'wp-user-profile-avatar' ); ?></strong>:</label>
-                <p></p>
-                <ul class="indent" id="listoftypes">
-                    <?php
-                    if ( isset( $options['disabled_post_types'] ) && is_array( $options['disabled_post_types'] ) ) {
-                        $disabled_post_types = $options['disabled_post_types'];
-                    } else {
-                        $disabled_post_types = array();
-                    }
-                    foreach ( $types as $k => $v ) {
-                        echo "<li><label for='post-type-" . esc_attr( $k ) . "'><input type='checkbox' name='disabled_types[]' value='" . esc_attr( $k ) . "' " . checked( in_array( $k, $disabled_post_types ), true, false ) . " id='post-type-" . esc_attr( $k ) . "'> " . esc_attr( $v->labels->name ) . '</label></li>';
-                    }
-                    ?>
-                </ul>
-
-                <p class="indent"><?php esc_html_e( 'Disabling comments will also disable trackbacks and pingbacks. All comment-related fields will also be hidden from the edit/quick-edit screens of the affected posts. These settings cannot be overridden for individual posts.', 'wp-user-profile-avatar' ); ?></p>
-            </li>
-        </ul>
-
-        <?php wp_nonce_field( 'disable-comments-admin' ); ?>
-        <p class="submit"><input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>"></p>
-    </form>
-</div>
-<script>
-    jQuery(document).ready(function ($) {
-        function disable_comments_uihelper() {
-            var indiv_bits = $("#listoftypes, #extratypes");
-            if ($("#remove_everywhere").is(":checked"))
-                indiv_bits.css("color", "#888").find(":input").attr("disabled", true);
-            else
-                indiv_bits.css("color", "#000").find(":input").attr("disabled", false);
-        }
-
-        $("#disable-comments :input").change(function () {
-            $("#message").slideUp();
-            disable_comments_uihelper();
-        });
-
-        disable_comments_uihelper();
-    });
-</script>
-*/
 ?>  
 <div class="wrap">
     <h1><?php echo esc_html_x( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
@@ -117,7 +16,6 @@ if ( isset( $_POST['submit'] ) ) {
 			$mode = sanitize_text_field( $_POST['mode'] );
 			update_option( 'disable_comments_mode', $mode );
 			
-			
 			if ( 'selected-types' === $mode && isset( $_POST['disabled_post_types'] ) && is_array( $_POST['disabled_post_types'] ) ) {
 				$disabled_post_types = array_map( 'sanitize_text_field', $_POST['disabled_post_types'] );
 			} else {
@@ -125,11 +23,8 @@ if ( isset( $_POST['submit'] ) ) {
 			}
 			update_option( 'disabled_post_types', $disabled_post_types );
 			
-			
-			
-		
 		}
-		?>
+	?>
     <form action="" method="post" id="disable-comments">
         <ul>
             <li>
@@ -171,6 +66,3 @@ if ( isset( $_POST['submit'] ) ) {
         <p class="submit"><input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>"></p>
     </form>
 </div>
-
-
-

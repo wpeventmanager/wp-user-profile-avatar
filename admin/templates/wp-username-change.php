@@ -17,16 +17,27 @@ class WPUPA_WpUserNameChange {
     public function __construct() {
         global $wpdb;
         $this->db = $wpdb;
-        // add_action('admin_menu', array($this, 'wpupa_user_list'));
         add_action( 'init', array( $this, 'wpupa_file_include' ) );
     }
-
+    /**
+     * wpupa_file_include function.
+     *
+     * @access public
+     * @param
+     * @return
+     */
     public function wpupa_file_include() {
         if ( is_admin() ) {
             require_once plugin_dir_path( __FILE__ ) . '/wp-user-list.php';
         }
     }
-
+    /**
+     * wpupa_user_list function.
+     *
+     * @access public
+     * @param
+     * @return
+     */
     public function wpupa_user_list() {
         $allowed_group = 'manage_options';
         if ( function_exists( 'add_submenu_page' ) ) {
@@ -34,12 +45,24 @@ class WPUPA_WpUserNameChange {
             add_submenu_page( null, __( 'Update', 'wp-user-profile-avatar' ), __( 'Update', 'wp-user-profile-avatar' ), $allowed_group, 'wpupa_username_update', 'wpupa_user_update' );
         }
     }
-
+     /**
+     * wpuser_select function.
+     *
+     * @access public
+     * @param
+     * @return
+     */
     public function wpuser_select() {
         $records = $this->db->get_results( 'SELECT * FROM `' . $this->db->prefix . 'users`' );
         return $records;
     }
-
+    /**
+     * wpuser_update function.
+     *
+     * @access public
+     * @param
+     * @return
+     */
     public function wpuser_update( $id, $name ) {
         $result = $this->db->update(
             $this->db->prefix . 'users',
@@ -51,7 +74,5 @@ class WPUPA_WpUserNameChange {
         );
         return $result;
     }
-
 }
-
 $wpuser = new WPUPA_WpUserNameChange();

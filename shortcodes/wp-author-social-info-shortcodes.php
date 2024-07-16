@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 /*
  * Class to define author box social info by using shortcode
  */
-class WPUPA_authorbox_socialinfo_Shortcodes {
+class WPUPA_Authorbox_Socialinfo_Shortcodes {
 
     /**
      * Constructor
@@ -36,4 +36,4 @@ class WPUPA_authorbox_socialinfo_Shortcodes {
 
 }
 
-new WPUPA_authorbox_socialinfo_Shortcodes();
+new WPUPA_Authorbox_Socialinfo_Shortcodes();

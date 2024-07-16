@@ -228,7 +228,6 @@ class WPUPA_Shortcodes {
 
 			$user_query = new WP_User_Query( $args );
 			$users = $user_query->get_results();
-
 			
 			if ( !empty( $atts['min_post_count'] ) ) {
 				$min_post_count = ( int ) $atts['min_post_count'];
@@ -282,9 +281,6 @@ class WPUPA_Shortcodes {
 
 		return ob_get_clean();
 	}
-
-
-
     /**
      * wpupa_user_profile_avatar function.
      *
@@ -350,7 +346,6 @@ class WPUPA_Shortcodes {
 
         return ob_get_clean();
     }
-
     /**
      * wpupa_user_profile_avatar_upload function.
      *
@@ -487,21 +482,10 @@ class WPUPA_Shortcodes {
                 update_user_meta( $user_id, '_wpupa_default', '' );
             }
 
-            /*
-            $wpupaattachmentid = get_user_meta($user_id, '_wpupa_attachment_id', true);
-            $wpupa_url = get_user_meta($user_id, '_wpupa_url', true);
-
-            if (empty($wpupaattachmentid) && empty($wpupa_url)) {
-                $wpupa_original = '';
-                $wpupa_thumbnail = '';
-                $message = __('Error! Select Image', 'wp-user-profile-avatar');
-                $class = 'wp-user-profile-avatar-error';
-            } else {*/
-                $wpupa_original  = wpupa_get_url( $user_id, array( 'size' => 'original' ) );
-                $wpupa_thumbnail = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
-                $message         = __( 'Successfully Updated Avatar', 'wp-user-profile-avatar' );
-                $class           = 'wp-user-profile-avatar-success';
-            /*}*/
+            $wpupa_original  = wpupa_get_url( $user_id, array( 'size' => 'original' ) );
+            $wpupa_thumbnail = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
+            $message         = __( 'Successfully Updated Avatar', 'wp-user-profile-avatar' );
+            $class           = 'wp-user-profile-avatar-success';            
 
             echo wp_json_encode(
                 array(
@@ -633,7 +617,6 @@ class WPUPA_Shortcodes {
         endif;
         wp_die();
     }
-
     /**
      * wpupa_handle_upload function.
      *
@@ -646,12 +629,9 @@ class WPUPA_Shortcodes {
         require_once ABSPATH . 'wp-admin/includes/image.php';
         require_once ABSPATH . 'wp-admin/includes/file.php';
         require_once ABSPATH . 'wp-admin/includes/media.php';
-
         $upload = wp_handle_upload( $file_handler, $overrides );
-
         return $upload;
     }
-
     /**
      * wpupa_get_user_avatar_url function.
      *
@@ -671,7 +651,6 @@ class WPUPA_Shortcodes {
         if ( ! $wpupa_show_avatars ) {
             return false;
         }
-
         $user_id = null;
         if ( is_object( $id_or_email ) ) {
             if ( ! empty( $id_or_email->comment_author_email ) ) { 
@@ -705,9 +684,7 @@ class WPUPA_Shortcodes {
                 }
             }
         }
-
         return $url;
     }
-
 }
 new WPUPA_Shortcodes();
