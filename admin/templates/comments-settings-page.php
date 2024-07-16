@@ -108,7 +108,7 @@ if ( isset( $_POST['submit'] ) ) {
     });
 </script>
 */
-
+?>  
 <div class="wrap">
     <h1><?php echo esc_html_x( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
     <?php
