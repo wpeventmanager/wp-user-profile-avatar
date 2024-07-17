@@ -25,7 +25,7 @@ class WPUPA_Admin {
             add_action( 'init', array( $this, 'wpupa_add_buttons' ) );
         }
 
-        include_once 'templates/wp-username-change.php';
+        include_once 'wp-username-change.php';
         add_action( 'admin_menu', array( $this, 'wpupa_admin_menu' ), 12 );
 
         add_action( 'admin_enqueue_scripts', array( $this, 'wpupa_admin_enqueue_scripts' ) );
@@ -350,20 +350,8 @@ class WPUPA_Admin {
      */
     public function wpem_enable_event_comments() {
 		
-         // Add support for comments to 'event_listing' post type
-		$post_type = 'event_listing';
-		$post_type_object = get_post_type_object($post_type);
-
-		if ( $post_type_object ) {
-			$post_type_object->supports[] = 'comments';
-		}
-
-        // Add support for comments to 'event_organizer' post type
-		$event_organizer_post_type = 'event_organizer';
-		$event_organizer_post_type_object = get_post_type_object($event_organizer_post_type);
-		if ($event_organizer_post_type_object) {
-			$event_organizer_post_type_object->supports[] = 'comments';
-		}
+        $post_type = 'event_listing';
+        add_post_type_support($post_type, 'comments');
 	}
 
     /**

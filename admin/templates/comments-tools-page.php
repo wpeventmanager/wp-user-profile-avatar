@@ -35,17 +35,6 @@ if ( ! defined( 'ABSPATH' ) ) {
             }
         }
     }
-
-    function delete_comments_everywhere() {
-        global $wpdb;
-        return $wpdb->query( "DELETE FROM {$wpdb->comments} WHERE 1=1" );
-    }
-
-    function delete_comments_by_post_types( $post_types ) {
-        global $wpdb;
-        $post_type_placeholders = implode( "','", $post_types );
-        return $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->comments} WHERE comment_post_ID IN (SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('%s'))", $post_type_placeholders ) );
-    }
     ?>
     <form action="" method="post" id="delete-comments">
         <ul>

@@ -65,11 +65,11 @@ class WPUPA_User_Profile_Avatar {
         include 'includes/wp-user-profile-avatar-install.php';
         // include( 'includes/wp-user-profile-avatar-user.php' );
         include 'wp-user-profile-avatar-functions.php';
-        include_once 'admin/templates/wp-username-change.php';
-        include_once 'disable-comments.php';
-        include_once 'templates/wp-author-box-social-info.php';
-        include_once 'templates/wp-add-new-avatar.php';
-        include_once 'templates/wp-avatar-social profile-picture.php';
+        include_once 'admin/wp-username-change.php';
+        include_once 'wp-user-profile-avatar-disable-comments.php';
+        include_once 'includes/wp-author-box-social-info.php';
+        include_once 'includes/wp-add-new-avatar.php';
+        include_once 'includes/wp-avatar-social profile-picture.php';
 
         // shortcodes
         include 'shortcodes/wp-user-profile-avatar-shortcodes.php';
@@ -79,7 +79,7 @@ class WPUPA_User_Profile_Avatar {
         // external
         include 'external/external.php';
 
-        include_once 'templates/wp-author-box-social-info.php';
+        include_once 'wp-author-box-social-info.php';
 
         // Activation / deactivation - works with symlinks
         register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'wpupa_activate' ) );
@@ -145,7 +145,7 @@ class WPUPA_User_Profile_Avatar {
         wp_enqueue_style( 'wp-user-profile-avatar-frontend', WPUPA_PLUGIN_URL . '/assets/css/frontend.min.css' );
 
         wp_register_script( 'wp-user-profile-avatar-frontend-avatar', WPUPA_PLUGIN_URL . '/assets/js/frontend-avatar.min.js', array( 'jquery' ), WPUPA_VERSION, true );
-        wp_enqueue_script( 'wp-user-profile-avatar-frontend-avatar-custom', WPUPA_PLUGIN_URL . '/assets/js/frontend-custom.js', array( 'jquery' ), WPUPA_VERSION, true );
+       
         wp_localize_script(
             'wp-user-profile-avatar-frontend-avatar',
             'wp_user_profile_avatar_frontend_avatar',

@@ -15,8 +15,7 @@ class WPUPA_WpUserNameChange {
     public function __construct() {
         global $wpdb;
         $this->db = $wpdb;
-        // add_action('admin_menu', array($this, 'wpupa_user_list'));
-        add_action( 'init', array( $this, 'wpupa_file_include' ) );
+       
     }
 
     public function wpupa_file_include() {
@@ -49,7 +48,6 @@ class WPUPA_WpUserNameChange {
         );
         return $result;
     }
-
 }
 
 $wpuser = new WPUPA_WpUserNameChange();

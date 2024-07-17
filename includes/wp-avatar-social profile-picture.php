@@ -7,8 +7,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-?>
-<?php
 
 function wpupa_avatar_social_profile_picture() {
     global $pagenow;

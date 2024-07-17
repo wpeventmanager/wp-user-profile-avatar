@@ -17,7 +17,7 @@ class WPUPA_WpUserNameChange {
     public function __construct() {
         global $wpdb;
         $this->db = $wpdb;
-        add_action( 'init', array( $this, 'wpupa_file_include' ) );
+       
     }
     /**
      * wpupa_file_include function.

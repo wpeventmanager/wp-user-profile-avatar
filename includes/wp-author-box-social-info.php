@@ -7,9 +7,14 @@
 if ( ! defined( 'ABSPATH' ) ) {
         exit;
 }
-?>
-<?php
-
+/**
+ * wpupa_add_user_social_contact_info function.
+ *
+ * @access public
+ * @param $user_contact
+ * @return
+ * @since 1.0
+ */
 function wpupa_add_user_social_contact_info( $user_contact ) {
         $user_contact['facebook']   = esc_html__( 'Facebook URL','wp-user-profile-avatar' );
         $user_contact['skype']      = esc_html__( 'Skype','wp-user-profile-avatar' );
@@ -22,16 +27,30 @@ function wpupa_add_user_social_contact_info( $user_contact ) {
         $user_contact['github']     = esc_html__( 'Github profile','wp-user-profile-avatar' );
         return $user_contact;
 }
-
 add_filter( 'user_contactmethods', 'wpupa_add_user_social_contact_info' );
 
+/**
+ * wpupa_fontawesome_styles function.
+ *
+ * @access public
+ * @param 
+ * @return
+ * @since 1.0
+ */
 function wpupa_fontawesome_styles() {
         wp_register_style( 'fontawesome', WPUPA_PLUGIN_URL . '/assets/lib/fontawesome/all.css', '', '4.4.0', 'all' );
         wp_enqueue_style( 'fontawesome' );
 }
-
 add_action( 'wp_enqueue_scripts', 'wpupa_fontawesome_styles' );
 
+/**
+ * wpupa_author_social_info_box function.
+ *
+ * @access public
+ * @param $content
+ * @return
+ * @since 1.0
+ */
 function wpupa_author_social_info_box( $content ) {
 
         global $post;
@@ -192,6 +211,5 @@ function wpupa_author_social_info_box( $content ) {
         }
         return $content;
 }
-
 add_action( 'the_content', 'wpupa_author_social_info_box' );
 remove_filter( 'pre_user_description', 'wp_filter_kses' );
