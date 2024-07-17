@@ -79,7 +79,7 @@ class WPUPA_User_Profile_Avatar {
         // external
         include 'external/external.php';
 
-        include_once 'wp-author-box-social-info.php';
+        include_once 'includes/wp-author-box-social-info.php';
 
         // Activation / deactivation - works with symlinks
         register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'wpupa_activate' ) );
