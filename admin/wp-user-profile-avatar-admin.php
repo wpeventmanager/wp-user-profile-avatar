@@ -350,8 +350,10 @@ class WPUPA_Admin {
      */
     public function wpem_enable_event_comments() {
 		
-        $post_type = 'event_listing';
-        add_post_type_support($post_type, 'comments');
+        $post_type = array( 'event_listing', 'event_zoom' );
+		foreach( $post_type as $post ){
+			add_post_type_support($post, 'comments');
+		}
 	}
 
     /**
