@@ -15,7 +15,7 @@ class WPUPA_User_Shortcodes {
     }
 
     /**
-     * wpupa_user_display function
+     * display user profile avatar function
      *
      * @access public
      * @param $atts

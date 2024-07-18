@@ -63,9 +63,8 @@ class WPUPA_User_Profile_Avatar {
 
         // Includes
         include 'includes/wp-user-profile-avatar-install.php';
-        // include( 'includes/wp-user-profile-avatar-user.php' );
         include 'wp-user-profile-avatar-functions.php';
-        include_once 'admin/wp-username-change.php';
+        include_once 'includes/wp-username-change.php';
         include_once 'wp-user-profile-avatar-disable-comments.php';
         include_once 'includes/wp-author-box-social-info.php';
         include_once 'includes/wp-add-new-avatar.php';
@@ -78,8 +77,6 @@ class WPUPA_User_Profile_Avatar {
 
         // external
         include 'external/external.php';
-
-        include_once 'includes/wp-author-box-social-info.php';
 
         // Activation / deactivation - works with symlinks
         register_activation_hook( basename( dirname( __FILE__ ) ) . '/' . basename( __FILE__ ), array( $this, 'wpupa_activate' ) );
@@ -95,11 +92,10 @@ class WPUPA_User_Profile_Avatar {
 
         // Filters
         add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'wpupa_settings_link' ) );
-
     }
 
     /**
-     * wpupa_activate function.
+     * plugin activation function.
      *
      * @access public
      * @param
@@ -112,7 +108,7 @@ class WPUPA_User_Profile_Avatar {
     }
 
     /**
-     * wpupa_load_plugin_textdomain function.
+     * load plugin text domain function.
      *
      * @access public
      * @param
@@ -131,7 +127,7 @@ class WPUPA_User_Profile_Avatar {
     }
 
     /**
-     * wpupa_frontend_scripts function.
+     * enqueue script and style function.
      *
      * @access public
      * @param
@@ -159,7 +155,7 @@ class WPUPA_User_Profile_Avatar {
     }
 
     /**
-     * wpupa_settings_link function.
+     * set the setting page link function.
      *
      * Create link on plugin page for wp user profile avatar plugin settings.
      *

@@ -211,7 +211,7 @@ class WPUPA_Settings {
     }
 
     /**
-     * wpupa_edit_handler function.
+     * edit fields handler function.
      *
      * @access public
      * @param

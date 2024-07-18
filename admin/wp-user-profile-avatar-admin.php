@@ -25,7 +25,8 @@ class WPUPA_Admin {
             add_action( 'init', array( $this, 'wpupa_add_buttons' ) );
         }
 
-        include_once 'wp-username-change.php';
+        include_once plugin_dir_path(__FILE__) . '../includes/wp-username-change.php';
+
         add_action( 'admin_menu', array( $this, 'wpupa_admin_menu' ), 12 );
 
         add_action( 'admin_enqueue_scripts', array( $this, 'wpupa_admin_enqueue_scripts' ) );
@@ -47,7 +48,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_admin_menu function.
+     * add admin menu page function.
      *
      * @access public
      * @param
@@ -91,7 +92,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_admin_enqueue_scripts function.
+     * enqueue script and style function.
      * enqueue style and script for admin
      *
      * @access public
@@ -124,7 +125,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_add_fields function.
+     * add fields function.
      *
      * @access public
      * @param $user
@@ -166,7 +167,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_save_fields function.
+     * save the added fields function.
      *
      * @access public
      * @param $user_id
@@ -220,7 +221,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_add_buttons function.
+     * add button function.
      *
      * @access public
      * @param
@@ -236,7 +237,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_register_button function.
+     * set register button function.
      *
      * @access public
      * @param $buttons
@@ -249,7 +250,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_add_tinymce_plugin function.
+     * add tinymice plugin function.
      *
      * @access public
      * @param $plugins
@@ -262,7 +263,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * wpupa_thickbox_model_init function.
+     * add thickbox model function.
      *
      * @access public
      * @param
@@ -274,7 +275,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * thickbox_model_view function.
+     * view thickbox model function.
      *
      * @access public
      * @param
@@ -288,7 +289,7 @@ class WPUPA_Admin {
     }
 
     /**
-     * allow_contributor_uploads function.
+     * allow contributors uploads function.
      * `
      *
      * @access public
@@ -342,7 +343,7 @@ class WPUPA_Admin {
         add_filter( 'upload_size_limit', array( $this, 'wpem_upload_max_increase_upload' ) );
     }
      /**
-     * wpem_enable_event_comments function.
+     * enable comments function.
      *
      * @access public
      * @param

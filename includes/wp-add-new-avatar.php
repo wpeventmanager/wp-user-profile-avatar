@@ -1,25 +1,42 @@
 <?php
 
 /**
- * Add New Default Avatar  page.
+ * Add New Default Avatar page.
  *
- * @package Add New Default Avatar page.
+ * @package Add_New_Default_Avatar
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-?>
-<?php
 
-$Add_New_User = new WPUPA_Add_New_User();
-
+/**
+ * Class WPUPA_Add_New_User
+ *
+ * Handles adding new default avatars and related functionality.
+ */
 class WPUPA_Add_New_User {
 
+    /**
+     * Constructor.
+     */
+    public function __construct() {
+        add_filter( 'admin_init', array( $this, 'wpupa_admin_init' ) );
+        add_filter( 'avatar_defaults', array( $this, 'wpupa_avatar_defaults' ) );
+        add_filter( 'update_default_avatar', array( $this, 'wpupa_update_default_avatar' ), 10, 5 );
+    }
+
+    /**
+     * Initialize admin settings for adding new default avatar.
+     */
     public function wpupa_admin_init() {
         register_setting( 'discussion', 'Add_New_User', array( $this, 'wpupa_validate' ) );
         add_settings_field( 'Add_New_User', __( 'Add New Default Avatar', 'wp-user-profile-avatar' ), array( $this, 'wpupa_field_html' ), 'discussion', 'avatars', $args = array() );
     }
 
+    /**
+     * HTML output for the settings field to add new default avatar.
+     */
     public function wpupa_field_html() {
         $value = get_option(
             'Add_New_User',
@@ -46,7 +63,13 @@ class WPUPA_Add_New_User {
         echo '</p>';
     }
 
-    function wpupa_validate( $input ) {
+    /**
+     * Validate and sanitize input for new default avatar settings.
+     *
+     * @param array $input Input values.
+     * @return array Sanitized input values.
+     */
+    public function wpupa_validate( $input ) {
         foreach ( $input as $k => $v ) {
             $input[ $k ]['name'] = esc_attr( $v['name'] );
             $input[ $k ]['url']  = esc_url( $v['url'] );
@@ -57,7 +80,13 @@ class WPUPA_Add_New_User {
         return $input;
     }
 
-    function wpupa_avatar_defaults( $avatar_defaults ) {
+    /**
+     * Add new default avatars to the avatar defaults list.
+     *
+     * @param array $avatar_defaults Existing avatar defaults.
+     * @return array Modified avatar defaults.
+     */
+    public function wpupa_avatar_defaults( $avatar_defaults ) {
         $opts = get_option( 'Add_New_User', false );
         if ( $opts ) {
             foreach ( $opts as $k => $v ) {
@@ -68,6 +97,15 @@ class WPUPA_Add_New_User {
         return $avatar_defaults;
     }
 
+    /**
+     * Update default avatar URL based on user's email.
+     *
+     * @param string $avatar Default avatar HTML.
+     * @param int|string|object $id_or_email The user identifier (ID, email, or object).
+     * @param int $size Avatar size.
+     * @param string $default Default avatar URL.
+     * @return string Updated avatar HTML.
+     */
     public function wpupa_update_default_avatar( $avatar, $id_or_email, $size, $default = '' ) {
 
         if ( is_numeric( $id_or_email ) ) {
@@ -92,10 +130,7 @@ class WPUPA_Add_New_User {
         return $avatar;
     }
 
-    public function __construct() {
-        add_filter( 'admin_init', array( $this, 'wpupa_admin_init' ) );
-        add_filter( 'avatar_defaults', array( $this, 'wpupa_avatar_defaults' ) );
-        add_filter( 'update_default_avatar', array( $this, 'wpupa_update_default_avatar' ), 10, 5 );
-    }
-
 }
+
+// Instantiate the class
+$Add_New_User = new WPUPA_Add_New_User();

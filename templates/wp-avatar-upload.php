@@ -22,7 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                         <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo esc_attr( $wpupaattachmentid ); ?>">
                         <input type="hidden" name="user_id" id="wp-user-id" value="<?php echo esc_attr( $user_id ); ?>">
-
                     </p>
                 </td>
             </tr>

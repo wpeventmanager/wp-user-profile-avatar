@@ -22,7 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 				$disabled_post_types = array();
 			}
 			update_option( 'disabled_post_types', $disabled_post_types );
-			
 		}
 	?>
     <form action="" method="post" id="disable-comments">

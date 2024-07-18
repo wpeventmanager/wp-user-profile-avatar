@@ -29,7 +29,7 @@ class WPUPA_Authorbox_Socialinfo_Shortcodes {
 
         ob_start();
 
-        include_once WPUPA_PLUGIN_DIR . '/templates/wp-author-box-social-info.php';
+        include_once WPUPA_PLUGIN_DIR . '/includes/wp-author-box-social-info.php';
 
         return ob_get_clean();
     }

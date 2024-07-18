@@ -17,16 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="author-bio"><?php echo esc_attr( get_the_author_meta( 'description' ) ); ?></div>
         </div>
     </div>
-    <?php
-    /**
-     * authorbox_social_link function
-     *
-     * @access public
-     * @param $atts
-     * @return
-     * @since 1.0
-     */
-    ?>
          
     <!-- Display social link to the author  page-->
     <div class="authorbox-social-icons">

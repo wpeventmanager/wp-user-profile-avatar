@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 add_action( 'init', 'wpupa_init_filters' );
 /**
- * wpupa_init_filters function.
+ * filter for disable comments function.
  *
  * @access public
  * @param 
@@ -23,7 +23,7 @@ function wpupa_init_filters() {
     add_action( 'wp_loaded', 'wpupa_init_wploaded_filters' );
 }
 /**
- * wpupa_init_wploaded_filters function.
+ * load filtered comment on frontend function.
  *
  * @access public
  * @param 
@@ -62,7 +62,7 @@ function wpupa_init_wploaded_filters() {
     }
 }
 /**
- * wpupa_discussion_settings_allowed function.
+ * set discussion comment settings function.
  *
  * @access public
  * @param 
@@ -75,7 +75,7 @@ function wpupa_discussion_settings_allowed() {
     }
 }
 /**
- * wpupa_filter_admin_menu function.
+ * enable disable admin menu for comment function.
  *
  * @access public
  * @param 
@@ -101,7 +101,7 @@ function wpupa_filter_admin_menu() {
 }
 
 /**
- * wpupa_is_post_type_disabled function.
+ * return array on which post type commets are disable function.
  *
  * @access public
  * @param $type
@@ -114,7 +114,7 @@ function wpupa_is_post_type_disabled( $type ) {
 }
 
 /**
- * wpupa_check_comment_template function.
+ * check comment template function.
  *
  * @access public
  * @param 
@@ -135,7 +135,7 @@ function wpupa_check_comment_template() {
 }
 
 /**
- * wpupa_dummy_comments_template function.
+ * dummy comment template function.
  *
  * @access public
  * @param 
@@ -147,7 +147,7 @@ function wpupa_dummy_comments_template() {
 }
 
 /**
- * wpupa_filter_admin_bar function.
+ * filter for admin bar function.
  *
  * @access public
  * @param 

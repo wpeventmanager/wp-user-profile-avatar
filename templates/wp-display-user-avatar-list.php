@@ -5,7 +5,6 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-
 ?>
 
 <div class="user-avatar-list" style="text-align: <?php echo esc_attr($atts['align'] ); ?>;">

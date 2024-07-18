@@ -2,7 +2,7 @@
 if ( ! function_exists( 'wpupa_get_rating' ) ) {
 
     /**
-     * wpupa_get_rating function.
+     * get user avatar rating function.
      *
      * @access public
      * @param
@@ -25,7 +25,7 @@ if ( ! function_exists( 'wpupa_get_rating' ) ) {
 if ( ! function_exists( 'wpupa_get_file_size' ) ) {
 
     /**
-     * wpupa_get_file_size function.
+     * get file size function.
      *
      * @access public
      * @param
@@ -55,7 +55,7 @@ if ( ! function_exists( 'wpupa_get_file_size' ) ) {
 if ( ! function_exists( 'wpupa_get_default_avatar' ) ) {
 
     /**
-     * wpupa_get_default_avatar function.
+     * get default user avatar function.
      *
      * @access public
      * @param
@@ -109,7 +109,7 @@ if ( ! function_exists( 'wpupa_get_selected_avatar_url' ) ) {
 if ( ! function_exists( 'wpupa_get_default_avatar_url' ) ) {
 
     /**
-     * wpupa_get_default_avatar_url function.
+     * get default avatar urlS function.
      *
      * @access public
      * @param $args
@@ -172,7 +172,7 @@ if ( ! function_exists( 'wpupa_get_default_avatar_url' ) ) {
 if ( ! function_exists( 'wpupa_get_url' ) ) {
 
     /**
-     * wpupa_get_url function.
+     * get url fro usser profile avatar function.
      *
      * @access public
      * @param $user_id, $args
@@ -220,14 +220,13 @@ if ( ! function_exists( 'wpupa_get_url' ) ) {
                 )
             );
         }
-
     }
 }
 
 if ( ! function_exists( 'wpupa_check_wpupa_url' ) ) {
 
     /**
-     * wpupa_check_wpupa_url function.
+     * check if profile avatar url or not function.
      *
      * @access public
      * @param $user_id
@@ -252,7 +251,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_url' ) ) {
 if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
 
     /**
-     * wpupa_check_wpupa_gravatar function.
+     * check it is gratavatar or not function.
      *
      * @access public
      * @param $id_or_email, $check_gravatar, $user, $email
@@ -335,8 +334,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
         } else {
             $check_gravatar = false;
         }
-
-            // Check if Gravatar image returns 200 (OK) or 404 (Not Found)
+        // Check if Gravatar image returns 200 (OK) or 404 (Not Found)
         return (bool) $check_gravatar;
     }
 }
@@ -344,7 +342,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
 if ( ! function_exists( 'wpupa_get_image_sizes' ) ) {
 
     /**
-     * wpupa_get_image_sizes function.
+     * get profile image size function.
      *
      * @access public
      * @param
@@ -367,7 +365,7 @@ if ( ! function_exists( 'wpupa_get_image_sizes' ) ) {
 if ( ! function_exists( 'wpupa_get_image_alignment' ) ) {
 
     /**
-     * wpupa_get_image_alignment function.
+     * get profile image alignment function.
      *
      * @access public
      * @param
@@ -389,7 +387,7 @@ if ( ! function_exists( 'wpupa_get_image_alignment' ) ) {
 if ( ! function_exists( 'wpupa_get_image_link_to' ) ) {
 
     /**
-     * wpupa_get_image_link_to function.
+     * get profile image link function.
      *
      * @access public
      * @param
@@ -415,7 +413,7 @@ if ( ! function_exists( 'wpb_show_current_user_attachments' ) ) {
     add_filter( 'ajax_query_attachments_args', 'wpb_show_current_user_attachments' );
 
     /**
-     * wpb_show_current_user_attachments function.
+     * show current user attachments function.
      *
      * @access public
      * @param
@@ -437,7 +435,7 @@ if ( ! function_exists( 'wpb_show_current_user_attachments' ) ) {
 if ( ! function_exists( 'wpupa_file_size_limit' ) ) {
 
     /**
-     * wpupa_file_size_limit function.
+     * get file size limit function.
      *
      * Limit upload size for non-admins. Admins get the default limit
      *
@@ -459,7 +457,7 @@ if ( ! function_exists( 'wpupa_file_size_limit' ) ) {
 if ( ! function_exists( 'delete_comments_everywhere' ) ) {
     
 	/**
-     * delete_comments_everywhere function.
+     * delete comments from entire website function.
      *
      * delete comment on entire website
      *
@@ -477,7 +475,7 @@ if ( ! function_exists( 'delete_comments_everywhere' ) ) {
 if ( ! function_exists( 'delete_comments_by_post_types' ) ) {
     
 	/**
-     * delete_comments_by_post_types function.
+     * delete comments from selected post types in website function.
      *
      * delete comment on selected places on website
      *
@@ -496,7 +494,7 @@ use \WPUPA_WpUserNameChange\WPUPA_WpUserNameChange;
 
 if ( ! function_exists( 'wpupa_username_edit' ) ) {
 	/**
-     * wpupa_username_edit function.
+     * edit user name function.
      *
      * edit username from backend side 
      *
@@ -569,7 +567,7 @@ if ( ! function_exists( 'wpupa_username_edit' ) ) {
 
 if ( ! function_exists( 'wpupa_user_update' ) ) {
 	/**
-     * wpupa_user_update function.
+     * update username function.
      *
      * update username from backend side 
      *

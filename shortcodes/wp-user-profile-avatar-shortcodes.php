@@ -50,7 +50,7 @@ class WPUPA_Shortcodes {
 
         ob_start();
 
-        include_once WPUPA_PLUGIN_DIR . '/templates/wp-author-box-display.php';
+        include_once WPUPA_PLUGIN_DIR . '/includes/wp-author-box-display.php';
 
         return ob_get_clean();
     }

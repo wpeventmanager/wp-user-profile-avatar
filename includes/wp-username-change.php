@@ -19,20 +19,9 @@ class WPUPA_WpUserNameChange {
         $this->db = $wpdb;
        
     }
+	
     /**
-     * wpupa_file_include function.
-     *
-     * @access public
-     * @param
-     * @return
-     */
-    public function wpupa_file_include() {
-        if ( is_admin() ) {
-            require_once plugin_dir_path( __FILE__ ) . '/wp-user-list.php';
-        }
-    }
-    /**
-     * wpupa_user_list function.
+     * list all user function.
      *
      * @access public
      * @param
@@ -46,7 +35,7 @@ class WPUPA_WpUserNameChange {
         }
     }
      /**
-     * wpuser_select function.
+     * get all users function.
      *
      * @access public
      * @param
@@ -57,7 +46,7 @@ class WPUPA_WpUserNameChange {
         return $records;
     }
     /**
-     * wpuser_update function.
+     * update user data function.
      *
      * @access public
      * @param
