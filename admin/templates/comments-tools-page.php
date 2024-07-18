@@ -20,7 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             $deleted_count = delete_comments_everywhere();
             echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( '%d comments have been deleted from your site.', 'wp-user-profile-avatar' ), $deleted_count ) . '</p></div>';
-
+            update_option( 'selected_post_types', array() );
+            
         } elseif ( 'selected-post-types' === $mode ) {
            
             if ( isset( $_POST['selected_post_types'] ) && is_array( $_POST['selected_post_types'] ) && ! empty( $_POST['selected_post_types'] ) ) {
