@@ -327,7 +327,7 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
-= 1.0.4 [July 10th, 2023] =
+= 1.0.4 [July 19th, 2024] =
 
 Fixed: The Avatar spelling is rectified.
 Fixed : Deprecated code error is fixed.
