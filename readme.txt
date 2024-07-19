@@ -329,7 +329,24 @@ You will need to place below code in each area of your theme where you wish to a
 
 = 1.0.4 [July 10th, 2023] =
 
+Fixed: The Avatar spelling is rectified.
 Fixed : Deprecated code error is fixed.
+Fixed : Check marked again visible in the box.
+Fixed: Profile image remains the same when changing user name.
+Fixed: Issue related to the “Avatar link to” option is resolved.
+Fixed: Adding shortcode-related problem is resolved.
+Fixed: New profile image is no more visible after refreshing the page.
+Fixed: No undefined text is visible in the size attribute value.
+Fixed: Shortcode attribute-related issue is resolved.
+Fixed: Proper user image is now displayed in each user profile avatar.
+Fixed: Issue related to the option “open link in a new window” is resolved.
+Fixed: Space is added between the two buttons.
+Fixed: User role is now saved properly.
+Fixed: The issue related to the appearance of a new image when the update button is pressed is resolved.
+Fixed: The image button is not visible after removing an image.
+Fixed: The Undo button is now visible on the shortcode page.
+Fixed: The blue default user icon is now visible.
+Fixed : Comment enable/disable issue is fixed.
 
 = 1.0.3 [June 11th, 2024] =
 
