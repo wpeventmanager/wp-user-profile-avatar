@@ -32,7 +32,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                 echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( '%d comments have been deleted from selected post types.', 'wp-user-profile-avatar' ), $deleted_count ) . '</p></div>';
             
             } else {
-                echo '<div class="notice notice-error"><p>' . esc_html__( 'Please select at least one post type to delete comments from.', 'wp-user-profile-avatar' ) . '</p></div>';
+                update_option( 'selected_post_types', array() );
+                //   echo '<div class="notice notice-error"><p>' . esc_html__( 'Please select at least one post type to delete comments from.', 'wp-user-profile-avatar' ) . '</p></div>';
             }
         }
     }
