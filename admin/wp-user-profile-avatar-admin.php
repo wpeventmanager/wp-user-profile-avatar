@@ -40,8 +40,8 @@ class WPUPA_Admin {
         add_action( 'admin_init', array( $this, 'wpupa_allow_contributor_subscriber_uploads' ) );
 
         add_action( 'init', array( $this, 'wpupa_thickbox_model_init' ) );
-        add_action( 'wp_ajax_thickbox_model_view', array( $this, 'thickbox_model_view' ) );
-        add_action( 'wp_ajax_nopriv_thickbox_model_view', array( $this, 'thickbox_model_view' ) );
+        add_action( 'wp_ajax_thickbox_model_view', array( $this, 'wpupa_thickbox_model_view' ) );
+        add_action( 'wp_ajax_nopriv_thickbox_model_view', array( $this, 'wpupa_thickbox_model_view' ) );
 
         add_action( 'admin_init', array( $this, 'wpupa_init_size' ) );
         add_action( 'admin_init', array( $this, 'wpem_enable_event_comments' ) );
@@ -68,8 +68,8 @@ class WPUPA_Admin {
             add_submenu_page( 'wp-user-profile-avatar', __( 'WP Username Change', 'wp-user-profile-avatar' ), __( 'WP Username Change ', 'wp-user-profile-avatar' ), 'manage_options', 'wpupa_username_change', 'wpupa_username_edit' );
             add_submenu_page( null, '', '', 'manage_options', 'wpupa_username_update', 'wpupa_user_update' );
             add_submenu_page( 'wp-user-profile-avatar', 'WP Avatar User Role Settings', 'WP Avatar User Role Settings', 'activate_plugins', 'avatar-social-picture', 'wpupa_user_admin' );
-            add_submenu_page( 'wp-user-profile-avatar', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', array( $this, 'comments_settings_page' ) );
-            add_submenu_page( 'wp-user-profile-avatar', 'Delete Comments', 'Delete Comments', 'manage_options', 'disable_comments_tools', array( $this, 'comments_tools_page' ) );
+            add_submenu_page( 'wp-user-profile-avatar', 'Disable Comments', 'Disable Comments', 'manage_options', 'disable_comments_settings', array( $this, 'wpupa_comments_settings_page' ) );
+            add_submenu_page( 'wp-user-profile-avatar', 'Delete Comments', 'Delete Comments', 'manage_options', 'disable_comments_tools', array( $this, 'wpupa_comments_tools_page' ) );
         }
     }
 
@@ -78,7 +78,7 @@ class WPUPA_Admin {
      *
      * @since 1.0.2
      */
-    public function comments_settings_page() {
+    public function wpupa_comments_settings_page() {
         include 'templates/comments-settings-page.php';
     }
 
@@ -87,7 +87,7 @@ class WPUPA_Admin {
      *
      * @since 1.0.2
      */
-    function comments_tools_page() {
+    function wpupa_comments_tools_page() {
         include 'templates/comments-tools-page.php';
     }
 
@@ -154,7 +154,7 @@ class WPUPA_Admin {
         $wpupa_disable_gravatar = get_option( 'wpupa_disable_gravatar' );
 
         // Custom uplaod file size
-        $wpupa_max_size = get_option( 'wpem_max_file_size' );
+        $wpupa_max_size = get_option( 'wpupa_max_file_size' );
         if ( ! $wpupa_max_size ) {
             $wpupa_max_size = 64 * 1024 * 1024;
         }
@@ -282,7 +282,7 @@ class WPUPA_Admin {
      * @return
      * @since 1.0
      */
-    public function thickbox_model_view() {
+    public function wpupa_thickbox_model_view() {
         include_once WPUPA_PLUGIN_DIR . '/admin/templates/shortcode-popup.php';
 
         wp_die();
@@ -337,7 +337,7 @@ class WPUPA_Admin {
         if ( isset( $_POST['wpem-upload-max-file-size-field'] ) ) {
             
             $wpupa_max_size = (int) $_POST['wpem-upload-max-file-size-field'] * 1024 * 1024;
-            update_option( 'wpem_max_file_size', sanitize_text_field( $wpupa_max_size ) );
+            update_option( 'wpupa_max_file_size', sanitize_text_field( $wpupa_max_size ) );
             wp_safe_redirect( admin_url( 'upload.php?page=wpem_upload_max_file_size&max-size-updated=true' ) );
         }
         add_filter( 'upload_size_limit', array( $this, 'wpem_upload_max_increase_upload' ) );
@@ -361,7 +361,7 @@ class WPUPA_Admin {
      * Increase max_file_size
      */
     public function wpem_upload_max_increase_upload() {
-        $wpupa_max_size = (int) get_option( 'wpem_max_file_size' );
+        $wpupa_max_size = (int) get_option( 'wpupa_max_file_size' );
 
         if ( ! $wpupa_max_size ) {
             $wpupa_max_size = 64 * 1024 * 1024;

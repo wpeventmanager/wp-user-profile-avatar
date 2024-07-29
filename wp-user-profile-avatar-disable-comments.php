@@ -13,7 +13,7 @@ add_action( 'init', 'wpupa_init_filters' );
  */
 function wpupa_init_filters() {
 
-    $options = get_option( 'disable_comments_mode', false );
+    $options = get_option( 'wpupa_disable_comments_mode', false );
 
     if ( is_array( $options ) && isset( $options['remove_everywhere'] ) ) {
 
@@ -32,8 +32,8 @@ function wpupa_init_filters() {
  */
 function wpupa_init_wploaded_filters() {
     
-    $mode = get_option( 'disable_comments_mode', '' );
-    $disabled_post_types = get_option( 'disabled_post_types', array() );
+    $mode = get_option( 'wpupa_disable_comments_mode', '' );
+    $disabled_post_types = get_option( 'wpupa_disabled_post_types', array() );
 
     if ( ! empty( $disabled_post_types ) ) {
         foreach ( $disabled_post_types as $type ) {
@@ -109,7 +109,7 @@ function wpupa_filter_admin_menu() {
  * @since 1.0
  */
 function wpupa_is_post_type_disabled( $type ) {
-    $disabled_post_types = get_option( 'disabled_post_types', array() );
+    $disabled_post_types = get_option( 'wpupa_disabled_post_types', array() );
     return in_array( $type, $disabled_post_types );
 }
 
@@ -123,7 +123,7 @@ function wpupa_is_post_type_disabled( $type ) {
  */
 
 function wpupa_check_comment_template() {
-    $mode = get_option( 'disable_comments_mode', '' );
+    $mode = get_option( 'wpupa_disable_comments_mode', '' );
     if ( is_singular() && (  'remove_everywhere' === $mode || wpupa_is_post_type_disabled( get_post_type() ) ) ) {
         if ( ! defined( 'DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE' ) || DISABLE_COMMENTS_REMOVE_COMMENTS_TEMPLATE == true ) {
            

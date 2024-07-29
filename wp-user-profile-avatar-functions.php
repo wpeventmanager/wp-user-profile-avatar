@@ -121,9 +121,9 @@ if ( ! function_exists( 'wpupa_get_default_avatar_url' ) ) {
         $size          = ! empty( $args['size'] ) ? $args['size'] : 'thumbnail';
         $user_id       = ! empty( $args['user_id'] ) ? $args['user_id'] : '';
         $wpupa_default = get_option( 'wpupa_default' );
-        $avatar_size   = get_option( 'avatar_size' );
+        $avatar_size   = get_option( 'wpupa_avatar_size' );
         if ( $avatar_size ) {
-            $size = get_option( 'avatar_size' );
+            $size = get_option( 'wpupa_avatar_size' );
         }
         if ( $wpupa_default == 'wp_user_profile_avatar' || $size == 'admin' ) {
             $attachment_id = get_option( 'wpupa_attachment_id' );
@@ -259,7 +259,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
      * @since 1.0
      */
     function wpupa_check_wpupa_gravatar( $id_or_email = '', $check_gravatar = 0, $user = '', $email = '' ) {
-        $wp_user_hash_gravatar = get_option( 'wp_user_hash_gravatar' );
+        $wp_user_hash_gravatar = get_option( 'wpupa_user_hash_gravatar' );
 
         $wpupa_default = get_option( 'wpupa_default' );
 
@@ -312,7 +312,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
                 $check_gravatar = ( $data == '200' ) ? true : false;
                 if ( $wp_user_hash_gravatar == false ) {
                     $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
-                    add_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
+                    add_option( 'wpupa_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                 } else {
 
                     if ( is_array( $wp_user_hash_gravatar ) && ! empty( $wp_user_hash_gravatar ) ) {
@@ -321,10 +321,10 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
 
                             unset( $wp_user_hash_gravatar[ $hash ] );
                             $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
-                            update_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
+                            update_option( 'wpupa_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                         } else {
                             $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
-                            update_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
+                            update_option( 'wpupa_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                         }
                     }
                 }
@@ -454,7 +454,7 @@ if ( ! function_exists( 'wpupa_file_size_limit' ) ) {
 
     add_filter( 'upload_size_limit', 'wpupa_file_size_limit' );
 }
-if ( ! function_exists( 'delete_comments_everywhere' ) ) {
+if ( ! function_exists( 'wpupa_delete_comments_everywhere' ) ) {
     
 	/**
      * delete comments from entire website function.
@@ -466,13 +466,13 @@ if ( ! function_exists( 'delete_comments_everywhere' ) ) {
      * @return array
      * @since 1.0
      */
-    function delete_comments_everywhere() {
+    function wpupa_delete_comments_everywhere() {
         global $wpdb;
         return $wpdb->query( "DELETE FROM {$wpdb->comments} WHERE 1=1" );
     }
 }
 
-if ( ! function_exists( 'delete_comments_by_post_types' ) ) {
+if ( ! function_exists( 'wpupa_delete_comments_by_post_types' ) ) {
     
 	/**
      * delete comments from selected post types in website function.
@@ -484,7 +484,7 @@ if ( ! function_exists( 'delete_comments_by_post_types' ) ) {
      * @return array
      * @since 1.0
      */
-    function delete_comments_by_post_types( $post_types ) {
+    function wpupa_delete_comments_by_post_types( $post_types ) {
         global $wpdb;
         $post_type_placeholders = implode( "','", $post_types );
         return $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->comments} WHERE comment_post_ID IN (SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('%s'))", $post_type_placeholders ) );

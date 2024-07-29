@@ -14,25 +14,25 @@ if ( ! defined( 'ABSPATH' ) ) {
     if ( isset( $_POST['submit'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( $_POST['delete_comments_nonce_field'], 'delete_comments_nonce' ) ) {
         
         $mode = sanitize_text_field( $_POST['mode'] );
-        update_option( 'delete_comments_mode', $mode );
+        update_option( 'wpupa_delete_comments_mode', $mode );
 
         if ( 'delete_everywhere' === $mode ) {
 
-            $deleted_count = delete_comments_everywhere();
+            $deleted_count = wpupa_delete_comments_everywhere();
             echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( '%d comments have been deleted from your site.', 'wp-user-profile-avatar' ), $deleted_count ) . '</p></div>';
-            update_option( 'selected_post_types', array() );
+            update_option( 'wpupa_selected_post_types', array() );
             
         } elseif ( 'selected-post-types' === $mode ) {
            
             if ( isset( $_POST['selected_post_types'] ) && is_array( $_POST['selected_post_types'] ) && ! empty( $_POST['selected_post_types'] ) ) {
                 
                 $selected_post_types = array_map( 'sanitize_text_field', $_POST['selected_post_types'] );
-                update_option( 'selected_post_types', $selected_post_types ); // Save selected post types
-                $deleted_count = delete_comments_by_post_types( $selected_post_types );
+                update_option( 'wpupa_selected_post_types', $selected_post_types ); // Save selected post types
+                $deleted_count = wpupa_delete_comments_by_post_types( $selected_post_types );
                 echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( '%d comments have been deleted from selected post types.', 'wp-user-profile-avatar' ), $deleted_count ) . '</p></div>';
             
             } else {
-                update_option( 'selected_post_types', array() );
+                update_option( 'wpupa_selected_post_types', array() );
                 //   echo '<div class="notice notice-error"><p>' . esc_html__( 'Please select at least one post type to delete comments from.', 'wp-user-profile-avatar' ) . '</p></div>';
             }
         }
@@ -42,7 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <ul>
             <li>
                 <label for="delete_everywhere">
-                    <input type="radio" id="delete_everywhere" name="mode" value="delete_everywhere" <?php checked( get_option('delete_comments_mode'), 'delete_everywhere' ); ?> />
+                    <input type="radio" id="delete_everywhere" name="mode" value="delete_everywhere" <?php checked( get_option('wpupa_delete_comments_mode'), 'delete_everywhere' ); ?> />
                     <strong><?php esc_html_e( 'Everywhere', 'wp-user-profile-avatar' ); ?></strong>:
                     <?php esc_html_e( 'Delete all comments across your entire site.', 'wp-user-profile-avatar' ); ?>
                 </label>
@@ -52,7 +52,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </li>
             <li>
                 <label for="selected-post-types">
-                    <input type="radio" id="selected-post-types" name="mode" value="selected-post-types" <?php checked( get_option('delete_comments_mode'), 'selected-post-types' ); ?> />
+                    <input type="radio" id="selected-post-types" name="mode" value="selected-post-types" <?php checked( get_option('wpupa_delete_comments_mode'), 'selected-post-types' ); ?> />
                     <strong><?php esc_html_e( 'On certain post types', 'wp-user-profile-avatar' ); ?></strong>:
                 </label>
                 <p class="indent"><?php esc_html_e( 'Deleting comments will permanently remove them from selected post types.', 'wp-user-profile-avatar' ); ?></p>
@@ -60,7 +60,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <ul class="indent" id="list-of-post-types">
                     <?php
                     $post_types = get_post_types( array( 'public' => true ), 'objects' );
-                    $selected_post_types = get_option( 'selected_post_types', array() );
+                    $selected_post_types = get_option( 'wpupa_selected_post_types', array() );
                     foreach ( $post_types as $post_type ) {
                         ?>
                         <li>

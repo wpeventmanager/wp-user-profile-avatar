@@ -20,9 +20,9 @@ class WPUPA_User_Social_Info {
      * Constructor.
      */
     public function __construct() {
-        add_filter( 'user_contactmethods', [ $this, 'add_user_social_contact_info' ] );
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_fontawesome_styles' ] );
-        add_filter( 'the_content', [ $this, 'author_social_info_box' ] );
+        add_filter( 'user_contactmethods', [ $this, 'wpupa_add_user_social_contact_info' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'wpupa_enqueue_fontawesome_styles' ] );
+        add_filter( 'the_content', [ $this, 'wpupa_author_social_info_box' ] );
         remove_filter( 'pre_user_description', 'wp_filter_kses' );
     }
 
@@ -32,7 +32,7 @@ class WPUPA_User_Social_Info {
      * @param array $user_contact The user contact methods array.
      * @return array Modified user contact methods array.
      */
-    public function add_user_social_contact_info( $user_contact ) {
+    public function wpupa_add_user_social_contact_info( $user_contact ) {
         $user_contact['facebook']   = esc_html__( 'Facebook URL','wp-user-profile-avatar' );
         $user_contact['skype']      = esc_html__( 'Skype','wp-user-profile-avatar' );
         $user_contact['twitter']    = esc_html__( 'Twitter','wp-user-profile-avatar' );
@@ -48,7 +48,7 @@ class WPUPA_User_Social_Info {
     /**
      * Enqueue Font Awesome styles.
      */
-    public function enqueue_fontawesome_styles() {
+    public function wpupa_enqueue_fontawesome_styles() {
         wp_register_style( 'fontawesome', WPUPA_PLUGIN_URL . '/assets/lib/fontawesome/all.css', '', '4.4.0', 'all' );
         wp_enqueue_style( 'fontawesome' );
     }
@@ -59,7 +59,7 @@ class WPUPA_User_Social_Info {
      * @param string $content The post content.
      * @return string Modified post content.
      */
-    public function author_social_info_box( $content ) {
+    public function wpupa_author_social_info_box( $content ) {
         global $post;
 
         if ( is_single() && isset( $post->post_author ) ) {

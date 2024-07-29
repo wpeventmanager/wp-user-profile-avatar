@@ -14,21 +14,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 		if ( isset( $_POST['submit'] ) && isset( $_POST['disable_comments_nonce_field'] ) && wp_verify_nonce( $_POST['disable_comments_nonce_field'], 'disable_comments_nonce' ) ) {
 			
 			$mode = sanitize_text_field( $_POST['mode'] );
-			update_option( 'disable_comments_mode', $mode );
+			update_option( 'wpupa_disable_comments_mode', $mode );
 			
 			if ( 'selected-types' === $mode && isset( $_POST['disabled_post_types'] ) && is_array( $_POST['disabled_post_types'] ) ) {
 				$disabled_post_types = array_map( 'sanitize_text_field', $_POST['disabled_post_types'] );
 			} else {
 				$disabled_post_types = array();
 			}
-			update_option( 'disabled_post_types', $disabled_post_types );
+			update_option( 'wpupa_disabled_post_types', $disabled_post_types );
 		}
 	?>
     <form action="" method="post" id="disable-comments">
         <ul>
             <li>
                 <label for="remove_everywhere">
-                    <input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked( get_option('disable_comments_mode'), 'remove_everywhere' ); ?> />
+                    <input type="radio" id="remove_everywhere" name="mode" value="remove_everywhere" <?php checked( get_option('wpupa_disable_comments_mode'), 'remove_everywhere' ); ?> />
                     <strong><?php esc_html_e( 'Everywhere', 'wp-user-profile-avatar' ); ?></strong>:
                     <?php esc_html_e( 'Disable all comment-related controls and settings in WordPress.', 'wp-user-profile-avatar' ); ?>
                 </label>
@@ -38,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             </li>
             <li>
                 <label for="selected-types">
-                    <input type="radio" id="selected-types" name="mode" value="selected-types" <?php checked( get_option('disable_comments_mode'), 'selected-types' ); ?> />
+                    <input type="radio" id="selected-types" name="mode" value="selected-types" <?php checked( get_option('wpupa_disable_comments_mode'), 'selected-types' ); ?> />
                     <strong><?php esc_html_e( 'On certain post types', 'wp-user-profile-avatar' ); ?></strong>:
                 </label>
                 <p class="indent"><?php esc_html_e( 'Disabling comments will also disable trackbacks and pingbacks. All comment-related fields will also be hidden from the edit/quick-edit screens of the affected posts. These settings cannot be overridden for individual posts.', 'wp-user-profile-avatar' ); ?></p>
@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <ul class="indent" id="listoftypes">
                     <?php
                     $post_types = get_post_types( array( 'public' => true ), 'objects' );
-                    $disabled_post_types = get_option( 'disabled_post_types', array() );
+                    $disabled_post_types = get_option( 'wpupa_disabled_post_types', array() );
                     foreach ( $post_types as $post_type ) {
                         ?>
                         <li>

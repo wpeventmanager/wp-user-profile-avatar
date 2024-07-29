@@ -15,11 +15,11 @@ class WPUPA_Shortcodes {
         add_shortcode( 'user_profile_avatar_upload', array( $this, 'wpupa_user_profile_avatar_upload' ) );
         add_shortcode( 'all_user_avatars', array( $this, 'wpupa_all_user_avatars' ) );
 
-        add_action( 'wp_ajax_update_user_avatar', array( $this, 'update_user_avatar' ) );
+        add_action( 'wp_ajax_update_user_avatar', array( $this, 'wpupa_update_user_avatar' ) );
 
-        add_action( 'wp_ajax_remove_user_avatar', array( $this, 'remove_user_avatar' ) );
+        add_action( 'wp_ajax_remove_user_avatar', array( $this, 'wpupa_remove_user_avatar' ) );
 
-        add_action( 'wp_ajax_undo_user_avatar', array( $this, 'undo_user_avatar' ) );
+        add_action( 'wp_ajax_undo_user_avatar', array( $this, 'wpupa_undo_user_avatar' ) );
 
         add_filter( 'get_avatar_url', array( $this, 'wpupa_get_user_avatar_url' ), 10, 3 );
     }
@@ -294,7 +294,7 @@ class WPUPA_Shortcodes {
 
         $current_user_id = get_current_user_id();
 
-        $admin_avatar_size = get_option( 'avatar_size' );
+        $admin_avatar_size = get_option( 'wpupa_avatar_size' );
 
         extract(
             shortcode_atts(
@@ -414,14 +414,14 @@ class WPUPA_Shortcodes {
     }
 
     /**
-     * update_user_avatar function.
+     * wpupa_update_user_avatar function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function update_user_avatar() {
+    public function wpupa_update_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
         parse_str( $_POST['form_data'], $form_data );
@@ -510,14 +510,14 @@ class WPUPA_Shortcodes {
     }
 
     /**
-     * remove_user_avatar function.
+     * wpupa_remove_user_avatar function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function remove_user_avatar() {
+    public function wpupa_remove_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
         parse_str( sanitize_text_field($_POST['form_data']), $form_data );
@@ -566,14 +566,14 @@ class WPUPA_Shortcodes {
     }
 
     /**
-     * undo_user_avatar function.
+     * wpupa_undo_user_avatar function.
      *
      * @access public
      * @param
      * @return
      * @since 1.0
      */
-    public function undo_user_avatar() {
+    public function wpupa_undo_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
         parse_str( sanitize_text_field($_POST['form_data']), $form_data );
