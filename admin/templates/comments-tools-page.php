@@ -19,7 +19,13 @@ if ( ! defined( 'ABSPATH' ) ) {
         if ( 'delete_everywhere' === $mode ) {
 
             $deleted_count = wpupa_delete_comments_everywhere();
-            echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( '%d comments have been deleted from your site.', 'wp-user-profile-avatar' ), $deleted_count ) . '</p></div>';
+            echo '<div class="notice notice-success"><p>';
+			printf(
+				/* translators: %d: Number of deleted comments */
+				esc_html__( '%d comments have been deleted from your site.', 'wp-user-profile-avatar' ),
+				intval( $deleted_count )
+			);
+			echo '</p></div>';
             update_option( 'wpupa_selected_post_types', array() );
             
         } elseif ( 'selected-post-types' === $mode ) {
@@ -29,7 +35,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                 $selected_post_types = array_map( 'sanitize_text_field', $_POST['selected_post_types'] );
                 update_option( 'wpupa_selected_post_types', $selected_post_types ); // Save selected post types
                 $deleted_count = wpupa_delete_comments_by_post_types( $selected_post_types );
-                echo '<div class="notice notice-success"><p>' . sprintf( esc_html__( '%d comments have been deleted from selected post types.', 'wp-user-profile-avatar' ), $deleted_count ) . '</p></div>';
+                echo '<div class="notice notice-success"><p>';
+				printf(
+					/* translators: %d: Number of deleted comments */
+					esc_html__( '%d comments have been deleted from selected post types.', 'wp-user-profile-avatar' ),
+					intval( $deleted_count )
+				);
+				echo '</p></div>';
             
             } else {
                 update_option( 'wpupa_selected_post_types', array() );
@@ -47,7 +59,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php esc_html_e( 'Delete all comments across your entire site.', 'wp-user-profile-avatar' ); ?>
                 </label>
                 <p class="indent">
-                    <?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to delete comments <em>everywhere</em>.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>' ); ?>
+                    <?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to delete comments everywhere.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>' ); ?>
                 </p>
             </li>
             <li>

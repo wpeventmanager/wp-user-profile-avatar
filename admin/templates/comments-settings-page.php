@@ -33,7 +33,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php esc_html_e( 'Disable all comment-related controls and settings in WordPress.', 'wp-user-profile-avatar' ); ?>
                 </label>
                 <p class="indent">
-                    <?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to disable comments <em>everywhere</em>. A complete description of what this option does is <a href="%2$s" target="_blank">available here</a>.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>', 'https://wordpress.org/plugins/disable-comments/other_notes/' ); ?>
+                    <?php printf(
+							/* translators: 1: Warning label, 2: URL link */
+							esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to disable comments everywhere. A complete description of what this option does is %2$s.', 'wp-user-profile-avatar' ),
+							'<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>',
+							'<a href="' . esc_url( 'https://wordpress.org/plugins/disable-comments/other_notes/' ) . '" target="_blank">' . esc_html__( 'available here', 'wp-user-profile-avatar' ) . '</a>'
+						); ?>
                 </p>
             </li>
             <li>

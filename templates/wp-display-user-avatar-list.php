@@ -54,7 +54,7 @@ if ( !defined( 'ABSPATH' ) ) {
             <?php }
         }
     } else { ?>
-        <p><?php echo esc_html__( 'No avatars available' ); ?></p>
+        <p><?php echo esc_html__( 'No avatars available', 'wp-user-profile-avatar' ); ?></p>
     <?php } ?>
 
     <div class="pagination" style="text-align: center;">
