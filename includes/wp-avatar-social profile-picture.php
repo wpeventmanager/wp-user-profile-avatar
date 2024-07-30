@@ -54,7 +54,12 @@ class WPUPA_Author_Social_Profile {
      * Render the settings form for Avatar Social Picture.
      */
     public function wpupa_user_admin() {
-        $wp_avatar_add_social_picture = get_option( 'wp_avatar_add_social_picture' );
+        if( isset( $_POST['wp-avatar-add-social-picture'] ) ){
+			$user_role = sanitize_text_field( $_POST['wp-avatar-add-social-picture'] );
+			update_option( 'wpupa_user_role', $user_role ); 
+		}
+        $user_role = get_option( 'wpupa_user_role' );
+
         ?>
         <form id="wp-avatar-settings" method="post" action="">
             <h3><?php esc_html_e( 'WP Avatar User Role Settings', 'wp-user-profile-avatar' ); ?></h3>
@@ -65,11 +70,11 @@ class WPUPA_Author_Social_Profile {
                     </th>
                     <td>
                         <select id="wp-avatar-add-social-picture" name="wp-avatar-add-social-picture">
-                            <option value="read" <?php selected( $wp_avatar_add_social_picture, 'read' ); ?> >Subscriber</option>
-                            <option value="edit-posts" <?php selected( $wp_avatar_add_social_picture, 'edit-posts' ); ?> >Contributor</option>
-                            <option value="edit-published-posts" <?php selected( $wp_avatar_add_social_picture, 'edit-published-posts' ); ?> >Author</option>
-                            <option value="moderate-comments" <?php selected( $wp_avatar_add_social_picture, 'moderate-comments' ); ?> >Editor</option>
-                            <option value="activate-plugins" <?php selected( $wp_avatar_add_social_picture, 'activate-plugins' ); ?> >Administrator</option>
+                            <option value="read" <?php selected( $user_role, 'read' ); ?> >Subscriber</option>
+                            <option value="edit-posts" <?php selected( $user_role, 'edit-posts' ); ?> >Contributor</option>
+                            <option value="edit-published-posts" <?php selected( $user_role, 'edit-published-posts' ); ?> >Author</option>
+                            <option value="moderate-comments" <?php selected( $user_role, 'moderate-comments' ); ?> >Editor</option>
+                            <option value="activate-plugins" <?php selected( $user_role, 'activate-plugins' ); ?> >Administrator</option>
                         </select>
                     </td>
                 </tr>
