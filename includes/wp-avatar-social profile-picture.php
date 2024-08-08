@@ -100,6 +100,11 @@ class WPUPA_Author_Social_Profile {
             update_user_meta( $user_id, 'wp_social_fb_profile', trim( sanitize_text_field( $_POST['fb-profile'] ) ) );
             update_user_meta( $user_id, 'wp_social_gplus_profile', trim( sanitize_text_field( $_POST['gplus-profile'] ) ) );
             update_user_meta( $user_id, 'wp_user_social_profile', sanitize_text_field( $_POST['wp-user-social-profile'] ) );
+            update_user_meta( $user_id, 'wp_user_social_linkedin_profile', sanitize_text_field( $_POST['linkedin-profile'] ) );
+			update_user_meta( $user_id, 'wp_social_youtube_profile', sanitize_text_field( $_POST['youtube-profile'] ) );
+			update_user_meta( $user_id, 'wp_social_twitter_profile', sanitize_text_field( $_POST['twitter-profile'] ) );
+			update_user_meta( $user_id, 'wp_social_github_profile', sanitize_text_field( $_POST['github-profile'] ) );
+			update_user_meta( $user_id, 'wp_social_yahoo_profile', sanitize_text_field( $_POST['yahoo-profile'] ) );
         endif;
     }
 
@@ -115,7 +120,12 @@ class WPUPA_Author_Social_Profile {
         $wp_user_social_profile  = get_user_meta( $socialprofile->ID, 'wp_user_social_profile', true );
         $wp_social_fb_profile    = get_user_meta( $socialprofile->ID, 'wp_social_fb_profile', true );
         $wp_social_gplus_profile = get_user_meta( $socialprofile->ID, 'wp_social_gplus_profile', true );
-        ?>
+        $wp_social_linkedin_profile = get_user_meta( $socialprofile->ID, 'wp_user_social_linkedin_profile', true ); 
+		$wp_social_youtube_profile = get_user_meta( $socialprofile->ID, 'wp_social_youtube_profile', true );
+		$wp_social_twitter_profile   = get_user_meta( $socialprofile->ID, 'wp_social_twitter_profile', true );
+		$wp_social_github_profile    = get_user_meta( $socialprofile->ID, 'wp_social_github_profile', true );
+		$wp_social_yahoo_profile     = get_user_meta( $socialprofile->ID, 'wp_social_yahoo_profile', true ); 
+       ?>
 
         <h3><?php esc_html_e( 'WP Avatar User Role Settings', 'wp-user-profile-avatar' ); ?></h3>
         <table class="form-table">
@@ -160,6 +170,96 @@ class WPUPA_Author_Social_Profile {
                     <span id="msg"></span>
                 </td>
             </tr>
+            <!-- LinkedIn Profile Addition -->
+			<tr>
+				<th>
+					<label for="linkedin-profile">LinkedIn Profile URL</label>
+				</th>
+				<td>
+					<input type="text" name="linkedin-profile" id="linkedin-profile" value="<?php echo esc_attr( $wp_social_linkedin_profile ); ?>" class="regular-text" />&nbsp;
+					<span><a href="https://www.linkedin.com/" target="_blank">Visit LinkedIn</a></span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="use-linkedin-profile">Use LinkedIn Profile as Avatar</label>
+				</th>
+				<td>
+					<input type="checkbox" name="wp-user-social-profile" value="wp-linkedin" <?php checked( $wp_user_social_profile, 'wp-linkedin' ); ?> >
+				</td>
+			</tr>
+			<!-- YouTube Profile Addition -->
+			<tr>
+				<th>
+					<label for="youtube-profile">YouTube Profile ID</label>
+				</th>
+				<td>
+					<input type="text" name="youtube-profile" id="youtube-profile" value="<?php echo esc_attr( $wp_social_youtube_profile ); ?>" class="regular-text" />&nbsp;
+					<span><a href="https://www.youtube.com/" target="_blank">Visit YouTube</a></span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="use-youtube-profile">Use YouTube Profile as Avatar</label>
+				</th>
+				<td>
+					<input type="checkbox" name="wp-user-social-profile" value="wp-youtube" <?php checked( $wp_user_social_profile, 'wp-youtube' ); ?> >
+				</td>
+			</tr>
+			<!-- Twitter Profile Addition -->
+			<tr>
+				<th>
+					<label for="twitter-profile">Twitter Username</label>
+				</th>
+				<td>
+					<input type="text" name="twitter-profile" id="twitter-profile" value="<?php echo esc_attr( $wp_social_twitter_profile ); ?>" class="regular-text" />&nbsp;
+					<span><a href="https://twitter.com/" target="_blank">Visit Twitter</a></span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="use-twitter-profile">Use Twitter Profile as Avatar</label>
+				</th>
+				<td>
+					<input type="checkbox" name="wp-user-social-profile" value="wp-twitter" <?php checked( $wp_user_social_profile, 'wp-twitter' ); ?> >
+				</td>
+			</tr>
+			<!-- GitHub Profile -->
+			<tr>
+				<th>
+					<label for="github-profile">GitHub Username</label>
+				</th>
+				<td>
+					<input type="text" name="github-profile" id="github-profile" value="<?php echo esc_attr( $wp_social_github_profile ); ?>" class="regular-text" />&nbsp;
+					<span><a href="https://github.com/" target="_blank">Visit GitHub</a></span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="use-github-profile">Use GitHub Profile as Avatar</label>
+				</th>
+				<td>
+					<input type="checkbox" name="wp-user-social-profile" value="wp-github" <?php checked( $wp_user_social_profile, 'wp-github' ); ?> >
+				</td>
+			</tr>
+			<!-- Yahoo Profile -->
+			<tr>
+				<th>
+					<label for="yahoo-profile">Yahoo Profile ID</label>
+				</th>
+				<td>
+					<input type="text" name="yahoo-profile" id="yahoo-profile" value="<?php echo esc_attr( $wp_social_yahoo_profile ); ?>" class="regular-text" />&nbsp;
+					<span><a href="https://www.yahoo.com/" target="_blank">Visit Yahoo</a></span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="use-yahoo-profile">Use Yahoo Profile as Avatar</label>
+				</th>
+				<td>
+					<input type="checkbox" name="wp-user-social-profile" value="wp-yahoo" <?php checked( $wp_user_social_profile, 'wp-yahoo' ); ?> >
+				</td>
+			</tr>
         </table>
         <?php
     }
