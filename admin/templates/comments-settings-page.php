@@ -23,6 +23,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			}
 			update_option( 'wpupa_disabled_post_types', $disabled_post_types );
 		}
+
+        // Handle reset action
+        if ( isset( $_POST['reset'] ) && isset( $_POST['disable_comments_nonce_field'] ) && wp_verify_nonce( $_POST['disable_comments_nonce_field'], 'disable_comments_nonce' ) ) {
+            delete_option( 'wpupa_disable_comments_mode' );
+            delete_option( 'wpupa_disabled_post_types' );
+        }
+
 	?>
     <form action="" method="post" id="disable-comments">
         <ul>
@@ -67,6 +74,9 @@ if ( ! defined( 'ABSPATH' ) ) {
             </li>
         </ul>
         <?php wp_nonce_field( 'disable_comments_nonce', 'disable_comments_nonce_field' ); ?>
-        <p class="submit"><input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>"></p>
+        <p class="submit">
+            <input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>">
+            <input class="button-secondary" type="submit" name="reset" value="<?php esc_html_e( 'Reset Settings', 'wp-user-profile-avatar' ); ?>">
+        </p>
     </form>
 </div>

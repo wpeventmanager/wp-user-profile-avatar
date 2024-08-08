@@ -45,10 +45,16 @@ if ( ! defined( 'ABSPATH' ) ) {
             
             } else {
                 update_option( 'wpupa_selected_post_types', array() );
-                //   echo '<div class="notice notice-error"><p>' . esc_html__( 'Please select at least one post type to delete comments from.', 'wp-user-profile-avatar' ) . '</p></div>';
             }
         }
     }
+
+    // Handle reset action
+    if ( isset( $_POST['reset'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( $_POST['delete_comments_nonce_field'], 'delete_comments_nonce' ) ) {
+        delete_option( 'wpupa_delete_comments_mode' );
+        delete_option( 'wpupa_selected_post_types' );
+    }
+
     ?>
     <form action="" method="post" id="delete-comments">
         <ul>
@@ -88,6 +94,9 @@ if ( ! defined( 'ABSPATH' ) ) {
             </li>
         </ul>
         <?php wp_nonce_field( 'delete_comments_nonce', 'delete_comments_nonce_field' ); ?>
-        <p class="submit"><input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>"></p>
+        <p class="submit">
+            <input class="button-primary" type="submit" name="submit" value="<?php esc_html_e( 'Save Changes', 'wp-user-profile-avatar' ); ?>">
+            <input class="button-secondary" type="submit" name="reset" value="<?php esc_html_e( 'Reset Settings', 'wp-user-profile-avatar' ); ?>">
+        </p>
     </form>
 </div>
