@@ -208,3 +208,7 @@
 .size-thumbnail{
 	width:150px;
 }
+img.avatar{
+	width: 100px;
+	height: auto;
+}
