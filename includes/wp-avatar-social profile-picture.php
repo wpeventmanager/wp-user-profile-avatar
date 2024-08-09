@@ -21,7 +21,6 @@ class WPUPA_Author_Social_Profile {
      */
     public function __construct() {
         add_action( 'wp_enqueue_scripts', array( $this, 'wpupa_avatar_social_profile_picture' ) );
-        add_action( 'admin_menu', array( $this, 'wpupa_avatar_users_menu' ) );
         add_action( 'show_user_profile', array( $this, 'wpupa_user_add_extra_profile_picture_fields' ) );
         add_action( 'edit_user_profile', array( $this, 'wpupa_user_add_extra_profile_picture_fields' ) );
         add_action( 'personal_options_update', array( $this, 'wpupa_avatar_save_extra_profile_fields' ) );
@@ -41,50 +40,6 @@ class WPUPA_Author_Social_Profile {
         if ( 'profile.php' == $pagenow || 'user-edit.php' == $pagenow ) {
             wp_register_script( 'wp-avatar-social-profile-picture', WPUPA_PLUGIN_URL . '/assets/js/wp-avatar.js', array( 'jquery' ), WPUPA_VERSION, true );
         }
-    }
-
-    /**
-     * Add users page for Avatar Social Picture settings.
-     */
-    public function wpupa_avatar_users_menu() {
-        add_users_page( 'Avatar Social Picture', 'Avatar Social Picture', 'activate_plugins', 'avatar-social-picture', array( $this, 'wpupa_user_admin' ) );
-    }
-
-    /**
-     * Render the settings form for Avatar Social Picture.
-     */
-    public function wpupa_user_admin() {
-        if( isset( $_POST['wp-avatar-add-social-picture'] ) ){
-			$user_role = sanitize_text_field( $_POST['wp-avatar-add-social-picture'] );
-			update_option( 'wpupa_user_role', $user_role ); 
-		}
-        $user_role = get_option( 'wpupa_user_role' );
-
-        ?>
-        <form id="wp-avatar-settings" method="post" action="">
-            <h3><?php esc_html_e( 'WP Avatar User Role Settings', 'wp-user-profile-avatar' ); ?></h3>
-            <table class="form-table">
-                <tr>
-                    <th>
-                        <label for="wp-avatar-capabilty">Role Required</label>
-                    </th>
-                    <td>
-                        <select id="wp-avatar-add-social-picture" name="wp-avatar-add-social-picture">
-                            <option value="read" <?php selected( $user_role, 'read' ); ?> >Subscriber</option>
-                            <option value="edit-posts" <?php selected( $user_role, 'edit-posts' ); ?> >Contributor</option>
-                            <option value="edit-published-posts" <?php selected( $user_role, 'edit-published-posts' ); ?> >Author</option>
-                            <option value="moderate-comments" <?php selected( $user_role, 'moderate-comments' ); ?> >Editor</option>
-                            <option value="activate-plugins" <?php selected( $user_role, 'activate-plugins' ); ?> >Administrator</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-            <p class="submit">
-                <?php wp_nonce_field( 'submit', 'wp-user-profile-avatar-social' ); ?>
-                <input type="submit" class="button button-primary" id="submit" value="Save Changes">
-            </p>
-        </form>
-        <?php
     }
 
     /**
