@@ -468,7 +468,14 @@ if ( ! function_exists( 'wpupa_delete_comments_everywhere' ) ) {
      */
     function wpupa_delete_comments_everywhere() {
         global $wpdb;
-        return $wpdb->query( "DELETE FROM {$wpdb->comments} WHERE 1=1" );
+        $result = $wpdb->query( "DELETE FROM {$wpdb->comments} WHERE 1=1" );
+
+        $post_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts}" );
+        foreach ( $post_ids as $post_id ) {
+            wp_update_comment_count_now( $post_id );
+        }
+
+        return $result;
     }
 }
 
@@ -486,8 +493,26 @@ if ( ! function_exists( 'wpupa_delete_comments_by_post_types' ) ) {
      */
     function wpupa_delete_comments_by_post_types( $post_types ) {
         global $wpdb;
+
         $post_type_placeholders = implode( "','", $post_types );
-        return $wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->comments} WHERE comment_post_ID IN (SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('%s'))", $post_type_placeholders ) );
+
+        $post_ids = $wpdb->get_col( $wpdb->prepare( 
+            "SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('%s')", 
+            $post_type_placeholders 
+        ));
+
+        $result = $wpdb->query( 
+            $wpdb->prepare( 
+                "DELETE FROM {$wpdb->comments} WHERE comment_post_ID IN (SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('%s'))", 
+                $post_type_placeholders 
+            )
+        );
+
+        foreach ( $post_ids as $post_id ) {
+            wp_update_comment_count_now( $post_id );
+        }
+
+        return $result;
     }
 }
 use \WPUPA_WpUserNameChange\WPUPA_WpUserNameChange;
