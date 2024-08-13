@@ -668,7 +668,7 @@ class WPUPA_Shortcodes {
         }
  
         // First checking custom avatar.
-        if ( get_current_user_id() == $user_id || is_admin() ) {
+        //if ( get_current_user_id() == $user_id || is_admin() ) {
             if ( wpupa_check_wpupa_url( $user_id ) ) {
                 $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
             } elseif ( $wpupa_disable_gravatar ) {
@@ -683,7 +683,7 @@ class WPUPA_Shortcodes {
                     }
                 }
             }
-        }
+        //}
         return $url;
     }
 }
