@@ -93,7 +93,7 @@ if ( ! function_exists( 'wpupa_get_default_avatar_url' ) ) {
 
         $size          = ! empty( $args['size'] ) ? $args['size'] : 'thumbnail';
         $user_id       = ! empty( $args['user_id'] ) ? $args['user_id'] : '';
-        $wpupa_default = get_option( 'wpupa_default' );
+        $wpupa_default = get_option( 'avatar_default' );
         $avatar_size   = get_option( 'wpupa_avatar_size' );
         if ( $avatar_size ) {
             $size = get_option( 'wpupa_avatar_size' );
@@ -234,7 +234,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
     function wpupa_check_wpupa_gravatar( $id_or_email = '', $check_gravatar = 0, $user = '', $email = '' ) {
         $wp_user_hash_gravatar = get_option( 'wpupa_user_hash_gravatar' );
 
-        $wpupa_default = get_option( 'wpupa_default' );
+        $wpupa_default = get_option( 'avatar_default' );
 
         if ( trim( $wpupa_default ) != 'wp_user_profile_avatar' ) {
             return true;

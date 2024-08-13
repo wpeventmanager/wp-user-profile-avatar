@@ -85,7 +85,7 @@ class WPUPA_User_Social_Info {
             $user_meta = get_user_meta( get_the_author_meta( 'ID' ) );
             $user_link_avatar = get_the_author_meta( '_wpupa_url' );
             $user_option_id = get_option( 'wpupa_attachment_id' );
-            $user_avatar = get_option( 'wpupa_default' );
+            $user_avatar = get_option( 'avatar_default' );
 
             if ( $user_avatar == 'gravatar_default' ) {
                 $user_avatar = '&';

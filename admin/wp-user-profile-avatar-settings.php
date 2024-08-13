@@ -38,7 +38,7 @@ class WPUPA_Settings {
         $wpupa_show_avatars     = get_option( 'wpupa_show_avatars' );
         $wpupa_rating           = get_option( 'wpupa_rating' );
         $wpupa_file_size        = get_option( 'wpupa_file_size' );
-        $wpupa_default          = get_option( 'wpupa_default' );
+        $wpupa_default          = get_option( 'avatar_default' );
         $wpupa_attachment_id    = get_option( 'wpupa_attachment_id' );
         $wpupa_attachment_url = get_option('wpupa_attachment_url') ? get_option('wpupa_attachment_url') : wpupa_get_default_avatar_url(array('size' => 'admin'));
         $wpupa_size             = get_option( 'wpupa_size' );
@@ -156,7 +156,7 @@ class WPUPA_Settings {
 
                                             <?php $selected = ( $wpupa_default == 'wp_user_profile_avatar' ) ? 'checked="checked"' : ''; ?>
                                             <label>
-                                                <input type="radio" name="wpupa_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo esc_attr( $selected ); ?> />
+                                                <input type="radio" name="avatar_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo esc_attr( $selected ); ?> />
                                                 <div id="wp_user_profile_avatar_preview">
                                                     <img src="<?php echo esc_url( $wpupa_attachment_url ); ?>" width="32" />
                                                 </div> 
@@ -181,7 +181,7 @@ class WPUPA_Settings {
                                             if ( empty( $wpupa_disable_gravatar ) ) :
                                                 foreach ( wpupa_get_default_avatar() as $name => $label ) :
                                                     $selected = ( $wpupa_default == $name ) ? 'checked="checked"' : ''; ?>
-                                                    <label><input type="radio" name="wpupa_default" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> 
+                                                    <label><input type="radio" name="avatar_default" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> 
                                                         <?php echo get_avatar( $user_email, 32, $name, '', array( 'force_default' => true ) );
                                                         echo esc_attr( $label ); ?>
                                                     </label><br />
@@ -268,7 +268,7 @@ class WPUPA_Settings {
             update_option( 'wpupa_show_avatars', $wpupa_show_avatars );
             update_option( 'wpupa_rating', $wpupa_rating );
             update_option( 'wpupa_file_size', $wpupa_file_size );
-            update_option( 'wpupa_default', $wpupa_default );
+            update_option( 'avatar_default', $wpupa_default );
             update_option( 'wpupa_attachment_id', $wpupa_attachment_id );
             update_option( 'wpupa_attachment_url', $wpupa_attachment_url); 
             update_option( 'wpupa_size', $wpupa_size );

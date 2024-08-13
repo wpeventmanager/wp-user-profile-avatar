@@ -28,7 +28,7 @@ class WPUPA_User {
 
         $wpupa_show_avatars = esc_attr( get_option( 'wpupa_show_avatars' ) );
 
-        $wpupa_default = esc_attr( get_option( 'wpupa_default' ) );
+        $wpupa_default = esc_attr( get_option( 'avatar_default' ) );
 
         if ( ! $wpupa_show_avatars ) {
             return false;
@@ -48,7 +48,7 @@ class WPUPA_User {
                 $user_id = $id_or_email;
             }
         }
-
+ 
         // First checking custom avatar.
         if ( wpupa_check_wpupa_url( $user_id ) ) {
             $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );

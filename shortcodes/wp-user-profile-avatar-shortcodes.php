@@ -646,7 +646,7 @@ class WPUPA_Shortcodes {
 
         $wpupa_show_avatars = get_option( 'wpupa_show_avatars' );
 
-        $wpupa_default = get_option( 'wpupa_default' );
+        $wpupa_default = get_option( 'avatar_default' );
 
         if ( ! $wpupa_show_avatars ) {
             return false;
@@ -666,7 +666,7 @@ class WPUPA_Shortcodes {
                 $user_id = $id_or_email;
             }
         }
-
+ 
         // First checking custom avatar.
         if ( get_current_user_id() == $user_id || is_admin() ) {
             if ( wpupa_check_wpupa_url( $user_id ) ) {
