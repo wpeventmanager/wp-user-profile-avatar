@@ -44,6 +44,11 @@ class WPUPA_Settings {
         $wpupa_size             = get_option( 'wpupa_size' );
         $avatar_size            = get_option( 'wpupa_avatar_size' );
         $wpupa_hide_post_option = get_option( 'wpupa_hide_post_option' );
+        // Get the current logged-in user object
+        $current_user = wp_get_current_user();
+
+        // Retrieve the email of the logged-in user
+        $user_email = $current_user->user_email;
         ?>
         <div class="wrap">
             <h2>
@@ -171,18 +176,14 @@ class WPUPA_Settings {
                                                 <span id="wp-user-profile-avatar-undo-button"><a href="javascript:void(0)" id="wp-user-profile-avatar-undo"><?php esc_html_e( 'Undo', 'wp-user-profile-avatar' ); ?></a></span>
                                                 <input type="hidden" name="wpupaattachmentid" id="wpupaattachmentid" value="<?php echo esc_attr( $wpupa_attachment_id ); ?>">
                                             </p>
-
+ 
                                             <?php
                                             if ( empty( $wpupa_disable_gravatar ) ) :
                                                 foreach ( wpupa_get_default_avatar() as $name => $label ) :
-                                                    $avatar     = get_avatar( '', 32, $name );
-                                                    $avatar_url = wpupa_get_selected_avatar_url( $name );
-                                                    $selected = ( $wpupa_default == $name ) ? 'checked="checked"' : '';
-                                                    ?>
+                                                    $selected = ( $wpupa_default == $name ) ? 'checked="checked"' : ''; ?>
                                                     <label><input type="radio" name="wpupa_default" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> 
-                                                        <img alt='' src='<?php echo esc_attr( $avatar_url ); ?>' srcset='<?php echo esc_attr( $avatar_url ); ?>' class='avatar avatar-32 photo avatar-default' height='32' width='32' loading='lazy' decoding='async'/>
- 
-                                                        <?php echo esc_attr( $label ); ?>
+                                                        <?php echo get_avatar( $user_email, 32, $name, '', array( 'force_default' => true ) );
+                                                        echo esc_attr( $label ); ?>
                                                     </label><br />
                                                     <?php
                                                 endforeach;

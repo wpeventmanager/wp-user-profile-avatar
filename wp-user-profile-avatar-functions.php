@@ -73,36 +73,9 @@ if ( ! function_exists( 'wpupa_get_default_avatar' ) ) {
                 'wavatar'          => __( 'Wavatar (Generated)', 'wp-user-profile-avatar' ),
                 'monsterid'        => __( 'MonsterID (Generated)', 'wp-user-profile-avatar' ),
                 'retro'            => __( 'Retro (Generated)', 'wp-user-profile-avatar' ),
+                'robohash'         => __( 'RoboHash (Generated)' ),
             )
         );
-    }
-}
-
-if ( ! function_exists( 'wpupa_get_selected_avatar_url' ) ) {
-
-    /**
-     * wpupa_get_selected_avatar_url function used to retrive avatr image based on avatar.
-     *
-     * @access public
-     * @param string
-     * @return string
-     * @since 1.0.2
-     */
-    function wpupa_get_selected_avatar_url( $name ) {
-        $avatar_urls = apply_filters(
-            'wp_user_default_avatar_urls',
-            array(
-                'mystery'          => 'https://2.gravatar.com/avatar/?s=32&d=mystery&r=g&forcedefault=1',
-                'blank'            => 'https://2.gravatar.com/avatar/?s=32&d=blank&r=g&forcedefault=1',
-                'gravatar_default' => 'https://2.gravatar.com/avatar/?s=32&r=g&forcedefault=1',
-                'identicon'        => 'https://2.gravatar.com/avatar/?s=32&d=identicon&r=g&forcedefault=1',
-                'wavatar'          => 'https://2.gravatar.com/avatar/?s=32&d=wavatar&r=g&forcedefault=1',
-                'monsterid'        => 'https://2.gravatar.com/avatar/?s=32&d=monsterid&r=g&forcedefault=1',
-                'retro'            => 'https://2.gravatar.com/avatar/?s=32&d=retro&r=g&forcedefault=1',
-            )
-        );
-
-        return $avatar_urls[ $name ];
     }
 }
 
