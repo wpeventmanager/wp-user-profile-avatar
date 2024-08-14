@@ -235,7 +235,7 @@ class WPUPA_Settings {
 
             $wpupa_file_size = ! empty( $_POST['wpupa_file_size'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_file_size'] ) ) : '';
 
-            $wpupa_default = ! empty( $_POST['wpupa_default'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_default'] ) ) : '';
+            $wpupa_default = ! empty( $_POST['avatar_default'] ) ? sanitize_text_field( wp_unslash( $_POST['avatar_default'] ) ) : '';
 
            if ( ! empty( $_POST['wpupaattachmentid'] ) ) {
                 $wpupa_attachment_id = sanitize_text_field( $_POST['wpupaattachmentid'] );
