@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * WPUPA_Install class.
+ * Class with Installation functions.
  */
 class WPUPA_Install {
 

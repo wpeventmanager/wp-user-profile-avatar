@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 /**
- * WPUPA_User class. 
+ * Class with User details functions . 
  */
 class WPUPA_User {
     /**
@@ -16,7 +16,7 @@ class WPUPA_User {
         add_filter( 'get_avatar', array( $this, 'wpupa_integrate_user_avatar_to_bbpress_profile' ), 10, 5);
     }
     /**
-     * wpupa_get_user_avatar_url function.
+     * return user profile avatar url.
      *
      * @access public
      * @param $url, $id_or_email, $args
@@ -67,7 +67,7 @@ class WPUPA_User {
         return esc_url( $url );
     }
     /**
-     * wpupa_integrate_user_avatar_to_bbpress_profile function.
+     * Integrate the user profile avatar with bbpress profile function.
      *
      * @access public
      * @param $avatar, $id_or_email, $size, $default, $alt

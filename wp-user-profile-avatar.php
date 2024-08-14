@@ -21,9 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-/**
- * WPUPA_User_Profile_Avatar class.
- */
 class WPUPA_User_Profile_Avatar {
 
     /**

@@ -395,7 +395,7 @@ class WPUPA_Admin {
 	}
 
     /**
-     * Increase max_file_size
+     * return upload max file size
      */
     public function wpem_upload_max_increase_upload() {
         $wpupa_max_size = (int) get_option( 'wpupa_max_file_size' );

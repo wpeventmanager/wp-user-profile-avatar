@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Class WPUPA_User_Social_Info
+ * Class contain detail of user social info
  *
  * Adds social contact information to user profiles and displays it in the author box.
  */

@@ -15,7 +15,7 @@ class WPUPA_Authorbox_Socialinfo_Shortcodes {
     }
 
     /**
-     * wpupa_authorbox_social_link function
+     * return current user's social info authorbox function
      *
      * @access public
      * @return

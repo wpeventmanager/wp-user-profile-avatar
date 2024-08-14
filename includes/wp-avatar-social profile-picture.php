@@ -82,7 +82,7 @@ class WPUPA_Author_Social_Profile {
 		$wp_social_yahoo_profile     = get_user_meta( $socialprofile->ID, 'wp_social_yahoo_profile', true ); 
        ?>
 
-        <h3><?php esc_html_e( 'WP Avatar User Role Settings', 'wp-user-profile-avatar' ); ?></h3>
+       <!-- <h3><?php esc_html_e( 'WP Avatar User Role Settings', 'wp-user-profile-avatar' ); ?></h3>
         <table class="form-table">
             <tr>
                 <th>
@@ -125,7 +125,6 @@ class WPUPA_Author_Social_Profile {
                     <span id="msg"></span>
                 </td>
             </tr>
-            <!-- LinkedIn Profile Addition -->
 			<tr>
 				<th>
 					<label for="linkedin-profile">LinkedIn Profile URL</label>
@@ -143,7 +142,6 @@ class WPUPA_Author_Social_Profile {
 					<input type="checkbox" name="wp-user-social-profile" value="wp-linkedin" <?php checked( $wp_user_social_profile, 'wp-linkedin' ); ?> >
 				</td>
 			</tr>
-			<!-- YouTube Profile Addition -->
 			<tr>
 				<th>
 					<label for="youtube-profile">YouTube Profile ID</label>
@@ -161,7 +159,6 @@ class WPUPA_Author_Social_Profile {
 					<input type="checkbox" name="wp-user-social-profile" value="wp-youtube" <?php checked( $wp_user_social_profile, 'wp-youtube' ); ?> >
 				</td>
 			</tr>
-			<!-- Twitter Profile Addition -->
 			<tr>
 				<th>
 					<label for="twitter-profile">Twitter Username</label>
@@ -179,7 +176,6 @@ class WPUPA_Author_Social_Profile {
 					<input type="checkbox" name="wp-user-social-profile" value="wp-twitter" <?php checked( $wp_user_social_profile, 'wp-twitter' ); ?> >
 				</td>
 			</tr>
-			<!-- GitHub Profile -->
 			<tr>
 				<th>
 					<label for="github-profile">GitHub Username</label>
@@ -197,7 +193,6 @@ class WPUPA_Author_Social_Profile {
 					<input type="checkbox" name="wp-user-social-profile" value="wp-github" <?php checked( $wp_user_social_profile, 'wp-github' ); ?> >
 				</td>
 			</tr>
-			<!-- Yahoo Profile -->
 			<tr>
 				<th>
 					<label for="yahoo-profile">Yahoo Profile ID</label>
@@ -215,7 +210,7 @@ class WPUPA_Author_Social_Profile {
 					<input type="checkbox" name="wp-user-social-profile" value="wp-yahoo" <?php checked( $wp_user_social_profile, 'wp-yahoo' ); ?> >
 				</td>
 			</tr>
-        </table>
+        </table>-->
         <?php
     }
 
