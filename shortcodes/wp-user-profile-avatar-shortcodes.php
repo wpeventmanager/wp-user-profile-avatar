@@ -21,7 +21,7 @@ class WPUPA_Shortcodes {
 
         add_action( 'wp_ajax_undo_user_avatar', array( $this, 'wpupa_undo_user_avatar' ) );
 
-        // add_filter( 'get_avatar_url', array( $this, 'wpupa_get_user_avatar_url' ), 10, 3 );
+        add_filter( 'get_avatar_url', array( $this, 'wpupa_get_user_avatar_url' ), 10, 3 );
     }
 
     /**

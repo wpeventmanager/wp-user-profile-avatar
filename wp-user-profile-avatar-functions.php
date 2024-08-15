@@ -232,7 +232,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
      * @since 1.0
      */
     function wpupa_check_wpupa_gravatar( $id_or_email = '', $check_gravatar = 0, $user = '', $email = '' ) {
-        $wp_user_hash_gravatar = get_option( 'user_hash_gravatar' );
+        $wp_user_hash_gravatar = get_option( 'wp_user_hash_gravatar' );
 
         $wpupa_default = get_option( 'avatar_default' );
 
@@ -285,7 +285,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
                 $check_gravatar = ( $data == '200' ) ? true : false;
                 if ( $wp_user_hash_gravatar == false ) {
                     $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
-                    add_option( 'user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
+                    add_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                 } else {
 
                     if ( is_array( $wp_user_hash_gravatar ) && ! empty( $wp_user_hash_gravatar ) ) {
@@ -294,10 +294,10 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
 
                             unset( $wp_user_hash_gravatar[ $hash ] );
                             $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
-                            update_option( 'user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
+                            update_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                         } else {
                             $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
-                            update_option( 'user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
+                            update_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                         }
                     }
                 }
