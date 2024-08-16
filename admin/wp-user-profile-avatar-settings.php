@@ -181,7 +181,7 @@ class WPUPA_Settings {
                                             if ( empty( $wpupa_disable_gravatar ) ) :
                                                 foreach ( wpupa_get_default_avatar() as $name => $label ) :
                                                     $selected = ( $wpupa_default == $name ) ? 'checked="checked"' : ''; ?>
-                                                    <label><input type="radio" name="avatar_default" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> 
+                                                    <label><input type="radio" name="avatar_default" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> />                                  
                                                        <?php echo get_avatar( $user_email, 32, $name );
                                                         echo esc_attr( $label ); ?>
                                                     </label><br />

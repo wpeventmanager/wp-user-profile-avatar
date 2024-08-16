@@ -52,14 +52,14 @@ class WPUPA_Author_Social_Profile {
             if ( empty( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'update-user_' . $user_id ) ) {
                 return;
             }
-            update_user_meta( $user_id, 'wp_social_fb_profile', trim( sanitize_text_field( $_POST['fb-profile'] ) ) );
-            update_user_meta( $user_id, 'wp_social_gplus_profile', trim( sanitize_text_field( $_POST['gplus-profile'] ) ) );
-            update_user_meta( $user_id, 'wp_user_social_profile', sanitize_text_field( $_POST['wp-user-social-profile'] ) );
-            update_user_meta( $user_id, 'wp_user_social_linkedin_profile', sanitize_text_field( $_POST['linkedin-profile'] ) );
-			update_user_meta( $user_id, 'wp_social_youtube_profile', sanitize_text_field( $_POST['youtube-profile'] ) );
-			update_user_meta( $user_id, 'wp_social_twitter_profile', sanitize_text_field( $_POST['twitter-profile'] ) );
-			update_user_meta( $user_id, 'wp_social_github_profile', sanitize_text_field( $_POST['github-profile'] ) );
-			update_user_meta( $user_id, 'wp_social_yahoo_profile', sanitize_text_field( $_POST['yahoo-profile'] ) );
+            // update_user_meta( $user_id, 'wp_social_fb_profile', trim( sanitize_text_field( $_POST['fb-profile'] ) ) );
+            // update_user_meta( $user_id, 'wp_social_gplus_profile', trim( sanitize_text_field( $_POST['gplus-profile'] ) ) );
+            // update_user_meta( $user_id, 'wp_user_social_profile', sanitize_text_field( $_POST['wp-user-social-profile'] ) );
+            // update_user_meta( $user_id, 'wp_user_social_linkedin_profile', sanitize_text_field( $_POST['linkedin-profile'] ) );
+			// update_user_meta( $user_id, 'wp_social_youtube_profile', sanitize_text_field( $_POST['youtube-profile'] ) );
+			// update_user_meta( $user_id, 'wp_social_twitter_profile', sanitize_text_field( $_POST['twitter-profile'] ) );
+			// update_user_meta( $user_id, 'wp_social_github_profile', sanitize_text_field( $_POST['github-profile'] ) );
+			// update_user_meta( $user_id, 'wp_social_yahoo_profile', sanitize_text_field( $_POST['yahoo-profile'] ) );
         endif;
     }
 

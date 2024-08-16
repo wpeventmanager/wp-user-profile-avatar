@@ -529,8 +529,8 @@ class WPUPA_Shortcodes {
         $current_user_id   = get_current_user_id();
 
         if ( $current_user_id == $user_id ) :
-            if ( isset( $user_id ) ) {
-                update_user_meta( $user_id, '_wpupaattachmentid', '' );
+            if ( isset( $user_id ) ) { 
+                update_user_meta( $user_id, '_wpupa_attachment_id', '' );
                 update_user_meta( $user_id, '_wpupa_url', '' );
                 update_user_meta( $user_id, '_wpupa_default', '' );
 
@@ -586,7 +586,7 @@ class WPUPA_Shortcodes {
 
         if ( $current_user_id == $user_id ) :
             if ( isset( $user_id ) ) {
-                update_user_meta( $user_id, '_wpupaattachmentid', '' );
+                update_user_meta( $user_id, '_wpupa_attachment_id', '' );
                 update_user_meta( $user_id, '_wpupa_url', '' );
                 update_user_meta( $user_id, '_wpupa_default', '' );
             }
@@ -652,23 +652,24 @@ class WPUPA_Shortcodes {
             return false;
         }
         $user_id = null;
-        if ( is_object( $id_or_email ) ) {
-            if ( ! empty( $id_or_email->comment_author_email ) ) { 
-                $user_id = $id_or_email->user_id;
-            }
-        } else {
-            $screen = get_current_screen();
-            if($screen->base !== 'options-discussion' && ($screen->base !== 'admin.php' && isset($_GET['page']) && $_GET['page'] !== 'wp-user-profile-avatar')){
-                 if ( is_email( $id_or_email )) {
-                    $user = get_user_by( 'email', $id_or_email );
-                    if ( $user ) {
-                        $user_id = $user->ID;
+        $screen = get_current_screen();
+            if ( is_object( $id_or_email ) ) {
+                if ( ! empty( $id_or_email->comment_author_email ) ) { 
+                    $user_id = $id_or_email->user_id;
+                }
+            } else {
+                if ( is_email( $id_or_email )) {
+                    if($screen->base !== 'options-discussion' && ($screen->base !== 'admin.php' && isset($_GET['page']) && $_GET['page'] !== 'wp-user-profile-avatar')){
+                        $user = get_user_by( 'email', $id_or_email );
+                        if ( $user ) {
+                            $user_id = $user->ID;
+                        }
                     }
                 } else {
                     $user_id = $id_or_email;
                 }
             }
-        }
+                    
  
         // First checking custom avatar.
         
