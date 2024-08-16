@@ -647,7 +647,7 @@ class WPUPA_Shortcodes {
         $wpupa_show_avatars = get_option( 'wpupa_show_avatars' );
 
         $wpupa_default = get_option( 'avatar_default' );
-
+       
         if ( ! $wpupa_show_avatars ) {
             return false;
         }
@@ -657,40 +657,43 @@ class WPUPA_Shortcodes {
         }else{
             $screen = array();
         }
-            if ( is_object( $id_or_email ) ) {
-                if ( ! empty( $id_or_email->comment_author_email ) ) { 
-                    $user_id = $id_or_email->user_id;
+        if ( is_object( $id_or_email ) ) {
+            if ( ! empty( $id_or_email->comment_author_email ) ) { 
+                $user_id = $id_or_email->user_id;
+            }
+        } else {
+            if ( is_email( $id_or_email )) {
+                if($screen->base !== 'options-discussion' && ($screen->base !== 'admin.php' && isset($_GET['page']) && $_GET['page'] !== 'wp-user-profile-avatar')){
+                    $user = get_user_by( 'email', $id_or_email );
+                    if ( $user ) {
+                        $user_id = $user->ID;
+                    }
                 }
             } else {
-                if ( is_email( $id_or_email )) {
-                    if($screen->base !== 'options-discussion' && ($screen->base !== 'admin.php' && isset($_GET['page']) && $_GET['page'] !== 'wp-user-profile-avatar')){
-                        $user = get_user_by( 'email', $id_or_email );
-                        if ( $user ) {
-                            $user_id = $user->ID;
-                        }
-                    }
-                } else {
-                    $user_id = $id_or_email;
-                }
+                $user_id = $id_or_email;
             }
+        }
                     
  
         // First checking custom avatar.
         
-            if ( wpupa_check_wpupa_url( $user_id ) ) {
-                $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
-            } elseif ( $wpupa_disable_gravatar ) {
+        if ( wpupa_check_wpupa_url( $user_id ) ) {
+            $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
+        } elseif ( $wpupa_disable_gravatar ) {
+            $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
+        } else {
+            $has_valid_url = wpupa_check_wpupa_gravatar( $id_or_email );
+            if ( ! $has_valid_url ) {
+                if($screen->base !== 'users' && $wpupa_default == 'wp_user_profile_avatar'){
+                    return $url;
+                }
                 $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
             } else {
-                $has_valid_url = wpupa_check_wpupa_gravatar( $id_or_email );
-                if ( ! $has_valid_url ) {
-                    $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
-                } else {
-                    if ( $wpupa_default != 'wp_user_profile_avatar' && ! empty( $user_id ) ) {
-                        $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
-                    }
+                if ( $wpupa_default != 'wp_user_profile_avatar' && ! empty( $user_id ) ) {
+                    $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
                 }
             }
+        }
         
         return $url;
     }
