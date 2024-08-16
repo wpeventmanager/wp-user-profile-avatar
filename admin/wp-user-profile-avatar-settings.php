@@ -182,9 +182,7 @@ class WPUPA_Settings {
                                                 foreach ( wpupa_get_default_avatar() as $name => $label ) :
                                                     $selected = ( $wpupa_default == $name ) ? 'checked="checked"' : ''; ?>
                                                     <label><input type="radio" name="avatar_default" value="<?php echo esc_attr( $name ); ?>" <?php echo esc_attr( $selected ); ?> /> 
-                                                    <img alt='' src='<?php echo esc_attr( $avatar_url ); ?>' srcset='<?php echo esc_attr( $avatar_url ); ?>' class='avatar avatar-32 photo avatar-default' height='32' width='32' loading='lazy' decoding='async'/>
-                                                       <?php echo esc_attr( $label ); ?>
-                                                       <?php //echo get_avatar( $user_email, 32, $name, '', array( 'force_default' => true ) );
+                                                       <?php echo get_avatar( $user_email, 32, $name );
                                                         echo esc_attr( $label ); ?>
                                                     </label><br />
                                                     <?php

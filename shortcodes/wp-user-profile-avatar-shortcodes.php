@@ -658,7 +658,7 @@ class WPUPA_Shortcodes {
             }
         } else {
             $screen = get_current_screen();
-            if($screen->base !== 'options-discussion'){
+            if($screen->base !== 'options-discussion' && ($screen->base !== 'admin.php' && isset($_GET['page']) && $_GET['page'] !== 'wp-user-profile-avatar')){
                  if ( is_email( $id_or_email )) {
                     $user = get_user_by( 'email', $id_or_email );
                     if ( $user ) {
