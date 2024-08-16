@@ -20,7 +20,7 @@ class WPUPA_Install {
      */
     public static function install() {
 
-        update_option( 'avatar_default', esc_attr( 'mystery' ) );
+        //update_option( 'avatar_default', esc_attr( 'mystery' ) );
         update_option( 'wpupa_version', esc_attr( WPUPA_VERSION ) );
     }
 
