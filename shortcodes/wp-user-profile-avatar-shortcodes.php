@@ -641,7 +641,6 @@ class WPUPA_Shortcodes {
      * @since 1.0
      */
     public function wpupa_get_user_avatar_url( $url, $id_or_email, $args ) {
-
         $wpupa_disable_gravatar = get_option( 'wpupa_disable_gravatar' );
 
         $wpupa_show_avatars = get_option( 'wpupa_show_avatars' );
@@ -673,24 +672,22 @@ class WPUPA_Shortcodes {
                 $user_id = $id_or_email;
             }
         }
-                    
  
         // First checking custom avatar.
-        
         if ( wpupa_check_wpupa_url( $user_id ) ) {
-            $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
+            $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) , $args, $url);
         } elseif ( $wpupa_disable_gravatar ) {
-            $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
+            $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail', $args, $url ) );
         } else {
             $has_valid_url = wpupa_check_wpupa_gravatar( $id_or_email );
             if ( ! $has_valid_url ) {
-                if($screen->base !== 'users' && $wpupa_default == 'wp_user_profile_avatar'){
+                if($screen->base !== 'profile' && $wpupa_default !== 'wp_user_profile_avatar'){
                     return $url;
                 }
-                $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
+                $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ), $args, $url );
             } else {
                 if ( $wpupa_default != 'wp_user_profile_avatar' && ! empty( $user_id ) ) {
-                    $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
+                    $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) , $args, $url);
                 }
             }
         }

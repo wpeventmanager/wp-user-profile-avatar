@@ -89,21 +89,23 @@ if ( ! function_exists( 'wpupa_get_default_avatar_url' ) ) {
      * @return string
      * @since 1.0
      */
-    function wpupa_get_default_avatar_url( $args = array() ) {
+    function wpupa_get_default_avatar_url( $args = array(), $avatar_args = array(), $url = '') {
 
         $size          = ! empty( $args['size'] ) ? $args['size'] : 'thumbnail';
         $user_id       = ! empty( $args['user_id'] ) ? $args['user_id'] : '';
-        $wpupa_default = get_option( 'avatar_default' );
+        $wpupa_default = isset($avatar_args['default']) ? $avatar_args['default'] : get_option( 'avatar_default' );
         $avatar_size   = get_option( 'avatar_size' );
         if ( $avatar_size ) {
             $size = get_option( 'avatar_size' );
+        }
+        if($wpupa_default !== 'wp_user_profile_avatar' ) {
+            return $url;
         }
         if ( $wpupa_default == 'wp_user_profile_avatar' || $size == 'admin' ) {
             $attachment_id = get_option( 'wpupa_attachment_id' );
 
             if ( ! empty( $attachment_id ) ) {
                 $image_attributes = wp_get_attachment_image_src( $attachment_id, $size );
-
                 if ( ! empty( $image_attributes ) ) {
                     return $image_attributes[0];
                 } else {
@@ -152,7 +154,7 @@ if ( ! function_exists( 'wpupa_get_url' ) ) {
      * @return string
      * @since 1.0
      */
-    function wpupa_get_url( $user_id, $args = array() ) {
+    function wpupa_get_url( $user_id, $args = array(), $avatar_args = array(), $url = '') {
         $size = ! empty( $args['size'] ) ? $args['size'] : 'thumbnail';
 
         $wpupa_url = esc_url( get_user_meta( $user_id, '_wpupa_url', true ) );
@@ -182,7 +184,7 @@ if ( ! function_exists( 'wpupa_get_url' ) ) {
                     array(
                         'user_id' => $user_id,
                         'size'    => $size,
-                    )
+                    ), $avatar_args, $url
                 );
             }
         } else {
@@ -190,7 +192,7 @@ if ( ! function_exists( 'wpupa_get_url' ) ) {
                 array(
                     'user_id' => $user_id,
                     'size'    => $size,
-                )
+                ),$avatar_args, $url
             );
         }
     }

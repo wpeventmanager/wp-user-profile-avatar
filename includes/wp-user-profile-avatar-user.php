@@ -51,16 +51,16 @@ class WPUPA_User {
  
         // First checking custom avatar.
         if ( wpupa_check_wpupa_url( $user_id ) ) {
-            $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
+            $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) , $args, $url);
         } elseif ( $wpupa_disable_gravatar ) {
-            $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
+            $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ), $args , $url);
         } else {
             $has_valid_url = wpupa_check_wpupa_gravatar( $id_or_email );
             if ( ! $has_valid_url ) {
-                $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ) );
+                $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ), $args, $url );
             } else {
                 if ( $wpupa_default != 'wp_user_profile_avatar' && ! empty( $user_id ) ) {
-                    $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) );
+                    $url = wpupa_get_url( $user_id, array( 'size' => 'thumbnail' ) , $args, $url);
                 }
             }
         }
