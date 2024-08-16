@@ -652,7 +652,11 @@ class WPUPA_Shortcodes {
             return false;
         }
         $user_id = null;
-        $screen = get_current_screen();
+        if ( is_admin() ) {
+            $screen = get_current_screen();
+        }else{
+            $screen = array();
+        }
             if ( is_object( $id_or_email ) ) {
                 if ( ! empty( $id_or_email->comment_author_email ) ) { 
                     $user_id = $id_or_email->user_id;
