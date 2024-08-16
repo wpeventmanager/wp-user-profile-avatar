@@ -681,8 +681,10 @@ class WPUPA_Shortcodes {
         } else {
             $has_valid_url = wpupa_check_wpupa_gravatar( $id_or_email );
             if ( ! $has_valid_url ) {
-                if($screen->base !== 'profile' && $wpupa_default !== 'wp_user_profile_avatar'){
-                    return $url;
+                if ( is_object( $screen ) && property_exists( $screen, 'base' ) ) {
+                    if($screen->base !== 'profile' && $wpupa_default !== 'wp_user_profile_avatar' ){
+                        return $url;
+                    }
                 }
                 $url = wpupa_get_default_avatar_url( array( 'size' => 'thumbnail' ), $args, $url );
             } else {
