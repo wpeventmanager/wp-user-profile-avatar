@@ -657,13 +657,16 @@ class WPUPA_Shortcodes {
                 $user_id = $id_or_email->user_id;
             }
         } else {
-            if ( is_email( $id_or_email ) ) {
-                $user = get_user_by( 'email', $id_or_email );
-                if ( $user ) {
-                    $user_id = $user->ID;
+            $screen = get_current_screen();
+            if($screen->base !== 'options-discussion'){
+                 if ( is_email( $id_or_email )) {
+                    $user = get_user_by( 'email', $id_or_email );
+                    if ( $user ) {
+                        $user_id = $user->ID;
+                    }
+                } else {
+                    $user_id = $id_or_email;
                 }
-            } else {
-                $user_id = $id_or_email;
             }
         }
  
