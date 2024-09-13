@@ -5,7 +5,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: avatar, user profile, gravatar,custom profile photo, custom profile picture, profile photo, profile picture, author image, author photo
 Requires at least: 5.8
 Tested up to: 6.5.4
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 Requires PHP: 8.0.2
 License: GNU General Public License v3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -326,6 +326,14 @@ You will need to place below code in each area of your theme where you wish to a
 2.  WP Event Manager wants to give credit to Gravatar as we are using [Gravatar](https://gravatar.com/) to support users using their Gravatar profile links on our plugin. Privacy policy page of [Gravatar](http://automattic.com/privacy/).
 
 == Changelog ==
+
+= 1.0.6 [Sept 13th, 2024] =
+
+Fixed : Change Gravatar Logo to Mystery Man option issue is fixed.
+Fixed : Default image avatar issue is fixed.
+Fixed : After deleting a comment count is removed.
+Added : Reset button is added to comment & Delete section.
+Added : Disabled & Delete Comment options are added.
 
 = 1.0.5 [Sept 9th, 2024] =
 

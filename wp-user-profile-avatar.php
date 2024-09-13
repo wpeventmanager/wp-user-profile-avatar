@@ -7,7 +7,7 @@
  * Author URI: https://www.wp-eventmanager.com
  * Text Domain: wp-user-profile-avatar
  * Domain Path: /languages
- * Version: 1.0.5
+ * Version: 1.0.6
  * Since: 1.0.0
  * Requires WordPress Version at least: 5.8
  * Copyright: 2020 WP Event Manager
@@ -54,7 +54,7 @@ class WPUPA_User_Profile_Avatar {
     public function __construct() {
 
         // Define constants
-        define( 'WPUPA_VERSION', '1.0.5' );
+        define( 'WPUPA_VERSION', '1.0.6' );
         define( 'WPUPA_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
         define( 'WPUPA_PLUGIN_URL', untrailingslashit( plugins_url( basename( plugin_dir_path( __FILE__ ) ), basename( __FILE__ ) ) ) );
 
