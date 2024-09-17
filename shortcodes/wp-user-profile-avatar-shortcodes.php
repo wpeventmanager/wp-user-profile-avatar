@@ -662,12 +662,14 @@ class WPUPA_Shortcodes {
             }
         } else {
             if ( is_email( $id_or_email )) {
+                if ( is_object( $screen ) && property_exists( $screen, 'base' ) ) {
                 if($screen->base !== 'options-discussion' && ($screen->base !== 'admin.php' && isset($_GET['page']) && $_GET['page'] !== 'wp-user-profile-avatar')){
                     $user = get_user_by( 'email', $id_or_email );
                     if ( $user ) {
                         $user_id = $user->ID;
                     }
                 }
+            }
             } else {
                 $user_id = $id_or_email;
             }
