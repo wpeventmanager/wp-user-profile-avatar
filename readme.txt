@@ -327,7 +327,7 @@ You will need to place below code in each area of your theme where you wish to a
 
 == Changelog ==
 
-= 1.0.6 [Sept 13th, 2024] =
+= 1.0.6 [Sept 26th, 2024] =
 
 Fixed : Change Gravatar Logo to Mystery Man option issue is fixed.
 Fixed : Default image avatar issue is fixed.
