@@ -73,7 +73,7 @@ if ( ! function_exists( 'wpupa_get_default_avatar' ) ) {
                 'wavatar'          => __( 'Wavatar (Generated)', 'wp-user-profile-avatar' ),
                 'monsterid'        => __( 'MonsterID (Generated)', 'wp-user-profile-avatar' ),
                 'retro'            => __( 'Retro (Generated)', 'wp-user-profile-avatar' ),
-                'robohash'         => __( 'RoboHash (Generated)' ),
+                'robohash'         => __( 'RoboHash (Generated)', 'wp-user-profile-avatar' ),
             )
         );
     }
@@ -263,8 +263,8 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
 
             if ( is_array( $wp_user_hash_gravatar ) ) {
 
-                if ( array_key_exists( $hash, $wp_user_hash_gravatar ) and is_array( $wp_user_hash_gravatar[ $hash ] ) and array_key_exists( date( 'm-d-Y' ), $wp_user_hash_gravatar[ $hash ] ) ) {
-                    return (bool) $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ];
+                if ( array_key_exists( $hash, $wp_user_hash_gravatar ) and is_array( $wp_user_hash_gravatar[ $hash ] ) and array_key_exists( gmdate( 'm-d-Y' ), $wp_user_hash_gravatar[ $hash ] ) ) {
+                    return (bool) $wp_user_hash_gravatar[ $hash ][ gmdate( 'm-d-Y' ) ];
                 }
             }
 
@@ -286,7 +286,7 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
                 // here set if hashtag has avatar
                 $check_gravatar = ( $data == '200' ) ? true : false;
                 if ( $wp_user_hash_gravatar == false ) {
-                    $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
+                    $wp_user_hash_gravatar[ $hash ][ gmdate( 'm-d-Y' ) ] = (bool) $check_gravatar;
                     add_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                 } else {
 
@@ -295,10 +295,10 @@ if ( ! function_exists( 'wpupa_check_wpupa_gravatar' ) ) {
                         if ( array_key_exists( $hash, $wp_user_hash_gravatar ) ) {
 
                             unset( $wp_user_hash_gravatar[ $hash ] );
-                            $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
+                            $wp_user_hash_gravatar[ $hash ][ gmdate( 'm-d-Y' ) ] = (bool) $check_gravatar;
                             update_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                         } else {
-                            $wp_user_hash_gravatar[ $hash ][ date( 'm-d-Y' ) ] = (bool) $check_gravatar;
+                            $wp_user_hash_gravatar[ $hash ][ gmdate( 'm-d-Y' ) ] = (bool) $check_gravatar;
                             update_option( 'wp_user_hash_gravatar', serialize( $wp_user_hash_gravatar ) );
                         }
                     }
@@ -445,6 +445,9 @@ if ( ! function_exists( 'wpupa_delete_comments_everywhere' ) ) {
         global $wpdb;
         $result = $wpdb->query( "DELETE FROM {$wpdb->comments} WHERE 1=1" );
 
+        // Clear the cache for comments to ensure fresh data is fetched
+        wp_cache_delete( 'comments', 'comment' );
+
         $post_ids = $wpdb->get_col( "SELECT ID FROM {$wpdb->posts}" );
         foreach ( $post_ids as $post_id ) {
             wp_update_comment_count_now( $post_id );
@@ -472,13 +475,13 @@ if ( ! function_exists( 'wpupa_delete_comments_by_post_types' ) ) {
         $post_type_placeholders = implode( "','", $post_types );
 
         $post_ids = $wpdb->get_col( $wpdb->prepare( 
-            "SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('%s')", 
+            "SELECT ID FROM {$wpdb->posts} WHERE post_type IN (%s)", 
             $post_type_placeholders 
-        ));
+        ) );
 
         $result = $wpdb->query( 
             $wpdb->prepare( 
-                "DELETE FROM {$wpdb->comments} WHERE comment_post_ID IN (SELECT ID FROM {$wpdb->posts} WHERE post_type IN ('%s'))", 
+                "DELETE FROM {$wpdb->comments} WHERE comment_post_ID IN (SELECT ID FROM {$wpdb->posts} WHERE post_type IN (%s))", 
                 $post_type_placeholders 
             )
         );
@@ -583,14 +586,15 @@ if ( ! function_exists( 'wpupa_user_update' ) ) {
 			}
 			$wpuser = new WPUPA_WpUserNameChange();
 			global $wpdb;
-			$id        = trim( sanitize_text_field( $_REQUEST['update'] ) );
+			$id        = trim( sanitize_text_field( wp_unslash( $_REQUEST['update'] ) ) );
 			$user_info = get_userdata( $id );
 			$result    = $wpdb->get_results( $wpdb->prepare( "SELECT * from $wpdb->users WHERE ID = %d", $id ) );
 			foreach ( $result as $user ) {
 				$username = $user->user_login;
 			}
 			if ( ! empty( $_REQUEST['submit'] ) ) {
-				$name = sanitize_user( $_POST['user_login'] );
+				//$name = sanitize_user( $_POST['user_login'] );
+                $name = isset( $_POST['user_login'] ) ? sanitize_user( wp_unslash( $_POST['user_login'] ) ) : '';
 				if ( empty( $name ) ) {
 					$errorMsg = 'Error : Please do not enter  empty username.';
 				} elseif ( username_exists( $name ) ) {
@@ -609,7 +613,7 @@ if ( ! function_exists( 'wpupa_user_update' ) ) {
 				}
 				?>
 			</div>
-			<form method="post" id="user-udate" action="<?php echo esc_url( sanitize_url( $_SERVER['REQUEST_URI'] ) ); ?>">
+			<form method="post" id="user-udate" action="<?php echo esc_url( isset( $_SERVER['REQUEST_URI'] ) ? sanitize_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '' ); ?>">
 				<table class="form-table">
 					<tr>
 						<th><label for="olduser-login"><?php esc_html_e( 'Old Username', 'wp-user-profile-avatar' ); ?></label></th>

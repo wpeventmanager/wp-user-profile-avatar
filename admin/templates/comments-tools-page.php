@@ -11,9 +11,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap">
     <h1><?php echo esc_html_x( 'Delete Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
     <?php
-    if ( isset( $_POST['submit'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( $_POST['delete_comments_nonce_field'], 'delete_comments_nonce' ) ) {
+    if ( isset( $_POST['submit'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( sanitize_text_field(wp_unslash($_POST['delete_comments_nonce_field'])), 'delete_comments_nonce' ) ) {
         
-        $mode = sanitize_text_field( $_POST['mode'] );
+        $mode = isset( $_POST['mode'] ) ? sanitize_text_field( wp_unslash( $_POST['mode'] ) ) : '';
         update_option( 'wpupa_delete_comments_mode', $mode );
 
         if ( 'delete_everywhere' === $mode ) {
@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
            
             if ( isset( $_POST['selected_post_types'] ) && is_array( $_POST['selected_post_types'] ) && ! empty( $_POST['selected_post_types'] ) ) {
                 
-                $selected_post_types = array_map( 'sanitize_text_field', $_POST['selected_post_types'] );
+                $selected_post_types = array_map( 'sanitize_text_field', wp_unslash($_POST['selected_post_types'] ));
                 update_option( 'wpupa_selected_post_types', $selected_post_types ); // Save selected post types
                 $deleted_count = wpupa_delete_comments_by_post_types( $selected_post_types );
                 echo '<div class="notice notice-success"><p>';
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     }
 
     // Handle reset action
-    if ( isset( $_POST['reset'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( $_POST['delete_comments_nonce_field'], 'delete_comments_nonce' ) ) {
+    if ( isset( $_POST['reset'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash($_POST['delete_comments_nonce_field'])), 'delete_comments_nonce' ) ) {
         delete_option( 'wpupa_delete_comments_mode' );
         delete_option( 'wpupa_selected_post_types' );
     }
@@ -65,7 +65,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php esc_html_e( 'Delete all comments across your entire site.', 'wp-user-profile-avatar' ); ?>
                 </label>
                 <p class="indent">
-                    <?php printf( esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to delete comments everywhere.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>' ); ?>
+                    <?php printf( 
+                        /* translators: 1: Warning label */
+                        esc_html__( '%1$s: This option is global and will affect your entire site. Use it only if you want to delete comments everywhere.', 'wp-user-profile-avatar' ), '<strong style="color: #900">' . esc_html__( 'Warning', 'wp-user-profile-avatar' ) . '</strong>' ); ?>
                 </p>
             </li>
             <li>

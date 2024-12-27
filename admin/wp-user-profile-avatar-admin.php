@@ -78,7 +78,12 @@ class WPUPA_Admin {
      */
     public function wpupa_user_admin() {
         if( isset( $_POST['wp-avatar-add-social-picture'] ) ){
-			$user_role = sanitize_text_field( $_POST['wp-avatar-add-social-picture'] );
+            // Check if the nonce is set and valid
+            if ( ! isset( $_POST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'wp_avatar_add_social_picture_nonce' ) ) {
+                // Nonce verification failed, possible CSRF attack
+                die( 'Nonce verification failed!' );
+            }
+			$user_role = sanitize_text_field( wp_unslash($_POST['wp-avatar-add-social-picture'] ));
 			update_option( 'wpupa_user_role', $user_role ); 
 		}
         $user_role = get_option( 'wpupa_user_role' );
@@ -140,7 +145,7 @@ class WPUPA_Admin {
     public function wpupa_admin_enqueue_scripts() {
         global $pagenow;
 
-        wp_register_style( 'wp-user-profile-avatar-backend', WPUPA_PLUGIN_URL . '/assets/css/backend.min.css' );
+        wp_register_style( 'wp-user-profile-avatar-backend', WPUPA_PLUGIN_URL . '/assets/css/backend.min.css', array(), WPUPA_VERSION );
 
         wp_register_script( 'wp-user-profile-avatar-admin-avatar', WPUPA_PLUGIN_URL . '/assets/js/admin-avatar.min.js', array( 'jquery' ), WPUPA_VERSION, true );
 
@@ -219,14 +224,14 @@ class WPUPA_Admin {
             }
 
             if ( isset( $_POST['wpupa-url'] ) ) {
-                 $wpupa_url = sanitize_text_field( $_POST['wpupa-url'] );
+                 $wpupa_url = sanitize_text_field( wp_unslash( $_POST['wpupa-url'] ) );
             }
             if ( isset( $_POST['wpupaattachmentid'] ) ) {
                 $wpupaattachmentid = absint( $_POST['wpupaattachmentid'] );
             }
 
             if ( isset( $_POST['wpupa_file_size'] ) ) {
-                $wpupa_file_size = sanitize_text_field( $_POST['wpupa_file_size'] );
+                $wpupa_file_size = sanitize_text_field( wp_unslash( $_POST['wpupa_file_size'] ) );
                 update_user_meta( $user_id, 'wpupa_file_size', $wpupa_file_size );
             }
 
@@ -240,11 +245,11 @@ class WPUPA_Admin {
                 update_user_meta( $user_id, '_wpupa_url', esc_url_raw( $wpupa_url ) );
             }
 
-            $wpupa_tinymce = ! empty( $_POST['wpupa-tinymce'] ) ? sanitize_text_field( $_POST['wpupa-tinymce'] ) : '';
+            $wpupa_tinymce = ! empty( $_POST['wpupa-tinymce'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa-tinymce'] ) ) : '';
 
-            $wpupa_allow_upload = ! empty( $_POST['wpupa-allow-upload'] ) ? sanitize_text_field( $_POST['wpupa-allow-upload'] ) : '';
+            $wpupa_allow_upload = ! empty( $_POST['wpupa-allow-upload'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa-allow-upload'] ) ) : '';
 
-            $wpupa_disable_gravatar = ! empty( $_POST['wpupa-disable-gravatar'] ) ? sanitize_text_field( $_POST['wpupa-disable-gravatar'] ) : '';
+            $wpupa_disable_gravatar = ! empty( $_POST['wpupa-disable-gravatar'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa-disable-gravatar'] ) ) : '';
 
             if ( ! empty( $wpupaattachmentid ) || ! empty( $wpupa_url ) ) {
                 update_user_meta( $user_id, '_wpupa_default', sanitize_text_field( 'wp_user_profile_avatar' ) );
@@ -372,6 +377,12 @@ class WPUPA_Admin {
 
     public function wpupa_init_size() {
         if ( isset( $_POST['wpem-upload-max-file-size-field'] ) ) {
+
+            // Verify nonce to ensure form submission is legitimate
+            if ( ! isset( $_POST['wpem-upload-max-file-size-nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpem-upload-max-file-size-nonce'] ) ), 'wpem_upload_max_file_size_action' ) ) {
+                // Nonce verification failed, possible CSRF attack
+                die( 'Nonce verification failed!' );
+            }
             
             $wpupa_max_size = (int) $_POST['wpem-upload-max-file-size-field'] * 1024 * 1024;
             update_option( 'wpupa_max_file_size', sanitize_text_field( $wpupa_max_size ) );

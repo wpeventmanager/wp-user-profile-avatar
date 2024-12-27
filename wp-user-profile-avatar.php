@@ -135,7 +135,7 @@ class WPUPA_User_Profile_Avatar {
 
         wp_enqueue_media();
 
-        wp_enqueue_style( 'wp-user-profile-avatar-frontend', WPUPA_PLUGIN_URL . '/assets/css/frontend.min.css' );
+        wp_enqueue_style( 'wp-user-profile-avatar-frontend', WPUPA_PLUGIN_URL . '/assets/css/frontend.min.css', array(), WPUPA_VERSION );
 
         wp_register_script( 'wp-user-profile-avatar-frontend-avatar', WPUPA_PLUGIN_URL . '/assets/js/frontend-avatar.min.js', array( 'jquery' ), WPUPA_VERSION, true );
        

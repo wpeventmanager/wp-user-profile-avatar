@@ -41,6 +41,8 @@ class WPUPA_Settings {
         $wpupa_default          = get_option( 'avatar_default' );
         $wpupa_attachment_id    = get_option( 'wpupa_attachment_id' );
         $wpupa_attachment_url = get_option('wpupa_attachment_url') ? get_option('wpupa_attachment_url') : wpupa_get_default_avatar_url(array('size' => 'admin'), array(), '');
+        $image_id = attachment_url_to_postid( esc_url( $wpupa_attachment_url ) ); // Convert URL to attachment ID
+        $image_size = array( 32, 32 );
         $wpupa_size             = get_option( 'wpupa_size' );
         $avatar_size            = get_option( 'avatar_size' );
         $wpupa_hide_post_option = get_option( 'wpupa_hide_post_option' );
@@ -159,6 +161,7 @@ class WPUPA_Settings {
                                                 <input type="radio" name="avatar_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo esc_attr( $selected ); ?> />
                                                 <div id="wp_user_profile_avatar_preview">
                                                     <img src="<?php echo esc_url( $wpupa_attachment_url ); ?>" width="32" />
+                                                    <?php echo wp_get_attachment_image( $image_id, $image_size, false, array( 'width' => '32' ) ); ?>
                                                 </div> 
                                                 <?php esc_html_e( 'WP User Profile Avatar', 'wp-user-profile-avatar' ); ?> 
                                             </label>
@@ -220,7 +223,7 @@ class WPUPA_Settings {
      * @since 1.0
      */
     public function wpupa_edit_handler() {
-        if ( ! empty( $_POST['wp_user_profile_avatar_settings'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash ( $_POST['_wpnonce'] ) ), 'user_profile_avatar_settings' ) ) {
+        if ( ! empty( $_POST['wp_user_profile_avatar_settings'] ) && isset( $_POST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'user_profile_avatar_settings' ) ) {
             $user_id = get_current_user_id();
 
             $wpupa_show_avatars = ! empty( $_POST['wpupa_show_avatars'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_show_avatars'] ) ) : '';
@@ -238,7 +241,7 @@ class WPUPA_Settings {
             $wpupa_default = ! empty( $_POST['avatar_default'] ) ? sanitize_text_field( wp_unslash( $_POST['avatar_default'] ) ) : '';
 
            if ( ! empty( $_POST['wpupaattachmentid'] ) ) {
-                $wpupa_attachment_id = sanitize_text_field( $_POST['wpupaattachmentid'] );
+                $wpupa_attachment_id = sanitize_text_field( wp_unslash( $_POST['wpupaattachmentid'] ) );
                 $wpupa_attachment_url = esc_url( wp_get_attachment_url( $wpupa_attachment_id ) );
             } else {
                 $wpupa_attachment_id = '';

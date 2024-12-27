@@ -20,11 +20,15 @@ if ( !defined( 'ABSPATH' ) ) {
                     <?php } ?>
 
                     <?php if ( !empty( $atts['link_to_authorpage'] ) && $atts['link_to_authorpage'] === 'true' ) { ?>
-                        <a href="<?php echo get_author_posts_url( $user['ID'] ); ?>">
+                            <a href="<?php echo esc_url( get_author_posts_url( $user['ID'] ) ); ?>">
+                                <?php echo esc_html( $user['display_name'] ); ?>
+                            </a>
                     <?php } ?>
 
                     <?php if ( !empty( $user['show_name'] ) && $user['show_name'] ) { $author_page_url = get_author_posts_url( $user['ID'] );?>
-                        <a href="<?php echo $author_page_url;?>" ><span class="user-name"><?php echo esc_html( $user['display_name'] ); ?></span></a>
+                        <a href="<?php echo esc_url( $author_page_url ); ?>">
+                            <span class="user-name"><?php echo esc_html( $user['display_name'] ); ?></span>
+                        </a>
                     <?php } ?>
 
                     <?php if ( !empty( $atts['link_to_authorpage'] ) && $atts['link_to_authorpage'] === 'true' ) { ?>
@@ -32,7 +36,7 @@ if ( !defined( 'ABSPATH' ) ) {
                     <?php } ?>
 
                     <?php if ( !empty( $user['post_count'] ) ) { ?>
-                        <span class="user-postcount">( <?php echo $user['post_count']; ?> )</span><br>
+                        <span class="user-postcount">( <?php echo esc_html( $user['post_count'] ); ?> )</span><br>
                     <?php }else{?>
 						<span class="user-postcount">(0)</span><br>
 					<?php } 
@@ -59,14 +63,14 @@ if ( !defined( 'ABSPATH' ) ) {
 
     <div class="pagination" style="text-align: center;">
         <?php
-        echo paginate_links(array(
-            'base' => get_pagenum_link(1) . '%_%',
-            'format' => 'page/%#%/',
-            'current' => max(1, get_query_var('paged', 1)),
-            'total' => $total_pages,
-            'prev_text' => '«',
-            'next_text' => '»',
-        ));
+        echo wp_kses_post( paginate_links( array(
+            'base'      => esc_url( get_pagenum_link( 1 ) ) . '%_%',
+            'format'    => 'page/%#%/',
+            'current'   => max( 1, get_query_var( 'paged', 1 ) ),
+            'total'     => intval( $total_pages ),
+            'prev_text' => esc_html( '«' ),
+            'next_text' => esc_html( '»' ),
+        ) ) );
         ?>
     </div>
 </div>

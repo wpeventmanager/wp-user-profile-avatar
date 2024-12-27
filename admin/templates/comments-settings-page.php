@@ -11,13 +11,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap">
     <h1><?php echo esc_html_x( 'Disable Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
     <?php
-		if ( isset( $_POST['submit'] ) && isset( $_POST['disable_comments_nonce_field'] ) && wp_verify_nonce( $_POST['disable_comments_nonce_field'], 'disable_comments_nonce' ) ) {
+		if ( isset( $_POST['submit'] ) && isset( $_POST['disable_comments_nonce_field'] ) && wp_verify_nonce( sanitize_text_field(wp_unslash($_POST['disable_comments_nonce_field'])), 'disable_comments_nonce' ) ) {
 			
-			$mode = sanitize_text_field( $_POST['mode'] );
+			$mode = isset( $_POST['mode'] ) ? sanitize_text_field( wp_unslash($_POST['mode'] )) : '';
 			update_option( 'wpupa_disable_comments_mode', $mode );
 			
 			if ( 'selected-types' === $mode && isset( $_POST['disabled_post_types'] ) && is_array( $_POST['disabled_post_types'] ) ) {
-				$disabled_post_types = array_map( 'sanitize_text_field', $_POST['disabled_post_types'] );
+				$disabled_post_types = array_map( 'sanitize_text_field', wp_unslash( $_POST['disabled_post_types'] ) );
 			} else {
 				$disabled_post_types = array();
 			}
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		}
 
         // Handle reset action
-        if ( isset( $_POST['reset'] ) && isset( $_POST['disable_comments_nonce_field'] ) && wp_verify_nonce( $_POST['disable_comments_nonce_field'], 'disable_comments_nonce' ) ) {
+        if ( isset( $_POST['reset'] ) && isset( $_POST['disable_comments_nonce_field'] ) && wp_verify_nonce( sanitize_text_field(wp_unslash($_POST['disable_comments_nonce_field'])), 'disable_comments_nonce' ) ) {
             delete_option( 'wpupa_disable_comments_mode' );
             delete_option( 'wpupa_disabled_post_types' );
         }

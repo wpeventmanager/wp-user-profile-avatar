@@ -218,7 +218,12 @@ class WPUPA_Author_Social_Profile {
      * Clear Google+ cache for social profile.
      */
     public function wpupa_user_social_profile_cache_clear() {
-        $user_id          = sanitize_text_field( $_POST['user_id'] );
+        // Verify nonce to ensure the form submission is legitimate
+        if ( ! isset( $_POST['wpupa_user_social_profile_cache_clear'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wpupa_user_social_profile_cache_clear'] ) ), 'wpupa_user_social_profile_cache_clear_action' ) ) {
+            // Nonce verification failed, possible CSRF attack
+            die( 'Nonce verification failed!' );
+        }
+        $user_id = isset( $_POST['user_id'] ) ? sanitize_text_field( wp_unslash( $_POST['user_id'] ) ) : '';
         $delete_transient = delete_transient( "wp_social_avatar_gplus_{$user_id}" );
 
         echo esc_attr( $delete_transient );

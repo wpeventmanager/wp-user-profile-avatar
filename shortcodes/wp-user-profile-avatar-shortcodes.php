@@ -424,7 +424,9 @@ class WPUPA_Shortcodes {
     public function wpupa_update_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
 
-        parse_str( $_POST['form_data'], $form_data );
+        if ( isset( $_POST['form_data'] ) ) {
+            parse_str( sanitize_text_field( wp_unslash( $_POST['form_data'] ) ), $form_data );
+        }
 
         // sanitize each of the values of form data
         $form_wpupa_url         = sanitize_url( $form_data['wpupa-url'] );
@@ -519,9 +521,9 @@ class WPUPA_Shortcodes {
      */
     public function wpupa_remove_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
-
-        parse_str( sanitize_text_field($_POST['form_data']), $form_data );
-
+        if ( isset( $_POST['form_data'] ) ) {
+            parse_str( sanitize_text_field( wp_unslash( $_POST['form_data'] ) ), $form_data );
+        }
         // sanitize each of the values of form data
         $wpupa_url         = esc_url_raw( $form_data['wpupa-url'] );
         $wpupaattachmentid = absint( $form_data['wpupaattachmentid'] );
@@ -575,9 +577,9 @@ class WPUPA_Shortcodes {
      */
     public function wpupa_undo_user_avatar() {
         check_ajax_referer( '_nonce_user_profile_avatar_security', 'security' );
-
-        parse_str( sanitize_text_field($_POST['form_data']), $form_data );
-
+        if ( isset( $_POST['form_data'] ) ){
+            parse_str( sanitize_text_field( wp_unslash( $_POST['form_data'] ) ), $form_data );
+        }
         // sanitize each of the values of form data
         $wpupa_url         = esc_url_raw( $form_data['wpupa-url'] );
         $wpupaattachmentid = absint( $form_data['wpupaattachmentid'] );
@@ -664,6 +666,12 @@ class WPUPA_Shortcodes {
             if ( is_email( $id_or_email )) {
                 if ( is_object( $screen ) && property_exists( $screen, 'base' ) ) {
                 if($screen->base !== 'options-discussion' && ($screen->base !== 'admin.php' && isset($_GET['page']) && $_GET['page'] !== 'wp-user-profile-avatar')){
+
+                    // Verify nonce to ensure form submission is legitimate
+                    if ( ! isset( $_POST['user_profile_avatar_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['user_profile_avatar_nonce'] ) ), 'user_profile_avatar_action' ) ) {
+                        // Nonce verification failed, possible CSRF attack
+                        die( 'Nonce verification failed!' );
+                    }
                     $user = get_user_by( 'email', $id_or_email );
                     if ( $user ) {
                         $user_id = $user->ID;
