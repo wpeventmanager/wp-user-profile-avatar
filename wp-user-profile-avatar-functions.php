@@ -593,7 +593,6 @@ if ( ! function_exists( 'wpupa_user_update' ) ) {
 				$username = $user->user_login;
 			}
 			if ( ! empty( $_REQUEST['submit'] ) ) {
-				//$name = sanitize_user( $_POST['user_login'] );
                 $name = isset( $_POST['user_login'] ) ? sanitize_user( wp_unslash( $_POST['user_login'] ) ) : '';
 				if ( empty( $name ) ) {
 					$errorMsg = 'Error : Please do not enter  empty username.';

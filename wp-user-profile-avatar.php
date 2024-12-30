@@ -14,6 +14,7 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * */
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -67,12 +68,12 @@ class WPUPA_User_Profile_Avatar {
         include_once 'includes/wp-add-new-avatar.php';
         include_once 'includes/wp-avatar-social profile-picture.php';
 
-        // shortcodes
+        // Shortcodes
         include 'shortcodes/wp-user-profile-avatar-shortcodes.php';
         include 'shortcodes/wp-user-display.php';
         include 'shortcodes/wp-author-social-info-shortcodes.php';
 
-        // external
+        // External
         include 'external/external.php';
 
         // Activation / deactivation - works with symlinks
@@ -92,7 +93,7 @@ class WPUPA_User_Profile_Avatar {
     }
 
     /**
-     * plugin activation function.
+     * Plugin activation function.
      *
      * @access public
      * @param
@@ -100,12 +101,12 @@ class WPUPA_User_Profile_Avatar {
      * @since 1.0.0
      */
     public function wpupa_activate() {
-        // installation process after activating
+        // Installation process after activating
         WPUPA_Install::install();
     }
 
     /**
-     * load plugin text domain function.
+     * Load plugin text domain function.
      *
      * @access public
      * @param
@@ -124,7 +125,7 @@ class WPUPA_User_Profile_Avatar {
     }
 
     /**
-     * enqueue script and style function.
+     * Enqueue script and style function.
      *
      * @access public
      * @param
@@ -152,7 +153,7 @@ class WPUPA_User_Profile_Avatar {
     }
 
     /**
-     * set the setting page link function.
+     * Set the setting page link function.
      *
      * Create link on plugin page for wp user profile avatar plugin settings.
      *

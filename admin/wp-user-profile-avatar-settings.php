@@ -40,9 +40,7 @@ class WPUPA_Settings {
         $wpupa_file_size        = get_option( 'wpupa_file_size' );
         $wpupa_default          = get_option( 'avatar_default' );
         $wpupa_attachment_id    = get_option( 'wpupa_attachment_id' );
-        $wpupa_attachment_url = get_option('wpupa_attachment_url') ? get_option('wpupa_attachment_url') : wpupa_get_default_avatar_url(array('size' => 'admin'), array(), '');
-        $image_id = attachment_url_to_postid( esc_url( $wpupa_attachment_url ) ); // Convert URL to attachment ID
-        $image_size = array( 32, 32 );
+        $wpupa_attachment_url   = get_option('wpupa_attachment_url') ? get_option('wpupa_attachment_url') : wpupa_get_default_avatar_url(array('size' => 'admin'), array(), '');
         $wpupa_size             = get_option( 'wpupa_size' );
         $avatar_size            = get_option( 'avatar_size' );
         $wpupa_hide_post_option = get_option( 'wpupa_hide_post_option' );
@@ -160,8 +158,7 @@ class WPUPA_Settings {
                                             <label>
                                                 <input type="radio" name="avatar_default" id="wp_user_profile_avatar_radio" value="wp_user_profile_avatar" <?php echo esc_attr( $selected ); ?> />
                                                 <div id="wp_user_profile_avatar_preview">
-                                                    <img src="<?php echo esc_url( $wpupa_attachment_url ); ?>" width="32" />
-                                                    <?php echo wp_get_attachment_image( $image_id, $image_size, false, array( 'width' => '32' ) ); ?>
+                                                    <img src="<?php echo esc_url( $wpupa_attachment_url ); ?>" width="32" alt="" />
                                                 </div> 
                                                 <?php esc_html_e( 'WP User Profile Avatar', 'wp-user-profile-avatar' ); ?> 
                                             </label>

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap">
     <h1><?php echo esc_html_x( 'Delete Comments', 'settings page title', 'wp-user-profile-avatar' ); ?></h1>
     <?php
-    if ( isset( $_POST['submit'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( sanitize_text_field(wp_unslash($_POST['delete_comments_nonce_field'])), 'delete_comments_nonce' ) ) {
+    if ( isset( $_POST['submit'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['delete_comments_nonce_field'] ) ), 'delete_comments_nonce' ) ) {
         
         $mode = isset( $_POST['mode'] ) ? sanitize_text_field( wp_unslash( $_POST['mode'] ) ) : '';
         update_option( 'wpupa_delete_comments_mode', $mode );
@@ -50,7 +50,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     }
 
     // Handle reset action
-    if ( isset( $_POST['reset'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash($_POST['delete_comments_nonce_field'])), 'delete_comments_nonce' ) ) {
+    if ( isset( $_POST['reset'] ) && isset( $_POST['delete_comments_nonce_field'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['delete_comments_nonce_field'] ) ), 'delete_comments_nonce' ) ) {
         delete_option( 'wpupa_delete_comments_mode' );
         delete_option( 'wpupa_selected_post_types' );
     }

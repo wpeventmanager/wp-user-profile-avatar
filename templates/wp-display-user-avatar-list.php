@@ -14,7 +14,7 @@ if ( !defined( 'ABSPATH' ) ) {
                 <h2><?php echo esc_html( $users[0]['blog_name'] ); ?></h2>
             <?php }
             foreach ( $users as $user ) { ?>
-                <div class="user-avatar" style="display: inline-block; margin: 10px;text-align:center;">
+                <div class="user-avatar" style="display: inline-block; margin: 10px; text-align:center;">
                     <?php if ( !empty( $user['avatar_url'] ) ) { ?>
                         <img src="<?php echo esc_url( $user['avatar_url'] ); ?>" alt="<?php echo esc_attr( $user['display_name'] ); ?>" style="border-radius: <?php echo esc_attr( $atts['border_radius'] ); ?>px; width: <?php echo esc_attr( $atts['avatar_size'] ); ?>px; height: <?php echo esc_attr( $atts['avatar_size'] ); ?>px;"/><br>
                     <?php } ?>
@@ -37,7 +37,7 @@ if ( !defined( 'ABSPATH' ) ) {
 
                     <?php if ( !empty( $user['post_count'] ) ) { ?>
                         <span class="user-postcount">( <?php echo esc_html( $user['post_count'] ); ?> )</span><br>
-                    <?php }else{?>
+                    <?php } else { ?>
 						<span class="user-postcount">(0)</span><br>
 					<?php } 
 
