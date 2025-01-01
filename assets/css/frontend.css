@@ -12,8 +12,8 @@
 	font-weight: 700 !important;
 }
 
-#wp-user-profile-avatar-readable-size-error/*,
-#wp-user-profile-avatar-undo-button*/ {
+#wp-user-profile-avatar-readable-size-error,
+#wp-user-profile-avatar-undo-button {
 	display: none;
 }
 

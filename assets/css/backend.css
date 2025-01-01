@@ -1,5 +1,5 @@
 #wp-user-profile-avatar-errors, #wp-user-profile-avatar-readable-size-error, .wp-user-profile-avatar-error { color: #c00 !important; font-weight: 700 !important; }
-#wp-user-profile-avatar-readable-size-error/*, #wp-user-profile-avatar-undo-button*/ { display: none; }
+#wp-user-profile-avatar-readable-size-error, #wp-user-profile-avatar-undo-button { display: none; }
 #wp-user-profile-avatar-preview, #wp_user_profile_avatar_preview-existing { margin-right: 10px; }
 #wp-user-profile-avatar-preview, #wp_user_profile_avatar_preview-existing, #wp-user-profile-avatar-thumbnail, #wp_user_profile_avatar_thumbnail-existing { display: inline-block; text-align: center; vertical-align: top; }
 #wp-user-profile-avatar-preview img, #wp-user-profile-avatar-thumbnail img, #wp_user_profile_avatar_preview-existing img, #wp_user_profile_avatar_thumbnail-existing img { max-height: 96px; border: 1px solid #dfdfdf; display: block; }
