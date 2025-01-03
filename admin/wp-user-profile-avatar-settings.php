@@ -251,11 +251,11 @@ class WPUPA_Settings {
 
             $wpupa_hide_post_option = ! empty( $_POST['wpupa_hide_post_option'] ) ? sanitize_text_field( wp_unslash( $_POST['wpupa_hide_post_option'] ) ) : '';
 
-            /*if ( $wpupa_show_avatars == '' ) {
+            if ( $wpupa_show_avatars == '' ) {
                 $wpupa_tinymce          = '';
                 $wpupa_allow_upload     = '';
                 $wpupa_disable_gravatar = '';
-            }*/
+            }
 
             if ( $wpupa_disable_gravatar ) {
                 $wpupa_default = 'wp_user_profile_avatar';
