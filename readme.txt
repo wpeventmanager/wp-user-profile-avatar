@@ -332,6 +332,9 @@ You will need to place below code in each area of your theme where you wish to a
 Fixed : Change Gravatar Logo to Mystery Man option issue is fixed.
 Fixed : Default image avatar issue is fixed.
 Fixed : After deleting a comment count is removed.
+Fixed : Selected options are unchecked when click on the save change button.
+Fixed : Image URL avatar is not set.
+Fixed : Elementor with wp user profile avatar author box option is not working.
 Added : Reset button is added to comment & Delete section.
 Added : Disabled & Delete Comment options are added.
 
